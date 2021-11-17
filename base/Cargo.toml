@@ -1,0 +1,24 @@
+[package]
+edition = "2021"
+name = "base"
+version = "0.1.0"
+authors = ["Kevin Nause <kevin@nause.engineering>"]
+license-file = "../LICENSE"
+
+[lib]
+name = "base"
+test = false
+bench = false
+
+[features]
+default = ["panic"]
+heap = ["alloc-cortex-m"] # requires unstable toolchain
+panic = ["panic-probe"]
+
+[dependencies]
+alloc-cortex-m = { version = "^0.4.1", optional = true }
+cortex-m = "^0.7.3"
+embedded-hal = { version = "^0.2.6", features = ["unproven"] }
+nrf52840-hal = { version = "^0.14.0", features = ["rt"] }
+panic-probe = { version = "^0.3.0", optional = true }
+rtt-target = { version = "^0.3.1", features = ["cortex-m"] }

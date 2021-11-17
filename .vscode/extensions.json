@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "ms-vscode-remote.remote-containers",
+        "marus25.cortex-debug",
+        "vadimcn.vscode-lldb",
+        "mutantdino.resourcemonitor",
+        "matklad.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+    ],
+    "unwantedRecommendations": []
+}
