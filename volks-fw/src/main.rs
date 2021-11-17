@@ -7,9 +7,16 @@ use base as _;
 
 #[rtic::app(device = hal::pac, peripherals = true, dispatchers = [SWI0_EGU0])]
 mod app {
+    //use core::pin::Pin;
+
     #[cfg(feature = "heap")]
     use {crate::consts::HEAP_SIZE, cortex_m_rt};
     use {
+        hal::{
+            gpio::{Level, Output, Pin, PushPull},
+            prelude::StatefulOutputPin,
+            prelude::OutputPin,
+        },
         nrf52840_hal as hal,
         rtt_target::{rprintln, rtt_init_print},
         systick_monotonic::*,
@@ -22,12 +29,18 @@ mod app {
     struct Shared {}
 
     #[local]
-    struct Local {}
+    struct Local {
+        heartbeat_led: Pin<Output<PushPull>>,
+    }
 
     #[init]
     fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
         rtt_init_print!();
         rprintln!("[Init]");
+
+        
+        let port1 = hal::gpio::p1::Parts::new(cx.device.P1);
+        let heartbeat_led = port1.p1_09.into_push_pull_output(Level::Low).degrade();
 
         // Test the allocator if heap is enabled.
         #[cfg(feature = "heap")]
@@ -46,7 +59,7 @@ mod app {
         let mono = Systick::new(systick, 64_000_000);
         tick::spawn_after(1.secs()).unwrap();
 
-        (Shared {}, Local {}, init::Monotonics(mono))
+        (Shared {}, Local {heartbeat_led,}, init::Monotonics(mono))
     }
 
     #[idle]
@@ -56,9 +69,18 @@ mod app {
         }
     }
 
-    #[task]
-    fn tick(_cx: tick::Context) {
+    #[task(local = [heartbeat_led])]
+    fn tick(mut _cx: tick::Context) {
         rprintln!("Tick");
+        toggle_heartbeat(&mut _cx.local.heartbeat_led);
         tick::spawn_after(1.secs()).unwrap();
+    }
+
+    fn toggle_heartbeat(led: &mut Pin<Output<PushPull>>) {
+        if led.is_set_low().unwrap() {
+            led.set_high().ok();
+        } else {
+            led.set_low().ok();
+        }
     }
 }

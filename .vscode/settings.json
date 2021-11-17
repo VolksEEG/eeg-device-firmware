@@ -1,8 +1,8 @@
 {
-    "lldb.executable": "/usr/bin/lldb",
+    "lldb.executable": "C:\\Users\\Graham\\.vscode\\extensions\\vadimcn.vscode-lldb-1.6.10\\lldb\\bin",
     "search.exclude": {
         "**/target": true
     },
-    "cortex-debug.armToolchainPath": "/usr/bin",
+    "cortex-debug.armToolchainPath": "C:\\Users\\Graham\\.platformio\\packages\\toolchain-gccarmnoneeabi\\bin",
     "editor.formatOnSave": true
 }
