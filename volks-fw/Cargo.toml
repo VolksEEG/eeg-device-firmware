@@ -2,7 +2,10 @@
 edition = "2021"
 name = "volks-fw"
 version = "0.1.0"
-authors = ["Kevin Nause <kevin@nause.engineering>"]
+authors = [
+    "Kevin Nause <kevin@nause.engineering>",
+    "Graham Long <longevity_software@mail.com>",
+]
 license-file = "../LICENSE"
 
 [[bin]]
@@ -12,10 +15,11 @@ bench = false
 
 [features]
 default = []
-heap = ["base/heap"]   # Enables the heap feature in the base crate
+heap = ["base/heap"] # Enables the heap feature in the base crate
 
 [dependencies]
-base = { version = "0.1.0", path = "../base" }                                                                         # base crate is a member in the workspace located at path
+base = { version = "0.1.0", path = "../base" }
+usb-hid = { version = "0.1.0", path = "../usb-hid" }                                                                   # base crate is a member in the workspace located at path
 cortex-m = "^0.7.3"
 cortex-m-rt = { version = "^0.7.0", features = ["device"] }
 cortex-m-rtic = { version = "0.6.0-rc.4", default-features = false, git = "https://github.com/rtic-rs/cortex-m-rtic" }
