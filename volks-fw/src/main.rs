@@ -4,6 +4,7 @@
 mod consts;
 
 use base as _;
+use usb_hid as _;
 
 #[rtic::app(device = hal::pac, peripherals = true, dispatchers = [SWI0_EGU0])]
 mod app {
@@ -58,6 +59,8 @@ mod app {
         let systick = cx.core.SYST;
         let mono = Systick::new(systick, 64_000_000);
         tick::spawn_after(1.secs()).unwrap();
+
+        usb_hid::usbhid::init();
 
         (Shared {}, Local {heartbeat_led,}, init::Monotonics(mono))
     }
