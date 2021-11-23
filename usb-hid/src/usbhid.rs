@@ -6,8 +6,8 @@ use nrf52840_pac::Peripherals;
 use usb_device::device::{UsbDeviceBuilder, UsbVidPid};
 use usbd_serial::{SerialPort, USB_CLASS_CDC};
 
-pub fn init() {
-    rprintln!("Initialising usb hid");
+pub fn init(peripherals: &Peripherals) {
+    /*rprintln!("Initialising usb hid");
 
     let periphs = Peripherals::take();//.unwrap();
     let periph = periphs.unwrap();
@@ -53,5 +53,5 @@ pub fn init() {
             }
             _ => {}
         }
-    }
+    }*/
 }
