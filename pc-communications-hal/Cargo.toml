@@ -1,12 +1,12 @@
 [package]
 edition = "2021"
-name = "usb-hid"
+name = "pc-communications-hal"
 version = "0.1.0"
 authors = ["Graham Long <longevity_software@mail.com>"]
 license-file = "../LICENSE"
 
 [lib]
-name = "usb_hid"
+name = "pc_communications_hal"
 test = false
 bench = false
 

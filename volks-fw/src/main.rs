@@ -4,13 +4,9 @@
 mod consts;
 
 use base as _;
-use usb_hid as _;
 
 #[rtic::app(device = hal::pac, peripherals = true, dispatchers = [SWI0_EGU0])]
 mod app {
-    use usb_device::device::UsbDevice;
-
-    //use core::pin::Pin;
 
     #[cfg(feature = "heap")]
     use {crate::consts::HEAP_SIZE, cortex_m_rt};
@@ -21,12 +17,13 @@ mod app {
             prelude::StatefulOutputPin,
         },
         nrf52840_hal as hal,
-        nrf52840_hal::clocks::Clocks,
+        nrf52840_hal::clocks::{Clocks, ExternalOscillator, Internal, LfOscStopped},
         nrf52840_hal::usbd::{UsbPeripheral, Usbd},
         nrf52840_pac::Peripherals,
+        pc_communications_hal::pc_coms_hal::CommunicationsInterface as pc,
         rtt_target::{rprintln, rtt_init_print},
         systick_monotonic::*,
-        usb_device::device::{UsbDeviceBuilder, UsbVidPid},
+        usb_device::device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
         usbd_serial::{SerialPort, USB_CLASS_CDC},
     };
 
@@ -39,8 +36,8 @@ mod app {
     #[local]
     struct Local {
         heartbeat_led: Pin<Output<PushPull>>,
-        //usb_dev: UsbDevice<Usbd<UsbPeripheral>>,
-        //serial:
+        //usb_dev: UsbDevice<'static, Usbd<UsbPeripheral<'static>>>,
+        //serial: SerialPort<'static, Usbd<UsbPeripheral<'static>>>,
     }
 
     #[init]
@@ -68,6 +65,8 @@ mod app {
         let mono = Systick::new(systick, 64_000_000);
         //tick::spawn_after(1.secs()).unwrap();
         usb_poll::spawn_after(100.millis()).unwrap();
+
+        let pcInterface = pc::new();
 
         //usb_hid::usbhid::init(&cx.device);
 
@@ -98,6 +97,8 @@ mod app {
                     for c in buf[0..count].iter_mut() {
                         if 0x61 <= *c && *c <= 0x7a {
                             *c &= !0x20;
+                        } else {
+                            *c = pcInterface.get_data();
                         }
                     }
 
@@ -115,7 +116,15 @@ mod app {
             }
         }
 
-        (Shared {}, Local { heartbeat_led }, init::Monotonics(mono))
+        (
+            Shared {},
+            Local {
+                heartbeat_led,
+                //usb_dev,
+                //serial,
+            },
+            init::Monotonics(mono),
+        )
     }
 
     #[idle]
