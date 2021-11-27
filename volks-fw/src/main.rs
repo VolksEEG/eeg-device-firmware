@@ -36,6 +36,7 @@ mod app {
     #[local]
     struct Local {
         heartbeat_led: Pin<Output<PushPull>>,
+        pc_interface: pc,
         //usb_dev: UsbDevice<'static, Usbd<UsbPeripheral<'static>>>,
         //serial: SerialPort<'static, Usbd<UsbPeripheral<'static>>>,
     }
@@ -66,11 +67,13 @@ mod app {
         //tick::spawn_after(1.secs()).unwrap();
         usb_poll::spawn_after(100.millis()).unwrap();
 
-        let pcInterface = pc::new();
+        let pc_interface = pc::new(cx.device.CLOCK, cx.device.USBD);
 
         //usb_hid::usbhid::init(&cx.device);
 
-        let clocks = Clocks::new(cx.device.CLOCK);
+        //let test: () = cx.device.CLOCK;
+
+        /*let clocks = Clocks::new(cx.device.CLOCK);
         let clocks = clocks.enable_ext_hfosc();
 
         let usb_bus = Usbd::new(UsbPeripheral::new(cx.device.USBD, &clocks));
@@ -82,9 +85,9 @@ mod app {
             .serial_number("TEST")
             .device_class(USB_CLASS_CDC)
             .max_packet_size_0(64) // (makes control transfers 8x faster)
-            .build();
+            .build();*/
 
-        loop {
+        /*loop {
             if !usb_dev.poll(&mut [&mut serial]) {
                 continue;
             }
@@ -98,7 +101,7 @@ mod app {
                         if 0x61 <= *c && *c <= 0x7a {
                             *c &= !0x20;
                         } else {
-                            *c = pcInterface.get_data();
+                            *c = pc_interface.get_data();
                         }
                     }
 
@@ -114,12 +117,13 @@ mod app {
                 }
                 _ => {}
             }
-        }
+        }*/
 
         (
             Shared {},
             Local {
                 heartbeat_led,
+                pc_interface,
                 //usb_dev,
                 //serial,
             },
