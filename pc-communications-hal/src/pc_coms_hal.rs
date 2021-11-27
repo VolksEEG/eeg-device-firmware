@@ -4,6 +4,7 @@ use nrf52840_hal::{
     usbd::{UsbPeripheral, Usbd},
     Clocks,
 };
+use ringbuf::{Consumer, Producer, RingBuffer};
 use usb_device::{
     class_prelude::UsbBusAllocator,
     device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
@@ -15,10 +16,8 @@ pub struct CommunicationsInterface {
     // public
 
     // private
-    txBuf: [u8; 64],
-    txIpIndex: usize,
-    txOpIndex: usize,
-    txCount: usize,
+    tx_producer: Producer<u8>,
+    tx_consumer: Consumer<u8>,
     /*clock: Clocks<ExternalOscillator, Internal, LfOscStopped>,
     usb_bus: UsbBusAllocator<Usbd<UsbPeripheral<'coms_interface_life>>>,
     serial_port: SerialPort<
@@ -48,17 +47,12 @@ impl CommunicationsInterface {
                     .build();
         */
 
-        let txBuf: [u8; 64] = [0; 64];
-
-        let txIpIndex = 0;
-        let txOpIndex = 0;
-        let txCount = 0;
+        let txBuffer = RingBuffer::<u8>::new(64);
+        let (mut tx_producer, mut tx_consumer) = txBuffer.split();
 
         CommunicationsInterface {
-            txBuf,
-            txIpIndex,
-            txOpIndex,
-            txCount,
+            tx_producer,
+            tx_consumer,
             /*clock,
             usb_bus,
             serial_port,
@@ -68,37 +62,21 @@ impl CommunicationsInterface {
 
     pub fn get_data(&mut self) -> (bool, u8) {
         // check if there is any data to get
-        if (0 == self.txCount) {
+        if (self.tx_consumer.is_empty()) {
             return (false, 0);
         }
 
-        let result = (true, self.txBuf[self.txOpIndex]);
-
-        // advance the output index and wrap around
-        self.txOpIndex = if 64 == (self.txOpIndex + 1) {
-            0
-        } else {
-            self.txOpIndex + 1
-        };
-
-        return result;
-    }
-}
-
-/*pub trait BidirectionalComsInterface {
-    fn new();
-    fn get_available_data(&self) -> u8;
-    fn transmit_data(data: u8);
-}
-
-pub struct ComsInterface {}
-
-impl BidirectionalComsInterface for ComsInterface {
-    fn new() {}
-
-    fn get_available_data(&self) -> u8 {
-        0
+        return (true, self.tx_consumer.pop().unwrap());
     }
 
-    fn transmit_data(data: u8) {}
-}*/
+    pub fn transmit_data(&mut self, data: u8) -> bool {
+        // can we add to the transmit buffer
+        if (self.tx_producer.is_full()) {
+            return false;
+        }
+
+        self.tx_producer.push(data);
+
+        return true;
+    }
+}

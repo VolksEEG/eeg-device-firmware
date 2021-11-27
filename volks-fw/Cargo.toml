@@ -14,7 +14,7 @@ test = false
 bench = false
 
 [features]
-default = []
+default = ["heap"]
 heap = ["base/heap"] # Enables the heap feature in the base crate
 
 [dependencies]
