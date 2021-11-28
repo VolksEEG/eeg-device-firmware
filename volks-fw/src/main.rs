@@ -67,13 +67,13 @@ mod app {
         //tick::spawn_after(1.secs()).unwrap();
         usb_poll::spawn_after(100.millis()).unwrap();
 
-        let pc_interface = pc::new(cx.device.CLOCK, cx.device.USBD);
+        let mut pc_interface = pc::new();//cx.device.CLOCK, cx.device.USBD);
 
         //usb_hid::usbhid::init(&cx.device);
 
         //let test: () = cx.device.CLOCK;
 
-        /*let clocks = Clocks::new(cx.device.CLOCK);
+        let clocks = Clocks::new(cx.device.CLOCK);
         let clocks = clocks.enable_ext_hfosc();
 
         let usb_bus = Usbd::new(UsbPeripheral::new(cx.device.USBD, &clocks));
@@ -85,39 +85,62 @@ mod app {
             .serial_number("TEST")
             .device_class(USB_CLASS_CDC)
             .max_packet_size_0(64) // (makes control transfers 8x faster)
-            .build();*/
+            .build();
 
-        /*loop {
-            if !usb_dev.poll(&mut [&mut serial]) {
-                continue;
+        loop {
+
+            let data = pc_interface.get_data();
+
+            if (data.0){
+                // there is data to send, so send it
+                serial.write(&[data.1, 1]);
             }
+            
+            if usb_dev.poll(&mut [&mut serial]) {
 
-            let mut buf = [0u8; 64];
+                let mut buf = [0u8; 64];
 
-            match serial.read(&mut buf) {
-                Ok(count) if count > 0 => {
-                    // Echo back in upper case
-                    for c in buf[0..count].iter_mut() {
-                        if 0x61 <= *c && *c <= 0x7a {
-                            *c &= !0x20;
-                        } else {
-                            *c = pc_interface.get_data();
-                        }
-                    }
+                match serial.read(&mut buf) {
+                    Ok(count) if count > 0 => {
+                        // Echo back in upper case
+                        for c in buf[0..count].iter() {
 
-                    let mut write_offset = 0;
-                    while write_offset < count {
-                        match serial.write(&buf[write_offset..count]) {
-                            Ok(len) if len > 0 => {
-                                write_offset += len;
+                            match *c as char {
+                                'f' => {
+                                    pc_interface.transmit_data('I' as u8);
+                                    pc_interface.transmit_data('t' as u8);
+                                    pc_interface.transmit_data(' ' as u8);
+                                    pc_interface.transmit_data('w' as u8);
+                                    pc_interface.transmit_data('o' as u8);
+                                    pc_interface.transmit_data('r' as u8);
+                                    pc_interface.transmit_data('k' as u8);
+                                    pc_interface.transmit_data('s' as u8);
+                                }
+                                _ => {}
                             }
-                            _ => {}
+                            
+                            /*if 0x61 <= *c && *c <= 0x7a {
+                                *c &= !0x20;
+                            } else {
+                                
+                                *c = if data.0 { data.1 } else { *c };
+                            }*/
                         }
+    /*
+                        let mut write_offset = 0;
+                        while write_offset < count {
+                            match serial.write(&buf[write_offset..count]) {
+                                Ok(len) if len > 0 => {
+                                    write_offset += len;
+                                }
+                                _ => {}
+                            }
+                        }*/
                     }
+                    _ => {}
                 }
-                _ => {}
             }
-        }*/
+        }
 
         (
             Shared {},

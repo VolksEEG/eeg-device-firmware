@@ -31,7 +31,7 @@ pub struct CommunicationsInterface {
 
 impl CommunicationsInterface {
     //<'static> {
-    pub fn new(clk: CLOCK, usb_dev: USBD) -> CommunicationsInterface {
+    pub fn new() -> CommunicationsInterface { //clk: CLOCK, usb_dev: USBD) -> CommunicationsInterface {
         //<'static> {
         /*let clock = Clocks::new(clk);
                 let clock = clock.enable_ext_hfosc();
