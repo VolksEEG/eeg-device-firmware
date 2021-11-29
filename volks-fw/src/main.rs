@@ -11,20 +11,10 @@ mod app {
     #[cfg(feature = "heap")]
     use {crate::consts::HEAP_SIZE, cortex_m_rt};
     use {
-        hal::{
-            gpio::{Level, Output, Pin, PushPull},
-            prelude::OutputPin,
-            prelude::StatefulOutputPin,
-        },
         nrf52840_hal as hal,
-        nrf52840_hal::clocks::{Clocks, ExternalOscillator, Internal, LfOscStopped},
-        nrf52840_hal::usbd::{UsbPeripheral, Usbd},
-        nrf52840_pac::Peripherals,
         pc_communications_hal::pc_coms_hal::CommunicationsInterface as pc,
         rtt_target::{rprintln, rtt_init_print},
         systick_monotonic::*,
-        usb_device::device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
-        usbd_serial::{SerialPort, USB_CLASS_CDC},
     };
 
     #[monotonic(binds = SysTick, default = true)]
@@ -35,10 +25,7 @@ mod app {
 
     #[local]
     struct Local {
-        heartbeat_led: Pin<Output<PushPull>>,
         pc_interface: pc,
-        //usb_dev: UsbDevice<'static, Usbd<UsbPeripheral<'static>>>,
-        //serial: SerialPort<'static, Usbd<UsbPeripheral<'static>>>,
     }
 
     #[init]
@@ -46,109 +33,17 @@ mod app {
         rtt_init_print!();
         rprintln!("[Init]");
 
-        let port1 = hal::gpio::p1::Parts::new(cx.device.P1);
-        let heartbeat_led = port1.p1_09.into_push_pull_output(Level::Low).degrade();
-
-        // Test the allocator if heap is enabled.
-        #[cfg(feature = "heap")]
-        {
-            rprintln!("Testing heap allocation!");
-            unsafe {
-                base::ALLOCATOR.init(cortex_m_rt::heap_start() as usize, HEAP_SIZE);
-            }
-            extern crate alloc;
-            use alloc::vec;
-            let test = vec![0..4];
-            rprintln!("{:?}", test);
-        }
-
         let systick = cx.core.SYST;
         let mono = Systick::new(systick, 64_000_000);
-        //tick::spawn_after(1.secs()).unwrap();
-        usb_poll::spawn_after(100.millis()).unwrap();
 
-        let mut pc_interface = pc::new();//cx.device.CLOCK, cx.device.USBD);
+        pc_coms_task::spawn_after(100.millis()).unwrap();
 
-        //usb_hid::usbhid::init(&cx.device);
-
-        //let test: () = cx.device.CLOCK;
-
-        let clocks = Clocks::new(cx.device.CLOCK);
-        let clocks = clocks.enable_ext_hfosc();
-
-        let usb_bus = Usbd::new(UsbPeripheral::new(cx.device.USBD, &clocks));
-        let mut serial = SerialPort::new(&usb_bus);
-
-        let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-            .manufacturer("Volks EEG")
-            .product("Serial port")
-            .serial_number("TEST")
-            .device_class(USB_CLASS_CDC)
-            .max_packet_size_0(64) // (makes control transfers 8x faster)
-            .build();
-
-        loop {
-
-            let data = pc_interface.get_data();
-
-            if (data.0){
-                // there is data to send, so send it
-                serial.write(&[data.1, 1]);
-            }
-            
-            if usb_dev.poll(&mut [&mut serial]) {
-
-                let mut buf = [0u8; 64];
-
-                match serial.read(&mut buf) {
-                    Ok(count) if count > 0 => {
-                        // Echo back in upper case
-                        for c in buf[0..count].iter() {
-
-                            match *c as char {
-                                'f' => {
-                                    pc_interface.transmit_data('I' as u8);
-                                    pc_interface.transmit_data('t' as u8);
-                                    pc_interface.transmit_data(' ' as u8);
-                                    pc_interface.transmit_data('w' as u8);
-                                    pc_interface.transmit_data('o' as u8);
-                                    pc_interface.transmit_data('r' as u8);
-                                    pc_interface.transmit_data('k' as u8);
-                                    pc_interface.transmit_data('s' as u8);
-                                }
-                                _ => {}
-                            }
-                            
-                            /*if 0x61 <= *c && *c <= 0x7a {
-                                *c &= !0x20;
-                            } else {
-                                
-                                *c = if data.0 { data.1 } else { *c };
-                            }*/
-                        }
-    /*
-                        let mut write_offset = 0;
-                        while write_offset < count {
-                            match serial.write(&buf[write_offset..count]) {
-                                Ok(len) if len > 0 => {
-                                    write_offset += len;
-                                }
-                                _ => {}
-                            }
-                        }*/
-                    }
-                    _ => {}
-                }
-            }
-        }
+        let pc_interface = pc::new();
 
         (
             Shared {},
             Local {
-                heartbeat_led,
                 pc_interface,
-                //usb_dev,
-                //serial,
             },
             init::Monotonics(mono),
         )
@@ -161,54 +56,28 @@ mod app {
         }
     }
 
-    #[task(local = [heartbeat_led])]
-    fn usb_poll(mut _cx: usb_poll::Context) {
-        toggle_heartbeat(&mut _cx.local.heartbeat_led);
+    #[task(local = [pc_interface])]
+    fn pc_coms_task(mut _cx: pc_coms_task::Context) {
 
-        /*if !usb_dev.poll(&mut [&mut serial]) {
-            continue;
+        let tx = false; //_cx.local.pc_interface.transmit_data();
+        let rx = _cx.local.pc_interface.get_data();
+
+        if rx.0 {
+            // data received
+            // do something with it here 
+
         }
 
-        let mut buf = [0u8; 64];
-
-        match serial.read(&mut buf) {
-            Ok(count) if count > 0 => {
-                // Echo back in upper case
-                for c in buf[0..count].iter_mut() {
-                    if 0x61 <= *c && *c <= 0x7a {
-                        *c &= !0x20;
-                    }
-                }
-
-                let mut write_offset = 0;
-                while write_offset < count {
-                    match serial.write(&buf[write_offset..count]) {
-                        Ok(len) if len > 0 => {
-                            write_offset += len;
-                        }
-                        _ => {}
-                    }
-                }
+        match tx || rx.0 {
+            true => { 
+                // data has been received or transmitted to spawn 
+                // again incase there is more to receive or transmit
+                pc_coms_task::spawn().unwrap(); 
             }
-            _ => {}
-        }*/
-
-        // spawn again after 100mS
-        usb_poll::spawn_after(100.millis()).unwrap();
-    }
-
-    /*#[task(local = [heartbeat_led])]
-    fn tick(mut _cx: tick::Context) {
-        rprintln!("Tick");
-        toggle_heartbeat(&mut _cx.local.heartbeat_led);
-        tick::spawn_after(1.secs()).unwrap();
-    }*/
-
-    fn toggle_heartbeat(led: &mut Pin<Output<PushPull>>) {
-        if led.is_set_low().unwrap() {
-            led.set_high().ok();
-        } else {
-            led.set_low().ok();
-        }
+            false => { 
+                // nothing transmitted or received, so wait a bit
+                pc_coms_task::spawn_after(100.millis()).unwrap(); 
+            }
+        };
     }
 }
