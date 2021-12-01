@@ -12,7 +12,7 @@ mod app {
     use {crate::consts::HEAP_SIZE, cortex_m_rt};
     use {
         nrf52840_hal as hal,
-        pc_communications_hal::pc_coms_hal::{CommunicationsInterface},
+        pc_communications_hal::pc_coms_hal::{HardwareInterface, PcInterfaceTrait, PcInterface, RxStruct},
         rtt_target::{rprintln, rtt_init_print},
         systick_monotonic::*,
         hal::{
@@ -20,10 +20,8 @@ mod app {
             clocks::{Clocks, ExternalOscillator, Internal, LfOscStopped}
         },
         usb_device::{bus::UsbBusAllocator, device::{UsbDeviceBuilder, UsbVidPid}},
-        usbd_serial::{SerialPort, DefaultBufferStore, USB_CLASS_CDC},
+        usbd_serial::{SerialPort, USB_CLASS_CDC},
     };
-
-    type UsbDevice<'a> = usb_device::device::UsbDevice<'static, Usbd<UsbPeripheral<'a>>>;
 
     #[monotonic(binds = SysTick, default = true)]
     type MyMono = Systick<100>; // 100 Hz / 10 ms granularity
@@ -33,9 +31,7 @@ mod app {
 
     #[local]
     struct Local {
-        usb_dev: UsbDevice<'static>,
-        serial_port: SerialPort<'static, Usbd<UsbPeripheral<'static>>, DefaultBufferStore, DefaultBufferStore>,
-        pc_interface: CommunicationsInterface,
+        pc_interface: PcInterface,
     }
 
     #[init]
@@ -53,8 +49,6 @@ mod app {
         let systick = cx.core.SYST;
         let mono = Systick::new(systick, 64_000_000);
 
-        let pc_interface = CommunicationsInterface::new();
-        
         static mut CLOCKS: Option<Clocks<ExternalOscillator, Internal, LfOscStopped>> = None;
         static mut USB_BUS: Option<UsbBusAllocator<Usbd<UsbPeripheral<'static>>>> = None;
         
@@ -75,11 +69,11 @@ mod app {
                 .max_packet_size_0(64) // (makes control transfers 8x faster)
                 .build();         
  
+            let pc_interface = PcInterface::new(HardwareInterface{usb_dev, serial_port});
+        
             (
                 Shared {},
                 Local {
-                    usb_dev,
-                    serial_port,
                     pc_interface,
                 },
                 init::Monotonics(mono),
@@ -87,50 +81,21 @@ mod app {
         }
     }
 
-    #[idle(local = [pc_interface, usb_dev, serial_port])]
+    #[idle(local = [pc_interface])]
     fn idle(mut _ctx: idle::Context) -> ! {
 
-        let usb_d = &mut _ctx.local.usb_dev;
-        let srl_prt = &mut _ctx.local.serial_port;
         let pc = _ctx.local.pc_interface;
-        
+
         loop {
-            
-            let data = pc.get_data();
+            pc.perform_backgroud_tasks();
 
-            if data.0 {
-                // there is data to send, so send it
-                srl_prt.write(&[data.1, 1]);
+            // simple loopback test.
+            let rx: RxStruct = pc.get_available_data();
+
+            // if there is data then transmit if back out
+            if rx.BytesAvailable > 0 {
+                pc.set_data_to_transmit(rx.DataArray, rx.BytesAvailable);
             }
-            
-            if usb_d.poll(&mut [*srl_prt]) {
-                let mut buf = [0u8; 64];
-
-                match srl_prt.read(&mut buf) {
-                    Ok(count) if count > 0 => {
-                        // Echo back in upper case
-                        for c in buf[0..count].iter() {
-
-                            match *c as char {
-                                'f' => {
-                                    pc.transmit_data('I' as u8);
-                                    pc.transmit_data('t' as u8);
-                                    pc.transmit_data(' ' as u8);
-                                    pc.transmit_data('w' as u8);
-                                    pc.transmit_data('o' as u8);
-                                    pc.transmit_data('r' as u8);
-                                    pc.transmit_data('k' as u8);
-                                    pc.transmit_data('s' as u8);
-                                }
-                                _ => {}
-                            }
-                        }
-                    }
-                    _ => {}
-                }     
-            }
-
-            //cortex_m::asm::wfi();
         }
     }
 }
