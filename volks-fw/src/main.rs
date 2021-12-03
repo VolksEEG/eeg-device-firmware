@@ -49,6 +49,7 @@ mod app {
         let systick = cx.core.SYST;
         let mono = Systick::new(systick, 64_000_000);
 
+        // initialise the USB and serial port peripherals
         static mut CLOCKS: Option<Clocks<ExternalOscillator, Internal, LfOscStopped>> = None;
         static mut USB_BUS: Option<UsbBusAllocator<Usbd<UsbPeripheral<'static>>>> = None;
         
@@ -67,8 +68,9 @@ mod app {
                 .serial_number("TEST")
                 .device_class(USB_CLASS_CDC)
                 .max_packet_size_0(64) // (makes control transfers 8x faster)
-                .build();         
- 
+                .build();    
+                
+            // pass the usb device and serial port to the pc interface
             let pc_interface = PcInterface::new(HardwareInterface{usb_dev, serial_port});
         
             (
@@ -84,6 +86,7 @@ mod app {
     #[idle(local = [pc_interface])]
     fn idle(mut _ctx: idle::Context) -> ! {
 
+        // local copy of the pc interface
         let pc = _ctx.local.pc_interface;
 
         loop {
