@@ -1,0 +1,25 @@
+[package]
+edition = "2021"
+name = "pc-communications-hal"
+version = "0.1.0"
+authors = ["Graham Long <longevity_software@mail.com>"]
+license-file = "../LICENSE"
+
+[lib]
+name = "pc_communications_hal"
+test = false
+bench = false
+
+[features]
+default = []
+heap = ["base/heap"] # Enables the heap feature in the base crate
+
+[dependencies]
+base = { version = "0.1.0", path = "../base" }
+cortex-m-rt = "0.7.0"
+panic-semihosting = "0.5.3"
+nrf52840-hal = "^0.14.0"
+nrf52840-pac = "0.10.1"
+usb-device = "0.2.7"
+usbd-serial = "0.1.0"
+rtt-target = { version = "^0.3.1", features = ["cortex-m"] }
