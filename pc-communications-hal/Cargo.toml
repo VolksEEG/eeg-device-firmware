@@ -23,4 +23,3 @@ nrf52840-pac = "0.10.1"
 usb-device = "0.2.7"
 usbd-serial = "0.1.0"
 rtt-target = { version = "^0.3.1", features = ["cortex-m"] }
-ringbuf = { version = "0.2.6", default-features = false }
