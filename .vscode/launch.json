@@ -9,7 +9,7 @@
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "Cargo Build (debug)",
             "runToMain": true,
-            "executable": "./target/thumbv7em-none-eabihf/debug/demo",
+            "executable": "./target/thumbv7em-none-eabihf/debug/volks-fw",
             "device": "nRF52840_xxAA",
             "interface": "swd",
             "configFiles": [
