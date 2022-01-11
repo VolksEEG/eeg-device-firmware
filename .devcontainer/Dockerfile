@@ -5,7 +5,7 @@ ARG VARIANT="bullseye"
 FROM mcr.microsoft.com/vscode/devcontainers/rust:0-${VARIANT}
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends build-essential gdb-multiarch libusb-1.0 openocd
+    && apt-get -y install --no-install-recommends build-essential gdb-multiarch libusb-1.0 openocd libudev-dev
 
 RUN rustup component add clippy llvm-tools-preview rustfmt
 RUN cargo install cargo-binutils probe-run
