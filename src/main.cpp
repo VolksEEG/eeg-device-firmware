@@ -1,6 +1,7 @@
 
 #include "PinControl.h"
 #include "ProtocolFrameParser.h"
+#include "Ads1299Driver.h"
 
 #include <Arduino.h>
 #include <MyDelay.h>
@@ -10,6 +11,7 @@
 //
 PinControl pinControl;
 ProtocolFrameParser protocolFrameParser;
+Ads1299Driver ads1299Driver;
 
 //
 //  Local function declarations
@@ -36,6 +38,7 @@ void setup() {
   // instantiate classes
   pinControl = PinControl();
   protocolFrameParser = ProtocolFrameParser();
+  ads1299Driver = Ads1299Driver();
 
   // set variables
   heartbeatDutyCounter = 0;
