@@ -3,8 +3,11 @@
 #define _ADS1299_LOW_DRIVER
 
 #include <stdint.h>
+#include <SpiScheduler.h>
+#include <SpiRxCallback.h>
+#include <PinControl.h>
 
-class Ads1299LowDriver {
+class Ads1299LowDriver : SpiRxCallback {
 
     public:
 
@@ -54,6 +57,7 @@ class Ads1299LowDriver {
         }eChannelGain;
 
         Ads1299LowDriver();
+        Ads1299LowDriver(SpiScheduler& spi, PinControl& pins);
 
         void ResetDevice(void);
         void StartContinuousDataCapture(eSampleRate rate);
@@ -62,11 +66,30 @@ class Ads1299LowDriver {
         void SetChannelState(eChannelId chan, eChannelState state);
         void SetChannelGain(eChannelId chan, eChannelGain gain);
 
+        void SpiRxDataProcess(uint8_t rxData[], uint8_t rxCount);
+
     protected:
 
     private:
 
         // instance of the SPI Scheduler.
+        SpiScheduler _SpiScheduler;
+        PinControl _PinControl;
+
+        // Command Definitions
+        static const uint8_t COMMAND_WAKEUP = 0x02;
+        static const uint8_t COMMAND_STANDBY = 0x04;
+        static const uint8_t COMMAND_RESET = 0x06;
+        static const uint8_t COMMAND_START = 0x08;
+        static const uint8_t COMMAND_STOP = 0x0A;
+        static const uint8_t COMMAND_READ_DATA_CONTINUOUSLY = 0x10;
+        static const uint8_t COMMAND_STOP_READING_DATA_CONTINUOUSLY = 0x11;
+        static const uint8_t COMMAND_READ_DATA = 0x12;
+        static const uint8_t COMMAND_READ_REGISTER = 0x20;
+        static const uint8_t COMMAND_WRITE_REGISTER = 0x40;
+
+        // Register definitions
+        //static const 
 
 };
 

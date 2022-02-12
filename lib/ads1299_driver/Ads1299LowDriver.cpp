@@ -6,6 +6,17 @@
 //
 Ads1299LowDriver::Ads1299LowDriver()
 {
+
+}
+
+//
+// Constructor
+//
+Ads1299LowDriver::Ads1299LowDriver(SpiScheduler& spi, PinControl& pins) :
+    _SpiScheduler(spi),
+    _PinControl(pins)
+{
+
 }
 
 //
@@ -13,7 +24,14 @@ Ads1299LowDriver::Ads1299LowDriver()
 //
 void Ads1299LowDriver::ResetDevice(void)
 {
-    // TODO - Reset the internal state.
+    uint8_t resetData[1] = { COMMAND_RESET };
+
+    _SpiScheduler.SchedulAnSpiJob(SpiScheduler::eSpiPriority::SPI_HIGH_PRIORITY,
+                                    _PinControl,
+                                    &PinControl::SetADS1299ChipSelectState,
+                                    resetData,
+                                    1,
+                                    *this);                                
 }
 
 //
@@ -52,6 +70,11 @@ void Ads1299LowDriver::SetChannelState(eChannelId chan, eChannelState state)
 //  Sets the gain for the selected channel
 //
 void Ads1299LowDriver::SetChannelGain(eChannelId chan, eChannelGain gain)
+{
+
+}
+
+void Ads1299LowDriver::SpiRxDataProcess(uint8_t rxData[], uint8_t rxCount)
 {
 
 }

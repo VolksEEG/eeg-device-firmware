@@ -1,6 +1,7 @@
 
 #include "PinControl.h"
 #include "ProtocolFrameParser.h"
+#include "SpiScheduler.h"
 #include "Ads1299Driver.h"
 
 #include <Arduino.h>
@@ -11,6 +12,7 @@
 //
 PinControl pinControl;
 ProtocolFrameParser protocolFrameParser;
+SpiScheduler spiScheduler;
 Ads1299Driver ads1299Driver;
 
 //
@@ -38,7 +40,8 @@ void setup() {
   // instantiate classes
   pinControl = PinControl();
   protocolFrameParser = ProtocolFrameParser();
-  ads1299Driver = Ads1299Driver();
+  spiScheduler = SpiScheduler();
+  ads1299Driver = Ads1299Driver(spiScheduler, pinControl);
 
   // set variables
   heartbeatDutyCounter = 0;
