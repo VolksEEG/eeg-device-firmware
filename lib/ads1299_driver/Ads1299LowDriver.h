@@ -3,11 +3,10 @@
 #define _ADS1299_LOW_DRIVER
 
 #include <stdint.h>
-#include <SpiScheduler.h>
-#include <SpiRxCallback.h>
+#include <SpiDriver.h>
 #include <PinControl.h>
 
-class Ads1299LowDriver : SpiRxCallback {
+class Ads1299LowDriver {
 
     public:
 
@@ -57,7 +56,7 @@ class Ads1299LowDriver : SpiRxCallback {
         }eChannelGain;
 
         Ads1299LowDriver();
-        Ads1299LowDriver(SpiScheduler& spi, PinControl& pins);
+        Ads1299LowDriver(SpiDriver& spi, PinControl& pins);
 
         void ResetDevice(void);
         void StartContinuousDataCapture(eSampleRate rate);
@@ -66,14 +65,12 @@ class Ads1299LowDriver : SpiRxCallback {
         void SetChannelState(eChannelId chan, eChannelState state);
         void SetChannelGain(eChannelId chan, eChannelGain gain);
 
-        void SpiRxDataProcess(uint8_t rxData[], uint8_t rxCount);
-
     protected:
 
     private:
 
         // instance of the SPI Scheduler.
-        SpiScheduler _SpiScheduler;
+        SpiDriver _SpiDriver;
         PinControl _PinControl;
 
         // Command Definitions
@@ -89,8 +86,11 @@ class Ads1299LowDriver : SpiRxCallback {
         static const uint8_t COMMAND_WRITE_REGISTER = 0x40;
 
         // Register definitions
-        //static const 
-
+        static const uint8_t REGISTER_ID = 0x00;
+            static const uint8_t ID_NUMBER_OF_CHANNELS_4 = 0x00;
+            static const uint8_t ID_NUMBER_OF_CHANNELS_6 = 0x01;
+            static const uint8_t ID_NUMBER_OF_CHANNELS_8 = 0x02;
+        
 };
 
 #endif

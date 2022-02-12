@@ -1,8 +1,8 @@
 
-#include "PinControl.h"
-#include "ProtocolFrameParser.h"
-#include "SpiScheduler.h"
-#include "Ads1299Driver.h"
+#include <PinControl.h>
+#include <ProtocolFrameParser.h>
+#include <SpiDriver.h>
+#include <Ads1299Driver.h>
 
 #include <Arduino.h>
 #include <MyDelay.h>
@@ -12,7 +12,7 @@
 //
 PinControl pinControl;
 ProtocolFrameParser protocolFrameParser;
-SpiScheduler spiScheduler;
+SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
 
 //
@@ -40,8 +40,8 @@ void setup() {
   // instantiate classes
   pinControl = PinControl();
   protocolFrameParser = ProtocolFrameParser();
-  spiScheduler = SpiScheduler();
-  ads1299Driver = Ads1299Driver(spiScheduler, pinControl);
+  spiDriver = SpiDriver();
+  ads1299Driver = Ads1299Driver(spiDriver, pinControl);
 
   // set variables
   heartbeatDutyCounter = 0;
