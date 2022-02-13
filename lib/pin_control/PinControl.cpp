@@ -149,10 +149,10 @@ void PinControl::SetADS1299ChipSelectState(eSetPinState newState)
     switch(mADS1299ChipSelectState)
     {
         case Active:
-            digitalWrite(ADS1299_CHIP_SELECT_PIN, HIGH);
+            digitalWrite(ADS1299_CHIP_SELECT_PIN, LOW);
             break;
         default:
-            digitalWrite(ADS1299_CHIP_SELECT_PIN, LOW);
+            digitalWrite(ADS1299_CHIP_SELECT_PIN, HIGH);
             break; 
     }
 }
@@ -188,10 +188,10 @@ void PinControl::SetSdCardChipSelectState(eSetPinState newState)
     switch(mSdCardChipSelectState)
     {
         case Active:
-            digitalWrite(SD_CARD_CHIP_SELECT_PIN, HIGH);
+            digitalWrite(SD_CARD_CHIP_SELECT_PIN, LOW);
             break;
         default:
-            digitalWrite(SD_CARD_CHIP_SELECT_PIN, LOW);
+            digitalWrite(SD_CARD_CHIP_SELECT_PIN, HIGH);
             break; 
     }
 }

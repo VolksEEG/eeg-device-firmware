@@ -83,7 +83,7 @@ void Ads1299LowDriver::StopContinuousDataCapture(void)
 uint8_t Ads1299LowDriver::GetNumberOfSupportedChannels(void)
 {
     // Read the ID Register.
-    const uint8_t ID = ReadRegister(REGISTER_ID);
+    volatile const uint8_t ID = ReadRegister(REGISTER_ID);
 
     // the 3rd byte of the received data will be the ID register
     switch (ID & ID_NUMBER_OF_CHANNELS_MASK)
@@ -128,6 +128,44 @@ void Ads1299LowDriver::SetChannelGain(eChannelId chan, eChannelGain gain)
 }
 
 //
+//  Function to set the conversion reference source
+//
+void Ads1299LowDriver::SetReferenceSource(eReferenceSource src)
+{
+    if (Internal == src)
+    {
+        ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_ENABLE);
+
+        return;
+    }
+    
+    ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_DISABLE);
+}
+
+void Ads1299LowDriver::ReadBackRegisters(void)
+{
+    volatile const uint8_t CFG1 = ReadRegister(REGISTER_CONFIG_1);
+    volatile const uint8_t CFG_3 = ReadRegister(REGISTER_CONFIG_3);
+    volatile const uint8_t C1 = ReadRegister(REGISTER_CH1SET);
+    volatile const uint8_t C2 = ReadRegister(REGISTER_CH2SET);
+    volatile const uint8_t C3 = ReadRegister(REGISTER_CH3SET);
+    volatile const uint8_t C4 = ReadRegister(REGISTER_CH4SET);
+    volatile const uint8_t C5 = ReadRegister(REGISTER_CH5SET);
+    volatile const uint8_t C6 = ReadRegister(REGISTER_CH6SET);
+    volatile const uint8_t C7 = ReadRegister(REGISTER_CH7SET);
+    volatile const uint8_t C8 = ReadRegister(REGISTER_CH8SET);
+
+    return;
+}
+
+void Ads1299LowDriver::SetTestSignal(void)
+{
+    ModifyRegister(REGISTER_CONFIG_2, 
+        (CONFIG_2_INTERNAL_CAL_MASK | CONFIG_2_CAL_AMPLITUDE_MASK | CONFIG_2_CAL_FREQUENCY_MASK),
+        (CONFIG_2_INTERNAL_CAL_ENABLE | CONFIG_2_CAL_AMPLITUDE_HIGH | CONFIG_2_CAL_FREQUENCY_DC));
+}
+
+//
 //  Function to request the latest channel data
 //
 Ads1299LowDriver::sEMGData Ads1299LowDriver::GetEMGData(void)
@@ -143,15 +181,15 @@ Ads1299LowDriver::sEMGData Ads1299LowDriver::GetEMGData(void)
     // Got the data, now parse it
     sEMGData emg;
 
-    emg.status = (emgData[2] << 16) | (emgData[1] << 8) | (emgData[0]);
-    emg.channel1 = (emgData[5] << 16) | (emgData[4] << 8) | (emgData[3]);
-    emg.channel2 = (emgData[8] << 16) | (emgData[7] << 8) | (emgData[6]);
-    emg.channel3 = (emgData[11] << 16) | (emgData[10] << 8) | (emgData[9]);
-    emg.channel4 = (emgData[14] << 16) | (emgData[13] << 8) | (emgData[12]);
-    emg.channel5 = (emgData[17] << 16) | (emgData[16] << 8) | (emgData[15]);
-    emg.channel6 = (emgData[20] << 16) | (emgData[19] << 8) | (emgData[18]);
-    emg.channel7 = (emgData[23] << 16) | (emgData[22] << 8) | (emgData[21]);
-    emg.channel8 = (emgData[226] << 16) | (emgData[25] << 8) | (emgData[24]);
+    emg.status = (emgData[0] << 16) | (emgData[1] << 8) | (emgData[2]);
+    emg.channel1 = (emgData[3] << 16) | (emgData[4] << 8) | (emgData[5]);
+    emg.channel2 = (emgData[6] << 16) | (emgData[7] << 8) | (emgData[8]);
+    emg.channel3 = (emgData[9] << 16) | (emgData[10] << 8) | (emgData[11]);
+    emg.channel4 = (emgData[12] << 16) | (emgData[13] << 8) | (emgData[14]);
+    emg.channel5 = (emgData[15] << 16) | (emgData[16] << 8) | (emgData[17]);
+    emg.channel6 = (emgData[18] << 16) | (emgData[19] << 8) | (emgData[20]);
+    emg.channel7 = (emgData[21] << 16) | (emgData[22] << 8) | (emgData[23]);
+    emg.channel8 = (emgData[24] << 16) | (emgData[25] << 8) | (emgData[26]);
 
     // sign extend the values from 24 bit to 32 bit
     emg.channel1 |= (emg.channel1 & 0x00800000) ? 0xFF000000 : 0; 

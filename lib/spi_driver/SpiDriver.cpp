@@ -1,12 +1,14 @@
 
 #include "SpiDriver.h"
 
+#include <SPI.h>
+
 //
 // Constructor
 //
 SpiDriver::SpiDriver()
 {
-    
+    SPI.begin();
 }
 
 //
@@ -20,13 +22,18 @@ void SpiDriver::TransmitDataOverSPI(PinControl& pinControl,
                                 uint8_t dataTxRx[],
                                 uint8_t dataCount)
 {
+
+    SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE1));
+
     (pinControl.*chipSelectFptr)(PinControl::eSetPinState::SetActive);
 
-    // Modify the data to show its doing something
+    // transfer each byte and set the dataTxRx array to the received byte.
     for (int i = 0; i < dataCount; ++i)
     {
-        dataTxRx[i] = ~dataTxRx[i];
+        dataTxRx[i] = (uint8_t)SPI.transfer(dataTxRx[i]);
     }    
 
     (pinControl.*chipSelectFptr)(PinControl::eSetPinState::SetInactive);
+
+    SPI.endTransaction();
 }

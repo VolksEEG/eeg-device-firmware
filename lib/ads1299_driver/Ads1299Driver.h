@@ -13,6 +13,8 @@ class Ads1299Driver {
         Ads1299Driver();
         Ads1299Driver(SpiDriver& spi, PinControl& pins);
 
+        void ProcessEvents(void);
+
     protected:
 
     private:

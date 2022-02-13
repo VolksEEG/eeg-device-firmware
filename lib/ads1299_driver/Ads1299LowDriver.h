@@ -67,6 +67,12 @@ class Ads1299LowDriver {
             int32_t channel8;
         }sEMGData;
 
+        typedef enum _REFERENCE_SELECT
+        {
+            Internal,
+            External
+        }eReferenceSource;
+
         Ads1299LowDriver();
         Ads1299LowDriver(SpiDriver& spi, PinControl& pins);
 
@@ -76,6 +82,9 @@ class Ads1299LowDriver {
         uint8_t GetNumberOfSupportedChannels(void);
         void SetChannelState(eChannelId chan, eChannelState state);
         void SetChannelGain(eChannelId chan, eChannelGain gain);
+        void SetReferenceSource(eReferenceSource src);
+        void ReadBackRegisters(void);       // TODO - remove debugging function.
+        void SetTestSignal(void);
         sEMGData GetEMGData(void);
 
     protected:
@@ -113,6 +122,19 @@ class Ads1299LowDriver {
             static const uint8_t CONFIG_1_DATARATE_1KSPS = 0x04;
             static const uint8_t CONFIG_1_DATARATE_500SPS = 0x05;
             static const uint8_t CONFIG_1_DATARATE_250SPS = 0x06;
+        static const uint8_t REGISTER_CONFIG_2 = 0x02;
+            static const uint8_t CONFIG_2_INTERNAL_CAL_MASK = 0x10;
+            static const uint8_t CONFIG_2_INTERNAL_CAL_ENABLE = 0x10;
+            static const uint8_t CONFIG_2_INTERNAL_CAL_DISABLE = 0x00;
+            static const uint8_t CONFIG_2_CAL_AMPLITUDE_MASK = 0x04;
+            static const uint8_t CONFIG_2_CAL_AMPLITUDE_LOW = 0x00;
+            static const uint8_t CONFIG_2_CAL_AMPLITUDE_HIGH = 0x04;
+            static const uint8_t CONFIG_2_CAL_FREQUENCY_MASK = 0x03;
+            static const uint8_t CONFIG_2_CAL_FREQUENCY_DC = 0x03;
+        static const uint8_t REGISTER_CONFIG_3 = 0x03;
+            static const uint8_t CONFIG_3_REF_BUFFER_MASK = 0x80;
+            static const uint8_t CONFIG_3_REF_BUFFER_DISABLE = 0x00;
+            static const uint8_t CONFIG_3_REF_BUFFER_ENABLE = 0x80;
         static const uint8_t REGISTER_CH1SET = 0x05;
         static const uint8_t REGISTER_CH2SET = 0x06;
         static const uint8_t REGISTER_CH3SET = 0x07;

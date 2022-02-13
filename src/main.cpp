@@ -55,6 +55,11 @@ void setup() {
 //
 void loop() {
   
+  if (pinControl.IsADS1299DataReadyActive())
+  {
+    ads1299Driver.ProcessEvents();
+  }
+  
   // Check the heartbeat timer - automatically calls heartbeatUpdate if timer has elapsed.
   heartbeatTimer.update();
 }
