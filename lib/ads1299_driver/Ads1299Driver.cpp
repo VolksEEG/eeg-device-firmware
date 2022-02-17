@@ -15,12 +15,13 @@ Ads1299Driver::Ads1299Driver()
 Ads1299Driver::Ads1299Driver(SpiDriver& spi, PinControl& pins) :
     _Ads1299LowDriver(Ads1299LowDriver(spi, pins))
 {
+    // Device defaults to capturing at 250SPS so stop this.
     _Ads1299LowDriver.StopContinuousDataCapture();
 
     // first reset the device.
     _Ads1299LowDriver.ResetDevice();
 
-    // Device defaults to capturing at 250SPS so stop this.
+    // Again device defaults to capturing at 250SPS so stop this.
     _Ads1299LowDriver.StopContinuousDataCapture();
 
     // Get the number of channels, just because.
