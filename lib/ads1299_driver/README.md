@@ -1,8 +1,10 @@
 # ADS1299 Driver
 ## Overview
 This driver consists of both a high level driver which exposes the following abstracted functionality:
-* Retrieving the number of available channels
 * Starting / Stopping continuous data capture.
+
+And will expose the following functionality in future:
+* Retrieving the number of available channels
 * Configuring the input channels.
 * Enabling / disabling current sources.
 * Setting / Getting GPIO levels.

@@ -48,6 +48,8 @@ void setup() {
 
   // starte the heartbeat LED timer.
   heartbeatTimer.start();
+
+  ads1299Driver.StartDataCapture();
 }
 
 //

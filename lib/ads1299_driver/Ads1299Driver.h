@@ -13,6 +13,9 @@ class Ads1299Driver {
         Ads1299Driver();
         Ads1299Driver(SpiDriver& spi, PinControl& pins);
 
+        void StartDataCapture(void);
+        void StopDataCapture(void);
+
         void ProcessEvents(void);
 
     protected:

@@ -1,7 +1,11 @@
 
 #include "SpiDriver.h"
 
+#ifndef UNIT_TEST
 #include <SPI.h>
+#else
+#include <../../src/ArduinoMock.h>
+#endif
 
 //
 // Constructor
