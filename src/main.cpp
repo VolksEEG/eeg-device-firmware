@@ -3,6 +3,8 @@
 #include <ProtocolFrameParser.h>
 #include <SpiDriver.h>
 #include <Ads1299Driver.h>
+#include <ErrorHandler.h>
+#include <EventHandler.h>
 
 #include <Arduino.h>
 #include <MyDelay.h>
@@ -14,6 +16,8 @@ PinControl pinControl;
 ProtocolFrameParser protocolFrameParser;
 SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
+ErrorHandler errorHandler;
+EventHandler eventHandler;
 
 //
 //  Local function declarations
@@ -42,25 +46,23 @@ void setup() {
   protocolFrameParser = ProtocolFrameParser();
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(spiDriver, pinControl);
+  errorHandler = ErrorHandler();
+  eventHandler = EventHandler(errorHandler);
 
   // set variables
   heartbeatDutyCounter = 0;
 
   // starte the heartbeat LED timer.
   heartbeatTimer.start();
-
-  ads1299Driver.StartDataCapture();
 }
 
 //
 //  Arduino Main loop function
 //
 void loop() {
-  
-  if (pinControl.IsADS1299DataReadyActive())
-  {
-    ads1299Driver.ProcessEvents();
-  }
+
+  // Handle any system events  
+  eventHandler.HandleEvents();
   
   // Check the heartbeat timer - automatically calls heartbeatUpdate if timer has elapsed.
   heartbeatTimer.update();
