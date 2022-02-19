@@ -47,7 +47,7 @@ void setup() {
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(spiDriver, pinControl);
   errorHandler = ErrorHandler();
-  eventHandler = EventHandler(errorHandler);
+  eventHandler = EventHandler(&errorHandler);
 
   // set variables
   heartbeatDutyCounter = 0;

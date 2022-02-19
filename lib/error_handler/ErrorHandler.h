@@ -10,7 +10,9 @@ class ErrorHandler {
 
         typedef enum _ERRORS
         {
-            Error_EventOverrun = 0x01
+            Error_EventOverrun = 0,
+            Error_EventHandlerUnableToBeAdded = 1,
+            Error_EventHandlingFailure = 2
         }eError;
 
         ErrorHandler();

@@ -12,7 +12,7 @@ ErrorHandler::ErrorHandler() :
 
 void ErrorHandler::RaiseError(eError error)
 {
-    _ErrorsRaisedBits |= (uint8_t)error; 
+    _ErrorsRaisedBits |= (uint8_t)(1 << error); 
 }   
 
 bool ErrorHandler::IsErrorPresent(void)
