@@ -19,6 +19,9 @@
 #define MSBFIRST        0
 #define SPI_MODE1       1
 
+#define noInterrupts()
+#define interrupts()
+
 class SPISettings {
     public: 
         SPISettings(long, int, int) {

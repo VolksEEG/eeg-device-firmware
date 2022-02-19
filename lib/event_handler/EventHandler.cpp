@@ -1,6 +1,12 @@
 
 #include "EventHandler.h"
 
+#ifndef UNIT_TEST
+#include <Arduino.h>
+#else
+#include <../../src/ArduinoMock.h>
+#endif
+
 //
 // Constructor
 //
@@ -71,7 +77,14 @@ void EventHandler::AddEventHandler(CanProcessEvents * processerInstance, eEvent 
 //
 void EventHandler::HandleEvents(void)
 {
-    if (NO_EVENTS == _EventsSetBits)
+    noInterrupts();
+
+    // take a copy of the event set bits as these may be modified under interrupt
+    const uint8_t EVENT_SET_BITS = _EventsSetBits;
+
+    interrupts();
+
+    if (NO_EVENTS == EVENT_SET_BITS)
     {
         return;
     }
@@ -85,7 +98,7 @@ void EventHandler::HandleEvents(void)
         const uint8_t EVENT_BIT = (1 << eventIndex);
 
         // check if the bit corresponding to this event is set
-        if (EVENT_BIT == (_EventsSetBits & EVENT_BIT))
+        if (EVENT_BIT == (EVENT_SET_BITS & EVENT_BIT))
         {
             // it is so we have found the highest priority event
             eventFound = true;
