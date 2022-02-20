@@ -28,14 +28,15 @@ class DataFlowController : CanProcessEvents, EegDataProducer, EegDataConsumer {
         void SetProducer(eProducerConsumer priOrSec);
         void SetConsumer(eProducerConsumer priOrSec);
 
-        void ProcessEvent();
+        void ProcessEvent(NEvent::eEvent event);
 
         void PushLatestSample(EegData::sEegSamples samples) {
 
         }
 
         EegData::sEegSamples GetLatestSample() {
-
+            EegData::sEegSamples dummy;
+            return dummy;
         }
 
     protected:

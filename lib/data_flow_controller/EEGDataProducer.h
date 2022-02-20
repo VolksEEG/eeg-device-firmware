@@ -9,7 +9,9 @@ class EegDataProducer {
     public:
 
         virtual EegData::sEegSamples GetLatestSample() {
+            EegData::sEegSamples dummy;
 
+            return dummy;
         }
 
     protected:

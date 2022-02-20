@@ -73,7 +73,7 @@ void DataFlowController::SetConsumer(eProducerConsumer priOrSec)
 //
 // Overriden function from CanProcessEvents
 //
-void DataFlowController::ProcessEvent()
+void DataFlowController::ProcessEvent(NEvent::eEvent event)
 {
     // get the samples from the producer
    const EegData::sEegSamples SAMPLES = _CurrentProducerInstance->GetLatestSample();

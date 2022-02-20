@@ -11,23 +11,18 @@ class EventHandler : CanProcessEvents {
 
     public:
 
-        typedef enum _EVENTS
-        {
-            Event_ADS1299DataReady = 0x00,
-            Event_EDFDataReady = 0x01,
-            Event_1mSTimeout = 0x02
-        }eEvent;
-
-        static const uint8_t NO_EVENTS = 0;
-        static const uint8_t MAX_EVENTS = 3;
         static const uint8_t MAX_PROCESS_HANDLERS = 5;
 
         EventHandler();
         EventHandler(ErrorHandler * eh);
 
-        void SignalEvent(eEvent event);
-        void AddEventHandler(CanProcessEvents * processerInstance, eEvent event);
+        void SignalEvent(NEvent::eEvent event);
+        void AddEventHandler(CanProcessEvents * processerInstance, NEvent::eEvent event);
         void HandleEvents(void);
+
+        void ProcessEvent(NEvent::eEvent event) {
+
+        }
 
     protected:
 
@@ -39,7 +34,7 @@ class EventHandler : CanProcessEvents {
             CanProcessEvents *processerInstances[MAX_PROCESS_HANDLERS];
         }sEventProcessers;
 
-        sEventProcessers _EventProcessers[MAX_EVENTS];
+        sEventProcessers _EventProcessers[NEvent::MAX_EVENTS];
 
         uint8_t _EventsSetBits;
 

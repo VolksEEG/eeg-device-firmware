@@ -23,7 +23,7 @@ EventHandler::EventHandler(ErrorHandler * eh) :
     _ErrorHandlerInstance(eh)
 {
     // initialise the event handlers
-    for (int event = 0; event < MAX_EVENTS; ++event)
+    for (int event = 0; event < NEvent::MAX_EVENTS; ++event)
     {
         // officially no handlers have been set
         _EventProcessers->setCount = 0;
@@ -39,7 +39,7 @@ EventHandler::EventHandler(ErrorHandler * eh) :
 //
 //  Called by other classes to signal that an event has occurred
 //
-void EventHandler::SignalEvent(eEvent event)
+void EventHandler::SignalEvent(NEvent::eEvent event)
 {
     if ((uint8_t)(1 << event) == (_EventsSetBits & (uint8_t)(1 << event)))
     {
@@ -55,7 +55,7 @@ void EventHandler::SignalEvent(eEvent event)
 //
 //  Called by other classes to add an event handler for an event
 //
-void EventHandler::AddEventHandler(CanProcessEvents * processerInstance, eEvent event)
+void EventHandler::AddEventHandler(CanProcessEvents * processerInstance, NEvent::eEvent event)
 {
     const uint8_t SET_COUNT = _EventProcessers[(uint8_t)event].setCount;
 
@@ -84,7 +84,7 @@ void EventHandler::HandleEvents(void)
 
     interrupts();
 
-    if (NO_EVENTS == EVENT_SET_BITS)
+    if (NEvent::NO_EVENTS == EVENT_SET_BITS)
     {
         return;
     }
@@ -111,13 +111,13 @@ void EventHandler::HandleEvents(void)
 
     }while (
         (false == eventFound)
-        && (MAX_EVENTS > eventIndex)
+        && (NEvent::MAX_EVENTS > eventIndex)
     );
 
     // an event should be found but just confirm the variables here
     if  (
             (false == eventFound)
-            || (MAX_EVENTS <= eventIndex)
+            || (NEvent::MAX_EVENTS <= eventIndex)
         )
     {
         _ErrorHandlerInstance->RaiseError(ErrorHandler::eError::Error_EventHandlingFailure);
@@ -127,7 +127,7 @@ void EventHandler::HandleEvents(void)
     // call all the set event processers
     for (int i = 0; i < _EventProcessers[eventIndex].setCount; ++i)
     {
-        _EventProcessers[eventIndex].processerInstances[i]->ProcessEvent();
+        _EventProcessers[eventIndex].processerInstances[i]->ProcessEvent((NEvent::eEvent)eventIndex);
     }
 
     // this event has been processed, so clear it's bit

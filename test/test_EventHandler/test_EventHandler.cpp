@@ -11,7 +11,7 @@ class EventProcessTest : public CanProcessEvents {
 
     }
 
-    void ProcessEvent() {
+    void ProcessEvent(NEvent::eEvent event) {
         _ProcessEventCalledCount++;
     }
 
@@ -33,8 +33,8 @@ void test_EventHandler_EventOverrunIsDetected(void) {
     ErrorHandler eh = ErrorHandler();
     EventHandler uut = EventHandler(&eh);
 
-    uut.SignalEvent(EventHandler::eEvent::Event_ADS1299DataReady);
-    uut.SignalEvent(EventHandler::eEvent::Event_ADS1299DataReady);
+    uut.SignalEvent(NEvent::eEvent::Event_ADS1299DataReady);
+    uut.SignalEvent(NEvent::eEvent::Event_ADS1299DataReady);
 
     TEST_ASSERT_TRUE(eh.IsErrorPresent());
 }
@@ -49,10 +49,10 @@ void test_EventHandler_EventProcessedOnlyOnce(void) {
 
     EventProcessTest ep = EventProcessTest();
 
-    uut.AddEventHandler(&ep, EventHandler::eEvent::Event_ADS1299DataReady);
+    uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
 
     // signal the event
-    uut.SignalEvent(EventHandler::eEvent::Event_ADS1299DataReady);
+    uut.SignalEvent(NEvent::eEvent::Event_ADS1299DataReady);
 
     // then process the events twice
     uut.HandleEvents();
@@ -74,13 +74,13 @@ void test_EventHandler_EventProcessersFullErrorIsRaised(void) {
     for (int i = 0; i < EventHandler::MAX_PROCESS_HANDLERS; ++i)
     {
         // add the same event handler  max times
-        uut.AddEventHandler(&ep, EventHandler::eEvent::Event_ADS1299DataReady);
+        uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
     }
 
     TEST_ASSERT_FALSE(eh.IsErrorPresent());
 
     // try to add one more
-    uut.AddEventHandler(&ep, EventHandler::eEvent::Event_ADS1299DataReady);
+    uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
 
     TEST_ASSERT_TRUE(eh.IsErrorPresent());
 }
