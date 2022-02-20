@@ -83,10 +83,24 @@ void Ads1299Driver::StopDataCapture(void)
 }
 
 //
-//  TODO - replace this with an actual way of scheduling data reads.
+//  Overridden function from EegDataProducer to get the latest sample
 //
-void Ads1299Driver::ProcessEvents(void)
+EegData::sEegSamples Ads1299Driver::GetLatestSample()
 {
-    // data ready line it active
-    volatile Ads1299LowDriver::sEMGData emg = _Ads1299LowDriver.GetEMGData();
+    // call the low level driver
+    const Ads1299LowDriver::sEMGData EMG = _Ads1299LowDriver.GetEMGData();
+
+    EegData::sEegSamples samples;
+
+    // TODO - Convert to microvolts.
+    samples.channel_1 = (int16_t)(EMG.channel1 >> 8);
+    samples.channel_2 = (int16_t)(EMG.channel2 >> 8);
+    samples.channel_3 = (int16_t)(EMG.channel3 >> 8);
+    samples.channel_4 = (int16_t)(EMG.channel4 >> 8);
+    samples.channel_5 = (int16_t)(EMG.channel5 >> 8);
+    samples.channel_6 = (int16_t)(EMG.channel6 >> 8);
+    samples.channel_7 = (int16_t)(EMG.channel7 >> 8);
+    samples.channel_8 = (int16_t)(EMG.channel8 >> 8);
+
+    return samples;
 }

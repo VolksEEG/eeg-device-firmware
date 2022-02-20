@@ -3,10 +3,12 @@
 #define _ADS1299_DRIVER
 
 #include "Ads1299LowDriver.h"
+
+#include <EEGDataProducer.h>
 #include <SpiDriver.h>
 #include <PinControl.h>
 
-class Ads1299Driver {
+class Ads1299Driver : EegDataProducer {
 
     public:
 
@@ -16,8 +18,8 @@ class Ads1299Driver {
         void StartDataCapture(void);
         void StopDataCapture(void);
 
-        void ProcessEvents(void);
-
+        EegData::sEegSamples GetLatestSample();
+        
     protected:
 
     private:

@@ -5,6 +5,7 @@
 #include <Ads1299Driver.h>
 #include <ErrorHandler.h>
 #include <EventHandler.h>
+#include <DataFlowController.h>
 
 #include <Arduino.h>
 #include <MyDelay.h>
@@ -18,6 +19,7 @@ SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
 ErrorHandler errorHandler;
 EventHandler eventHandler;
+DataFlowController dataFlowController;
 
 //
 //  Local function declarations
@@ -48,6 +50,7 @@ void setup() {
   ads1299Driver = Ads1299Driver(spiDriver, pinControl);
   errorHandler = ErrorHandler();
   eventHandler = EventHandler(&errorHandler);
+  dataFlowController = DataFlowController();
 
   // set variables
   heartbeatDutyCounter = 0;

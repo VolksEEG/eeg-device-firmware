@@ -3,16 +3,9 @@
 #define _EVENT_HANDLER
 
 #include "../error_handler/ErrorHandler.h"
+#include "CanProcesEvents.h"
 
 #include <stdint.h>
-
-class CanProcessEvents {
-
-    public:
-        virtual void ProcessEvent() {
-
-        }
-};
 
 class EventHandler : CanProcessEvents {
 
