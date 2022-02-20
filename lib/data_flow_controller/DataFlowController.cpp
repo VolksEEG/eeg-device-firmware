@@ -75,5 +75,9 @@ void DataFlowController::SetConsumer(eProducerConsumer priOrSec)
 //
 void DataFlowController::ProcessEvent()
 {
+    // get the samples from the producer
    const EegData::sEegSamples SAMPLES = _CurrentProducerInstance->GetLatestSample();
+
+   // pass them on the the consumer
+   _CurrentConsumerInstance->PushLatestSample(SAMPLES);
 }
