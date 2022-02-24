@@ -2,6 +2,8 @@
 #ifndef _PIN_CONTROL
 #define _PIN_CONTROL
 
+#include <EventHandler.h>
+
 #include <stdint.h>
 
 class PinControl {
@@ -11,6 +13,7 @@ class PinControl {
         enum eSetPinState {SetInactive, SetActive, SetToggle};
         
         PinControl();
+        PinControl(EventHandler * eh);
 
         void SetHeartbeatLedState(eSetPinState newState);
         bool IsHeartbeatLedActive();
@@ -49,6 +52,11 @@ class PinControl {
         ePinState mADS1299ResetState;
         ePinState mADS1299ChipSelectState;
         ePinState mSdCardChipSelectState;
+
+        // interrupt requires static function so we need a 
+        // static pointer to the event handler as well.
+        static EventHandler * _EventHandlerInstance;
+        static void Ads1299DataReadyISR(void);
 };
 
 #endif

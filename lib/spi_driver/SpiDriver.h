@@ -10,7 +10,7 @@ class SpiDriver {
 
         SpiDriver();
 
-        void TransmitDataOverSPI(PinControl& pinControl, 
+        void TransmitDataOverSPI(PinControl * pinControl, 
                                 void (PinControl::*chipSelectFptr)(PinControl::eSetPinState), 
                                 uint8_t dataTxRx[],
                                 uint8_t dataCount);

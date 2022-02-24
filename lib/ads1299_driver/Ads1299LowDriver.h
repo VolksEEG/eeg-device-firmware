@@ -74,7 +74,7 @@ class Ads1299LowDriver {
         }eReferenceSource;
 
         Ads1299LowDriver();
-        Ads1299LowDriver(SpiDriver& spi, PinControl& pins);
+        Ads1299LowDriver(SpiDriver * spi, PinControl * pins);
 
         void ResetDevice(void);
         void StartContinuousDataCapture(eSampleRate rate);
@@ -92,8 +92,8 @@ class Ads1299LowDriver {
     private:
 
         // instance of the SPI Scheduler and Pin Control.
-        SpiDriver _SpiDriver;
-        PinControl _PinControl;
+        SpiDriver * _SpiDriverInstance;
+        PinControl * _PinControlInstance;
 
         // Command Definitions
         static const uint8_t COMMAND_WAKEUP = 0x02;

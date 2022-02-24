@@ -13,7 +13,7 @@ class Ads1299Driver : EegDataProducer {
     public:
 
         Ads1299Driver();
-        Ads1299Driver(SpiDriver& spi, PinControl& pins);
+        Ads1299Driver(SpiDriver * spi, PinControl * pins);
 
         void StartDataCapture(void);
         void StopDataCapture(void);

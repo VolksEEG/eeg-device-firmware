@@ -12,9 +12,9 @@ Ads1299LowDriver::Ads1299LowDriver()
 //
 // Constructor
 //
-Ads1299LowDriver::Ads1299LowDriver(SpiDriver& spi, PinControl& pins) :
-    _SpiDriver(spi),
-    _PinControl(pins)
+Ads1299LowDriver::Ads1299LowDriver(SpiDriver * spi, PinControl * pins) :
+    _SpiDriverInstance(spi),
+    _PinControlInstance(pins)
 {
 
 }
@@ -26,7 +26,7 @@ void Ads1299LowDriver::ResetDevice(void)
 {
     uint8_t resetData[1] = { COMMAND_RESET };
 
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     resetData,
                                     1);                      
@@ -43,14 +43,14 @@ void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
 
     uint8_t startData[1] = { COMMAND_START };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     startData,
                                     1);     
 
     uint8_t readContinuousData[1] = { COMMAND_READ_DATA_CONTINUOUSLY };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     readContinuousData,
                                     1);     
@@ -64,14 +64,14 @@ void Ads1299LowDriver::StopContinuousDataCapture(void)
 
     uint8_t stopContinuousData[1] = { COMMAND_STOP_READING_DATA_CONTINUOUSLY };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     stopContinuousData,
                                     1);   
 
     uint8_t stopData[1] = { COMMAND_STOP };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     stopData,
                                     1);     
@@ -173,7 +173,7 @@ Ads1299LowDriver::sEMGData Ads1299LowDriver::GetEMGData(void)
     uint8_t emgData[27] = {0};  // 3 bytes for each of the 8 emg channels and 1 status channel
 
     // Get the EMG Data
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     emgData,
                                     27);
@@ -279,7 +279,7 @@ uint8_t Ads1299LowDriver::ReadRegister(uint8_t reg)
     // Read the Register.
     uint8_t readRegData[3] = { (uint8_t)(COMMAND_READ_REGISTER | reg), 0, BLANK_DATA };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     readRegData,
                                     3);
@@ -295,7 +295,7 @@ void Ads1299LowDriver::WriteRegister(uint8_t reg, uint8_t newValue)
     // Write the Register.
     uint8_t writeRegData[3] = { (uint8_t)(COMMAND_WRITE_REGISTER | reg), 0, newValue };
     
-    _SpiDriver.TransmitDataOverSPI(_PinControl,
+    _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     writeRegData,
                                     3);

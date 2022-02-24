@@ -1,6 +1,8 @@
 
 #include "PinControl.h"
 
+#include <cstddef>
+
 #ifndef UNIT_TEST
 #include <Arduino.h>
 #else
@@ -23,9 +25,22 @@ const uint32_t PinControl::SD_CARD_WRITE_PROTECT_PIN = 6;
 const uint32_t PinControl::ADS1299_DATA_READY_PIN = 12;
 
 //
+//  Static variable definitions
+//
+EventHandler * PinControl::_EventHandlerInstance = NULL;
+
+//
 // Constructor
 //
-PinControl::PinControl() :
+PinControl::PinControl()
+{
+
+}
+
+//
+// Constructor
+//
+PinControl::PinControl(EventHandler * eh) :
     mHeartbeatLedState(Inactive),
     mADS1299ResetState(Inactive),
     mADS1299ChipSelectState(Inactive),
@@ -46,6 +61,9 @@ PinControl::PinControl() :
     digitalWrite(ADS1299_RESET_PIN, HIGH);
     digitalWrite(ADS1299_CHIP_SELECT_PIN, HIGH);
     digitalWrite(SD_CARD_CHIP_SELECT_PIN, HIGH);
+
+    _EventHandlerInstance = eh;
+    attachInterrupt(digitalPinToInterrupt(ADS1299_DATA_READY_PIN), Ads1299DataReadyISR, FALLING);
 }
 
 //
@@ -226,4 +244,17 @@ bool PinControl::IsSdCardWriteProtectActive()
 bool PinControl::IsADS1299DataReadyActive()
 {
     return (LOW == digitalRead(ADS1299_DATA_READY_PIN));
+}
+
+//
+//  Interrupt service routine for the data ready interrupt
+//
+void PinControl::Ads1299DataReadyISR(void)
+{
+    if (NULL == _EventHandlerInstance)
+    {
+        return;
+    }
+
+    _EventHandlerInstance->SignalEvent(NEvent::eEvent::Event_ADS1299DataReady);
 }

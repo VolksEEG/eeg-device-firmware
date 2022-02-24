@@ -12,7 +12,7 @@ Ads1299Driver::Ads1299Driver()
 //
 // Constructor
 //
-Ads1299Driver::Ads1299Driver(SpiDriver& spi, PinControl& pins) :
+Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins) :
     _Ads1299LowDriver(Ads1299LowDriver(spi, pins))
 {
     // Device defaults to capturing at 250SPS so stop this.

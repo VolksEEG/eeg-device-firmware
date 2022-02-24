@@ -22,6 +22,10 @@
 #define noInterrupts()
 #define interrupts()
 
+#define attachInterrupt(a, b, c)
+#define digitalPinToInterrupt()
+#define FALLING     0
+
 class SPISettings {
     public: 
         SPISettings(long, int, int) {
