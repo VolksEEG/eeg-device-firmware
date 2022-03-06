@@ -8,4 +8,7 @@ This module is responsible for controlling the on board LEDs in the following sc
 
 it shall respond to the 1mS timeout event in order to control this timing.
 
-Each LED State timeout shall be monitored in it's own state function which, once elapsed, will set the counter for the next state depending on whether an error is present or not.  
+Each LED State timeout shall be monitored in it's own state function which, once elapsed, will set the counter for the next state depending on whether an error is present or not.
+
+## Issues
+Currently there is an issue where the Heartbeat LED does not seem to be modified inside the ProcessEventsFunction and state machine states.

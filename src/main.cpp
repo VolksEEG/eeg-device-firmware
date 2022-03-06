@@ -1,6 +1,7 @@
 
 #include <PinControl.h>
 #include <ProtocolFrameParser.h>
+#include <ProtocolParser.h>
 #include <SpiDriver.h>
 #include <Ads1299Driver.h>
 #include <ErrorHandler.h>
@@ -16,6 +17,7 @@
 //
 PinControl pinControl;
 ProtocolFrameParser protocolFrameParser;
+ProtocolParser protocolParser;
 SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
 ErrorHandler errorHandler;
@@ -42,13 +44,21 @@ void setup() {
   eventHandler = EventHandler(&errorHandler);
   pinControl = PinControl(&eventHandler);
   protocolFrameParser = ProtocolFrameParser();
+  protocolParser = ProtocolParser(&protocolFrameParser);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
-  dataFlowController = DataFlowController();
+  dataFlowController = DataFlowController(&ads1299Driver, NEvent::eEvent::Event_ADS1299DataReady,
+                                            &ads1299Driver, NEvent::eEvent::Event_ADS1299DataReady,
+                                            &protocolParser,
+                                            &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
 
   // add handler for the 1mS timeout event
   eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
+
+  // add data ready event handlers
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ADS1299DataReady);
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_EDFDataReady);
 
   // start the event timer.
   eventTimer.start();

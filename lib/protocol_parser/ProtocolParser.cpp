@@ -10,6 +10,13 @@ ProtocolParser::ProtocolParser() :
     
 }
 
+ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp) :
+    mValue(0),
+    _ProtocolFrameParser(pfp)
+{
+
+}
+
 //
 //  GetValues function to test out unit tests
 //
@@ -24,4 +31,12 @@ int ProtocolParser::GetValue(void)
 void ProtocolParser::SetValue(int newValue)
 {
     this->mValue = newValue;
+}
+
+//
+//  Overridden function from EegDataConsumer used to push EEG samples to the PC.
+//
+void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
+{
+    (void)samples;
 }

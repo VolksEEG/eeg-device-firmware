@@ -9,7 +9,7 @@
 
 #include <CanProcesEvents.h>
 
-class DataFlowController : CanProcessEvents, EegDataProducer, EegDataConsumer {
+class DataFlowController : public CanProcessEvents, EegDataProducer, EegDataConsumer {
 
     public:
 
@@ -21,21 +21,33 @@ class DataFlowController : CanProcessEvents, EegDataProducer, EegDataConsumer {
 
         DataFlowController();
         DataFlowController(EegDataProducer * primaryProducer, 
+                            NEvent::eEvent primaryDataReadyEvent,
                             EegDataProducer * secondaryProducer,
+                            NEvent::eEvent secondaryDataReadyEvent,
                             EegDataConsumer * primaryConsumer,
                             EegDataConsumer * secondaryConsumer);
         
         void SetProducer(eProducerConsumer priOrSec);
         void SetConsumer(eProducerConsumer priOrSec);
 
-        void ProcessEvent(NEvent::eEvent event);
+        void ProcessEvent(NEvent::eEvent event) override;
 
-        void PushLatestSample(EegData::sEegSamples samples) {
+        void PushLatestSample(EegData::sEegSamples samples) override {
 
         }
 
-        EegData::sEegSamples GetLatestSample() {
+        EegData::sEegSamples GetLatestSample() override {
             EegData::sEegSamples dummy;
+
+            dummy.channel_1 = 0;
+            dummy.channel_2 = 0;
+            dummy.channel_3 = 0;
+            dummy.channel_4 = 0;
+            dummy.channel_5 = 0;
+            dummy.channel_6 = 0;
+            dummy.channel_7 = 0;
+            dummy.channel_8 = 0;
+
             return dummy;
         }
 
@@ -44,12 +56,16 @@ class DataFlowController : CanProcessEvents, EegDataProducer, EegDataConsumer {
     private:
 
         EegDataProducer * _PrimaryProducerInstance;
+        NEvent::eEvent _PrimaryDataReadyEvent;
         EegDataProducer * _SecondaryProducerInstance;
+        NEvent::eEvent _SecondaryDataReadyEvent;
         EegDataProducer * _CurrentProducerInstance;
+        NEvent::eEvent _CurrentDataReadyEvent;
 
         EegDataConsumer * _PrimaryConsumerInstance;
         EegDataConsumer * _SecondaryConsumerInstance;
         EegDataConsumer * _CurrentConsumerInstance;
+
 };
 
 #endif

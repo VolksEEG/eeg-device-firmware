@@ -13,7 +13,7 @@ class PinControl {
         enum eSetPinState {SetInactive, SetActive, SetToggle};
         
         PinControl();
-        PinControl(EventHandler * eh);
+        explicit PinControl(EventHandler * eh);
 
         void SetHeartbeatLedState(eSetPinState newState);
         bool IsHeartbeatLedActive();

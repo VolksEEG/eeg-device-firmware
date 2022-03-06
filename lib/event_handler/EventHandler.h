@@ -14,13 +14,13 @@ class EventHandler : CanProcessEvents {
         static const uint8_t MAX_PROCESS_HANDLERS = 5;
 
         EventHandler();
-        EventHandler(ErrorHandler * eh);
+        explicit EventHandler(ErrorHandler * eh);
 
         void SignalEvent(NEvent::eEvent event);
         void AddEventHandler(CanProcessEvents * processerInstance, NEvent::eEvent event);
         void HandleEvents(void);
 
-        void ProcessEvent(NEvent::eEvent event) {
+        void ProcessEvent(NEvent::eEvent event) override {
 
         }
 

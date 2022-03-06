@@ -22,7 +22,7 @@ void test_DataFlowController_PrimaryProducerIsCalledByDefault(void)
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
@@ -42,7 +42,7 @@ void test_DataFlowController_SecondaryProducerIsCalledWhenProducerIsChanged(void
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // change the producer.
     uut.SetProducer(DataFlowController::eProducerConsumer::secondary);
@@ -65,7 +65,7 @@ void test_DataFlowController_PrimaryProducerIsCalledWhenProducerIsChangedBack(vo
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // change the producer.
     uut.SetProducer(DataFlowController::eProducerConsumer::secondary);
@@ -91,7 +91,7 @@ void test_DataFlowController_PrimaryConsumerIsCalledByDefault(void)
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
@@ -111,7 +111,7 @@ void test_DataFlowController_SecondaryConsumerIsCalledWhenProducerIsChanged(void
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // change the consumer.
     uut.SetConsumer(DataFlowController::eProducerConsumer::secondary);
@@ -134,7 +134,7 @@ void test_DataFlowController_PrimaryConsumerIsCalledWhenProducerIsChangedBack(vo
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // change the consumer.
     uut.SetConsumer(DataFlowController::eProducerConsumer::secondary);
@@ -160,7 +160,7 @@ void test_DataFlowController_ProducerDataIsPassedToConsumer(void)
     ConsumerMock primaryConsumer = ConsumerMock();
     ConsumerMock secondaryConsumer = ConsumerMock();
 
-    DataFlowController uut = DataFlowController(&primaryProducer, &secondaryProducer, &primaryConsumer, &secondaryConsumer);
+    DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // select a producer and consumer to use.
     ProducerMock * producerInstance;

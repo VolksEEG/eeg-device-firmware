@@ -10,7 +10,8 @@ DataFlowController::DataFlowController() :
     _CurrentProducerInstance(this),
     _PrimaryConsumerInstance(this),
     _SecondaryConsumerInstance(this),
-    _CurrentConsumerInstance(this)
+    _CurrentConsumerInstance(this),
+    _CurrentDataReadyEvent(NEvent::eEvent::Event_ADS1299DataReady)
 {
 
 }
@@ -19,12 +20,17 @@ DataFlowController::DataFlowController() :
 // Constructor
 //
 DataFlowController::DataFlowController(EegDataProducer * primaryProducer, 
-                                        EegDataProducer * secondaryProducer,
-                                        EegDataConsumer * primaryConsumer,
-                                        EegDataConsumer * secondaryConsumer) :
+                            NEvent::eEvent primaryDataReadyEvent,
+                            EegDataProducer * secondaryProducer,
+                            NEvent::eEvent secondaryDataReadyEvent,
+                            EegDataConsumer * primaryConsumer,
+                            EegDataConsumer * secondaryConsumer) :
     _PrimaryProducerInstance(primaryProducer),
+    _PrimaryDataReadyEvent(primaryDataReadyEvent),
     _SecondaryProducerInstance(secondaryProducer),
+    _SecondaryDataReadyEvent(secondaryDataReadyEvent),
     _CurrentProducerInstance(primaryProducer),
+    _CurrentDataReadyEvent(primaryDataReadyEvent),
     _PrimaryConsumerInstance(primaryConsumer),
     _SecondaryConsumerInstance(secondaryConsumer),
     _CurrentConsumerInstance(primaryConsumer)
@@ -41,9 +47,11 @@ void DataFlowController::SetProducer(eProducerConsumer priOrSec)
     {
         case primary:
             _CurrentProducerInstance = _PrimaryProducerInstance;
+            _CurrentDataReadyEvent = _PrimaryDataReadyEvent;
             break;
         case secondary:
             _CurrentProducerInstance = _SecondaryProducerInstance;
+            _CurrentDataReadyEvent = _SecondaryDataReadyEvent;
             break;
         default:
             // all cases are covered above.
@@ -75,6 +83,12 @@ void DataFlowController::SetConsumer(eProducerConsumer priOrSec)
 //
 void DataFlowController::ProcessEvent(NEvent::eEvent event)
 {
+    if (event != _CurrentDataReadyEvent)
+    {
+        // this is the other data ready event so ignore it.
+        return;
+    }
+
     // get the samples from the producer
    const EegData::sEegSamples SAMPLES = _CurrentProducerInstance->GetLatestSample();
 

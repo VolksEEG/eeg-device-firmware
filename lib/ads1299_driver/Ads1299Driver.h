@@ -8,7 +8,7 @@
 #include <SpiDriver.h>
 #include <PinControl.h>
 
-class Ads1299Driver : EegDataProducer {
+class Ads1299Driver : public EegDataProducer {
 
     public:
 
@@ -18,7 +18,7 @@ class Ads1299Driver : EegDataProducer {
         void StartDataCapture(void);
         void StopDataCapture(void);
 
-        EegData::sEegSamples GetLatestSample();
+        EegData::sEegSamples GetLatestSample() override;
         
     protected:
 
