@@ -21,3 +21,11 @@ each library has it's own folder and has it's own README document detailing it's
 All tests are defined in library specific sub folders in the test folder.
 
 To facilitate unit testing, where Arduino specific functions are used, the header file ArduinoMock (defined in the src folder) is included, in place of the Arduino specific header file for tests.
+
+## SOUP (Software Of Unknown Providence (Software not specifically designed for this application in a medical device))
+The following SOUP items have been used:
+
+| Software          | Version   | Link                  | License |
+|-                  |-          |-          | - |
+| Arduino           | N/A       | N/A  | N/A |
+| MyDelay           | V1.0.2    | https://github.com/mggates39/MyDelay?utm_source=platformio&utm_medium=piohome | MIT |
