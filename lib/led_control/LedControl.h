@@ -7,14 +7,14 @@
 #include <PinControl.h>
 #include <stdint.h>
 
-class LedControl : CanProcessEvents {
+class LedControl : public CanProcessEvents {
 
     public:
 
         LedControl();
-        LedControl(ErrorHandler * eh, PinControl * pc, EventHandler * evh);
+        LedControl(ErrorHandler * eh, PinControl * pc);
 
-        void ProcessEvent(NEvent::eEvent event);
+        void ProcessEvent(NEvent::eEvent event) override;
 
     protected:
 

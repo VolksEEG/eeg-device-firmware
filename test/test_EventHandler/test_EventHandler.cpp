@@ -11,7 +11,7 @@ class EventProcessTest : public CanProcessEvents {
 
     }
 
-    void ProcessEvent(NEvent::eEvent event) {
+    void ProcessEvent(NEvent::eEvent event) override {
         _ProcessEventCalledCount++;
     }
 

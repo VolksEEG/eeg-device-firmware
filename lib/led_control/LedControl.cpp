@@ -9,22 +9,31 @@ const uint16_t LedControl::NORMAL_OFF_TIMEOUT = 1800;
 const uint16_t LedControl::ERROR_ON_TIMEOUT = 1500;
 const uint16_t LedControl::ERROR_OFF_TIMEOUT = 500;
 
+//
+// Constructor
+//
 LedControl::LedControl()
 {
 
 }
-        
-LedControl::LedControl(ErrorHandler * eh, PinControl * pc, EventHandler * evh) :
+  
+//
+// Constructor
+//      
+LedControl::LedControl(ErrorHandler * eh, PinControl * pc) :
     _ErrorHAndlerInstance(eh),
     _PinControlInstance(pc),
     _LedCounter(0),
     _LedTimeout(NORMAL_OFF_TIMEOUT),
     _LedStateFunction(&LedControl::LedStateOff)
 {
-    // add handler for the 1mS timeout event
-    evh->AddEventHandler(this, NEvent::Event_1mSTimeout);
+    // Set initial state to inactive i.e. Off
+    _PinControlInstance->SetHeartbeatLedState(PinControl::eSetPinState::SetInactive);
 }
 
+//
+// Overridden function from the CanProcessEvents Base Class
+//
 void LedControl::ProcessEvent(NEvent::eEvent event)
 {
     // double check the event

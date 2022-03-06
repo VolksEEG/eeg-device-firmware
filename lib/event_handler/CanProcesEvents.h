@@ -7,9 +7,7 @@
 class CanProcessEvents {
 
     public:
-        virtual void ProcessEvent(NEvent::eEvent event) {
-
-        }
+        virtual void ProcessEvent(NEvent::eEvent event) = 0;
 };
 
 #endif

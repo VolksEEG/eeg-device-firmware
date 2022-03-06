@@ -31,7 +31,7 @@ void eventTimerUpdate();
 // 
 //  Local variables
 //
-MyDelay eventTimer(10, eventTimerUpdate, MYDELAY_REPEAT_FOREVER ); // 1mS event timer
+MyDelay eventTimer(1, eventTimerUpdate, MYDELAY_REPEAT_FOREVER ); // 1mS event timer
 
 //
 //  Arduino setup function
@@ -45,7 +45,10 @@ void setup() {
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
   dataFlowController = DataFlowController();
-  ledControl = LedControl(&errorHandler, &pinControl, &eventHandler);
+  ledControl = LedControl(&errorHandler, &pinControl);
+
+  // add handler for the 1mS timeout event
+  eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
 
   // start the event timer.
   eventTimer.start();
