@@ -4,33 +4,15 @@
 //
 // Constructor
 //
-ProtocolParser::ProtocolParser() :
-    mValue(0)
+ProtocolParser::ProtocolParser()
 {
     
 }
 
 ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp) :
-    mValue(0),
     _ProtocolFrameParser(pfp)
 {
 
-}
-
-//
-//  GetValues function to test out unit tests
-//
-int ProtocolParser::GetValue(void)
-{
-    return this->mValue;
-}
-
-//
-//  SetValues function to test out unit tests
-//
-void ProtocolParser::SetValue(int newValue)
-{
-    this->mValue = newValue;
 }
 
 //

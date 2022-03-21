@@ -8,6 +8,8 @@
 #include <EventHandler.h>
 #include <DataFlowController.h>
 #include <LedControl.h>
+#include <FakeDataProducer.h>
+#include <SerialPort.h>
 
 #include <Arduino.h>
 #include <MyDelay.h>
@@ -24,6 +26,8 @@ ErrorHandler errorHandler;
 EventHandler eventHandler;
 DataFlowController dataFlowController;
 LedControl ledControl;
+FakeDataProducer fakeDataProducer;
+SerialPort serialPort;
 
 //
 //  Local function declarations
@@ -47,18 +51,32 @@ void setup() {
   protocolParser = ProtocolParser(&protocolFrameParser);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
-  dataFlowController = DataFlowController(&ads1299Driver, NEvent::eEvent::Event_ADS1299DataReady,
+  fakeDataProducer = FakeDataProducer(&eventHandler);
+  dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
                                             &ads1299Driver, NEvent::eEvent::Event_ADS1299DataReady,
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
+  serialPort = SerialPort(&eventHandler);
+
+  EventHandler::sEventHandlerInstance hInst = {&ledControl, &CanProcessEvents::ProcessEvent};
 
   // add handler for the 1mS timeout event
-  eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
+  eventHandler.AddEventHandler(hInst, NEvent::Event_1mSTimeout);
+
+  hInst = {&fakeDataProducer, &CanProcessEvents::ProcessEvent};
+
+  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
+
+  hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
+
+  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
+
+  hInst = {&dataFlowController, &CanProcessEvents::ProcessEvent};
 
   // add data ready event handlers
-  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ADS1299DataReady);
-  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_EDFDataReady);
+  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_ADS1299DataReady);
+  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_EDFDataReady);
 
   // start the event timer.
   eventTimer.start();

@@ -28,10 +28,12 @@ EventHandler::EventHandler(ErrorHandler * eh) :
         // officially no handlers have been set
         _EventProcessers->setCount = 0;
 
+        const sEventHandlerInstance hInstance = {this, &CanProcessEvents::ProcessEvent};
+
         for (int handler = 0; handler < MAX_PROCESS_HANDLERS; ++handler)
         {
             // default all the handlers to this class
-            _EventProcessers->processerInstances[handler] = this;
+            _EventProcessers->processerInstances[handler] = hInstance;
         }
     }
 }
@@ -55,7 +57,7 @@ void EventHandler::SignalEvent(NEvent::eEvent event)
 //
 //  Called by other classes to add an event handler for an event
 //
-void EventHandler::AddEventHandler(CanProcessEvents * processerInstance, NEvent::eEvent event)
+void EventHandler::AddEventHandler(sEventHandlerInstance handler, NEvent::eEvent event)
 {
     const uint8_t SET_COUNT = _EventProcessers[(uint8_t)event].setCount;
 
@@ -67,7 +69,7 @@ void EventHandler::AddEventHandler(CanProcessEvents * processerInstance, NEvent:
         return;
     }
 
-    _EventProcessers[(uint8_t)event].processerInstances[SET_COUNT] = processerInstance;
+    _EventProcessers[(uint8_t)event].processerInstances[SET_COUNT] = handler;
 
     _EventProcessers[(uint8_t)event].setCount++;
 }
@@ -127,7 +129,9 @@ void EventHandler::HandleEvents(void)
     // call all the set event processers
     for (int i = 0; i < _EventProcessers[eventIndex].setCount; ++i)
     {
-        _EventProcessers[eventIndex].processerInstances[i]->ProcessEvent((NEvent::eEvent)eventIndex);
+        sEventHandlerInstance hInst = _EventProcessers[eventIndex].processerInstances[i];
+        
+        (hInst.processerInstance->*hInst.eventProcessingFptr)((NEvent::eEvent)eventIndex);
     }
 
     // this event has been processed, so clear it's bit

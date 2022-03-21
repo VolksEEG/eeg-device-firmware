@@ -12,17 +12,11 @@ class ProtocolParser : public EegDataConsumer {
         ProtocolParser();
         explicit ProtocolParser(ProtocolFrameParser * pfp);
 
-        // TODO - remove these.
-        int GetValue(void);
-        void SetValue(int newValue);
-
         void PushLatestSample(EegData::sEegSamples samples) override;
 
     protected:
 
     private:
-
-        int mValue;
 
         ProtocolFrameParser * _ProtocolFrameParser;
 };
