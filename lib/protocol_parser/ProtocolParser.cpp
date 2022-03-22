@@ -20,5 +20,24 @@ ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp) :
 //
 void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
 {
-    (void)samples;
+    uint8_t payload[16] = {
+        (uint8_t)(samples.channel_1 & 0x00FF),
+        (uint8_t)((samples.channel_1 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_2 & 0x00FF),
+        (uint8_t)((samples.channel_2 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_3 & 0x00FF),
+        (uint8_t)((samples.channel_3 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_4 & 0x00FF),
+        (uint8_t)((samples.channel_4 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_5 & 0x00FF),
+        (uint8_t)((samples.channel_5 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_6 & 0x00FF),
+        (uint8_t)((samples.channel_6 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_7 & 0x00FF),
+        (uint8_t)((samples.channel_7 & 0xFF00) >> 8),
+        (uint8_t)(samples.channel_8 & 0x00FF),
+        (uint8_t)((samples.channel_8 & 0xFF00) >> 8)
+    };
+
+    _ProtocolFrameParser->AddFrameToPayloadAndSendToPc(payload, 16);
 }

@@ -10,11 +10,12 @@ namespace NEvent {
     {
         Event_ADS1299DataReady = 0x00,
         Event_EDFDataReady = 0x01,
-        Event_1mSTimeout = 0x02
+        Event_1mSTimeout = 0x02,
+        Event_DataRxFromPC = 0x03
     }eEvent;
 
     static const uint8_t NO_EVENTS = 0;
-    static const uint8_t MAX_EVENTS = 3;
+    static const uint8_t MAX_EVENTS = 4;
     
 }
 

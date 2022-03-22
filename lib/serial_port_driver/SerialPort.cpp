@@ -1,6 +1,8 @@
 
 #include "SerialPort.h"
 
+#include <Adafruit_TinyUSB.h>
+
 //
 //  Constructor
 //
@@ -15,7 +17,8 @@ SerialPort::SerialPort()
 SerialPort::SerialPort(EventHandler * eh) :
     _EventHandlerInstance(eh)
 {
-
+    // baud rate does not seem to matter for USB serial link
+    Serial.begin(115200);
 }
 
 //
@@ -29,7 +32,7 @@ void SerialPort::ProcessEvent(NEvent::eEvent event)
 //
 // Overriden function to get received bytes from the PC
 //
-int8_t SerialPort::GetReceivedByte()
+uint8_t SerialPort::GetReceivedBytes(uint8_t data[], uint8_t max_length)
 {
     return 0;
 }
@@ -37,7 +40,7 @@ int8_t SerialPort::GetReceivedByte()
 //
 //  Overriden function to transmit a number of bytes to the PC
 //
-void SerialPort::TransmitData(int8_t * dataPtr, int8_t count)
+void SerialPort::TransmitData(uint8_t data[], uint8_t count)
 {
-
+    Serial.write(data, count);
 }

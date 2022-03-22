@@ -64,6 +64,8 @@ void LedControl::LedStateOn(void)
         // turn LED off and, 
         // Set the Off state in both scenarios
         _LedCounter = 0;
+        //void (PinControl::*ledStateFptr)(PinControl::eSetPinState) = &PinControl::SetHeartbeatLedState;
+        //(_PinControlInstance->*ledStateFptr)(PinControl::eSetPinState::SetInactive);
         _PinControlInstance->SetHeartbeatLedState(PinControl::eSetPinState::SetInactive);
         _LedStateFunction = &LedControl::LedStateOff;
     }
@@ -87,6 +89,8 @@ void LedControl::LedStateOff(void)
         // turn LED on and, 
         // Set the On state in both scenarios
         _LedCounter = 0;
+        //void (PinControl::*ledStateFptr)(PinControl::eSetPinState) = &PinControl::SetHeartbeatLedState;
+        //(_PinControlInstance->*ledStateFptr)(PinControl::eSetPinState::SetActive);
         _PinControlInstance->SetHeartbeatLedState(PinControl::eSetPinState::SetActive);
         _LedStateFunction = &LedControl::LedStateOn;
     }

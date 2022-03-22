@@ -6,7 +6,7 @@
 #include <CanProcesEvents.h>
 #include <PcCommunicationsInterface.h>
 
-class SerialPort : public CanProcessEvents, PcCommunicationsInterface {
+class SerialPort : public CanProcessEvents, public PcCommunicationsInterface {
 
     public:
 
@@ -15,8 +15,8 @@ class SerialPort : public CanProcessEvents, PcCommunicationsInterface {
 
         void ProcessEvent(NEvent::eEvent event) override;
         
-        int8_t GetReceivedByte() override;
-        void TransmitData(int8_t * dataPtr, int8_t count) override;
+        uint8_t GetReceivedBytes(uint8_t data[], uint8_t max_length) override;
+        void TransmitData(uint8_t data[], uint8_t count) override;
 
     protected:
 

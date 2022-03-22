@@ -26,14 +26,14 @@ EventHandler::EventHandler(ErrorHandler * eh) :
     for (int event = 0; event < NEvent::MAX_EVENTS; ++event)
     {
         // officially no handlers have been set
-        _EventProcessers->setCount = 0;
+        _EventProcessers[event].setCount = 0;
 
         const sEventHandlerInstance hInstance = {this, &CanProcessEvents::ProcessEvent};
 
         for (int handler = 0; handler < MAX_PROCESS_HANDLERS; ++handler)
         {
             // default all the handlers to this class
-            _EventProcessers->processerInstances[handler] = hInstance;
+            _EventProcessers[event].processerInstances[handler] = hInstance;
         }
     }
 }

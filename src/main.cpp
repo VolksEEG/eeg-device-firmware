@@ -47,7 +47,8 @@ void setup() {
   errorHandler = ErrorHandler();
   eventHandler = EventHandler(&errorHandler);
   pinControl = PinControl(&eventHandler);
-  protocolFrameParser = ProtocolFrameParser();
+  serialPort = SerialPort(&eventHandler);
+  protocolFrameParser = ProtocolFrameParser(&serialPort);
   protocolParser = ProtocolParser(&protocolFrameParser);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
@@ -57,7 +58,6 @@ void setup() {
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
-  serialPort = SerialPort(&eventHandler);
 
   EventHandler::sEventHandlerInstance hInst = {&ledControl, &CanProcessEvents::ProcessEvent};
 
@@ -68,15 +68,18 @@ void setup() {
 
   eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
 
-  hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
+  //hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
 
-  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
+  //eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
 
   hInst = {&dataFlowController, &CanProcessEvents::ProcessEvent};
 
   // add data ready event handlers
   eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_ADS1299DataReady);
   eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_EDFDataReady);
+
+  dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
+  ads1299Driver.StartDataCapture();
 
   // start the event timer.
   eventTimer.start();

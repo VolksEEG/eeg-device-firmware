@@ -7,8 +7,8 @@
 class PcCommunicationsInterface {
 
     public:
-        virtual int8_t GetReceivedByte() = 0;
-        virtual void TransmitData(int8_t * dataPtr, int8_t count) = 0;
+        virtual uint8_t GetReceivedBytes(uint8_t data[], uint8_t max_length) = 0;
+        virtual void TransmitData(uint8_t data[], uint8_t count) = 0;
 };
 
 #endif

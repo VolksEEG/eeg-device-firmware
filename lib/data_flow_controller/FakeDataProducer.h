@@ -24,6 +24,8 @@ class FakeDataProducer : public EegDataProducer, public CanProcessEvents {
 
         EventHandler * _EventHandlerPtr;
 
+        uint8_t _TimerDivider;
+
         EegData::sEegSamples _SampleData;
 };
 
