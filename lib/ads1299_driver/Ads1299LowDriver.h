@@ -12,13 +12,13 @@ class Ads1299LowDriver {
 
         typedef enum _SAMPLE_RATES
         {
-            SPS_250,
-            SPS_500,
-            SPS_1000,
-            SPS_2000,
-            SPS_4000,
-            SPS_8000,
-            SPS_16000
+            SPS_250 = 0x06,
+            SPS_500 = 0x05,
+            SPS_1000 = 0x04,
+            SPS_2000 = 0x03,
+            SPS_4000 = 0x02,
+            SPS_8000 = 0x01,
+            SPS_16000 = 0x00
         }eSampleRate;
 
         typedef enum _CHANNEL_IDS
@@ -36,24 +36,24 @@ class Ads1299LowDriver {
         // leaving out the Bias measuring functionality for now.
         typedef enum _CHANNEL_STATES
         {
-            OffAndShorted,
-            OnNormal,
-            OnAndShorted,
-            OnAndMeasuringSupplies,
-            OnAndMeasuringTestSignal
+            OffAndShorted = 0x81,
+            OnNormal = 0x00,
+            OnAndShorted = 0x01,
+            OnAndMeasuringSupplies = 0x03,
+            OnAndMeasuringTestSignal = 0x05
         }eChannelState;
 
         typedef enum _CHANNEL_GAINS
         {
-            X1,
-            X2,
-            X4,
-            X6,
-            X8,
-            X12,
-            X24
+            X1 = 0x00,
+            X2 = 0x10,
+            X4 = 0x20,
+            X6 = 0x30,
+            X8 = 0x40,
+            X12 = 0x50,
+            X24 = 0x60
         }eChannelGain;
-
+        
         typedef struct _EMG_DATA
         {
             uint32_t status;
@@ -83,7 +83,6 @@ class Ads1299LowDriver {
         void SetChannelState(eChannelId chan, eChannelState state);
         void SetChannelGain(eChannelId chan, eChannelGain gain);
         void SetReferenceSource(eReferenceSource src);
-        void ReadBackRegisters(void);       // TODO - remove debugging function.
         void SetTestSignal(void);
         sEMGData GetEMGData(void);
 
@@ -96,78 +95,95 @@ class Ads1299LowDriver {
         PinControl * _PinControlInstance;
 
         // Command Definitions
-        static const uint8_t COMMAND_WAKEUP = 0x02;
-        static const uint8_t COMMAND_STANDBY = 0x04;
-        static const uint8_t COMMAND_RESET = 0x06;
-        static const uint8_t COMMAND_START = 0x08;
-        static const uint8_t COMMAND_STOP = 0x0A;
-        static const uint8_t COMMAND_READ_DATA_CONTINUOUSLY = 0x10;
-        static const uint8_t COMMAND_STOP_READING_DATA_CONTINUOUSLY = 0x11;
-        static const uint8_t COMMAND_READ_DATA = 0x12;
-        static const uint8_t COMMAND_READ_REGISTER = 0x20;
-        static const uint8_t COMMAND_WRITE_REGISTER = 0x40;
+        typedef enum _COMMANDS
+        {
+            COMMAND_WAKEUP = 0x02,
+            COMMAND_STANDBY = 0x04,
+            COMMAND_RESET = 0x06,
+            COMMAND_START = 0x08,
+            COMMAND_STOP = 0x0A,
+            COMMAND_READ_DATA_CONTINUOUSLY = 0x10,
+            COMMAND_STOP_READING_DATA_CONTINUOUSLY = 0x11,
+            COMMAND_READ_DATA = 0x12,
+            COMMAND_READ_REGISTER = 0x20,
+            COMMAND_WRITE_REGISTER = 0x40
+        }eCommands;
 
         // Register definitions
-        static const uint8_t REGISTER_ID = 0x00;
-            static const uint8_t ID_NUMBER_OF_CHANNELS_MASK = 0x03;
-            static const uint8_t ID_NUMBER_OF_CHANNELS_4 = 0x00;
-            static const uint8_t ID_NUMBER_OF_CHANNELS_6 = 0x01;
-            static const uint8_t ID_NUMBER_OF_CHANNELS_8 = 0x02;
-        static const uint8_t REGISTER_CONFIG_1 = 0x01;
-            static const uint8_t CONFIG_1_DATARATE_MASK = 0x07;
-            static const uint8_t CONFIG_1_DATARATE_16KSPS = 0x00;
-            static const uint8_t CONFIG_1_DATARATE_8KSPS = 0x01;
-            static const uint8_t CONFIG_1_DATARATE_4KSPS = 0x02;
-            static const uint8_t CONFIG_1_DATARATE_2KSPS = 0x03;
-            static const uint8_t CONFIG_1_DATARATE_1KSPS = 0x04;
-            static const uint8_t CONFIG_1_DATARATE_500SPS = 0x05;
-            static const uint8_t CONFIG_1_DATARATE_250SPS = 0x06;
-        static const uint8_t REGISTER_CONFIG_2 = 0x02;
-            static const uint8_t CONFIG_2_INTERNAL_CAL_MASK = 0x10;
-            static const uint8_t CONFIG_2_INTERNAL_CAL_ENABLE = 0x10;
-            static const uint8_t CONFIG_2_INTERNAL_CAL_DISABLE = 0x00;
-            static const uint8_t CONFIG_2_CAL_AMPLITUDE_MASK = 0x04;
-            static const uint8_t CONFIG_2_CAL_AMPLITUDE_LOW = 0x00;
-            static const uint8_t CONFIG_2_CAL_AMPLITUDE_HIGH = 0x04;
-            static const uint8_t CONFIG_2_CAL_FREQUENCY_MASK = 0x03;
-            static const uint8_t CONFIG_2_CAL_FREQUENCY_DC = 0x03;
-        static const uint8_t REGISTER_CONFIG_3 = 0x03;
-            static const uint8_t CONFIG_3_REF_BUFFER_MASK = 0x80;
-            static const uint8_t CONFIG_3_REF_BUFFER_DISABLE = 0x00;
-            static const uint8_t CONFIG_3_REF_BUFFER_ENABLE = 0x80;
-        static const uint8_t REGISTER_CH1SET = 0x05;
-        static const uint8_t REGISTER_CH2SET = 0x06;
-        static const uint8_t REGISTER_CH3SET = 0x07;
-        static const uint8_t REGISTER_CH4SET = 0x08;
-        static const uint8_t REGISTER_CH5SET = 0x09;
-        static const uint8_t REGISTER_CH6SET = 0x0A;
-        static const uint8_t REGISTER_CH7SET = 0x0B;
-        static const uint8_t REGISTER_CH8SET = 0x0C;
-            static const uint8_t CHNSET_GAIN_MASK = 0x70;
-            static const uint8_t CHNSET_GAIN_1 = 0x00;
-            static const uint8_t CHNSET_GAIN_2 = 0x10;
-            static const uint8_t CHNSET_GAIN_4 = 0x20;
-            static const uint8_t CHNSET_GAIN_6 = 0x30;
-            static const uint8_t CHNSET_GAIN_8 = 0x40;
-            static const uint8_t CHNSET_GAIN_12 = 0x50;
-            static const uint8_t CHNSET_GAIN_24 = 0x60;
-            static const uint8_t CHNSET_STATE_MASK = 0x87;
-            static const uint8_t CHNSET_STATE_OFF_SHORTED = 0x81;
-            static const uint8_t CHNSET_STATE_ON_NORMAL = 0x00;
-            static const uint8_t CHNSET_STATE_ON_SHORTED = 0x01;
-            static const uint8_t CHNSET_STATE_ON_MEASURING_SUPPLIES = 0x03;
-            static const uint8_t CHNSET_STATE_ON_MEASURING_TEST_SIGNAL = 0x05;
+        typedef enum _REGISTERS
+        {
+            REGISTER_ID = 0x00,
+            REGISTER_CONFIG_1 = 0x01,
+            REGISTER_CONFIG_2 = 0x02,
+            REGISTER_CONFIG_3 = 0x03,
+            REGISTER_CH1SET = 0x05,
+            REGISTER_CH2SET = 0x06,
+            REGISTER_CH3SET = 0x07,
+            REGISTER_CH4SET = 0x08,
+            REGISTER_CH5SET = 0x09,
+            REGISTER_CH6SET = 0x0A,
+            REGISTER_CH7SET = 0x0B,
+            REGISTER_CH8SET = 0x0C
+        }eRegisters;
 
+        // definitions for determining the number of channels from the ID register.
+        static const uint8_t ID_NUMBER_OF_CHANNELS_MASK = 0x03;
+        
+        typedef enum _NUMBER_OF_CHANNELS
+        {
+            ID_NUMBER_OF_CHANNELS_4 = 0x00,
+            ID_NUMBER_OF_CHANNELS_6 = 0x01,
+            ID_NUMBER_OF_CHANNELS_8 = 0x02
+        }eNumChannels;
+
+        // definitions for setting sample rate
+        static const uint8_t CONFIG_1_DATARATE_MASK = 0x07;
+
+        // definitions for setting internal calibration signal
+        static const uint8_t CONFIG_2_INTERNAL_CAL_MASK = 0x10;
+        static const uint8_t CONFIG_2_CAL_AMPLITUDE_MASK = 0x04;
+        static const uint8_t CONFIG_2_CAL_FREQUENCY_MASK = 0x03;
+
+        typedef enum _CAL_SIGNAL_STATE
+        {
+            CONFIG_2_INTERNAL_CAL_DISABLE = 0x00,
+            CONFIG_2_INTERNAL_CAL_ENABLE = 0x10
+        }eCalSignalState;
+
+        typedef enum _CAL_SIGNAL_AMPLITUDE
+        {
+            CONFIG_2_CAL_AMPLITUDE_LOW = 0x00,
+            CONFIG_2_CAL_AMPLITUDE_HIGH = 0x04
+        }eCalSignalAmplitude;
+
+        typedef enum _CAL_SIGNAL_FREQUENCY
+        {
+            CONFIG_2_CAL_FREQUENCY_SLOW = 0x00,
+            CONFIG_2_CAL_FREQUENCY_FAST = 0x01,
+            CONFIG_2_CAL_FREQUENCY_DC = 0x03
+        }eCalSignalFrequency;
+
+        // definitions for setting the reference buffer.
+        static const uint8_t CONFIG_3_REF_BUFFER_MASK = 0x80;
+
+        typedef enum _REG_BUFFER_STATE
+        {
+            CONFIG_3_REF_BUFFER_DISABLE = 0x00,
+            CONFIG_3_REF_BUFFER_ENABLE = 0x80
+        }eRefBufferState;
+
+        // definitions for channel settings
+        static const uint8_t CHNSET_GAIN_MASK = 0x70;
+        static const uint8_t CHNSET_STATE_MASK = 0x87;
+
+        // used to clock the SPI data out of the ADS1299
         static const uint8_t BLANK_DATA = 0x00;
         
         // private member functions 
-        uint8_t GetChannelRegisterFromChannelIdEnum(eChannelId chan);
-        uint8_t GetGainFromFromChannelGainEnum(eChannelGain gain);
-        uint8_t GetSampleRateValueFromSampleRateEnum(eSampleRate rate);
-        uint8_t GetChannelStateValueFromChannelStateEnum(eChannelState state);
-        uint8_t ReadRegister(uint8_t reg);
-        void WriteRegister(uint8_t reg, uint8_t newValue);
-        void ModifyRegister(uint8_t reg, uint8_t mask, uint8_t newValue);
+        eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);
+        uint8_t ReadRegister(eRegisters reg);
+        void WriteRegister(eRegisters reg, uint8_t newValue);
+        void ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue);
 
 };
 

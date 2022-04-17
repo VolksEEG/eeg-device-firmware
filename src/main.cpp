@@ -49,7 +49,7 @@ void setup() {
   pinControl = PinControl(&eventHandler);
   serialPort = SerialPort(&eventHandler);
   protocolFrameParser = ProtocolFrameParser(&serialPort);
-  protocolParser = ProtocolParser(&protocolFrameParser);
+  protocolParser = ProtocolParser(&protocolFrameParser, &serialPort);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
   fakeDataProducer = FakeDataProducer(&eventHandler);
@@ -79,7 +79,15 @@ void setup() {
   eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_EDFDataReady);
 
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
-  ads1299Driver.StartDataCapture();
+  //ads1299Driver.StartDataCapture();
+
+  hInst = {&protocolParser, &CanProcessEvents::ProcessEvent};
+
+  eventHandler.AddEventHandler(hInst, NEvent::Event_DataRxFromPC);
+
+  // Serial port must be the last event handler for the DataRxFromPc Event
+  hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
+  eventHandler.AddEventHandler(hInst, NEvent::Event_DataRxFromPC);
 
   // start the event timer.
   eventTimer.start();
@@ -95,6 +103,9 @@ void loop() {
   
   // Check the event timer - automatically calls eventTimerUpdate if timer has elapsed.
   eventTimer.update();
+  
+  // arbitrarily handle serial background tasks last
+  serialPort.BackgroundTaskHandler();
 }
 
 //

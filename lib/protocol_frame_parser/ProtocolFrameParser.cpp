@@ -32,10 +32,8 @@ void ProtocolFrameParser::ProcessEvent(NEvent::eEvent event)
 void ProtocolFrameParser::AddFrameToPayloadAndSendToPc(uint8_t payloadData[], uint8_t payloadLength)
 {
     uint8_t header[FRAME_HEADER_LENGTH] = {
-        START_OF_FRAME,
-        FRAME_VERSION,
-        payloadLength,
-        0, 0
+        START_OF_FRAME_LSB,
+        START_OF_FRAME_MSB
     };
 
     _PcComsInterface->TransmitData(header, FRAME_HEADER_LENGTH);

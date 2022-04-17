@@ -24,9 +24,9 @@ class ProtocolFrameParser : public CanProcessEvents {
 
         PcCommunicationsInterface * _PcComsInterface;
 
-        static const uint8_t START_OF_FRAME = 0xA5;
-        static const uint8_t FRAME_VERSION = 0x01;
-        static const uint8_t FRAME_HEADER_LENGTH = 0x05;
+        static const uint8_t START_OF_FRAME_LSB = 0xFF;
+        static const uint8_t START_OF_FRAME_MSB = 0xFF;
+        static const uint8_t FRAME_HEADER_LENGTH = 0x02;
 
     private:
 

@@ -24,7 +24,7 @@ Ads1299LowDriver::Ads1299LowDriver(SpiDriver * spi, PinControl * pins) :
 //
 void Ads1299LowDriver::ResetDevice(void)
 {
-    uint8_t resetData[1] = { COMMAND_RESET };
+    uint8_t resetData[1] = { (uint8_t)COMMAND_RESET };
 
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
@@ -37,18 +37,16 @@ void Ads1299LowDriver::ResetDevice(void)
 //
 void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
 {
-    const uint8_t RATE = GetSampleRateValueFromSampleRateEnum(rate);
+    ModifyRegister(REGISTER_CONFIG_1, CONFIG_1_DATARATE_MASK, (uint8_t)rate);
 
-    ModifyRegister(REGISTER_CONFIG_1, CONFIG_1_DATARATE_MASK, RATE);
-
-    uint8_t startData[1] = { COMMAND_START };
+    uint8_t startData[1] = { (uint8_t)COMMAND_START };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     startData,
                                     1);     
 
-    uint8_t readContinuousData[1] = { COMMAND_READ_DATA_CONTINUOUSLY };
+    uint8_t readContinuousData[1] = { (uint8_t)COMMAND_READ_DATA_CONTINUOUSLY };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
@@ -62,14 +60,14 @@ void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
 void Ads1299LowDriver::StopContinuousDataCapture(void)
 {
 
-    uint8_t stopContinuousData[1] = { COMMAND_STOP_READING_DATA_CONTINUOUSLY };
+    uint8_t stopContinuousData[1] = { (uint8_t)COMMAND_STOP_READING_DATA_CONTINUOUSLY };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     stopContinuousData,
                                     1);   
 
-    uint8_t stopData[1] = { COMMAND_STOP };
+    uint8_t stopData[1] = { (uint8_t)COMMAND_STOP };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
@@ -86,15 +84,15 @@ uint8_t Ads1299LowDriver::GetNumberOfSupportedChannels(void)
     volatile const uint8_t ID = ReadRegister(REGISTER_ID);
 
     // the 3rd byte of the received data will be the ID register
-    switch (ID & ID_NUMBER_OF_CHANNELS_MASK)
+    switch ((uint8_t)(ID & ID_NUMBER_OF_CHANNELS_MASK))
     {
-        case ID_NUMBER_OF_CHANNELS_4:
+        case (uint8_t)ID_NUMBER_OF_CHANNELS_4:
             return 4;
             break;
-        case ID_NUMBER_OF_CHANNELS_6:
+        case (uint8_t)ID_NUMBER_OF_CHANNELS_6:
             return 6;
             break;
-        case ID_NUMBER_OF_CHANNELS_8:
+        case (uint8_t)ID_NUMBER_OF_CHANNELS_8:
             return 8;
             break;
         default:
@@ -108,11 +106,9 @@ uint8_t Ads1299LowDriver::GetNumberOfSupportedChannels(void)
 //
 void Ads1299LowDriver::SetChannelState(eChannelId chan, eChannelState state)
 {
-    const uint8_t REG = GetChannelRegisterFromChannelIdEnum(chan);
-
-    const uint8_t STATE = GetChannelStateValueFromChannelStateEnum(state);
+    const eRegisters REG = GetChannelRegisterFromChannelIdEnum(chan);
     
-    ModifyRegister(REG, CHNSET_STATE_MASK, STATE);
+    ModifyRegister(REG, CHNSET_STATE_MASK, (uint8_t)state);
 }
 
 //
@@ -120,11 +116,9 @@ void Ads1299LowDriver::SetChannelState(eChannelId chan, eChannelState state)
 //
 void Ads1299LowDriver::SetChannelGain(eChannelId chan, eChannelGain gain)
 {
-    const uint8_t REG = GetChannelRegisterFromChannelIdEnum(chan);
+    const eRegisters REG = GetChannelRegisterFromChannelIdEnum(chan);
 
-    const uint8_t GAIN = GetGainFromFromChannelGainEnum(gain);
-
-    ModifyRegister(REG, CHNSET_GAIN_MASK, GAIN);
+    ModifyRegister(REG, CHNSET_GAIN_MASK, (uint8_t)gain);
 }
 
 //
@@ -142,27 +136,14 @@ void Ads1299LowDriver::SetReferenceSource(eReferenceSource src)
     ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_DISABLE);
 }
 
-void Ads1299LowDriver::ReadBackRegisters(void)
-{
-    volatile const uint8_t CFG1 = ReadRegister(REGISTER_CONFIG_1);
-    volatile const uint8_t CFG_3 = ReadRegister(REGISTER_CONFIG_3);
-    volatile const uint8_t C1 = ReadRegister(REGISTER_CH1SET);
-    volatile const uint8_t C2 = ReadRegister(REGISTER_CH2SET);
-    volatile const uint8_t C3 = ReadRegister(REGISTER_CH3SET);
-    volatile const uint8_t C4 = ReadRegister(REGISTER_CH4SET);
-    volatile const uint8_t C5 = ReadRegister(REGISTER_CH5SET);
-    volatile const uint8_t C6 = ReadRegister(REGISTER_CH6SET);
-    volatile const uint8_t C7 = ReadRegister(REGISTER_CH7SET);
-    volatile const uint8_t C8 = ReadRegister(REGISTER_CH8SET);
-
-    return;
-}
-
+//
+//  Function set up a test signal
+//
 void Ads1299LowDriver::SetTestSignal(void)
 {
     ModifyRegister(REGISTER_CONFIG_2, 
-        (CONFIG_2_INTERNAL_CAL_MASK | CONFIG_2_CAL_AMPLITUDE_MASK | CONFIG_2_CAL_FREQUENCY_MASK),
-        (CONFIG_2_INTERNAL_CAL_ENABLE | CONFIG_2_CAL_AMPLITUDE_HIGH | CONFIG_2_CAL_FREQUENCY_DC));
+        (uint8_t)(CONFIG_2_INTERNAL_CAL_MASK | CONFIG_2_CAL_AMPLITUDE_MASK | CONFIG_2_CAL_FREQUENCY_MASK),
+        (uint8_t)((uint8_t)CONFIG_2_INTERNAL_CAL_ENABLE | (uint8_t)CONFIG_2_CAL_AMPLITUDE_HIGH | (uint8_t)CONFIG_2_CAL_FREQUENCY_DC));
 }
 
 //
@@ -207,7 +188,7 @@ Ads1299LowDriver::sEMGData Ads1299LowDriver::GetEMGData(void)
 //
 //  Helper function to convert from channel id enum to associated register.
 //
-uint8_t Ads1299LowDriver::GetChannelRegisterFromChannelIdEnum(eChannelId chan)
+Ads1299LowDriver::eRegisters Ads1299LowDriver::GetChannelRegisterFromChannelIdEnum(eChannelId chan)
 {
     switch (chan)
     {
@@ -223,61 +204,12 @@ uint8_t Ads1299LowDriver::GetChannelRegisterFromChannelIdEnum(eChannelId chan)
 }
 
 //
-//  Helper function to get he gain setting for the passed eChannelGain
-//
-uint8_t Ads1299LowDriver::GetGainFromFromChannelGainEnum(eChannelGain gain)
-{
-    switch (gain)
-    {
-        case X1: return CHNSET_GAIN_1;
-        case X2: return CHNSET_GAIN_2;
-        case X4: return CHNSET_GAIN_4;
-        case X6: return CHNSET_GAIN_6;
-        case X8: return CHNSET_GAIN_8;
-        case X12: return CHNSET_GAIN_12;
-        case X24: return CHNSET_GAIN_24;
-    }
-}
-
-//
-//  Helper function to convert the eSampleRate enum to a register value
-//
-uint8_t Ads1299LowDriver::GetSampleRateValueFromSampleRateEnum(eSampleRate rate)
-{
-    switch(rate)
-    {
-        case SPS_16000: return CONFIG_1_DATARATE_16KSPS;
-        case SPS_8000: return CONFIG_1_DATARATE_8KSPS;
-        case SPS_4000: return CONFIG_1_DATARATE_4KSPS;
-        case SPS_2000: return CONFIG_1_DATARATE_2KSPS;
-        case SPS_1000: return CONFIG_1_DATARATE_1KSPS;
-        case SPS_500: return CONFIG_1_DATARATE_500SPS;
-        case SPS_250: return CONFIG_1_DATARATE_250SPS;
-    }
-}
-
-//
-//  Helper function to get the channel state register value from the passed enum
-//
-uint8_t Ads1299LowDriver::GetChannelStateValueFromChannelStateEnum(eChannelState state)
-{
-    switch (state)
-    {
-        case OffAndShorted: return CHNSET_STATE_OFF_SHORTED;
-        case OnNormal: return CHNSET_STATE_ON_NORMAL;
-        case OnAndShorted: return CHNSET_STATE_ON_SHORTED;
-        case OnAndMeasuringSupplies: return CHNSET_STATE_ON_MEASURING_SUPPLIES;
-        case OnAndMeasuringTestSignal: return CHNSET_STATE_ON_MEASURING_TEST_SIGNAL;
-    }
-}
-
-//
 //  Helper funtion to read a register from the ADS1299
 //
-uint8_t Ads1299LowDriver::ReadRegister(uint8_t reg)
+uint8_t Ads1299LowDriver::ReadRegister(eRegisters reg)
 {
     // Read the Register.
-    uint8_t readRegData[3] = { (uint8_t)(COMMAND_READ_REGISTER | reg), 0, BLANK_DATA };
+    uint8_t readRegData[3] = { (uint8_t)((uint8_t)COMMAND_READ_REGISTER | (uint8_t)reg), 0, BLANK_DATA };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
@@ -290,10 +222,10 @@ uint8_t Ads1299LowDriver::ReadRegister(uint8_t reg)
 //
 //  Helper function to overwrite an ADS1299 register
 //
-void Ads1299LowDriver::WriteRegister(uint8_t reg, uint8_t newValue)
+void Ads1299LowDriver::WriteRegister(eRegisters reg, uint8_t newValue)
 {
     // Write the Register.
-    uint8_t writeRegData[3] = { (uint8_t)(COMMAND_WRITE_REGISTER | reg), 0, newValue };
+    uint8_t writeRegData[3] = { (uint8_t)((uint8_t)COMMAND_WRITE_REGISTER | (uint8_t)reg), 0, newValue };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
@@ -304,7 +236,7 @@ void Ads1299LowDriver::WriteRegister(uint8_t reg, uint8_t newValue)
 //
 //  Helper function to modify part of an ADS1299 Register.
 //
-void Ads1299LowDriver::ModifyRegister(uint8_t reg, uint8_t mask, uint8_t newValue)
+void Ads1299LowDriver::ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue)
 {
     const uint8_t CURRENT_REG_VALUE = ReadRegister(reg);
 
