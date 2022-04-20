@@ -8,6 +8,8 @@ class EegDataProducer {
 
     public:
 
+        virtual void StartProducingData() = 0;
+
         virtual EegData::sEegSamples GetLatestSample() {
             EegData::sEegSamples dummy;
             

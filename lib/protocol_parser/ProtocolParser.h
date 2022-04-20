@@ -4,6 +4,7 @@
 
 #include <ProtocolFrameParser.h>
 #include <EEGDataConsumer.h>
+#include <EEGDataProducer.h>
 #include <SerialPort.h>
 
 class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
@@ -11,7 +12,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     public:
 
         ProtocolParser();
-        ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp);
+        ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp, EegDataProducer * edp);
 
         void PushLatestSample(EegData::sEegSamples samples) override;
         
@@ -26,6 +27,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         ProtocolFrameParser * _ProtocolFrameParser;
         SerialPort * _SerialPort;
+        EegDataProducer * _EEGDataProducer;
 
         short _SampleSetIndex;
 

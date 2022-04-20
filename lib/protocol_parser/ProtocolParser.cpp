@@ -11,9 +11,10 @@ ProtocolParser::ProtocolParser()
     
 }
 
-ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp) :
+ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp, EegDataProducer * edp) :
     _ProtocolFrameParser(pfp),
     _SerialPort(sp),
+    _EEGDataProducer(edp),
     _SampleSetIndex(0)
 {
     _RxState = GetDefaultRxStruct();
@@ -103,7 +104,15 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetCommand(uint8_t c, sRxStruc
 {
     static const uint8_t CMD_START_DATA_CAPTURE = 0x01;
 
-    // TODO - process the recieved character (c)
+    switch (c)
+    {
+        case CMD_START_DATA_CAPTURE:
+
+            break;
+        default: 
+            // Do nothing if the command is not recognised.
+            break;
+    }
 
     return GetDefaultRxStruct();
 }

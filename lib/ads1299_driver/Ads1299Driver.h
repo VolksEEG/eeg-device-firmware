@@ -18,6 +18,7 @@ class Ads1299Driver : public EegDataProducer {
         void StartDataCapture(void);
         void StopDataCapture(void);
 
+        void StartProducingData() override; 
         EegData::sEegSamples GetLatestSample() override;
         
     protected:

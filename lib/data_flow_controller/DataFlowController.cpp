@@ -43,6 +43,8 @@ DataFlowController::DataFlowController(EegDataProducer * primaryProducer,
 //
 void DataFlowController::SetProducer(eProducerConsumer priOrSec)
 {
+    // TODO - Stop producing data on the current producer.
+
     switch (priOrSec)
     {
         case primary:
@@ -94,4 +96,14 @@ void DataFlowController::ProcessEvent(NEvent::eEvent event)
 
    // pass them on the the consumer
    _CurrentConsumerInstance->PushLatestSample(SAMPLES);
+}
+
+
+//
+//  Overridden function from EegDataProducer to start producing EEG data
+//
+void DataFlowController::StartProducingData()
+{
+    // TODO - call the Start Producing Data function on the current producer
+
 }

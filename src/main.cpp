@@ -49,7 +49,6 @@ void setup() {
   pinControl = PinControl(&eventHandler);
   serialPort = SerialPort(&eventHandler);
   protocolFrameParser = ProtocolFrameParser(&serialPort);
-  protocolParser = ProtocolParser(&protocolFrameParser, &serialPort);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
   fakeDataProducer = FakeDataProducer(&eventHandler);
@@ -58,6 +57,7 @@ void setup() {
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
+  protocolParser = ProtocolParser(&protocolFrameParser, &serialPort, &dataFlowController);
 
   EventHandler::sEventHandlerInstance hInst = {&ledControl, &CanProcessEvents::ProcessEvent};
 
@@ -79,7 +79,7 @@ void setup() {
   eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_EDFDataReady);
 
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
-  //ads1299Driver.StartDataCapture();
+  ads1299Driver.StartDataCapture();
 
   hInst = {&protocolParser, &CanProcessEvents::ProcessEvent};
 
@@ -101,11 +101,10 @@ void loop() {
   // Handle any system events  
   eventHandler.HandleEvents();
   
-  // Check the event timer - automatically calls eventTimerUpdate if timer has elapsed.
-  eventTimer.update();
-  
-  // arbitrarily handle serial background tasks last
-  serialPort.BackgroundTaskHandler();
+  // perform any background tasks after handling events, so that an event raised by the background
+  // task handlers is less likely to overrun.
+  eventTimer.update();  // Check the event timer - automatically calls eventTimerUpdate if timer has elapsed.
+  serialPort.BackgroundTaskHandler(); // handle serial background tasks
 }
 
 //

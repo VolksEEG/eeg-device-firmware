@@ -57,6 +57,14 @@ void FakeDataProducer::ProcessEvent(NEvent::eEvent event)
 }
 
 //
+//  Overridden function from EegDataProducer to start producing EEG data
+//
+void FakeDataProducer::StartProducingData()
+{
+
+}
+
+//
 //  Overriden function from EegDataProducer to get the latest samples.
 //
 EegData::sEegSamples FakeDataProducer::GetLatestSample()

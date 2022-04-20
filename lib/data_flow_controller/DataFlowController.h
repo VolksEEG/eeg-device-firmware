@@ -9,7 +9,7 @@
 
 #include <CanProcesEvents.h>
 
-class DataFlowController : public CanProcessEvents, EegDataProducer, EegDataConsumer {
+class DataFlowController : public CanProcessEvents, public EegDataProducer, EegDataConsumer {
 
     public:
 
@@ -36,7 +36,9 @@ class DataFlowController : public CanProcessEvents, EegDataProducer, EegDataCons
 
         }
 
+        void StartProducingData() override;
         EegData::sEegSamples GetLatestSample() override {
+            // Null function
             EegData::sEegSamples dummy;
 
             dummy.channel_1 = 0;

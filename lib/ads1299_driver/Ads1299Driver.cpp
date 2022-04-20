@@ -83,6 +83,14 @@ void Ads1299Driver::StopDataCapture(void)
 }
 
 //
+//  Overridden function from EegDataProducer to start producing EEG data
+//
+void Ads1299Driver::StartProducingData()
+{
+    
+}
+
+//
 //  Overridden function from EegDataProducer to get the latest sample
 //
 EegData::sEegSamples Ads1299Driver::GetLatestSample()
