@@ -59,35 +59,21 @@ void setup() {
   ledControl = LedControl(&errorHandler, &pinControl);
   protocolParser = ProtocolParser(&protocolFrameParser, &serialPort, &dataFlowController);
 
-  EventHandler::sEventHandlerInstance hInst = {&ledControl, &CanProcessEvents::ProcessEvent};
+  // Add handlers for the 1mS timeout event
+  eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
+  eventHandler.AddEventHandler(&fakeDataProducer, NEvent::eEvent::Event_1mSTimeout);
 
-  // add handler for the 1mS timeout event
-  eventHandler.AddEventHandler(hInst, NEvent::Event_1mSTimeout);
+  // Add data ready event handlers
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ADS1299DataReady);
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_EDFDataReady);
 
-  hInst = {&fakeDataProducer, &CanProcessEvents::ProcessEvent};
+  // Add Data rx from PC event handlers  
+  eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataRxFromPC);
+  eventHandler.AddEventHandler(&serialPort, NEvent::Event_DataRxFromPC);  // Serial port must be the last event handler for the DataRxFromPc Event
 
-  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
-
-  //hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
-
-  //eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_1mSTimeout);
-
-  hInst = {&dataFlowController, &CanProcessEvents::ProcessEvent};
-
-  // add data ready event handlers
-  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_ADS1299DataReady);
-  eventHandler.AddEventHandler(hInst, NEvent::eEvent::Event_EDFDataReady);
-
+  // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
   ads1299Driver.StartDataCapture();
-
-  hInst = {&protocolParser, &CanProcessEvents::ProcessEvent};
-
-  eventHandler.AddEventHandler(hInst, NEvent::Event_DataRxFromPC);
-
-  // Serial port must be the last event handler for the DataRxFromPc Event
-  hInst = {&serialPort, &CanProcessEvents::ProcessEvent};
-  eventHandler.AddEventHandler(hInst, NEvent::Event_DataRxFromPC);
 
   // start the event timer.
   eventTimer.start();
