@@ -16,7 +16,7 @@ Ads1299LowDriver::Ads1299LowDriver(SpiDriver * spi, PinControl * pins) :
     _SpiDriverInstance(spi),
     _PinControlInstance(pins)
 {
-
+    _VoltageConversionSpecs.SetToDefaults();
 }
 
 //
@@ -29,7 +29,9 @@ void Ads1299LowDriver::ResetDevice(void)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     resetData,
-                                    1);                      
+                                    1); 
+
+    _VoltageConversionSpecs.SetToDefaults();                  
 }
 
 //
@@ -119,6 +121,39 @@ void Ads1299LowDriver::SetChannelGain(eChannelId chan, eChannelGain gain)
     const eRegisters REG = GetChannelRegisterFromChannelIdEnum(chan);
 
     ModifyRegister(REG, CHNSET_GAIN_MASK, (uint8_t)gain);
+
+    const float GAIN = GetMultiplierFromChannelGain(gain);
+
+    switch (chan)
+    {
+        case CH1:
+            _VoltageConversionSpecs.gainCh1 = GAIN;
+            break;
+        case CH2:
+            _VoltageConversionSpecs.gainCh2 = GAIN;
+            break;
+        case CH3:
+            _VoltageConversionSpecs.gainCh3 = GAIN;
+            break;
+        case CH4:
+            _VoltageConversionSpecs.gainCh4 = GAIN;
+            break;
+        case CH5:
+            _VoltageConversionSpecs.gainCh5 = GAIN;
+            break;
+        case CH6:
+            _VoltageConversionSpecs.gainCh6 = GAIN;
+            break;
+        case CH7:
+            _VoltageConversionSpecs.gainCh7 = GAIN;
+            break;
+        case CH8:
+            _VoltageConversionSpecs.gainCh8 = GAIN;
+            break;
+    }
+
+    // one of the multipliers will have changed, so recalculate.
+    _VoltageConversionSpecs.RecalculateMultipliers();
 }
 
 //
@@ -130,10 +165,20 @@ void Ads1299LowDriver::SetReferenceSource(eReferenceSource src)
     {
         ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_ENABLE);
 
+        _VoltageConversionSpecs.vref = INTERNAL_VREF_VOLTAGE;
+        
+        // all of the multipliers will have changed, so recalculate.
+        _VoltageConversionSpecs.RecalculateMultipliers();
+
         return;
     }
     
     ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_DISABLE);
+
+    _VoltageConversionSpecs.vref = EXTERNAL_VREF_VOLTAGE;
+    
+    // all of the multipliers will have changed, so recalculate.
+    _VoltageConversionSpecs.RecalculateMultipliers();
 }
 
 //
@@ -149,40 +194,51 @@ void Ads1299LowDriver::SetTestSignal(void)
 //
 //  Function to request the latest channel data
 //
-Ads1299LowDriver::sEMGData Ads1299LowDriver::GetEMGData(void)
+EegData::sEegSamples Ads1299LowDriver::GetEEGData(void)
 {
-    uint8_t emgData[27] = {0};  // 3 bytes for each of the 8 emg channels and 1 status channel
+    uint8_t eegRawData[27] = {0};  // 3 bytes for each of the 8 eeg channels and 1 status channel
 
     // Get the EMG Data
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
-                                    emgData,
+                                    eegRawData,
                                     27);
 
     // Got the data, now parse it
-    sEMGData emg;
+    sEMGData eegTemp;
 
-    emg.status = (emgData[0] << 16) | (emgData[1] << 8) | (emgData[2]);
-    emg.channel1 = (emgData[3] << 16) | (emgData[4] << 8) | (emgData[5]);
-    emg.channel2 = (emgData[6] << 16) | (emgData[7] << 8) | (emgData[8]);
-    emg.channel3 = (emgData[9] << 16) | (emgData[10] << 8) | (emgData[11]);
-    emg.channel4 = (emgData[12] << 16) | (emgData[13] << 8) | (emgData[14]);
-    emg.channel5 = (emgData[15] << 16) | (emgData[16] << 8) | (emgData[17]);
-    emg.channel6 = (emgData[18] << 16) | (emgData[19] << 8) | (emgData[20]);
-    emg.channel7 = (emgData[21] << 16) | (emgData[22] << 8) | (emgData[23]);
-    emg.channel8 = (emgData[24] << 16) | (emgData[25] << 8) | (emgData[26]);
+    eegTemp.status = (eegRawData[0] << 16) | (eegRawData[1] << 8) | (eegRawData[2]);
+    eegTemp.channel1 = (eegRawData[3] << 16) | (eegRawData[4] << 8) | (eegRawData[5]);
+    eegTemp.channel2 = (eegRawData[6] << 16) | (eegRawData[7] << 8) | (eegRawData[8]);
+    eegTemp.channel3 = (eegRawData[9] << 16) | (eegRawData[10] << 8) | (eegRawData[11]);
+    eegTemp.channel4 = (eegRawData[12] << 16) | (eegRawData[13] << 8) | (eegRawData[14]);
+    eegTemp.channel5 = (eegRawData[15] << 16) | (eegRawData[16] << 8) | (eegRawData[17]);
+    eegTemp.channel6 = (eegRawData[18] << 16) | (eegRawData[19] << 8) | (eegRawData[20]);
+    eegTemp.channel7 = (eegRawData[21] << 16) | (eegRawData[22] << 8) | (eegRawData[23]);
+    eegTemp.channel8 = (eegRawData[24] << 16) | (eegRawData[25] << 8) | (eegRawData[26]);
 
     // sign extend the values from 24 bit to 32 bit
-    emg.channel1 |= (emg.channel1 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel2 |= (emg.channel2 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel3 |= (emg.channel3 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel4 |= (emg.channel4 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel5 |= (emg.channel5 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel6 |= (emg.channel6 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel7 |= (emg.channel7 & 0x00800000) ? 0xFF000000 : 0; 
-    emg.channel8 |= (emg.channel8 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel1 |= (eegTemp.channel1 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel2 |= (eegTemp.channel2 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel3 |= (eegTemp.channel3 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel4 |= (eegTemp.channel4 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel5 |= (eegTemp.channel5 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel6 |= (eegTemp.channel6 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel7 |= (eegTemp.channel7 & 0x00800000) ? 0xFF000000 : 0; 
+    eegTemp.channel8 |= (eegTemp.channel8 & 0x00800000) ? 0xFF000000 : 0; 
 
-    return emg;  
+    // Now convert to micro Volts.
+    EegData::sEegSamples eegData;
+    eegData.channel_1 = (int16_t)(eegTemp.channel1 * _VoltageConversionSpecs.multiplierCh1);
+    eegData.channel_2 = (int16_t)(eegTemp.channel2 * _VoltageConversionSpecs.multiplierCh2);
+    eegData.channel_3 = (int16_t)(eegTemp.channel3 * _VoltageConversionSpecs.multiplierCh3);
+    eegData.channel_4 = (int16_t)(eegTemp.channel4 * _VoltageConversionSpecs.multiplierCh4);
+    eegData.channel_5 = (int16_t)(eegTemp.channel5 * _VoltageConversionSpecs.multiplierCh5);
+    eegData.channel_6 = (int16_t)(eegTemp.channel6 * _VoltageConversionSpecs.multiplierCh6);
+    eegData.channel_7 = (int16_t)(eegTemp.channel7 * _VoltageConversionSpecs.multiplierCh7);
+    eegData.channel_8 = (int16_t)(eegTemp.channel8 * _VoltageConversionSpecs.multiplierCh8);
+
+    return eegData;  
 }
 
 //
@@ -199,7 +255,7 @@ Ads1299LowDriver::eRegisters Ads1299LowDriver::GetChannelRegisterFromChannelIdEn
         case CH5: return REGISTER_CH5SET;
         case CH6: return REGISTER_CH6SET;
         case CH7: return REGISTER_CH7SET;
-        case CH8: return REGISTER_CH8SET;
+        default: return REGISTER_CH8SET;
     }
 }
 
@@ -249,4 +305,21 @@ void Ads1299LowDriver::ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newV
     const uint8_t NEW_REG_VALUE = (CURRENT_REG_VALUE & ~mask) | newValue;
 
     WriteRegister(reg, NEW_REG_VALUE);
+}
+
+//
+//  Helper function to get the multiplier value from a channel gain enum
+//
+float Ads1299LowDriver::GetMultiplierFromChannelGain(eChannelGain gain)
+{
+    switch (gain)
+    {
+        case X1: return 1.0f;
+        case X2: return 2.0f;
+        case X4: return 4.0f;
+        case X6: return 6.0f;
+        case X8: return 8.0f;
+        case X12: return 12.0f;
+        default: return 24.0f;
+    }
 }

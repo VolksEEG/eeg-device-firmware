@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <SpiDriver.h>
 #include <PinControl.h>
+#include <EegData.h>
 
 class Ads1299LowDriver {
 
@@ -54,19 +55,6 @@ class Ads1299LowDriver {
             X24 = 0x60
         }eChannelGain;
         
-        typedef struct _EMG_DATA
-        {
-            uint32_t status;
-            int32_t channel1;
-            int32_t channel2;
-            int32_t channel3;
-            int32_t channel4;
-            int32_t channel5;
-            int32_t channel6;
-            int32_t channel7;
-            int32_t channel8;
-        }sEMGData;
-
         typedef enum _REFERENCE_SELECT
         {
             Internal,
@@ -84,7 +72,7 @@ class Ads1299LowDriver {
         void SetChannelGain(eChannelId chan, eChannelGain gain);
         void SetReferenceSource(eReferenceSource src);
         void SetTestSignal(void);
-        sEMGData GetEMGData(void);
+        EegData::sEegSamples GetEEGData(void);
 
     protected:
 
@@ -179,11 +167,83 @@ class Ads1299LowDriver {
         // used to clock the SPI data out of the ADS1299
         static const uint8_t BLANK_DATA = 0x00;
         
+
+        static constexpr float DEFAULT_CHANNEL_GAIN = 24.0f;
+        static constexpr float INTERNAL_VREF_VOLTAGE = 4.5f;
+        static constexpr float EXTERNAL_VREF_VOLTAGE = 5.0f;    // Modify this value to suit your circuit.
+        static constexpr float MICROVOLTS_IN_A_VOLT = 1000000.0f;
+
+        typedef struct _VOLTAGE_CONVERSION_SPECS
+        {
+            float gainCh1;
+            float multiplierCh1;
+            float gainCh2;
+            float multiplierCh2;
+            float gainCh3;
+            float multiplierCh3;
+            float gainCh4;
+            float multiplierCh4;
+            float gainCh5;
+            float multiplierCh5;
+            float gainCh6;
+            float multiplierCh6;
+            float gainCh7;
+            float multiplierCh7;
+            float gainCh8;
+            float multiplierCh8;
+            float vref;
+
+            void SetToDefaults()
+            {
+                gainCh1 = DEFAULT_CHANNEL_GAIN;
+                gainCh2 = DEFAULT_CHANNEL_GAIN;
+                gainCh3 = DEFAULT_CHANNEL_GAIN;
+                gainCh4 = DEFAULT_CHANNEL_GAIN;
+                gainCh5 = DEFAULT_CHANNEL_GAIN;
+                gainCh6 = DEFAULT_CHANNEL_GAIN;
+                gainCh7 = DEFAULT_CHANNEL_GAIN;
+                gainCh8 = DEFAULT_CHANNEL_GAIN;
+                vref = EXTERNAL_VREF_VOLTAGE;
+
+                RecalculateMultipliers();
+            }
+
+            void RecalculateMultipliers()
+            {
+                multiplierCh1 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh1) / 8388607.0f);
+                multiplierCh2 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh2) / 8388607.0f);
+                multiplierCh3 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh3) / 8388607.0f);
+                multiplierCh4 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh4) / 8388607.0f);
+                multiplierCh5 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh5) / 8388607.0f);
+                multiplierCh6 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh6) / 8388607.0f);
+                multiplierCh7 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh7) / 8388607.0f);
+                multiplierCh8 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh8) / 8388607.0f);
+            }
+        }sVOLTAGE_CONVERSION_SPECS;
+
+        typedef struct _EMG_DATA
+        {
+            uint32_t status;
+            int32_t channel1;
+            int32_t channel2;
+            int32_t channel3;
+            int32_t channel4;
+            int32_t channel5;
+            int32_t channel6;
+            int32_t channel7;
+            int32_t channel8;
+        }sEMGData;
+
+        // private member variables
+        sVOLTAGE_CONVERSION_SPECS _VoltageConversionSpecs;
+
         // private member functions 
         eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);
         uint8_t ReadRegister(eRegisters reg);
         void WriteRegister(eRegisters reg, uint8_t newValue);
         void ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue);
+
+        float GetMultiplierFromChannelGain(eChannelGain gain);
 
 };
 
