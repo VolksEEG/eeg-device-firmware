@@ -32,7 +32,11 @@ EventHandler * PinControl::_EventHandlerInstance = NULL;
 //
 // Constructor
 //
-PinControl::PinControl()
+PinControl::PinControl() :
+    mHeartbeatLedState(Inactive),
+    mADS1299ResetState(Inactive),
+    mADS1299ChipSelectState(Inactive),
+    mSdCardChipSelectState(Inactive)
 {
 
 }

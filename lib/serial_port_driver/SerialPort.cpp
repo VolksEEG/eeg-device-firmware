@@ -2,7 +2,11 @@
 #include "SerialPort.h"
 #include <string.h>
 
+#ifndef UNIT_TEST
 #include <Adafruit_TinyUSB.h>
+#else
+#include <../../src/ArduinoMock.h>
+#endif
 
 //
 //  Constructor

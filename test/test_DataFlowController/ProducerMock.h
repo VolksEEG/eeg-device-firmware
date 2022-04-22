@@ -22,7 +22,11 @@ class ProducerMock : public EegDataProducer {
 
         }
 
-        EegData::sEegSamples GetLatestSample() {
+        void StartProducingData() override {
+
+        }
+
+        EegData::sEegSamples GetLatestSample() override {
 
             _TimesCalled++;
 

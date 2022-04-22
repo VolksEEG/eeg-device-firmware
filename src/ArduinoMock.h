@@ -56,4 +56,30 @@ class SPI_mock {
 
 static SPI_mock SPI;
 
+class SERIAL_mock {
+    public:
+
+        void begin(uint32_t baud) 
+        {
+
+        }
+
+        uint16_t available() 
+        {
+            return 0;
+        }
+
+        uint16_t read() 
+        {
+            return 0;
+        }
+
+        void write(uint8_t * data, uint8_t count)
+        {
+            
+        }
+};
+
+static SERIAL_mock Serial;
+
 #endif

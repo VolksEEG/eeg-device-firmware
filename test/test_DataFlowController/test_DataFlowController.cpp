@@ -2,12 +2,101 @@
 #include <DataFlowController.h>
 #include <unity.h>
 
-#include "ProducerMock.h"
-#include "ConsumerMock.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+// For some reason these two includes no longer work - moved the contents of the files below.
+//#include "ConsumerMock.h"
+//#include "ProducerMock.h"
+
+#include <EEGDataProducer.h>
+#include <EEGDataConsumer.h>
+
+class ProducerMock : public EegDataProducer {
+
+    public:
+
+        ProducerMock() :
+            _TimesCalled(0)
+        {
+            _Samples.channel_1 = 0;
+            _Samples.channel_2 = 0;
+            _Samples.channel_3 = 0;
+            _Samples.channel_4 = 0;
+            _Samples.channel_5 = 0;
+            _Samples.channel_6 = 0;
+            _Samples.channel_7 = 0;
+            _Samples.channel_8 = 0;
+
+        }
+
+        void StartProducingData() override {
+
+        }
+
+        EegData::sEegSamples GetLatestSample() override {
+
+            _TimesCalled++;
+
+            return _Samples;
+        }
+
+        uint8_t GetTimesCalled() {
+            return _TimesCalled;
+        }
+
+        void SetOutputValues(EegData::sEegSamples newSamples)
+        {
+            _Samples = newSamples;
+        }
+        
+    protected:
+
+    private:
+
+        uint8_t _TimesCalled;
+        EegData::sEegSamples _Samples;
+};
+
+class ConsumerMock : public EegDataConsumer {
+
+    public:
+
+        ConsumerMock() :
+            _TimesCalled(0)
+        {
+            _ReceivedSamples.channel_1 = 0;
+            _ReceivedSamples.channel_2 = 0;
+            _ReceivedSamples.channel_3 = 0;
+            _ReceivedSamples.channel_4 = 0;
+            _ReceivedSamples.channel_5 = 0;
+            _ReceivedSamples.channel_6 = 0;
+            _ReceivedSamples.channel_7 = 0;
+            _ReceivedSamples.channel_8 = 0;
+        }
+
+        void PushLatestSample(EegData::sEegSamples samples) {
+            _ReceivedSamples = samples;
+            _TimesCalled++;
+        }
+
+        uint8_t GetTimesCalled() {
+            return _TimesCalled;
+        }
+
+        EegData::sEegSamples GetReceivedSamples()
+        {
+            return _ReceivedSamples;
+        }
+        
+    protected:
+
+    private:
+
+        uint8_t _TimesCalled;
+        EegData::sEegSamples _ReceivedSamples;
+};
 
 static const NEvent::eEvent PrimaryProducerEvent = NEvent::eEvent::Event_ADS1299DataReady;
 static const NEvent::eEvent SecondaryProducerEvent = NEvent::eEvent::Event_EDFDataReady;
