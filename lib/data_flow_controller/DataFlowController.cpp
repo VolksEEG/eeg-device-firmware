@@ -43,7 +43,8 @@ DataFlowController::DataFlowController(EegDataProducer * primaryProducer,
 //
 void DataFlowController::SetProducer(eProducerConsumer priOrSec)
 {
-    // TODO - Stop producing data on the current producer.
+    // make sure producing is stopped on the current producer
+    _CurrentProducerInstance->StopProducingData();
 
     switch (priOrSec)
     {
@@ -104,6 +105,13 @@ void DataFlowController::ProcessEvent(NEvent::eEvent event)
 //
 void DataFlowController::StartProducingData()
 {
-    // TODO - call the Start Producing Data function on the current producer
+    _CurrentProducerInstance->StartProducingData();
+}
 
+//
+// Overridden function from EegDataProducer to stop producing EEG data
+//
+void DataFlowController::StopProducingData()
+{
+    _CurrentProducerInstance->StopProducingData();
 }

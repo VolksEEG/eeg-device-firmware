@@ -15,10 +15,9 @@ class Ads1299Driver : public EegDataProducer {
         Ads1299Driver();
         Ads1299Driver(SpiDriver * spi, PinControl * pins);
 
-        void StartDataCapture(void);
-        void StopDataCapture(void);
-
         void StartProducingData() override; 
+        void StopProducingData() override; 
+
         EegData::sEegSamples GetLatestSample() override;
         
     protected:

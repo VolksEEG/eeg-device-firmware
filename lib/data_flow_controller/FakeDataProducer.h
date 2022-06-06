@@ -15,6 +15,8 @@ class FakeDataProducer : public EegDataProducer, public CanProcessEvents {
         explicit FakeDataProducer(EventHandler * eh);
 
         void StartProducingData() override; 
+        void StopProducingData() override; 
+
         EegData::sEegSamples GetLatestSample() override;
 
         void ProcessEvent(NEvent::eEvent event) override;

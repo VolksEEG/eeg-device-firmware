@@ -33,9 +33,9 @@ Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins) :
 }
 
 //
-//  Sets all the low level registers to start data capture.
+//  Overridden function from EegDataProducer to start producing EEG data
 //
-void Ads1299Driver::StartDataCapture(void)
+void Ads1299Driver::StartProducingData()
 {
     // ensure the gain is set correctly
     _Ads1299LowDriver.SetChannelGain(Ads1299LowDriver::eChannelId::CH1, Ads1299LowDriver::eChannelGain::X1);
@@ -60,13 +60,13 @@ void Ads1299Driver::StartDataCapture(void)
     _Ads1299LowDriver.SetTestSignal();
     
     // And start data capture
-    _Ads1299LowDriver.StartContinuousDataCapture(Ads1299LowDriver::eSampleRate::SPS_500);
+    _Ads1299LowDriver.StartContinuousDataCapture(Ads1299LowDriver::eSampleRate::SPS_500);    
 }
 
 //
-//  Sets all the low level registers to stop data capture.
+//  Overridden function from EegDataProducer to stop producing EEG data
 //
-void Ads1299Driver::StopDataCapture(void)
+void Ads1299Driver::StopProducingData()
 {
     // Stop data capture
     _Ads1299LowDriver.StopContinuousDataCapture();
@@ -79,15 +79,7 @@ void Ads1299Driver::StopDataCapture(void)
     _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH5, Ads1299LowDriver::eChannelState::OffAndShorted);
     _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH6, Ads1299LowDriver::eChannelState::OffAndShorted);
     _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH7, Ads1299LowDriver::eChannelState::OffAndShorted);
-    _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH8, Ads1299LowDriver::eChannelState::OffAndShorted);
-}
-
-//
-//  Overridden function from EegDataProducer to start producing EEG data
-//
-void Ads1299Driver::StartProducingData()
-{
-    
+    _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH8, Ads1299LowDriver::eChannelState::OffAndShorted);   
 }
 
 //

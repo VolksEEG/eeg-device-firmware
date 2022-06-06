@@ -33,7 +33,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         typedef struct _RX_STATE
         {
-            _RX_STATE (*state_fptr)(uint8_t c, _RX_STATE);
+            _RX_STATE (*state_fptr)(uint8_t c, _RX_STATE state, ProtocolParser * protocolParser);
             uint8_t rxData[_RX_DATA_SIZE];
             uint8_t rxIndex;
             uint8_t rxMultiByteCounter;
@@ -42,10 +42,12 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         sRxStruct _RxState;
 
-        static sRxStruct GetDefaultRxStruct(void);
+        static ProtocolParser * _ProtocolParser;
 
-        static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state);
-        static sRxStruct RxState_GetCommand(uint8_t c, sRxStruct state);
+        static sRxStruct GetDefaultRxStruct();
+
+        static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetCommand(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
 };
 
 #endif

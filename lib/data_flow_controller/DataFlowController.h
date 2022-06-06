@@ -37,6 +37,8 @@ class DataFlowController : public CanProcessEvents, public EegDataProducer, EegD
         }
 
         void StartProducingData() override;
+        void StopProducingData() override;
+
         EegData::sEegSamples GetLatestSample() override {
             // Null function
             EegData::sEegSamples dummy;

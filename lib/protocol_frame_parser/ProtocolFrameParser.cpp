@@ -1,5 +1,6 @@
 
 #include "ProtocolFrameParser.h"
+#include "Arduino.h"
 
 //
 // Constructor
@@ -31,11 +32,12 @@ void ProtocolFrameParser::ProcessEvent(NEvent::eEvent event)
 //
 void ProtocolFrameParser::AddFrameToPayloadAndSendToPc(uint8_t payloadData[], uint8_t payloadLength)
 {
-    uint8_t header[FRAME_HEADER_LENGTH] = {
+    uint8_t data[FRAME_HEADER_LENGTH + payloadLength] = {
         START_OF_FRAME_LSB,
         START_OF_FRAME_MSB
     };
 
-    _PcComsInterface->TransmitData(header, FRAME_HEADER_LENGTH);
-    _PcComsInterface->TransmitData(payloadData, payloadLength);
+    memcpy(data + FRAME_HEADER_LENGTH, payloadData, payloadLength);
+
+    _PcComsInterface->TransmitData(data, (FRAME_HEADER_LENGTH + payloadLength));
 }

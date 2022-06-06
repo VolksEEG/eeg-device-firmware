@@ -39,7 +39,7 @@ void ProtocolParser::ProcessEvent(NEvent::eEvent event)
         return;
     }
 
-    _RxState = _RxState.state_fptr(buf[0], _RxState);
+    _RxState = _RxState.state_fptr(buf[0], _RxState, this);
 }
 
 //
@@ -76,7 +76,7 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
 // 
 //  Data reception state function to wait for the sync sequence
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state)
+ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
     static const uint8_t SYNC_SEQ_BYTE = 0xFF;
     static const uint8_t SYNC_SEQ_BYTE_COUNT = 2;
@@ -100,14 +100,18 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
 // 
 //  Data reception state function to process the received command
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetCommand(uint8_t c, sRxStruct state)
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetCommand(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
     static const uint8_t CMD_START_DATA_CAPTURE = 0x01;
+    static const uint8_t CMD_STOP_DATA_CAPTURE = 0x02;
 
     switch (c)
     {
         case CMD_START_DATA_CAPTURE:
-
+            protocolParser->_EEGDataProducer->StartProducingData();//_ProtocolParser->_EEGDataProducer->StartProducingData();
+            break;
+        case CMD_STOP_DATA_CAPTURE:
+            protocolParser->_EEGDataProducer->StopProducingData();//_ProtocolParser->_EEGDataProducer->StopProducingData();
             break;
         default: 
             // Do nothing if the command is not recognised.

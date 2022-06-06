@@ -65,6 +65,14 @@ void FakeDataProducer::StartProducingData()
 }
 
 //
+//  Overridden function from EegDataProducer to stop producing EEG data
+//
+void FakeDataProducer::StopProducingData()
+{
+
+}
+
+//
 //  Overriden function from EegDataProducer to get the latest samples.
 //
 EegData::sEegSamples FakeDataProducer::GetLatestSample()

@@ -4,8 +4,8 @@
 //
 //  Constant value definitions
 //
-const uint16_t LedControl::NORMAL_ON_TIMEOUT = 200;
-const uint16_t LedControl::NORMAL_OFF_TIMEOUT = 1800;
+const uint16_t LedControl::NORMAL_ON_TIMEOUT = 500;
+const uint16_t LedControl::NORMAL_OFF_TIMEOUT = 1500;
 const uint16_t LedControl::ERROR_ON_TIMEOUT = 1500;
 const uint16_t LedControl::ERROR_OFF_TIMEOUT = 500;
 

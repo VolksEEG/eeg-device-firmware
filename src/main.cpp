@@ -73,7 +73,7 @@ void setup() {
 
   // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
-  ads1299Driver.StartDataCapture();
+  //ads1299Driver.StartDataCapture();
 
   // start the event timer.
   eventTimer.start();
