@@ -11,7 +11,8 @@ DataFlowController::DataFlowController() :
     _PrimaryConsumerInstance(this),
     _SecondaryConsumerInstance(this),
     _CurrentConsumerInstance(this),
-    _CurrentDataReadyEvent(NEvent::eEvent::Event_ADS1299DataReady)
+    _CurrentDataReadyEvent(NEvent::eEvent::Event_ADS1299DataReady),
+    _DataProductionInProgress(false)
 {
 
 }
@@ -33,7 +34,8 @@ DataFlowController::DataFlowController(EegDataProducer * primaryProducer,
     _CurrentDataReadyEvent(primaryDataReadyEvent),
     _PrimaryConsumerInstance(primaryConsumer),
     _SecondaryConsumerInstance(secondaryConsumer),
-    _CurrentConsumerInstance(primaryConsumer)
+    _CurrentConsumerInstance(primaryConsumer),
+    _DataProductionInProgress(false)
 {
     
 }
@@ -92,6 +94,12 @@ void DataFlowController::ProcessEvent(NEvent::eEvent event)
         return;
     }
 
+    if (false == _DataProductionInProgress)
+    {
+        // data is not being produced so ignore this event.
+        return;
+    }
+
     // get the samples from the producer
    const EegData::sEegSamples SAMPLES = _CurrentProducerInstance->GetLatestSample();
 
@@ -106,6 +114,7 @@ void DataFlowController::ProcessEvent(NEvent::eEvent event)
 void DataFlowController::StartProducingData()
 {
     _CurrentProducerInstance->StartProducingData();
+    _DataProductionInProgress = true;
 }
 
 //
@@ -114,4 +123,5 @@ void DataFlowController::StartProducingData()
 void DataFlowController::StopProducingData()
 {
     _CurrentProducerInstance->StopProducingData();
+    _DataProductionInProgress = false;
 }

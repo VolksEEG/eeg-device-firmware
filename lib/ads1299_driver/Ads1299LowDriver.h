@@ -221,7 +221,7 @@ class Ads1299LowDriver {
             }
         }sVOLTAGE_CONVERSION_SPECS;
 
-        typedef struct _EMG_DATA
+        typedef struct _RAW_ADS1299_DATA
         {
             uint32_t status;
             int32_t channel1;
@@ -232,7 +232,7 @@ class Ads1299LowDriver {
             int32_t channel6;
             int32_t channel7;
             int32_t channel8;
-        }sEMGData;
+        }sRawAds1299Data;
 
         // private member variables
         sVOLTAGE_CONVERSION_SPECS _VoltageConversionSpecs;

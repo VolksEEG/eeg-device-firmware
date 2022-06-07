@@ -70,6 +70,7 @@ class DataFlowController : public CanProcessEvents, public EegDataProducer, EegD
         EegDataConsumer * _SecondaryConsumerInstance;
         EegDataConsumer * _CurrentConsumerInstance;
 
+        bool _DataProductionInProgress;
 };
 
 #endif

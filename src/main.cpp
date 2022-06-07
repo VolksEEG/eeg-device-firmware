@@ -4,6 +4,7 @@
 #include <ProtocolParser.h>
 #include <SpiDriver.h>
 #include <Ads1299Driver.h>
+#include <Ads1299DataProcessor.h>
 #include <ErrorHandler.h>
 #include <EventHandler.h>
 #include <DataFlowController.h>
@@ -22,6 +23,7 @@ ProtocolFrameParser protocolFrameParser;
 ProtocolParser protocolParser;
 SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
+Ads1299DataProcessor ads1299DataProcessor;
 ErrorHandler errorHandler;
 EventHandler eventHandler;
 DataFlowController dataFlowController;
@@ -51,9 +53,10 @@ void setup() {
   protocolFrameParser = ProtocolFrameParser(&serialPort);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl);
+  ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler);
   fakeDataProducer = FakeDataProducer(&eventHandler);
   dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
-                                            &ads1299Driver, NEvent::eEvent::Event_ADS1299DataReady,
+                                            &ads1299DataProcessor, NEvent::eEvent::Event_ProcessedADS1299DataReady,
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
@@ -64,8 +67,10 @@ void setup() {
   eventHandler.AddEventHandler(&fakeDataProducer, NEvent::eEvent::Event_1mSTimeout);
 
   // Add data ready event handlers
-  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ADS1299DataReady);
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ProcessedADS1299DataReady);
   eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_EDFDataReady);
+
+  eventHandler.AddEventHandler(&ads1299DataProcessor, NEvent::Event_ADS1299DataReady);
 
   // Add Data rx from PC event handlers  
   eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataRxFromPC);
@@ -73,7 +78,6 @@ void setup() {
 
   // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
-  //ads1299Driver.StartDataCapture();
 
   // start the event timer.
   eventTimer.start();

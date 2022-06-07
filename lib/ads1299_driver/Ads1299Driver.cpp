@@ -60,7 +60,7 @@ void Ads1299Driver::StartProducingData()
     _Ads1299LowDriver.SetTestSignal();
     
     // And start data capture
-    _Ads1299LowDriver.StartContinuousDataCapture(Ads1299LowDriver::eSampleRate::SPS_500);    
+    _Ads1299LowDriver.StartContinuousDataCapture(Ads1299LowDriver::eSampleRate::SPS_2000);    
 }
 
 //

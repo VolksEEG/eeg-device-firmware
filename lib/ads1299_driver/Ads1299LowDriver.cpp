@@ -205,7 +205,7 @@ EegData::sEegSamples Ads1299LowDriver::GetEEGData(void)
                                     27);
 
     // Got the data, now parse it
-    sEMGData eegTemp;
+    sRawAds1299Data eegTemp;
 
     eegTemp.status = (eegRawData[0] << 16) | (eegRawData[1] << 8) | (eegRawData[2]);
     eegTemp.channel1 = (eegRawData[3] << 16) | (eegRawData[4] << 8) | (eegRawData[5]);
