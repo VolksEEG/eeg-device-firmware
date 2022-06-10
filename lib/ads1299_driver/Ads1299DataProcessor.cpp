@@ -13,25 +13,9 @@ Ads1299DataProcessor::Ads1299DataProcessor()
 //
 Ads1299DataProcessor::Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * eh) :
     _Ads1299Driver_ptr(ads),
-    _EventHandler_ptr(eh),
-    _SamplesCaptured(0),
-    _SumOfLastSamples1(0),
-    _SumOfLastSamples2(0),
-    _SumOfLastSamples3(0),
-    _SumOfLastSamples4(0),
-    _SumOfLastSamples5(0),
-    _SumOfLastSamples6(0),
-    _SumOfLastSamples7(0),
-    _SumOfLastSamples8(0)
+    _EventHandler_ptr(eh)
 {
-    _AveragedSamples.channel_1 = 0;
-    _AveragedSamples.channel_2 = 0;
-    _AveragedSamples.channel_3 = 0;
-    _AveragedSamples.channel_4 = 0;
-    _AveragedSamples.channel_5 = 0;
-    _AveragedSamples.channel_6 = 0;
-    _AveragedSamples.channel_7 = 0;
-    _AveragedSamples.channel_8 = 0;
+    
 }
 
 //
@@ -44,41 +28,8 @@ void Ads1299DataProcessor::ProcessEvent(NEvent::eEvent event)
         return;
     }
 
-    const EegData::sEegSamples SAMPLES = _Ads1299Driver_ptr->GetLatestSample();
-
-    _SumOfLastSamples1 += SAMPLES.channel_1;
-    _SumOfLastSamples2 += SAMPLES.channel_2;
-    _SumOfLastSamples3 += SAMPLES.channel_3;
-    _SumOfLastSamples4 += SAMPLES.channel_4;
-    _SumOfLastSamples5 += SAMPLES.channel_5;
-    _SumOfLastSamples6 += SAMPLES.channel_6;
-    _SumOfLastSamples7 += SAMPLES.channel_7;
-    _SumOfLastSamples8 += SAMPLES.channel_8;
-
-    if (++_SamplesCaptured == 4)
-    {
-        _EventHandler_ptr->SignalEvent(NEvent::Event_ProcessedADS1299DataReady);
-
-        _SamplesCaptured = 0;
-
-        _AveragedSamples.channel_1 = (int16_t)_SumOfLastSamples1 / 4;
-        _AveragedSamples.channel_2 = (int16_t)_SumOfLastSamples2 / 4;
-        _AveragedSamples.channel_3 = (int16_t)_SumOfLastSamples3 / 4;
-        _AveragedSamples.channel_4 = (int16_t)_SumOfLastSamples4 / 4;
-        _AveragedSamples.channel_5 = (int16_t)_SumOfLastSamples5 / 4;
-        _AveragedSamples.channel_6 = (int16_t)_SumOfLastSamples6 / 4;
-        _AveragedSamples.channel_7 = (int16_t)_SumOfLastSamples7 / 4;
-        _AveragedSamples.channel_8 = (int16_t)_SumOfLastSamples8 / 4;
-            
-        _SumOfLastSamples1 = 0;
-        _SumOfLastSamples2 = 0;
-        _SumOfLastSamples3 = 0;
-        _SumOfLastSamples4 = 0;
-        _SumOfLastSamples5 = 0;
-        _SumOfLastSamples6 = 0;
-        _SumOfLastSamples7 = 0;
-        _SumOfLastSamples8 = 0;
-    }
+    // For now, just signal the Processed ADS1299 Data ready event
+     _EventHandler_ptr->SignalEvent(NEvent::Event_ProcessedADS1299DataReady);
 }
 
 //
@@ -102,5 +53,18 @@ void Ads1299DataProcessor::StopProducingData()
 //
 EegData::sEegSamples Ads1299DataProcessor::GetLatestSample()
 {
-    return _AveragedSamples;
+    EegData::sEegSamples eegSamples;
+
+    Ads1299Driver::sAds1299SampleData adsSamples = _Ads1299Driver_ptr->GetLatestSampleData();
+
+    eegSamples.channel_1 = adsSamples.SampleData[0];
+    eegSamples.channel_2 = adsSamples.SampleData[1];
+    eegSamples.channel_3 = adsSamples.SampleData[2];
+    eegSamples.channel_4 = adsSamples.SampleData[3];
+    eegSamples.channel_5 = adsSamples.SampleData[4];
+    eegSamples.channel_6 = adsSamples.SampleData[5];
+    eegSamples.channel_7 = adsSamples.SampleData[6];
+    eegSamples.channel_8 = adsSamples.SampleData[7];
+    
+    return eegSamples;
 }

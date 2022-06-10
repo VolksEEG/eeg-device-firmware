@@ -5,11 +5,12 @@
 #include <stdint.h>
 #include <SpiDriver.h>
 #include <PinControl.h>
-#include <EegData.h>
 
 class Ads1299LowDriver {
 
     public:
+
+        static const uint8_t MAX_CHANNELS = 8u;
 
         typedef enum _SAMPLE_RATES
         {
@@ -24,14 +25,14 @@ class Ads1299LowDriver {
 
         typedef enum _CHANNEL_IDS
         {
-            CH1,
-            CH2,
-            CH3,
-            CH4,
-            CH5,
-            CH6,
-            CH7,
-            CH8
+            CH1 = 0,
+            CH2 = 1,
+            CH3 = 2,
+            CH4 = 3,
+            CH5 = 4,
+            CH6 = 5,
+            CH7 = 6,
+            CH8 = 7
         }eChannelId;
 
         // leaving out the Bias measuring functionality for now.
@@ -72,15 +73,24 @@ class Ads1299LowDriver {
         void SetChannelGain(eChannelId chan, eChannelGain gain);
         void SetReferenceSource(eReferenceSource src);
         void SetTestSignal(void);
-        EegData::sEegSamples GetEEGData(void);
+
+        typedef struct _ADS1299_CHANNEL_DATA
+        {
+            int32_t gain;
+            int32_t count;
+        }sAds1299ChannelData;
+
+        typedef struct _ADS1299_ALL_CHANNELS_DATA
+        {
+            Ads1299LowDriver::sAds1299ChannelData channels[MAX_CHANNELS];
+            float vrefVoltage;
+        }sAds1299AllChannelsData;
+
+        Ads1299LowDriver::sAds1299AllChannelsData GetAds1299Data(void);
 
     protected:
 
     private:
-
-        // instance of the SPI Scheduler and Pin Control.
-        SpiDriver * _SpiDriverInstance;
-        PinControl * _PinControlInstance;
 
         // Command Definitions
         typedef enum _COMMANDS
@@ -168,74 +178,18 @@ class Ads1299LowDriver {
         static const uint8_t BLANK_DATA = 0x00;
         
 
-        static constexpr float DEFAULT_CHANNEL_GAIN = 24.0f;
+        static const int32_t DEFAULT_CHANNEL_GAIN = 24;
         static constexpr float INTERNAL_VREF_VOLTAGE = 4.5f;
         static constexpr float EXTERNAL_VREF_VOLTAGE = 5.0f;    // Modify this value to suit your circuit.
-        static constexpr float MICROVOLTS_IN_A_VOLT = 1000000.0f;
-
-        typedef struct _VOLTAGE_CONVERSION_SPECS
-        {
-            float gainCh1;
-            float multiplierCh1;
-            float gainCh2;
-            float multiplierCh2;
-            float gainCh3;
-            float multiplierCh3;
-            float gainCh4;
-            float multiplierCh4;
-            float gainCh5;
-            float multiplierCh5;
-            float gainCh6;
-            float multiplierCh6;
-            float gainCh7;
-            float multiplierCh7;
-            float gainCh8;
-            float multiplierCh8;
-            float vref;
-
-            void SetToDefaults()
-            {
-                gainCh1 = DEFAULT_CHANNEL_GAIN;
-                gainCh2 = DEFAULT_CHANNEL_GAIN;
-                gainCh3 = DEFAULT_CHANNEL_GAIN;
-                gainCh4 = DEFAULT_CHANNEL_GAIN;
-                gainCh5 = DEFAULT_CHANNEL_GAIN;
-                gainCh6 = DEFAULT_CHANNEL_GAIN;
-                gainCh7 = DEFAULT_CHANNEL_GAIN;
-                gainCh8 = DEFAULT_CHANNEL_GAIN;
-                vref = EXTERNAL_VREF_VOLTAGE;
-
-                RecalculateMultipliers();
-            }
-
-            void RecalculateMultipliers()
-            {
-                multiplierCh1 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh1) / 8388607.0f);
-                multiplierCh2 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh2) / 8388607.0f);
-                multiplierCh3 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh3) / 8388607.0f);
-                multiplierCh4 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh4) / 8388607.0f);
-                multiplierCh5 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh5) / 8388607.0f);
-                multiplierCh6 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh6) / 8388607.0f);
-                multiplierCh7 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh7) / 8388607.0f);
-                multiplierCh8 = (((vref * MICROVOLTS_IN_A_VOLT) / gainCh8) / 8388607.0f);
-            }
-        }sVOLTAGE_CONVERSION_SPECS;
-
-        typedef struct _RAW_ADS1299_DATA
-        {
-            uint32_t status;
-            int32_t channel1;
-            int32_t channel2;
-            int32_t channel3;
-            int32_t channel4;
-            int32_t channel5;
-            int32_t channel6;
-            int32_t channel7;
-            int32_t channel8;
-        }sRawAds1299Data;
 
         // private member variables
-        sVOLTAGE_CONVERSION_SPECS _VoltageConversionSpecs;
+        
+        // instance of the SPI Scheduler and Pin Control.
+        SpiDriver * _SpiDriverInstance;
+        PinControl * _PinControlInstance;
+
+        int32_t _ChannelGainsCache[MAX_CHANNELS];
+        float _VotlageReferenceCache;
 
         // private member functions 
         eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);
@@ -243,7 +197,8 @@ class Ads1299LowDriver {
         void WriteRegister(eRegisters reg, uint8_t newValue);
         void ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue);
 
-        float GetMultiplierFromChannelGain(eChannelGain gain);
+        int32_t GetMultiplierFromChannelGain(eChannelGain gain);
+        void SetChannelGainsToDefault(void);
 
 };
 

@@ -4,21 +4,25 @@
 
 #include "Ads1299LowDriver.h"
 
-#include <EEGDataProducer.h>
 #include <SpiDriver.h>
 #include <PinControl.h>
 
-class Ads1299Driver : public EegDataProducer {
+class Ads1299Driver {
 
     public:
 
         Ads1299Driver();
         Ads1299Driver(SpiDriver * spi, PinControl * pins);
 
-        void StartProducingData() override; 
-        void StopProducingData() override; 
+        void StartProducingData(); 
+        void StopProducingData(); 
 
-        EegData::sEegSamples GetLatestSample() override;
+        typedef struct _ADS_SAMPLE_DATA
+        {
+            int16_t SampleData[Ads1299LowDriver::MAX_CHANNELS];
+        }sAds1299SampleData;
+
+        Ads1299Driver::sAds1299SampleData GetLatestSampleData();
         
     protected:
 

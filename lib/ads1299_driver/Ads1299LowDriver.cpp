@@ -1,27 +1,43 @@
+/**
+ * @file Ads1299LowDriver.cpp
+ * @author Graham Long (longevoty_software@mail.com)
+ * @brief Low level driver for the ADS1299 EEG Amplifier.
+ * @version 0.1
+ * @date 2022-06-10
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include "Ads1299LowDriver.h"
 
-//
-// Constructor
-//
+/**
+ * @brief Constructor
+ * 
+ */
 Ads1299LowDriver::Ads1299LowDriver()
 {
 
 }
 
-//
-// Constructor
-//
+/**
+ * @brief Constructor
+ * 
+ * @param spi Pointer to the SPI Driver to be used to communicate with the ADS1299 device.
+ * @param pins Pointer to the PinControl module which is used to set the chip select line for the ADS1299 Device.
+ */
 Ads1299LowDriver::Ads1299LowDriver(SpiDriver * spi, PinControl * pins) :
     _SpiDriverInstance(spi),
-    _PinControlInstance(pins)
+    _PinControlInstance(pins),
+    _VotlageReferenceCache(INTERNAL_VREF_VOLTAGE)       //! @todo Confirm this is the default.
 {
-    _VoltageConversionSpecs.SetToDefaults();
+    SetChannelGainsToDefault();
 }
 
-//
-//  Sends the command to Reset the ADS1299 device
-//
+/**
+ * @brief Sends the command to Reset the ADS1299 device over the SPI Interface
+ * 
+ */
 void Ads1299LowDriver::ResetDevice(void)
 {
     uint8_t resetData[1] = { (uint8_t)COMMAND_RESET };
@@ -31,12 +47,15 @@ void Ads1299LowDriver::ResetDevice(void)
                                     resetData,
                                     1); 
 
-    _VoltageConversionSpecs.SetToDefaults();                  
+    // device has been reset, so set stored gains to the default.
+    SetChannelGainsToDefault();                  
 }
 
-//
-//  Sets up the Device to start capturing data continuously at the set rate
-//
+/**
+ * @brief Sets up the Device to start capturing data continuously at the set rate
+ * 
+ * @param rate The data rate to capture samples at.
+ */
 void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
 {
     ModifyRegister(REGISTER_CONFIG_1, CONFIG_1_DATARATE_MASK, (uint8_t)rate);
@@ -56,9 +75,10 @@ void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
                                     1);     
 }
 
-//
-//  Instructs the device to stop capturing data continuously
-//
+/**
+ * @brief Instructs the device to stop capturing data continuously
+ * 
+ */
 void Ads1299LowDriver::StopContinuousDataCapture(void)
 {
 
@@ -77,9 +97,11 @@ void Ads1299LowDriver::StopContinuousDataCapture(void)
                                     1);     
 }
 
-//
-//  Gets the number of channels supported by the ADS1299.
-//
+/**
+ * @brief Gets the number of channels supported by the ADS1299.
+ * 
+ * @return uint8_t The number of channels supported by the device.
+ */
 uint8_t Ads1299LowDriver::GetNumberOfSupportedChannels(void)
 {
     // Read the ID Register.
@@ -103,9 +125,12 @@ uint8_t Ads1299LowDriver::GetNumberOfSupportedChannels(void)
     } 
 }
 
-//
-//  Configures each channels data capture state
-//
+/**
+ * @brief Configures an ADS1299 EEG channels data capture state
+ * 
+ * @param chan The channel to configure.
+ * @param state The state to set that channel to.
+ */
 void Ads1299LowDriver::SetChannelState(eChannelId chan, eChannelState state)
 {
     const eRegisters REG = GetChannelRegisterFromChannelIdEnum(chan);
@@ -113,77 +138,47 @@ void Ads1299LowDriver::SetChannelState(eChannelId chan, eChannelState state)
     ModifyRegister(REG, CHNSET_STATE_MASK, (uint8_t)state);
 }
 
-//
-//  Sets the gain for the selected channel
-//
+/**
+ * @brief Sets the gain for the selected channel
+ * 
+ * @param chan The channel to set the gain of.
+ * @param gain The gain to set on that channel.
+ */
 void Ads1299LowDriver::SetChannelGain(eChannelId chan, eChannelGain gain)
 {
     const eRegisters REG = GetChannelRegisterFromChannelIdEnum(chan);
 
     ModifyRegister(REG, CHNSET_GAIN_MASK, (uint8_t)gain);
 
-    const float GAIN = GetMultiplierFromChannelGain(gain);
-
-    switch (chan)
-    {
-        case CH1:
-            _VoltageConversionSpecs.gainCh1 = GAIN;
-            break;
-        case CH2:
-            _VoltageConversionSpecs.gainCh2 = GAIN;
-            break;
-        case CH3:
-            _VoltageConversionSpecs.gainCh3 = GAIN;
-            break;
-        case CH4:
-            _VoltageConversionSpecs.gainCh4 = GAIN;
-            break;
-        case CH5:
-            _VoltageConversionSpecs.gainCh5 = GAIN;
-            break;
-        case CH6:
-            _VoltageConversionSpecs.gainCh6 = GAIN;
-            break;
-        case CH7:
-            _VoltageConversionSpecs.gainCh7 = GAIN;
-            break;
-        case CH8:
-            _VoltageConversionSpecs.gainCh8 = GAIN;
-            break;
-    }
-
-    // one of the multipliers will have changed, so recalculate.
-    _VoltageConversionSpecs.RecalculateMultipliers();
+    // Cache the channels gain.
+    _ChannelGainsCache[(int)chan] = GetMultiplierFromChannelGain(gain);
 }
 
-//
-//  Function to set the conversion reference source
-//
+/**
+ * @brief Function to set the voltage reference source
+ * 
+ * @param src The reference source to use, External or Internal.
+ */
 void Ads1299LowDriver::SetReferenceSource(eReferenceSource src)
 {
     if (Internal == src)
     {
         ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_ENABLE);
 
-        _VoltageConversionSpecs.vref = INTERNAL_VREF_VOLTAGE;
+        _VotlageReferenceCache = INTERNAL_VREF_VOLTAGE;
         
-        // all of the multipliers will have changed, so recalculate.
-        _VoltageConversionSpecs.RecalculateMultipliers();
-
         return;
     }
     
     ModifyRegister(REGISTER_CONFIG_3, CONFIG_3_REF_BUFFER_MASK, CONFIG_3_REF_BUFFER_DISABLE);
 
-    _VoltageConversionSpecs.vref = EXTERNAL_VREF_VOLTAGE;
-    
-    // all of the multipliers will have changed, so recalculate.
-    _VoltageConversionSpecs.RecalculateMultipliers();
+    _VotlageReferenceCache = EXTERNAL_VREF_VOLTAGE;
 }
 
-//
-//  Function set up a test signal
-//
+/**
+ * @brief Function to set up a test signal
+ * 
+ */
 void Ads1299LowDriver::SetTestSignal(void)
 {
     ModifyRegister(REGISTER_CONFIG_2, 
@@ -194,8 +189,14 @@ void Ads1299LowDriver::SetTestSignal(void)
 //
 //  Function to request the latest channel data
 //
-EegData::sEegSamples Ads1299LowDriver::GetEEGData(void)
+/**
+ * @brief Get the latest EEG Channel data and sign extend it to 32 bits.
+ * 
+ * @return A structure holding the channel data. 
+ */
+Ads1299LowDriver::sAds1299AllChannelsData Ads1299LowDriver::GetAds1299Data(void)
 {
+    //! @todo Make 27 variable based on the number of channels supported by the device.
     uint8_t eegRawData[27] = {0};  // 3 bytes for each of the 8 eeg channels and 1 status channel
 
     // Get the EMG Data
@@ -204,46 +205,35 @@ EegData::sEegSamples Ads1299LowDriver::GetEEGData(void)
                                     eegRawData,
                                     27);
 
-    // Got the data, now parse it
-    sRawAds1299Data eegTemp;
+    Ads1299LowDriver::sAds1299AllChannelsData eegData;
 
-    eegTemp.status = (eegRawData[0] << 16) | (eegRawData[1] << 8) | (eegRawData[2]);
-    eegTemp.channel1 = (eegRawData[3] << 16) | (eegRawData[4] << 8) | (eegRawData[5]);
-    eegTemp.channel2 = (eegRawData[6] << 16) | (eegRawData[7] << 8) | (eegRawData[8]);
-    eegTemp.channel3 = (eegRawData[9] << 16) | (eegRawData[10] << 8) | (eegRawData[11]);
-    eegTemp.channel4 = (eegRawData[12] << 16) | (eegRawData[13] << 8) | (eegRawData[14]);
-    eegTemp.channel5 = (eegRawData[15] << 16) | (eegRawData[16] << 8) | (eegRawData[17]);
-    eegTemp.channel6 = (eegRawData[18] << 16) | (eegRawData[19] << 8) | (eegRawData[20]);
-    eegTemp.channel7 = (eegRawData[21] << 16) | (eegRawData[22] << 8) | (eegRawData[23]);
-    eegTemp.channel8 = (eegRawData[24] << 16) | (eegRawData[25] << 8) | (eegRawData[26]);
+    eegData.vrefVoltage = _VotlageReferenceCache;
+    
+    // Loop over the raw data, skipping bytes 0-2 as these are status bytes.
+    for (int i = 3, ch = 0; 
+            i < 27; 
+            i = i + 3)
+    {
+        // Get the 24 bit count and extend the last bit to make it a 32 bit signed value.
+        const int32_t COUNT = (eegRawData[i] << 16) | (eegRawData[i + 1] << 8) | (eegRawData[i + 2]);
+        const int32_t EXTENDED_COUNT = COUNT | ((COUNT & 0x00800000) ? 0xFF000000 : 0);   // if bit 23 is set, then or it with bits 24 and above set to sign extend.
 
-    // sign extend the values from 24 bit to 32 bit
-    eegTemp.channel1 |= (eegTemp.channel1 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel2 |= (eegTemp.channel2 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel3 |= (eegTemp.channel3 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel4 |= (eegTemp.channel4 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel5 |= (eegTemp.channel5 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel6 |= (eegTemp.channel6 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel7 |= (eegTemp.channel7 & 0x00800000) ? 0xFF000000 : 0; 
-    eegTemp.channel8 |= (eegTemp.channel8 & 0x00800000) ? 0xFF000000 : 0; 
+        eegData.channels[ch].count = EXTENDED_COUNT;
+        eegData.channels[ch].gain = _ChannelGainsCache[ch];
 
-    // Now convert to micro Volts.
-    EegData::sEegSamples eegData;
-    eegData.channel_1 = (int16_t)(eegTemp.channel1 * _VoltageConversionSpecs.multiplierCh1);
-    eegData.channel_2 = (int16_t)(eegTemp.channel2 * _VoltageConversionSpecs.multiplierCh2);
-    eegData.channel_3 = (int16_t)(eegTemp.channel3 * _VoltageConversionSpecs.multiplierCh3);
-    eegData.channel_4 = (int16_t)(eegTemp.channel4 * _VoltageConversionSpecs.multiplierCh4);
-    eegData.channel_5 = (int16_t)(eegTemp.channel5 * _VoltageConversionSpecs.multiplierCh5);
-    eegData.channel_6 = (int16_t)(eegTemp.channel6 * _VoltageConversionSpecs.multiplierCh6);
-    eegData.channel_7 = (int16_t)(eegTemp.channel7 * _VoltageConversionSpecs.multiplierCh7);
-    eegData.channel_8 = (int16_t)(eegTemp.channel8 * _VoltageConversionSpecs.multiplierCh8);
+        // advance to the next channel
+        ch++;
+    }
 
     return eegData;  
 }
 
-//
-//  Helper function to convert from channel id enum to associated register.
-//
+/**
+ * @brief Helper function to convert from channel id enum to associated register.
+ * 
+ * @param chan The channel to request the register for.
+ * @return Ads1299LowDriver::eRegisters The Register associated with that channel
+ */
 Ads1299LowDriver::eRegisters Ads1299LowDriver::GetChannelRegisterFromChannelIdEnum(eChannelId chan)
 {
     switch (chan)
@@ -259,9 +249,12 @@ Ads1299LowDriver::eRegisters Ads1299LowDriver::GetChannelRegisterFromChannelIdEn
     }
 }
 
-//
-//  Helper funtion to read a register from the ADS1299
-//
+/**
+ * @brief Helper funtion to read a register from the ADS1299
+ * 
+ * @param reg The register to read
+ * @return uint8_t The value of the read register.
+ */
 uint8_t Ads1299LowDriver::ReadRegister(eRegisters reg)
 {
     // Read the Register.
@@ -275,9 +268,12 @@ uint8_t Ads1299LowDriver::ReadRegister(eRegisters reg)
     return readRegData[2];
 }
 
-//
-//  Helper function to overwrite an ADS1299 register
-//
+/**
+ * @brief Helper function to overwrite an ADS1299 register
+ * 
+ * @param reg The register to overwrite.
+ * @param newValue The new value to write to that register.
+ */
 void Ads1299LowDriver::WriteRegister(eRegisters reg, uint8_t newValue)
 {
     // Write the Register.
@@ -289,9 +285,13 @@ void Ads1299LowDriver::WriteRegister(eRegisters reg, uint8_t newValue)
                                     3);
 }
 
-//
-//  Helper function to modify part of an ADS1299 Register.
-//
+/**
+ * @brief Helper function to modify part of an ADS1299 Register.
+ * 
+ * @param reg The register to modify.
+ * @param mask The mask of values to change.
+ * @param newValue The new values to set/clear.
+ */
 void Ads1299LowDriver::ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue)
 {
     const uint8_t CURRENT_REG_VALUE = ReadRegister(reg);
@@ -307,19 +307,35 @@ void Ads1299LowDriver::ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newV
     WriteRegister(reg, NEW_REG_VALUE);
 }
 
-//
-//  Helper function to get the multiplier value from a channel gain enum
-//
-float Ads1299LowDriver::GetMultiplierFromChannelGain(eChannelGain gain)
+/**
+ * @brief Helper function to get the multiplier value from a channel gain enum
+ * 
+ * @param gain The gain enumeration.
+ * @return int32_t The Multiplier for that gain.
+ */
+int32_t Ads1299LowDriver::GetMultiplierFromChannelGain(eChannelGain gain)
 {
     switch (gain)
     {
-        case X1: return 1.0f;
-        case X2: return 2.0f;
-        case X4: return 4.0f;
-        case X6: return 6.0f;
-        case X8: return 8.0f;
-        case X12: return 12.0f;
-        default: return 24.0f;
+        case X1: return 1;
+        case X2: return 2;
+        case X4: return 4;
+        case X6: return 6;
+        case X8: return 8;
+        case X12: return 12;
+        case X24: return 24;
+        default: return DEFAULT_CHANNEL_GAIN;
+    }
+}
+
+/**
+ * @brief Helper function to set the cached channel gain values to default.
+ * 
+ */
+void Ads1299LowDriver::SetChannelGainsToDefault(void)
+{
+    for (int i = 0; i < MAX_CHANNELS; ++i)
+    {
+        _ChannelGainsCache[i] = DEFAULT_CHANNEL_GAIN;
     }
 }
