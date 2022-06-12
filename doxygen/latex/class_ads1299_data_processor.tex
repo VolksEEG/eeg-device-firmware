@@ -1,0 +1,71 @@
+\hypertarget{class_ads1299_data_processor}{}\doxysection{Ads1299\+Data\+Processor Class Reference}
+\label{class_ads1299_data_processor}\index{Ads1299DataProcessor@{Ads1299DataProcessor}}
+Inheritance diagram for Ads1299\+Data\+Processor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_ads1299_data_processor}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_data_processor_aa738fee10187a0342bc9c283f9b29e82}\label{class_ads1299_data_processor_aa738fee10187a0342bc9c283f9b29e82}} 
+{\bfseries Ads1299\+Data\+Processor} (\mbox{\hyperlink{class_ads1299_driver}{Ads1299\+Driver}} $\ast$ads, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$eh)
+\item 
+void \mbox{\hyperlink{class_ads1299_data_processor_a840f635b0bd18e44735f3a83425adba3}{Start\+Producing\+Data}} () override
+\item 
+void \mbox{\hyperlink{class_ads1299_data_processor_a3dc39fbd0d34dfdde4506300b1b30e01}{Stop\+Producing\+Data}} () override
+\item 
+\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} \mbox{\hyperlink{class_ads1299_data_processor_a161da6888c9595be43e4b50abd70a6a0}{Get\+Latest\+Sample}} () override
+\item 
+void \mbox{\hyperlink{class_ads1299_data_processor_a499e097309dafd3d9093f1845a06af6e}{Process\+Event}} (NEvent\+::e\+Event event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_ads1299_data_processor_a161da6888c9595be43e4b50abd70a6a0}\label{class_ads1299_data_processor_a161da6888c9595be43e4b50abd70a6a0}} 
+\index{Ads1299DataProcessor@{Ads1299DataProcessor}!GetLatestSample@{GetLatestSample}}
+\index{GetLatestSample@{GetLatestSample}!Ads1299DataProcessor@{Ads1299DataProcessor}}
+\doxysubsubsection{\texorpdfstring{GetLatestSample()}{GetLatestSample()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} Ads1299\+Data\+Processor\+::\+Get\+Latest\+Sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_ads1299_data_processor_a499e097309dafd3d9093f1845a06af6e}\label{class_ads1299_data_processor_a499e097309dafd3d9093f1845a06af6e}} 
+\index{Ads1299DataProcessor@{Ads1299DataProcessor}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!Ads1299DataProcessor@{Ads1299DataProcessor}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Ads1299\+Data\+Processor\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+\mbox{\Hypertarget{class_ads1299_data_processor_a840f635b0bd18e44735f3a83425adba3}\label{class_ads1299_data_processor_a840f635b0bd18e44735f3a83425adba3}} 
+\index{Ads1299DataProcessor@{Ads1299DataProcessor}!StartProducingData@{StartProducingData}}
+\index{StartProducingData@{StartProducingData}!Ads1299DataProcessor@{Ads1299DataProcessor}}
+\doxysubsubsection{\texorpdfstring{StartProducingData()}{StartProducingData()}}
+{\footnotesize\ttfamily void Ads1299\+Data\+Processor\+::\+Start\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_ads1299_data_processor_a3dc39fbd0d34dfdde4506300b1b30e01}\label{class_ads1299_data_processor_a3dc39fbd0d34dfdde4506300b1b30e01}} 
+\index{Ads1299DataProcessor@{Ads1299DataProcessor}!StopProducingData@{StopProducingData}}
+\index{StopProducingData@{StopProducingData}!Ads1299DataProcessor@{Ads1299DataProcessor}}
+\doxysubsubsection{\texorpdfstring{StopProducingData()}{StopProducingData()}}
+{\footnotesize\ttfamily void Ads1299\+Data\+Processor\+::\+Stop\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/ads1299\+\_\+driver/Ads1299\+Data\+Processor.\+h\item 
+lib/ads1299\+\_\+driver/Ads1299\+Data\+Processor.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,71 @@
+\hypertarget{class_fake_data_producer}{}\doxysection{Fake\+Data\+Producer Class Reference}
+\label{class_fake_data_producer}\index{FakeDataProducer@{FakeDataProducer}}
+Inheritance diagram for Fake\+Data\+Producer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_fake_data_producer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_fake_data_producer_a64f4dbb4ee07acc218f225de4d3dc088}\label{class_fake_data_producer_a64f4dbb4ee07acc218f225de4d3dc088}} 
+{\bfseries Fake\+Data\+Producer} (\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$eh)
+\item 
+void \mbox{\hyperlink{class_fake_data_producer_a5351d4eb2b98287e6793ee55332bdbee}{Start\+Producing\+Data}} () override
+\item 
+void \mbox{\hyperlink{class_fake_data_producer_a885a3679504f6b0515fe94c389cbc394}{Stop\+Producing\+Data}} () override
+\item 
+\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} \mbox{\hyperlink{class_fake_data_producer_ac7652eda7ae159b317c6c53f46aebf90}{Get\+Latest\+Sample}} () override
+\item 
+void \mbox{\hyperlink{class_fake_data_producer_a0a92fa0d3fa54ee8dc402b0ccba0ab54}{Process\+Event}} (NEvent\+::e\+Event event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_fake_data_producer_ac7652eda7ae159b317c6c53f46aebf90}\label{class_fake_data_producer_ac7652eda7ae159b317c6c53f46aebf90}} 
+\index{FakeDataProducer@{FakeDataProducer}!GetLatestSample@{GetLatestSample}}
+\index{GetLatestSample@{GetLatestSample}!FakeDataProducer@{FakeDataProducer}}
+\doxysubsubsection{\texorpdfstring{GetLatestSample()}{GetLatestSample()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} Fake\+Data\+Producer\+::\+Get\+Latest\+Sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_fake_data_producer_a0a92fa0d3fa54ee8dc402b0ccba0ab54}\label{class_fake_data_producer_a0a92fa0d3fa54ee8dc402b0ccba0ab54}} 
+\index{FakeDataProducer@{FakeDataProducer}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!FakeDataProducer@{FakeDataProducer}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Fake\+Data\+Producer\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+\mbox{\Hypertarget{class_fake_data_producer_a5351d4eb2b98287e6793ee55332bdbee}\label{class_fake_data_producer_a5351d4eb2b98287e6793ee55332bdbee}} 
+\index{FakeDataProducer@{FakeDataProducer}!StartProducingData@{StartProducingData}}
+\index{StartProducingData@{StartProducingData}!FakeDataProducer@{FakeDataProducer}}
+\doxysubsubsection{\texorpdfstring{StartProducingData()}{StartProducingData()}}
+{\footnotesize\ttfamily void Fake\+Data\+Producer\+::\+Start\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_fake_data_producer_a885a3679504f6b0515fe94c389cbc394}\label{class_fake_data_producer_a885a3679504f6b0515fe94c389cbc394}} 
+\index{FakeDataProducer@{FakeDataProducer}!StopProducingData@{StopProducingData}}
+\index{StopProducingData@{StopProducingData}!FakeDataProducer@{FakeDataProducer}}
+\doxysubsubsection{\texorpdfstring{StopProducingData()}{StopProducingData()}}
+{\footnotesize\ttfamily void Fake\+Data\+Producer\+::\+Stop\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/data\+\_\+flow\+\_\+controller/Fake\+Data\+Producer.\+h\item 
+lib/data\+\_\+flow\+\_\+controller/Fake\+Data\+Producer.\+cpp\end{DoxyCompactItemize}

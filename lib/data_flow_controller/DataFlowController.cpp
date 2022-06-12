@@ -9,9 +9,9 @@ DataFlowController::DataFlowController() :
     _SecondaryProducerInstance(this),
     _CurrentProducerInstance(this),
     _PrimaryConsumerInstance(this),
+    _CurrentDataReadyEvent(NEvent::eEvent::Event_ADS1299DataReady),
     _SecondaryConsumerInstance(this),
     _CurrentConsumerInstance(this),
-    _CurrentDataReadyEvent(NEvent::eEvent::Event_ADS1299DataReady),
     _DataProductionInProgress(false)
 {
 

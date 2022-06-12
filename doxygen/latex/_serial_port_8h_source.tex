@@ -1,0 +1,46 @@
+\hypertarget{_serial_port_8h_source}{}\doxysection{Serial\+Port.\+h}
+\label{_serial_port_8h_source}\index{lib/serial\_port\_driver/SerialPort.h@{lib/serial\_port\_driver/SerialPort.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_SERIAL\_PORT\_DRIVER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_SERIAL\_PORT\_DRIVER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <EventHandler.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <CanProcesEvents.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <../protocol\_frame\_parser/PcCommunicationsInterface.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }\mbox{\hyperlink{class_serial_port}{SerialPort}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} \{}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13         \mbox{\hyperlink{class_serial_port}{SerialPort}}();}
+\DoxyCodeLine{14         \textcolor{keyword}{explicit} \mbox{\hyperlink{class_serial_port}{SerialPort}}(\mbox{\hyperlink{class_event_handler}{EventHandler}} * eh);}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keywordtype}{void} BackgroundTaskHandler(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{17         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
+\DoxyCodeLine{18         }
+\DoxyCodeLine{19         uint8\_t GetReceivedBytes(uint8\_t data[], uint8\_t max\_length) \textcolor{keyword}{override};}
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} TransmitData(uint8\_t data[], uint8\_t count) \textcolor{keyword}{override};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{private}:}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{typedef} uint8\_t RX\_BUF\_TYPE;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28         \textcolor{keyword}{static} \textcolor{keyword}{const} RX\_BUF\_TYPE \_RX\_BUFFER\_SIZE = 100;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandlerInstance;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         uint8\_t \_RxBuffer[\_RX\_BUFFER\_SIZE];}
+\DoxyCodeLine{33         RX\_BUF\_TYPE \_RxInputIndex;}
+\DoxyCodeLine{34         RX\_BUF\_TYPE \_RxOutputIndex;}
+\DoxyCodeLine{35         RX\_BUF\_TYPE \_RxCount;}
+\DoxyCodeLine{36         \textcolor{keywordtype}{bool} \_RxDataProcessingComplete;}
+\DoxyCodeLine{37         \textcolor{keywordtype}{bool} \_ReSignalDataRxEvent;}
+\DoxyCodeLine{38 \};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,62 @@
+\hypertarget{class_serial_port}{}\doxysection{Serial\+Port Class Reference}
+\label{class_serial_port}\index{SerialPort@{SerialPort}}
+Inheritance diagram for Serial\+Port\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_serial_port}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_serial_port_af6859f7a014c68499ae5d0bd3fda50e3}\label{class_serial_port_af6859f7a014c68499ae5d0bd3fda50e3}} 
+{\bfseries Serial\+Port} (\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$eh)
+\item 
+\mbox{\Hypertarget{class_serial_port_a6d7523d36a950f009b6477fad3ee1b46}\label{class_serial_port_a6d7523d36a950f009b6477fad3ee1b46}} 
+void {\bfseries Background\+Task\+Handler} (void)
+\item 
+void \mbox{\hyperlink{class_serial_port_a6677eea9000e7fe5e703c48089409e81}{Process\+Event}} (NEvent\+::e\+Event event) override
+\item 
+uint8\+\_\+t \mbox{\hyperlink{class_serial_port_addf45e9e614519103540cdf28c01d39c}{Get\+Received\+Bytes}} (uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, uint8\+\_\+t max\+\_\+length) override
+\item 
+void \mbox{\hyperlink{class_serial_port_ae136de2e9da076c1da9398624e02942d}{Transmit\+Data}} (uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, uint8\+\_\+t count) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_serial_port_addf45e9e614519103540cdf28c01d39c}\label{class_serial_port_addf45e9e614519103540cdf28c01d39c}} 
+\index{SerialPort@{SerialPort}!GetReceivedBytes@{GetReceivedBytes}}
+\index{GetReceivedBytes@{GetReceivedBytes}!SerialPort@{SerialPort}}
+\doxysubsubsection{\texorpdfstring{GetReceivedBytes()}{GetReceivedBytes()}}
+{\footnotesize\ttfamily uint8\+\_\+t Serial\+Port\+::\+Get\+Received\+Bytes (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t}]{max\+\_\+length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}}.
+
+\mbox{\Hypertarget{class_serial_port_a6677eea9000e7fe5e703c48089409e81}\label{class_serial_port_a6677eea9000e7fe5e703c48089409e81}} 
+\index{SerialPort@{SerialPort}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!SerialPort@{SerialPort}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Serial\+Port\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+\mbox{\Hypertarget{class_serial_port_ae136de2e9da076c1da9398624e02942d}\label{class_serial_port_ae136de2e9da076c1da9398624e02942d}} 
+\index{SerialPort@{SerialPort}!TransmitData@{TransmitData}}
+\index{TransmitData@{TransmitData}!SerialPort@{SerialPort}}
+\doxysubsubsection{\texorpdfstring{TransmitData()}{TransmitData()}}
+{\footnotesize\ttfamily void Serial\+Port\+::\+Transmit\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/serial\+\_\+port\+\_\+driver/Serial\+Port.\+h\item 
+lib/serial\+\_\+port\+\_\+driver/Serial\+Port.\+cpp\end{DoxyCompactItemize}

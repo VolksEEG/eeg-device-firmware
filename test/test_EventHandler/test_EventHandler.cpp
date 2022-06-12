@@ -25,6 +25,12 @@ class EventProcessTest : public CanProcessEvents {
         int _ProcessEventCalledCount;
 };
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 //
 //  confirm that event overruns are detected
 //

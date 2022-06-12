@@ -2,7 +2,7 @@
 #ifndef _PROTOCOL_PARSER
 #define _PROTOCOL_PARSER
 
-#include <ProtocolFrameParser.h>
+#include <../protocol_frame_parser/ProtocolFrameParser.h>
 #include <EEGDataConsumer.h>
 #include <EEGDataProducer.h>
 #include <SerialPort.h>

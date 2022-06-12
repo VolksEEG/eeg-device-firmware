@@ -1,0 +1,100 @@
+\hypertarget{class_data_flow_controller}{}\doxysection{Data\+Flow\+Controller Class Reference}
+\label{class_data_flow_controller}\index{DataFlowController@{DataFlowController}}
+Inheritance diagram for Data\+Flow\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_data_flow_controller}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_flow_controller_ab6c3f727863b784f1e4c345dde73d08a}\label{class_data_flow_controller_ab6c3f727863b784f1e4c345dde73d08a}} 
+enum {\bfseries \+\_\+\+PROD\+\_\+\+CONS} \{ {\bfseries primary}
+, {\bfseries secondary}
+ \}
+\item 
+\mbox{\Hypertarget{class_data_flow_controller_aa970f9f53152c30a01097aeac506d332}\label{class_data_flow_controller_aa970f9f53152c30a01097aeac506d332}} 
+typedef enum Data\+Flow\+Controller\+::\+\_\+\+PROD\+\_\+\+CONS {\bfseries e\+Producer\+Consumer}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_flow_controller_a1991a8bb5cad660fade0c1197b9a0260}\label{class_data_flow_controller_a1991a8bb5cad660fade0c1197b9a0260}} 
+{\bfseries Data\+Flow\+Controller} (\mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$primary\+Producer, NEvent\+::e\+Event primary\+Data\+Ready\+Event, \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$secondary\+Producer, NEvent\+::e\+Event secondary\+Data\+Ready\+Event, \mbox{\hyperlink{class_eeg_data_consumer}{Eeg\+Data\+Consumer}} $\ast$primary\+Consumer, \mbox{\hyperlink{class_eeg_data_consumer}{Eeg\+Data\+Consumer}} $\ast$secondary\+Consumer)
+\item 
+\mbox{\Hypertarget{class_data_flow_controller_a0b331c5499f2658c2130ad7dc4f6258f}\label{class_data_flow_controller_a0b331c5499f2658c2130ad7dc4f6258f}} 
+void {\bfseries Set\+Producer} (e\+Producer\+Consumer pri\+Or\+Sec)
+\item 
+\mbox{\Hypertarget{class_data_flow_controller_abdf88c864b7f18a67aaae086fe1acf3e}\label{class_data_flow_controller_abdf88c864b7f18a67aaae086fe1acf3e}} 
+void {\bfseries Set\+Consumer} (e\+Producer\+Consumer pri\+Or\+Sec)
+\item 
+void \mbox{\hyperlink{class_data_flow_controller_a6e381a84113336128f45d713ddd5f8bf}{Process\+Event}} (NEvent\+::e\+Event event) override
+\item 
+void \mbox{\hyperlink{class_data_flow_controller_a2e00a1ba508fa0366d2ac7c726d3458f}{Push\+Latest\+Sample}} (\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} samples) override
+\item 
+void \mbox{\hyperlink{class_data_flow_controller_a86c51af78b5981d7463c01021d9f2620}{Start\+Producing\+Data}} () override
+\item 
+void \mbox{\hyperlink{class_data_flow_controller_a4361e1e0645136957c83b716306f0681}{Stop\+Producing\+Data}} () override
+\item 
+\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} \mbox{\hyperlink{class_data_flow_controller_ab1ac0c5c2379e49b35bd1715f3f14d36}{Get\+Latest\+Sample}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_data_flow_controller_ab1ac0c5c2379e49b35bd1715f3f14d36}\label{class_data_flow_controller_ab1ac0c5c2379e49b35bd1715f3f14d36}} 
+\index{DataFlowController@{DataFlowController}!GetLatestSample@{GetLatestSample}}
+\index{GetLatestSample@{GetLatestSample}!DataFlowController@{DataFlowController}}
+\doxysubsubsection{\texorpdfstring{GetLatestSample()}{GetLatestSample()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} Data\+Flow\+Controller\+::\+Get\+Latest\+Sample (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_data_flow_controller_a6e381a84113336128f45d713ddd5f8bf}\label{class_data_flow_controller_a6e381a84113336128f45d713ddd5f8bf}} 
+\index{DataFlowController@{DataFlowController}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!DataFlowController@{DataFlowController}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Data\+Flow\+Controller\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+\mbox{\Hypertarget{class_data_flow_controller_a2e00a1ba508fa0366d2ac7c726d3458f}\label{class_data_flow_controller_a2e00a1ba508fa0366d2ac7c726d3458f}} 
+\index{DataFlowController@{DataFlowController}!PushLatestSample@{PushLatestSample}}
+\index{PushLatestSample@{PushLatestSample}!DataFlowController@{DataFlowController}}
+\doxysubsubsection{\texorpdfstring{PushLatestSample()}{PushLatestSample()}}
+{\footnotesize\ttfamily void Data\+Flow\+Controller\+::\+Push\+Latest\+Sample (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}}}]{samples }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_eeg_data_consumer}{Eeg\+Data\+Consumer}}.
+
+\mbox{\Hypertarget{class_data_flow_controller_a86c51af78b5981d7463c01021d9f2620}\label{class_data_flow_controller_a86c51af78b5981d7463c01021d9f2620}} 
+\index{DataFlowController@{DataFlowController}!StartProducingData@{StartProducingData}}
+\index{StartProducingData@{StartProducingData}!DataFlowController@{DataFlowController}}
+\doxysubsubsection{\texorpdfstring{StartProducingData()}{StartProducingData()}}
+{\footnotesize\ttfamily void Data\+Flow\+Controller\+::\+Start\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+\mbox{\Hypertarget{class_data_flow_controller_a4361e1e0645136957c83b716306f0681}\label{class_data_flow_controller_a4361e1e0645136957c83b716306f0681}} 
+\index{DataFlowController@{DataFlowController}!StopProducingData@{StopProducingData}}
+\index{StopProducingData@{StopProducingData}!DataFlowController@{DataFlowController}}
+\doxysubsubsection{\texorpdfstring{StopProducingData()}{StopProducingData()}}
+{\footnotesize\ttfamily void Data\+Flow\+Controller\+::\+Stop\+Producing\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/data\+\_\+flow\+\_\+controller/Data\+Flow\+Controller.\+h\item 
+lib/data\+\_\+flow\+\_\+controller/Data\+Flow\+Controller.\+cpp\end{DoxyCompactItemize}

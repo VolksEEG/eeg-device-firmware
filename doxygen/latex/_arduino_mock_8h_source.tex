@@ -1,0 +1,91 @@
+\hypertarget{_arduino_mock_8h_source}{}\doxysection{Arduino\+Mock.\+h}
+\label{_arduino_mock_8h_source}\index{src/ArduinoMock.h@{src/ArduinoMock.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef ARDUINO\_MOCK}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define ARDUINO\_MOCK}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#define LOW             0}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#define HIGH            1}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define OUTPUT          0}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define INPUT           1}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define LED\_BUILTIN    13}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define pinMode(a, b)}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define digitalWrite(a, b)}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define digitalRead(a)          (0)}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define MSBFIRST        0}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#define SPI\_MODE1       1}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define noInterrupts()}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#define interrupts()}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define attachInterrupt(a, b, c)}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define digitalPinToInterrupt()}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define FALLING     0}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{class }\mbox{\hyperlink{class_s_p_i_settings}{SPISettings}} \{}
+\DoxyCodeLine{30     \textcolor{keyword}{public}: }
+\DoxyCodeLine{31         \mbox{\hyperlink{class_s_p_i_settings}{SPISettings}}(\textcolor{keywordtype}{long}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}) \{}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \}}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{class }\mbox{\hyperlink{class_s_p_i__mock}{SPI\_mock}} \{}
+\DoxyCodeLine{37     \textcolor{keyword}{public}:}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         \textcolor{keywordtype}{void} begin() \{}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43         \textcolor{keywordtype}{void} beginTransaction(\mbox{\hyperlink{class_s_p_i_settings}{SPISettings}} settings) \{}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         \textcolor{keywordtype}{void} endTransaction(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         uint8\_t transfer(uint8\_t data)}
+\DoxyCodeLine{52         \{}
+\DoxyCodeLine{53             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{54         \}}
+\DoxyCodeLine{55 \};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{keyword}{static} \mbox{\hyperlink{class_s_p_i__mock}{SPI\_mock}} SPI;}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{class_s_e_r_i_a_l__mock}{SERIAL\_mock}} \{}
+\DoxyCodeLine{60     \textcolor{keyword}{public}:}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62         \textcolor{keywordtype}{void} begin(uint32\_t baud) }
+\DoxyCodeLine{63         \{}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67         uint16\_t available() }
+\DoxyCodeLine{68         \{}
+\DoxyCodeLine{69             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{70         \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72         uint16\_t read() }
+\DoxyCodeLine{73         \{}
+\DoxyCodeLine{74             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{75         \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77         \textcolor{keywordtype}{void} write(uint8\_t * data, uint8\_t count)}
+\DoxyCodeLine{78         \{}
+\DoxyCodeLine{79             }
+\DoxyCodeLine{80         \}}
+\DoxyCodeLine{81 \};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{static} \mbox{\hyperlink{class_s_e_r_i_a_l__mock}{SERIAL\_mock}} Serial;}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

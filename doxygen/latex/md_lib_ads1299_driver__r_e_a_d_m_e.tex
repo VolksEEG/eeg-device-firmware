@@ -1,0 +1,20 @@
+\hypertarget{md_lib_ads1299_driver__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Overview}\label{md_lib_ads1299_driver__r_e_a_d_m_e_autotoc_md1}
+This driver consists of both a high level driver which exposes the following abstracted functionality\+:
+\begin{DoxyItemize}
+\item Starting / Stopping continuous data capture.
+\end{DoxyItemize}
+
+And will expose the following functionality in future\+:
+\begin{DoxyItemize}
+\item Retrieving the number of available channels
+\item Configuring the input channels.
+\item Enabling / disabling current sources.
+\item Setting / Getting GPIO levels.
+\end{DoxyItemize}
+
+And a low level driver which is called by the high level driver to set the appropriate register values in the ADS1299.
+
+{\bfseries{Note}} The low level driver does not and will not expose the complete functionality of the ADS1299 Registers, and will not be the most optimised solution e.\+g. writing multiple sequential registers at the same time is not intended to be implemented.\hypertarget{md_lib_ads1299_driver__r_e_a_d_m_e_autotoc_md2}{}\doxysection{Inheritance}\label{md_lib_ads1299_driver__r_e_a_d_m_e_autotoc_md2}
+The high level \char`\"{}ads1299\+Driver\char`\"{} class inherits from the EEGData\+Producer base class and overrides the \char`\"{}\+Get\+Latest\+Sample\char`\"{} function.
+
+This allows the \mbox{\hyperlink{class_data_flow_controller}{Data\+Flow\+Controller}} class to use it as one of it\textquotesingle{}s possible sources of EMG data. 

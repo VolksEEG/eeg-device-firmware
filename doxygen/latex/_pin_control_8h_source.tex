@@ -1,0 +1,68 @@
+\hypertarget{_pin_control_8h_source}{}\doxysection{Pin\+Control.\+h}
+\label{_pin_control_8h_source}\index{lib/pin\_control/PinControl.h@{lib/pin\_control/PinControl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_PIN\_CONTROL}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_PIN\_CONTROL}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <EventHandler.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }\mbox{\hyperlink{class_pin_control}{PinControl}} \{}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13         \textcolor{keyword}{enum} eSetPinState \{SetInactive, SetActive, SetToggle\};}
+\DoxyCodeLine{14         }
+\DoxyCodeLine{15         \mbox{\hyperlink{class_pin_control}{PinControl}}();}
+\DoxyCodeLine{16         \textcolor{keyword}{explicit} \mbox{\hyperlink{class_pin_control}{PinControl}}(\mbox{\hyperlink{class_event_handler}{EventHandler}} * eh);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} SetHeartbeatLedState(eSetPinState newState);}
+\DoxyCodeLine{19         \textcolor{keywordtype}{bool} IsHeartbeatLedActive();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         \textcolor{keywordtype}{void} SetADS1299ResetState(eSetPinState newState);}
+\DoxyCodeLine{22         \textcolor{keywordtype}{bool} IsADS1299ResetActive();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} SetADS1299ChipSelectState(eSetPinState newState);}
+\DoxyCodeLine{25         \textcolor{keywordtype}{bool} IsADS1299ChipSelectActive();}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} SetSdCardChipSelectState(eSetPinState newState);}
+\DoxyCodeLine{28         \textcolor{keywordtype}{bool} IsSdCardChipSelectActive();}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{keywordtype}{bool} IsSdCardCardDetectActive();}
+\DoxyCodeLine{31         \textcolor{keywordtype}{bool} IsSdCardWriteProtectActive();}
+\DoxyCodeLine{32         \textcolor{keywordtype}{bool} IsADS1299DataReadyActive();}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keyword}{private}:}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         \textcolor{comment}{// ouptut pins}}
+\DoxyCodeLine{39         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t HEARTBEAT\_LED\_PIN;}
+\DoxyCodeLine{40         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t ADS1299\_RESET\_PIN;}
+\DoxyCodeLine{41         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t ADS1299\_CHIP\_SELECT\_PIN;}
+\DoxyCodeLine{42         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t SD\_CARD\_CHIP\_SELECT\_PIN;}
+\DoxyCodeLine{43         }
+\DoxyCodeLine{44         \textcolor{comment}{// input pins}}
+\DoxyCodeLine{45         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t SD\_CARD\_CARD\_DETECT\_PIN;}
+\DoxyCodeLine{46         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t SD\_CARD\_WRITE\_PROTECT\_PIN;}
+\DoxyCodeLine{47         \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t ADS1299\_DATA\_READY\_PIN;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keyword}{enum} ePinState \{Inactive, Active\};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         ePinState mHeartbeatLedState;}
+\DoxyCodeLine{52         ePinState mADS1299ResetState;}
+\DoxyCodeLine{53         ePinState mADS1299ChipSelectState;}
+\DoxyCodeLine{54         ePinState mSdCardChipSelectState;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56         \textcolor{comment}{// interrupt requires static function so we need a }}
+\DoxyCodeLine{57         \textcolor{comment}{// static pointer to the event handler as well.}}
+\DoxyCodeLine{58         \textcolor{keyword}{static} \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandlerInstance;}
+\DoxyCodeLine{59         \textcolor{keyword}{static} \textcolor{keywordtype}{void} Ads1299DataReadyISR(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

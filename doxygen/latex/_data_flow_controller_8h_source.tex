@@ -1,0 +1,82 @@
+\hypertarget{_data_flow_controller_8h_source}{}\doxysection{Data\+Flow\+Controller.\+h}
+\label{_data_flow_controller_8h_source}\index{lib/data\_flow\_controller/DataFlowController.h@{lib/data\_flow\_controller/DataFlowController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_DATA\_FLOW\_CONTROLLER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_DATA\_FLOW\_CONTROLLER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}EEGDataProducer.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}EEGDataConsumer.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <CanProcesEvents.h>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{class_data_flow_controller}{DataFlowController}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}}, \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} \{}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{public}:}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_PROD\_CONS}
+\DoxyCodeLine{17         \{}
+\DoxyCodeLine{18             primary,}
+\DoxyCodeLine{19             secondary}
+\DoxyCodeLine{20         \}eProducerConsumer;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \mbox{\hyperlink{class_data_flow_controller}{DataFlowController}}();}
+\DoxyCodeLine{23         \mbox{\hyperlink{class_data_flow_controller}{DataFlowController}}(\mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * primaryProducer, }
+\DoxyCodeLine{24                             NEvent::eEvent primaryDataReadyEvent,}
+\DoxyCodeLine{25                             \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * secondaryProducer,}
+\DoxyCodeLine{26                             NEvent::eEvent secondaryDataReadyEvent,}
+\DoxyCodeLine{27                             \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} * primaryConsumer,}
+\DoxyCodeLine{28                             \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} * secondaryConsumer);}
+\DoxyCodeLine{29         }
+\DoxyCodeLine{30         \textcolor{keywordtype}{void} SetProducer(eProducerConsumer priOrSec);}
+\DoxyCodeLine{31         \textcolor{keywordtype}{void} SetConsumer(eProducerConsumer priOrSec);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35         \textcolor{keywordtype}{void} PushLatestSample(\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} samples)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         \textcolor{keywordtype}{void} StartProducingData() \textcolor{keyword}{override};}
+\DoxyCodeLine{40         \textcolor{keywordtype}{void} StopProducingData() \textcolor{keyword}{override};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} GetLatestSample()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{43             \textcolor{comment}{// Null function}}
+\DoxyCodeLine{44             \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} dummy;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46             dummy.channel\_1 = 0;}
+\DoxyCodeLine{47             dummy.channel\_2 = 0;}
+\DoxyCodeLine{48             dummy.channel\_3 = 0;}
+\DoxyCodeLine{49             dummy.channel\_4 = 0;}
+\DoxyCodeLine{50             dummy.channel\_5 = 0;}
+\DoxyCodeLine{51             dummy.channel\_6 = 0;}
+\DoxyCodeLine{52             dummy.channel\_7 = 0;}
+\DoxyCodeLine{53             dummy.channel\_8 = 0;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55             \textcolor{keywordflow}{return} dummy;}
+\DoxyCodeLine{56         \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{keyword}{private}:}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62         \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * \_PrimaryProducerInstance;}
+\DoxyCodeLine{63         NEvent::eEvent \_PrimaryDataReadyEvent;}
+\DoxyCodeLine{64         \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * \_SecondaryProducerInstance;}
+\DoxyCodeLine{65         NEvent::eEvent \_SecondaryDataReadyEvent;}
+\DoxyCodeLine{66         \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * \_CurrentProducerInstance;}
+\DoxyCodeLine{67         NEvent::eEvent \_CurrentDataReadyEvent;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69         \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} * \_PrimaryConsumerInstance;}
+\DoxyCodeLine{70         \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} * \_SecondaryConsumerInstance;}
+\DoxyCodeLine{71         \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}} * \_CurrentConsumerInstance;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{keywordtype}{bool} \_DataProductionInProgress;}
+\DoxyCodeLine{74 \};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

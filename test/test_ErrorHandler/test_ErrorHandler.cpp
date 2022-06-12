@@ -2,6 +2,12 @@
 #include <ErrorHandler.h>
 #include <unity.h>
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 //
 //  Tests that initially no errors are raised
 //

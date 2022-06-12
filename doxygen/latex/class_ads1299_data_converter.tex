@@ -1,0 +1,46 @@
+\hypertarget{class_ads1299_data_converter}{}\doxysection{Ads1299\+Data\+Converter Class Reference}
+\label{class_ads1299_data_converter}\index{Ads1299DataConverter@{Ads1299DataConverter}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_data_converter_a59fb0460668d4849bf1c09fd7f1ce388}\label{class_ads1299_data_converter_a59fb0460668d4849bf1c09fd7f1ce388}} 
+{\bfseries Ads1299\+Data\+Converter} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int16\+\_\+t \mbox{\hyperlink{class_ads1299_data_converter_a91730218db82e42d4e86b9badb8fc6f1}{Convert\+Ads1299\+Count\+To\+Micro\+Volts}} (int32\+\_\+t count, int32\+\_\+t gain, float ref)
+\begin{DoxyCompactList}\small\item\em Converts ADS1299 counts to microvolts. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_ads1299_data_converter_a91730218db82e42d4e86b9badb8fc6f1}\label{class_ads1299_data_converter_a91730218db82e42d4e86b9badb8fc6f1}} 
+\index{Ads1299DataConverter@{Ads1299DataConverter}!ConvertAds1299CountToMicroVolts@{ConvertAds1299CountToMicroVolts}}
+\index{ConvertAds1299CountToMicroVolts@{ConvertAds1299CountToMicroVolts}!Ads1299DataConverter@{Ads1299DataConverter}}
+\doxysubsubsection{\texorpdfstring{ConvertAds1299CountToMicroVolts()}{ConvertAds1299CountToMicroVolts()}}
+{\footnotesize\ttfamily int16\+\_\+t Ads1299\+Data\+Converter\+::\+Convert\+Ads1299\+Count\+To\+Micro\+Volts (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{count,  }\item[{int32\+\_\+t}]{gain,  }\item[{float}]{ref }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts ADS1299 counts to microvolts. 
+
+See ADS1299 Datasheet Section 9.\+5.\+1 Data Format (Equation 8)
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & The ADS1299 Count. \\
+\hline
+{\em gain} & The Gain associated with that count. \\
+\hline
+{\em ref} & The reference voltage \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The number of micro volts for the passed arguments. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/ads1299\+\_\+driver/Ads1299\+Data\+Converter.\+h\item 
+lib/ads1299\+\_\+driver/\mbox{\hyperlink{_ads1299_data_converter_8cpp}{Ads1299\+Data\+Converter.\+cpp}}\end{DoxyCompactItemize}

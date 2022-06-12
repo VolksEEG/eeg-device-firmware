@@ -1,0 +1,211 @@
+\hypertarget{_ads1299_low_driver_8h_source}{}\doxysection{Ads1299\+Low\+Driver.\+h}
+\label{_ads1299_low_driver_8h_source}\index{lib/ads1299\_driver/Ads1299LowDriver.h@{lib/ads1299\_driver/Ads1299LowDriver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_ADS1299\_LOW\_DRIVER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_ADS1299\_LOW\_DRIVER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <SpiDriver.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <PinControl.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }\mbox{\hyperlink{class_ads1299_low_driver}{Ads1299LowDriver}} \{}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{public}:}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t MAX\_CHANNELS = 8u;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_SAMPLE\_RATES}
+\DoxyCodeLine{16         \{}
+\DoxyCodeLine{17             SPS\_250 = 0x06,}
+\DoxyCodeLine{18             SPS\_500 = 0x05,}
+\DoxyCodeLine{19             SPS\_1000 = 0x04,}
+\DoxyCodeLine{20             SPS\_2000 = 0x03,}
+\DoxyCodeLine{21             SPS\_4000 = 0x02,}
+\DoxyCodeLine{22             SPS\_8000 = 0x01,}
+\DoxyCodeLine{23             SPS\_16000 = 0x00}
+\DoxyCodeLine{24         \}eSampleRate;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CHANNEL\_IDS}
+\DoxyCodeLine{27         \{}
+\DoxyCodeLine{28             CH1 = 0,}
+\DoxyCodeLine{29             CH2 = 1,}
+\DoxyCodeLine{30             CH3 = 2,}
+\DoxyCodeLine{31             CH4 = 3,}
+\DoxyCodeLine{32             CH5 = 4,}
+\DoxyCodeLine{33             CH6 = 5,}
+\DoxyCodeLine{34             CH7 = 6,}
+\DoxyCodeLine{35             CH8 = 7}
+\DoxyCodeLine{36         \}eChannelId;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         \textcolor{comment}{// leaving out the Bias measuring functionality for now.}}
+\DoxyCodeLine{39         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CHANNEL\_STATES}
+\DoxyCodeLine{40         \{}
+\DoxyCodeLine{41             OffAndShorted = 0x81,}
+\DoxyCodeLine{42             OnNormal = 0x00,}
+\DoxyCodeLine{43             OnAndShorted = 0x01,}
+\DoxyCodeLine{44             OnAndMeasuringSupplies = 0x03,}
+\DoxyCodeLine{45             OnAndMeasuringTestSignal = 0x05}
+\DoxyCodeLine{46         \}eChannelState;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CHANNEL\_GAINS}
+\DoxyCodeLine{49         \{}
+\DoxyCodeLine{50             X1 = 0x00,}
+\DoxyCodeLine{51             X2 = 0x10,}
+\DoxyCodeLine{52             X4 = 0x20,}
+\DoxyCodeLine{53             X6 = 0x30,}
+\DoxyCodeLine{54             X8 = 0x40,}
+\DoxyCodeLine{55             X12 = 0x50,}
+\DoxyCodeLine{56             X24 = 0x60}
+\DoxyCodeLine{57         \}eChannelGain;}
+\DoxyCodeLine{58         }
+\DoxyCodeLine{59         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_REFERENCE\_SELECT}
+\DoxyCodeLine{60         \{}
+\DoxyCodeLine{61             Internal,}
+\DoxyCodeLine{62             External}
+\DoxyCodeLine{63         \}eReferenceSource;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         \mbox{\hyperlink{class_ads1299_low_driver_aeb5f242a94d60c7fcaabc8bbb67b6845}{Ads1299LowDriver}}();}
+\DoxyCodeLine{66         \mbox{\hyperlink{class_ads1299_low_driver_aeb5f242a94d60c7fcaabc8bbb67b6845}{Ads1299LowDriver}}(\mbox{\hyperlink{class_spi_driver}{SpiDriver}} * spi, \mbox{\hyperlink{class_pin_control}{PinControl}} * pins);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_ae79a60be950a35ca47f740a16ed39609}{ResetDevice}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{69         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_a442d33011e2aea2b3f9a329828b5f063}{StartContinuousDataCapture}}(eSampleRate rate);}
+\DoxyCodeLine{70         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_a0c3ea205c7095ac78d042dda6216a83b}{StopContinuousDataCapture}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{71         uint8\_t \mbox{\hyperlink{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}{GetNumberOfSupportedChannels}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{72         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_acc7fb24b78294d727fbe72f15ca6caa7}{SetChannelState}}(eChannelId chan, eChannelState state);}
+\DoxyCodeLine{73         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}{SetChannelGain}}(eChannelId chan, eChannelGain gain);}
+\DoxyCodeLine{74         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_ae282a97ac33df44aa6612be7710d0dff}{SetReferenceSource}}(eReferenceSource src);}
+\DoxyCodeLine{75         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_ads1299_low_driver_a0e9a89172fb1d6e63b8a2f6f9c4a5151}{SetTestSignal}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a}{\_ADS1299\_CHANNEL\_DATA}}}
+\DoxyCodeLine{78         \{}
+\DoxyCodeLine{79             int32\_t gain;}
+\DoxyCodeLine{80             int32\_t count;}
+\DoxyCodeLine{81         \}\mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a}{sAds1299ChannelData}};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{\_ADS1299\_ALL\_CHANNELS\_DATA}}}
+\DoxyCodeLine{84         \{}
+\DoxyCodeLine{85             \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a}{Ads1299LowDriver::sAds1299ChannelData}} channels[MAX\_CHANNELS];}
+\DoxyCodeLine{86             \textcolor{keywordtype}{float} vrefVoltage;}
+\DoxyCodeLine{87         \}\mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{sAds1299AllChannelsData}};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89         \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{Ads1299LowDriver::sAds1299AllChannelsData}} \mbox{\hyperlink{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}{GetAds1299Data}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     \textcolor{keyword}{private}:}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         \textcolor{comment}{// Command Definitions}}
+\DoxyCodeLine{96         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_COMMANDS}
+\DoxyCodeLine{97         \{}
+\DoxyCodeLine{98             COMMAND\_WAKEUP = 0x02,}
+\DoxyCodeLine{99             COMMAND\_STANDBY = 0x04,}
+\DoxyCodeLine{100             COMMAND\_RESET = 0x06,}
+\DoxyCodeLine{101             COMMAND\_START = 0x08,}
+\DoxyCodeLine{102             COMMAND\_STOP = 0x0A,}
+\DoxyCodeLine{103             COMMAND\_READ\_DATA\_CONTINUOUSLY = 0x10,}
+\DoxyCodeLine{104             COMMAND\_STOP\_READING\_DATA\_CONTINUOUSLY = 0x11,}
+\DoxyCodeLine{105             COMMAND\_READ\_DATA = 0x12,}
+\DoxyCodeLine{106             COMMAND\_READ\_REGISTER = 0x20,}
+\DoxyCodeLine{107             COMMAND\_WRITE\_REGISTER = 0x40}
+\DoxyCodeLine{108         \}eCommands;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110         \textcolor{comment}{// Register definitions}}
+\DoxyCodeLine{111         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_REGISTERS}
+\DoxyCodeLine{112         \{}
+\DoxyCodeLine{113             REGISTER\_ID = 0x00,}
+\DoxyCodeLine{114             REGISTER\_CONFIG\_1 = 0x01,}
+\DoxyCodeLine{115             REGISTER\_CONFIG\_2 = 0x02,}
+\DoxyCodeLine{116             REGISTER\_CONFIG\_3 = 0x03,}
+\DoxyCodeLine{117             REGISTER\_CH1SET = 0x05,}
+\DoxyCodeLine{118             REGISTER\_CH2SET = 0x06,}
+\DoxyCodeLine{119             REGISTER\_CH3SET = 0x07,}
+\DoxyCodeLine{120             REGISTER\_CH4SET = 0x08,}
+\DoxyCodeLine{121             REGISTER\_CH5SET = 0x09,}
+\DoxyCodeLine{122             REGISTER\_CH6SET = 0x0A,}
+\DoxyCodeLine{123             REGISTER\_CH7SET = 0x0B,}
+\DoxyCodeLine{124             REGISTER\_CH8SET = 0x0C}
+\DoxyCodeLine{125         \}eRegisters;}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127         \textcolor{comment}{// definitions for determining the number of channels from the ID register.}}
+\DoxyCodeLine{128         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t ID\_NUMBER\_OF\_CHANNELS\_MASK = 0x03;}
+\DoxyCodeLine{129         }
+\DoxyCodeLine{130         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_NUMBER\_OF\_CHANNELS}
+\DoxyCodeLine{131         \{}
+\DoxyCodeLine{132             ID\_NUMBER\_OF\_CHANNELS\_4 = 0x00,}
+\DoxyCodeLine{133             ID\_NUMBER\_OF\_CHANNELS\_6 = 0x01,}
+\DoxyCodeLine{134             ID\_NUMBER\_OF\_CHANNELS\_8 = 0x02}
+\DoxyCodeLine{135         \}eNumChannels;}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137         \textcolor{comment}{// definitions for setting sample rate}}
+\DoxyCodeLine{138         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CONFIG\_1\_DATARATE\_MASK = 0x07;}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140         \textcolor{comment}{// definitions for setting internal calibration signal}}
+\DoxyCodeLine{141         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CONFIG\_2\_INTERNAL\_CAL\_MASK = 0x10;}
+\DoxyCodeLine{142         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CONFIG\_2\_CAL\_AMPLITUDE\_MASK = 0x04;}
+\DoxyCodeLine{143         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CONFIG\_2\_CAL\_FREQUENCY\_MASK = 0x03;}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CAL\_SIGNAL\_STATE}
+\DoxyCodeLine{146         \{}
+\DoxyCodeLine{147             CONFIG\_2\_INTERNAL\_CAL\_DISABLE = 0x00,}
+\DoxyCodeLine{148             CONFIG\_2\_INTERNAL\_CAL\_ENABLE = 0x10}
+\DoxyCodeLine{149         \}eCalSignalState;}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CAL\_SIGNAL\_AMPLITUDE}
+\DoxyCodeLine{152         \{}
+\DoxyCodeLine{153             CONFIG\_2\_CAL\_AMPLITUDE\_LOW = 0x00,}
+\DoxyCodeLine{154             CONFIG\_2\_CAL\_AMPLITUDE\_HIGH = 0x04}
+\DoxyCodeLine{155         \}eCalSignalAmplitude;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_CAL\_SIGNAL\_FREQUENCY}
+\DoxyCodeLine{158         \{}
+\DoxyCodeLine{159             CONFIG\_2\_CAL\_FREQUENCY\_SLOW = 0x00,}
+\DoxyCodeLine{160             CONFIG\_2\_CAL\_FREQUENCY\_FAST = 0x01,}
+\DoxyCodeLine{161             CONFIG\_2\_CAL\_FREQUENCY\_DC = 0x03}
+\DoxyCodeLine{162         \}eCalSignalFrequency;}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164         \textcolor{comment}{// definitions for setting the reference buffer.}}
+\DoxyCodeLine{165         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CONFIG\_3\_REF\_BUFFER\_MASK = 0x80;}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_REG\_BUFFER\_STATE}
+\DoxyCodeLine{168         \{}
+\DoxyCodeLine{169             CONFIG\_3\_REF\_BUFFER\_DISABLE = 0x00,}
+\DoxyCodeLine{170             CONFIG\_3\_REF\_BUFFER\_ENABLE = 0x80}
+\DoxyCodeLine{171         \}eRefBufferState;}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173         \textcolor{comment}{// definitions for channel settings}}
+\DoxyCodeLine{174         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CHNSET\_GAIN\_MASK = 0x70;}
+\DoxyCodeLine{175         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t CHNSET\_STATE\_MASK = 0x87;}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177         \textcolor{comment}{// used to clock the SPI data out of the ADS1299}}
+\DoxyCodeLine{178         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t BLANK\_DATA = 0x00;}
+\DoxyCodeLine{179         }
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181         \textcolor{keyword}{static} \textcolor{keyword}{const} int32\_t DEFAULT\_CHANNEL\_GAIN = 24;}
+\DoxyCodeLine{182         \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{float} INTERNAL\_VREF\_VOLTAGE = 4.5f;}
+\DoxyCodeLine{183         \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{float} EXTERNAL\_VREF\_VOLTAGE = 5.0f;    \textcolor{comment}{// Modify this value to suit your circuit.}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185         \textcolor{comment}{// private member variables}}
+\DoxyCodeLine{186         }
+\DoxyCodeLine{187         \textcolor{comment}{// instance of the SPI Scheduler and Pin Control.}}
+\DoxyCodeLine{188         \mbox{\hyperlink{class_spi_driver}{SpiDriver}} * \_SpiDriverInstance;}
+\DoxyCodeLine{189         \mbox{\hyperlink{class_pin_control}{PinControl}} * \_PinControlInstance;}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191         int32\_t \_ChannelGainsCache[MAX\_CHANNELS];}
+\DoxyCodeLine{192         \textcolor{keywordtype}{float} \_VotlageReferenceCache;}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194         \textcolor{comment}{// private member functions }}
+\DoxyCodeLine{195         eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);}
+\DoxyCodeLine{196         uint8\_t ReadRegister(eRegisters reg);}
+\DoxyCodeLine{197         \textcolor{keywordtype}{void} WriteRegister(eRegisters reg, uint8\_t newValue);}
+\DoxyCodeLine{198         \textcolor{keywordtype}{void} ModifyRegister(eRegisters reg, uint8\_t mask, uint8\_t newValue);}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200         int32\_t GetMultiplierFromChannelGain(eChannelGain gain);}
+\DoxyCodeLine{201         \textcolor{keywordtype}{void} SetChannelGainsToDefault(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203 \};}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

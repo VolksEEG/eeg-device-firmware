@@ -35,6 +35,10 @@ class ProducerMock : public EegDataProducer {
 
         }
 
+        void StopProducingData() override {
+            
+        }
+
         EegData::sEegSamples GetLatestSample() override {
 
             _TimesCalled++;
@@ -100,6 +104,12 @@ class ConsumerMock : public EegDataConsumer {
 
 static const NEvent::eEvent PrimaryProducerEvent = NEvent::eEvent::Event_ADS1299DataReady;
 static const NEvent::eEvent SecondaryProducerEvent = NEvent::eEvent::Event_EDFDataReady;
+
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
 
 //
 //  Test that the primary producer is called by default

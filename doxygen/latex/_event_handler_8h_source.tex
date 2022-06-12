@@ -1,0 +1,51 @@
+\hypertarget{_event_handler_8h_source}{}\doxysection{Event\+Handler.\+h}
+\label{_event_handler_8h_source}\index{lib/event\_handler/EventHandler.h@{lib/event\_handler/EventHandler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_EVENT\_HANDLER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_EVENT\_HANDLER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}../error\_handler/ErrorHandler.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}CanProcesEvents.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_event_handler}{EventHandler}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}} \{}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t MAX\_PROCESS\_HANDLERS = 5;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \mbox{\hyperlink{class_event_handler}{EventHandler}}();}
+\DoxyCodeLine{17         \textcolor{keyword}{explicit} \mbox{\hyperlink{class_event_handler}{EventHandler}}(\mbox{\hyperlink{class_error_handler}{ErrorHandler}} * eh);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} SignalEvent(NEvent::eEvent event);}
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} AddEventHandler(\mbox{\hyperlink{class_can_process_events}{CanProcessEvents}} * handler\_ptr,}
+\DoxyCodeLine{21                                 NEvent::eEvent event);}
+\DoxyCodeLine{22         \textcolor{keywordtype}{void} HandleEvents(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{private}:}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\_EVENT\_HANDLERS}
+\DoxyCodeLine{33         \{}
+\DoxyCodeLine{34             uint8\_t setCount;}
+\DoxyCodeLine{35             \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}} * processerInstance\_ptrs[MAX\_PROCESS\_HANDLERS];}
+\DoxyCodeLine{36         \}sEventProcessers;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38         sEventProcessers \_EventProcessers[NEvent::MAX\_EVENTS];}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40         uint8\_t \_EventsSetBits;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42         \mbox{\hyperlink{class_error_handler}{ErrorHandler}} * \_ErrorHandlerInstance;}
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

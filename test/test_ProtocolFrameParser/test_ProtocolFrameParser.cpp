@@ -1,8 +1,14 @@
 
-#include <ProtocolFrameParser.h>
+#include <../protocol_frame_parser/ProtocolFrameParser.h>
 #include <unity.h>
 
 ProtocolFrameParser uut;
+
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
 
 //
 //  Test test to set the value

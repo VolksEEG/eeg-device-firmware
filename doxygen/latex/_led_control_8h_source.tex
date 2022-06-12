@@ -1,0 +1,47 @@
+\hypertarget{_led_control_8h_source}{}\doxysection{Led\+Control.\+h}
+\label{_led_control_8h_source}\index{lib/led\_control/LedControl.h@{lib/led\_control/LedControl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_LED\_CONTROL}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_LED\_CONTROL}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <EventHandler.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <ErrorHandler.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <PinControl.h>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_led_control}{LedControl}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}} \{}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \mbox{\hyperlink{class_led_control}{LedControl}}();}
+\DoxyCodeLine{15         \mbox{\hyperlink{class_led_control}{LedControl}}(\mbox{\hyperlink{class_error_handler}{ErrorHandler}} * eh, \mbox{\hyperlink{class_pin_control}{PinControl}} * pc);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{private}:}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{comment}{// TIMEOUT VALUES}}
+\DoxyCodeLine{24         \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t NORMAL\_ON\_TIMEOUT;}
+\DoxyCodeLine{25         \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t NORMAL\_OFF\_TIMEOUT;}
+\DoxyCodeLine{26         \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t ERROR\_ON\_TIMEOUT;}
+\DoxyCodeLine{27         \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t ERROR\_OFF\_TIMEOUT;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \mbox{\hyperlink{class_error_handler}{ErrorHandler}} * \_ErrorHAndlerInstance;}
+\DoxyCodeLine{30         \mbox{\hyperlink{class_pin_control}{PinControl}} * \_PinControlInstance;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         uint16\_t \_LedCounter;}
+\DoxyCodeLine{33         uint16\_t \_LedTimeout;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35         void (\mbox{\hyperlink{class_led_control}{LedControl}}::*\_LedStateFunction)();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \textcolor{keywordtype}{void} LedStateOn(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{38         \textcolor{keywordtype}{void} LedStateOff(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

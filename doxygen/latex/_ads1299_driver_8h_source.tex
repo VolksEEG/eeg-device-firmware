@@ -1,0 +1,42 @@
+\hypertarget{_ads1299_driver_8h_source}{}\doxysection{Ads1299\+Driver.\+h}
+\label{_ads1299_driver_8h_source}\index{lib/ads1299\_driver/Ads1299Driver.h@{lib/ads1299\_driver/Ads1299Driver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_ADS1299\_DRIVER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_ADS1299\_DRIVER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Ads1299LowDriver.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <SpiDriver.h>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <PinControl.h>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}} \{}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}();}
+\DoxyCodeLine{15         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}(\mbox{\hyperlink{class_spi_driver}{SpiDriver}} * spi, \mbox{\hyperlink{class_pin_control}{PinControl}} * pins);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17         \textcolor{keywordtype}{void} StartProducingData(); }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} StopProducingData(); }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{\_ADS\_SAMPLE\_DATA}}}
+\DoxyCodeLine{21         \{}
+\DoxyCodeLine{22             int16\_t SampleData[Ads1299LowDriver::MAX\_CHANNELS];}
+\DoxyCodeLine{23         \}\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{sAds1299SampleData}};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{Ads1299Driver::sAds1299SampleData}} GetLatestSampleData();}
+\DoxyCodeLine{26         }
+\DoxyCodeLine{27     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{private}:}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \mbox{\hyperlink{class_ads1299_low_driver}{Ads1299LowDriver}} \_Ads1299LowDriver;}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         uint8\_t \_SupportedChannels;}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

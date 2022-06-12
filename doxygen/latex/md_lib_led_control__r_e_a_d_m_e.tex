@@ -1,0 +1,21 @@
+This module is responsible for controlling the on board LEDs in the following scenarios.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Scenario   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ On Time   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Off Time    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Scenario   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ On Time   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Off Time    }\\\cline{1-3}
+\endhead
+Normal Operation   &200mS   &1800mS    \\\cline{1-3}
+Error Present   &1500mS   &500mS   \\\cline{1-3}
+\end{longtabu}
+
+
+it shall respond to the 1mS timeout event in order to control this timing.
+
+Each LED State timeout shall be monitored in it\textquotesingle{}s own state function which, once elapsed, will set the counter for the next state depending on whether an error is present or not.\hypertarget{md_lib_led_control__r_e_a_d_m_e_autotoc_md12}{}\doxysection{Issues}\label{md_lib_led_control__r_e_a_d_m_e_autotoc_md12}
+Currently there is an issue where the Heartbeat LED does not seem to be modified inside the Process\+Events\+Function and state machine states. 

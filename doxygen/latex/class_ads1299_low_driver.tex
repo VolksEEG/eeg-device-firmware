@@ -1,0 +1,241 @@
+\hypertarget{class_ads1299_low_driver}{}\doxysection{Ads1299\+Low\+Driver Class Reference}
+\label{class_ads1299_low_driver}\index{Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{\+\_\+\+ADS1299\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+DATA}}
+\item 
+struct \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a}{\+\_\+\+ADS1299\+\_\+\+CHANNEL\+\_\+\+DATA}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a9e083250d3c54b2cdb4c6368650fa506}\label{class_ads1299_low_driver_a9e083250d3c54b2cdb4c6368650fa506}} 
+enum {\bfseries \+\_\+\+SAMPLE\+\_\+\+RATES} \{ \newline
+{\bfseries SPS\+\_\+250} = 0x06
+, {\bfseries SPS\+\_\+500} = 0x05
+, {\bfseries SPS\+\_\+1000} = 0x04
+, {\bfseries SPS\+\_\+2000} = 0x03
+, \newline
+{\bfseries SPS\+\_\+4000} = 0x02
+, {\bfseries SPS\+\_\+8000} = 0x01
+, {\bfseries SPS\+\_\+16000} = 0x00
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ae8bd2b2739d30702fe1d14710f519d25}\label{class_ads1299_low_driver_ae8bd2b2739d30702fe1d14710f519d25}} 
+enum {\bfseries \+\_\+\+CHANNEL\+\_\+\+IDS} \{ \newline
+{\bfseries CH1} = 0
+, {\bfseries CH2} = 1
+, {\bfseries CH3} = 2
+, {\bfseries CH4} = 3
+, \newline
+{\bfseries CH5} = 4
+, {\bfseries CH6} = 5
+, {\bfseries CH7} = 6
+, {\bfseries CH8} = 7
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ad6858259f946fd03d74f7d468790435e}\label{class_ads1299_low_driver_ad6858259f946fd03d74f7d468790435e}} 
+enum {\bfseries \+\_\+\+CHANNEL\+\_\+\+STATES} \{ \newline
+{\bfseries Off\+And\+Shorted} = 0x81
+, {\bfseries On\+Normal} = 0x00
+, {\bfseries On\+And\+Shorted} = 0x01
+, {\bfseries On\+And\+Measuring\+Supplies} = 0x03
+, \newline
+{\bfseries On\+And\+Measuring\+Test\+Signal} = 0x05
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ac945c1e2e9d1d588e608c144501a3869}\label{class_ads1299_low_driver_ac945c1e2e9d1d588e608c144501a3869}} 
+enum {\bfseries \+\_\+\+CHANNEL\+\_\+\+GAINS} \{ \newline
+{\bfseries X1} = 0x00
+, {\bfseries X2} = 0x10
+, {\bfseries X4} = 0x20
+, {\bfseries X6} = 0x30
+, \newline
+{\bfseries X8} = 0x40
+, {\bfseries X12} = 0x50
+, {\bfseries X24} = 0x60
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ad7a2fc10eaa8378770a33bcc7718c052}\label{class_ads1299_low_driver_ad7a2fc10eaa8378770a33bcc7718c052}} 
+enum {\bfseries \+\_\+\+REFERENCE\+\_\+\+SELECT} \{ {\bfseries Internal}
+, {\bfseries External}
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a50bc01d045f43d073043d5a98502815d}\label{class_ads1299_low_driver_a50bc01d045f43d073043d5a98502815d}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+SAMPLE\+\_\+\+RATES {\bfseries e\+Sample\+Rate}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a2df284492f8334424956a381061ff4e4}\label{class_ads1299_low_driver_a2df284492f8334424956a381061ff4e4}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CHANNEL\+\_\+\+IDS {\bfseries e\+Channel\+Id}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a62d149590ec49914738c9bd4849e34be}\label{class_ads1299_low_driver_a62d149590ec49914738c9bd4849e34be}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CHANNEL\+\_\+\+STATES {\bfseries e\+Channel\+State}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a246a0e3d5644e51081f9892621daae37}\label{class_ads1299_low_driver_a246a0e3d5644e51081f9892621daae37}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CHANNEL\+\_\+\+GAINS {\bfseries e\+Channel\+Gain}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a9d8ba6a5e8ce4bf763570c01b8b784e8}\label{class_ads1299_low_driver_a9d8ba6a5e8ce4bf763570c01b8b784e8}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+REFERENCE\+\_\+\+SELECT {\bfseries e\+Reference\+Source}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a22adf9efb992d56fe2425c891edde311}\label{class_ads1299_low_driver_a22adf9efb992d56fe2425c891edde311}} 
+typedef struct \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a}{Ads1299\+Low\+Driver\+::\+\_\+\+ADS1299\+\_\+\+CHANNEL\+\_\+\+DATA}} {\bfseries s\+Ads1299\+Channel\+Data}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_af544fb3823efe207129aa34e130c9452}\label{class_ads1299_low_driver_af544fb3823efe207129aa34e130c9452}} 
+typedef struct \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{Ads1299\+Low\+Driver\+::\+\_\+\+ADS1299\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+DATA}} {\bfseries s\+Ads1299\+All\+Channels\+Data}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_aeb5f242a94d60c7fcaabc8bbb67b6845}\label{class_ads1299_low_driver_aeb5f242a94d60c7fcaabc8bbb67b6845}} 
+{\bfseries Ads1299\+Low\+Driver} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_ads1299_low_driver_ad089f84e9ceeea5f323339e8a93af3b7}{Ads1299\+Low\+Driver}} (\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} $\ast$spi, \mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$pins)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ae79a60be950a35ca47f740a16ed39609}\label{class_ads1299_low_driver_ae79a60be950a35ca47f740a16ed39609}} 
+void {\bfseries Reset\+Device} (void)
+\begin{DoxyCompactList}\small\item\em Sends the command to Reset the ADS1299 device over the SPI Interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_a442d33011e2aea2b3f9a329828b5f063}{Start\+Continuous\+Data\+Capture}} (e\+Sample\+Rate rate)
+\begin{DoxyCompactList}\small\item\em Sets up the Device to start capturing data continuously at the set rate. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a0c3ea205c7095ac78d042dda6216a83b}\label{class_ads1299_low_driver_a0c3ea205c7095ac78d042dda6216a83b}} 
+void {\bfseries Stop\+Continuous\+Data\+Capture} (void)
+\begin{DoxyCompactList}\small\item\em Instructs the device to stop capturing data continuously. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}{Get\+Number\+Of\+Supported\+Channels}} (void)
+\begin{DoxyCompactList}\small\item\em Gets the number of channels supported by the ADS1299. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_acc7fb24b78294d727fbe72f15ca6caa7}{Set\+Channel\+State}} (e\+Channel\+Id chan, e\+Channel\+State state)
+\begin{DoxyCompactList}\small\item\em Configures an ADS1299 EEG channels data capture state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}{Set\+Channel\+Gain}} (e\+Channel\+Id chan, e\+Channel\+Gain gain)
+\begin{DoxyCompactList}\small\item\em Sets the gain for the selected channel. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_ae282a97ac33df44aa6612be7710d0dff}{Set\+Reference\+Source}} (e\+Reference\+Source src)
+\begin{DoxyCompactList}\small\item\em Function to set the voltage reference source. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a0e9a89172fb1d6e63b8a2f6f9c4a5151}\label{class_ads1299_low_driver_a0e9a89172fb1d6e63b8a2f6f9c4a5151}} 
+void {\bfseries Set\+Test\+Signal} (void)
+\begin{DoxyCompactList}\small\item\em Function to set up a test signal. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{Ads1299\+Low\+Driver\+::s\+Ads1299\+All\+Channels\+Data}} \mbox{\hyperlink{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}{Get\+Ads1299\+Data}} (void)
+\begin{DoxyCompactList}\small\item\em Get the latest EEG Channel data and sign extend it to 32 bits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ae91844fe53f3f59d79d754497c7c9f60}\label{class_ads1299_low_driver_ae91844fe53f3f59d79d754497c7c9f60}} 
+static const uint8\+\_\+t {\bfseries MAX\+\_\+\+CHANNELS} = 8u
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_ads1299_low_driver_ad089f84e9ceeea5f323339e8a93af3b7}\label{class_ads1299_low_driver_ad089f84e9ceeea5f323339e8a93af3b7}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!Ads1299LowDriver@{Ads1299LowDriver}}
+\index{Ads1299LowDriver@{Ads1299LowDriver}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{Ads1299LowDriver()}{Ads1299LowDriver()}}
+{\footnotesize\ttfamily Ads1299\+Low\+Driver\+::\+Ads1299\+Low\+Driver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} $\ast$}]{spi,  }\item[{\mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$}]{pins }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spi} & Pointer to the SPI Driver to be used to communicate with the ADS1299 device. \\
+\hline
+{\em pins} & Pointer to the \mbox{\hyperlink{class_pin_control}{Pin\+Control}} module which is used to set the chip select line for the ADS1299 Device. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}\label{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!GetAds1299Data@{GetAds1299Data}}
+\index{GetAds1299Data@{GetAds1299Data}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{GetAds1299Data()}{GetAds1299Data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a}{Ads1299\+Low\+Driver\+::s\+Ads1299\+All\+Channels\+Data}} Ads1299\+Low\+Driver\+::\+Get\+Ads1299\+Data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the latest EEG Channel data and sign extend it to 32 bits. 
+
+\begin{DoxyReturn}{Returns}
+A structure holding the channel data. 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Make 27 variable based on the number of channels supported by the device. \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}\label{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!GetNumberOfSupportedChannels@{GetNumberOfSupportedChannels}}
+\index{GetNumberOfSupportedChannels@{GetNumberOfSupportedChannels}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{GetNumberOfSupportedChannels()}{GetNumberOfSupportedChannels()}}
+{\footnotesize\ttfamily uint8\+\_\+t Ads1299\+Low\+Driver\+::\+Get\+Number\+Of\+Supported\+Channels (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Gets the number of channels supported by the ADS1299. 
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The number of channels supported by the device. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}\label{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!SetChannelGain@{SetChannelGain}}
+\index{SetChannelGain@{SetChannelGain}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{SetChannelGain()}{SetChannelGain()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Set\+Channel\+Gain (\begin{DoxyParamCaption}\item[{e\+Channel\+Id}]{chan,  }\item[{e\+Channel\+Gain}]{gain }\end{DoxyParamCaption})}
+
+
+
+Sets the gain for the selected channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chan} & The channel to set the gain of. \\
+\hline
+{\em gain} & The gain to set on that channel. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ads1299_low_driver_acc7fb24b78294d727fbe72f15ca6caa7}\label{class_ads1299_low_driver_acc7fb24b78294d727fbe72f15ca6caa7}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!SetChannelState@{SetChannelState}}
+\index{SetChannelState@{SetChannelState}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{SetChannelState()}{SetChannelState()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Set\+Channel\+State (\begin{DoxyParamCaption}\item[{e\+Channel\+Id}]{chan,  }\item[{e\+Channel\+State}]{state }\end{DoxyParamCaption})}
+
+
+
+Configures an ADS1299 EEG channels data capture state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chan} & The channel to configure. \\
+\hline
+{\em state} & The state to set that channel to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ads1299_low_driver_ae282a97ac33df44aa6612be7710d0dff}\label{class_ads1299_low_driver_ae282a97ac33df44aa6612be7710d0dff}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!SetReferenceSource@{SetReferenceSource}}
+\index{SetReferenceSource@{SetReferenceSource}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{SetReferenceSource()}{SetReferenceSource()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Set\+Reference\+Source (\begin{DoxyParamCaption}\item[{e\+Reference\+Source}]{src }\end{DoxyParamCaption})}
+
+
+
+Function to set the voltage reference source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src} & The reference source to use, External or Internal. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ads1299_low_driver_a442d33011e2aea2b3f9a329828b5f063}\label{class_ads1299_low_driver_a442d33011e2aea2b3f9a329828b5f063}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!StartContinuousDataCapture@{StartContinuousDataCapture}}
+\index{StartContinuousDataCapture@{StartContinuousDataCapture}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{StartContinuousDataCapture()}{StartContinuousDataCapture()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Start\+Continuous\+Data\+Capture (\begin{DoxyParamCaption}\item[{e\+Sample\+Rate}]{rate }\end{DoxyParamCaption})}
+
+
+
+Sets up the Device to start capturing data continuously at the set rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rate} & The data rate to capture samples at. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/ads1299\+\_\+driver/Ads1299\+Low\+Driver.\+h\item 
+lib/ads1299\+\_\+driver/\mbox{\hyperlink{_ads1299_low_driver_8cpp}{Ads1299\+Low\+Driver.\+cpp}}\end{DoxyCompactItemize}

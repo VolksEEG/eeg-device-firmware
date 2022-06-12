@@ -1,0 +1,29 @@
+\hypertarget{_events_8h_source}{}\doxysection{Events.\+h}
+\label{_events_8h_source}\index{lib/event\_handler/Events.h@{lib/event\_handler/Events.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_EVENTS}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_EVENTS}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }NEvent \{}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_EVENTS}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         Event\_ADS1299DataReady = 0x00,}
+\DoxyCodeLine{12         Event\_EDFDataReady = 0x01,}
+\DoxyCodeLine{13         Event\_1mSTimeout = 0x02,}
+\DoxyCodeLine{14         Event\_DataRxFromPC = 0x03,}
+\DoxyCodeLine{15         Event\_ProcessedADS1299DataReady = 0x04}
+\DoxyCodeLine{16     \}eEvent;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t NO\_EVENTS = 0;}
+\DoxyCodeLine{19     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t MAX\_EVENTS = 5;}
+\DoxyCodeLine{20     }
+\DoxyCodeLine{21 \}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -4,6 +4,12 @@
 
 ProtocolParser uut;
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 //
 //  Test test to set the value
 //

@@ -1,0 +1,38 @@
+\hypertarget{_error_handler_8h_source}{}\doxysection{Error\+Handler.\+h}
+\label{_error_handler_8h_source}\index{lib/error\_handler/ErrorHandler.h@{lib/error\_handler/ErrorHandler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_ERROR\_HANDLER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_ERROR\_HANDLER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_error_handler}{ErrorHandler}} \{}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9     \textcolor{keyword}{public}:}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_ERRORS}
+\DoxyCodeLine{12         \{}
+\DoxyCodeLine{13             Error\_EventOverrun = 0,}
+\DoxyCodeLine{14             Error\_EventHandlerUnableToBeAdded = 1,}
+\DoxyCodeLine{15             Error\_EventHandlingFailure = 2}
+\DoxyCodeLine{16         \}eError;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \mbox{\hyperlink{class_error_handler}{ErrorHandler}}();}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} RaiseError(eError error);}
+\DoxyCodeLine{21         \textcolor{keywordtype}{bool} IsErrorPresent(\textcolor{keywordtype}{void}); }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{private}:}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t NO\_ERRORS = 0;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         uint8\_t \_ErrorsRaisedBits;}
+\DoxyCodeLine{30 \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

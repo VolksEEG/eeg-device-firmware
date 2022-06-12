@@ -1,0 +1,50 @@
+\hypertarget{class_event_handler}{}\doxysection{Event\+Handler Class Reference}
+\label{class_event_handler}\index{EventHandler@{EventHandler}}
+Inheritance diagram for Event\+Handler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_event_handler}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_handler_a1fa612679a0d32925335bc95c3fdf7c9}\label{class_event_handler_a1fa612679a0d32925335bc95c3fdf7c9}} 
+{\bfseries Event\+Handler} (\mbox{\hyperlink{class_error_handler}{Error\+Handler}} $\ast$eh)
+\item 
+\mbox{\Hypertarget{class_event_handler_abf9b9b8e0b94e725bb051061255c9b59}\label{class_event_handler_abf9b9b8e0b94e725bb051061255c9b59}} 
+void {\bfseries Signal\+Event} (NEvent\+::e\+Event event)
+\item 
+\mbox{\Hypertarget{class_event_handler_a18646ee99274acff2b212b0a88f69266}\label{class_event_handler_a18646ee99274acff2b212b0a88f69266}} 
+void {\bfseries Add\+Event\+Handler} (\mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}} $\ast$handler\+\_\+ptr, NEvent\+::e\+Event event)
+\item 
+\mbox{\Hypertarget{class_event_handler_a7cb07f165f640f89bc7b22cb2ef4bb1a}\label{class_event_handler_a7cb07f165f640f89bc7b22cb2ef4bb1a}} 
+void {\bfseries Handle\+Events} (void)
+\item 
+void \mbox{\hyperlink{class_event_handler_a1d2caed7bcac8181889b3a24d2465b26}{Process\+Event}} (NEvent\+::e\+Event event) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_handler_ae537cf90272e44d2ecf1f2ca4b65cf5c}\label{class_event_handler_ae537cf90272e44d2ecf1f2ca4b65cf5c}} 
+static const uint8\+\_\+t {\bfseries MAX\+\_\+\+PROCESS\+\_\+\+HANDLERS} = 5
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_handler_a1d2caed7bcac8181889b3a24d2465b26}\label{class_event_handler_a1d2caed7bcac8181889b3a24d2465b26}} 
+\index{EventHandler@{EventHandler}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!EventHandler@{EventHandler}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Event\+Handler\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/event\+\_\+handler/Event\+Handler.\+h\item 
+lib/event\+\_\+handler/Event\+Handler.\+cpp\end{DoxyCompactItemize}

@@ -4,6 +4,12 @@
 
 PinControl uut;
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 //
 //  test initial value of heartbeat LED
 //
