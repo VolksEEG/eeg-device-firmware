@@ -6,10 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-// For some reason these two includes no longer work - moved the contents of the files below.
-//#include "ConsumerMock.h"
-//#include "ProducerMock.h"
-
 #include <EEGDataProducer.h>
 #include <EEGDataConsumer.h>
 
@@ -123,6 +119,9 @@ void test_DataFlowController_PrimaryProducerIsCalledByDefault(void)
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
+
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
 
@@ -145,6 +144,9 @@ void test_DataFlowController_SecondaryProducerIsCalledWhenProducerIsChanged(void
 
     // change the producer.
     uut.SetProducer(DataFlowController::eProducerConsumer::secondary);
+
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(SecondaryProducerEvent);
@@ -172,6 +174,9 @@ void test_DataFlowController_PrimaryProducerIsCalledWhenProducerIsChangedBack(vo
     // change the producer back.
     uut.SetProducer(DataFlowController::eProducerConsumer::primary);
 
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
+
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
 
@@ -191,6 +196,9 @@ void test_DataFlowController_PrimaryConsumerIsCalledByDefault(void)
     ConsumerMock secondaryConsumer = ConsumerMock();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
+
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
@@ -214,6 +222,9 @@ void test_DataFlowController_SecondaryConsumerIsCalledWhenProducerIsChanged(void
 
     // change the consumer.
     uut.SetConsumer(DataFlowController::eProducerConsumer::secondary);
+
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
@@ -240,6 +251,9 @@ void test_DataFlowController_PrimaryConsumerIsCalledWhenProducerIsChangedBack(vo
 
     // change the consumer back.
     uut.SetConsumer(DataFlowController::eProducerConsumer::primary);
+
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(PrimaryProducerEvent);
@@ -320,6 +334,9 @@ void test_DataFlowController_ProducerDataIsPassedToConsumer(void)
     // show output values and 
 
     producerInstance->SetOutputValues(samples);
+
+    // events won't be processed unless data is being produced.
+    uut.StartProducingData();
 
     // process event to make Data Flow Controller call a producer.
     uut.ProcessEvent(producerEvent);
