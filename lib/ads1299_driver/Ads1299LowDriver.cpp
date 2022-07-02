@@ -186,6 +186,22 @@ void Ads1299LowDriver::SetTestSignal(void)
         (uint8_t)((uint8_t)CONFIG_2_INTERNAL_CAL_ENABLE | (uint8_t)CONFIG_2_CAL_AMPLITUDE_LOW | (uint8_t)CONFIG_2_CAL_FREQUENCY_FAST));
 }
 
+/**
+ * @brief Function to set whether the Negative input is connected to SRB1
+ * 
+ */
+void Ads1299LowDriver::SetNegativeInputsConnectionToSRB1(bool connect)
+{
+    if (connect)
+    {
+        ModifyRegister(REGISTER_MISC1, MISC_1_SRB1_MASK, (uint8_t)MISC_1_SRB1_DISABLE);
+
+        return;
+    }
+
+    ModifyRegister(REGISTER_MISC1, MISC_1_SRB1_MASK, (uint8_t)MISC_1_SRB1_ENABLE);
+}
+
 //
 //  Function to request the latest channel data
 //

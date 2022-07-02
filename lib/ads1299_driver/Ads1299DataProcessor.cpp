@@ -37,7 +37,7 @@ void Ads1299DataProcessor::ProcessEvent(NEvent::eEvent event)
 //
 void Ads1299DataProcessor::StartProducingData()
 {
-    _Ads1299Driver_ptr->StartProducingData();
+    _Ads1299Driver_ptr->StartProducingData(Ads1299LowDriver::eSampleRate::SPS_500);
 }
 
 //

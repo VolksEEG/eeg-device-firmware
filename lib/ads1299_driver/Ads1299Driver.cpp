@@ -14,7 +14,7 @@ Ads1299Driver::Ads1299Driver()
 //
 // Constructor
 //
-Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins) :
+Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins, eMontage montage) :
     _Ads1299LowDriver(Ads1299LowDriver(spi, pins))
 {
     // Device defaults to capturing at 250SPS so stop this.
@@ -32,12 +32,15 @@ Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins) :
     // We will be using the internal reference, this could be passed as a parameter
     // to the constructor in future.
     _Ads1299LowDriver.SetReferenceSource(Ads1299LowDriver::eReferenceSource::Internal);
+
+    // if the montage is referential, then we need to set the Negative inputs connection to SRB1.
+    _Ads1299LowDriver.SetNegativeInputsConnectionToSRB1((Referential == montage));
 }
 
 //
 //  Overridden function from EegDataProducer to start producing EEG data
 //
-void Ads1299Driver::StartProducingData()
+void Ads1299Driver::StartProducingData(Ads1299LowDriver::eSampleRate rate)
 {
     // ensure the gain is set correctly
     _Ads1299LowDriver.SetChannelGain(Ads1299LowDriver::eChannelId::CH1, Ads1299LowDriver::eChannelGain::X12);
@@ -60,7 +63,7 @@ void Ads1299Driver::StartProducingData()
     _Ads1299LowDriver.SetChannelState(Ads1299LowDriver::eChannelId::CH8, Ads1299LowDriver::eChannelState::OnNormal);
 
     // And start data capture
-    _Ads1299LowDriver.StartContinuousDataCapture(Ads1299LowDriver::eSampleRate::SPS_500);    
+    _Ads1299LowDriver.StartContinuousDataCapture(rate);    
 }
 
 //

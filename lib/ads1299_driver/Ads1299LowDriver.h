@@ -73,6 +73,7 @@ class Ads1299LowDriver {
         void SetChannelGain(eChannelId chan, eChannelGain gain);
         void SetReferenceSource(eReferenceSource src);
         void SetTestSignal(void);
+        void SetNegativeInputsConnectionToSRB1(bool connect);
 
         typedef struct _ADS1299_CHANNEL_DATA
         {
@@ -121,7 +122,8 @@ class Ads1299LowDriver {
             REGISTER_CH5SET = 0x09,
             REGISTER_CH6SET = 0x0A,
             REGISTER_CH7SET = 0x0B,
-            REGISTER_CH8SET = 0x0C
+            REGISTER_CH8SET = 0x0C,
+            REGISTER_MISC1 = 0x15
         }eRegisters;
 
         // definitions for determining the number of channels from the ID register.
@@ -173,6 +175,16 @@ class Ads1299LowDriver {
         // definitions for channel settings
         static const uint8_t CHNSET_GAIN_MASK = 0x70;
         static const uint8_t CHNSET_STATE_MASK = 0x87;
+
+        // definitions for srb1 connection setting
+        static const uint8_t MISC_1_SRB1_MASK = 0x20;
+
+        typedef enum _REG_BUFFER_STATE
+        {
+            MISC_1_SRB1_DISABLE = 0x00,
+            MISC_1_SRB1_ENABLE = 0x20
+        }eRefBufferState;
+
 
         // used to clock the SPI data out of the ADS1299
         static const uint8_t BLANK_DATA = 0x00;

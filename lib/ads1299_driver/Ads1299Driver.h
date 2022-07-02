@@ -11,10 +11,16 @@ class Ads1299Driver {
 
     public:
 
-        Ads1299Driver();
-        Ads1299Driver(SpiDriver * spi, PinControl * pins);
+        typedef enum _MONTAGE
+        {
+            Sequential,
+            Referential
+        }eMontage;
 
-        void StartProducingData(); 
+        Ads1299Driver();
+        Ads1299Driver(SpiDriver * spi, PinControl * pins, eMontage montage);
+
+        void StartProducingData(Ads1299LowDriver::eSampleRate rate); 
         void StopProducingData(); 
 
         typedef struct _ADS_SAMPLE_DATA
