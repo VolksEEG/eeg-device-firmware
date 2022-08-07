@@ -12,7 +12,8 @@ class ErrorHandler {
         {
             Error_EventOverrun = 0,
             Error_EventHandlerUnableToBeAdded = 1,
-            Error_EventHandlingFailure = 2
+            Error_EventHandlingFailure = 2,
+            Error_AdsSampleUnableToBeBuffered = 3
         }eError;
 
         ErrorHandler();

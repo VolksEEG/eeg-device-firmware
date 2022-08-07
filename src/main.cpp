@@ -53,10 +53,10 @@ void setup() {
   protocolFrameParser = ProtocolFrameParser(&serialPort);
   spiDriver = SpiDriver();
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl, Ads1299Driver::eMontage::Referential);
-  ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler);
+  ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler, &errorHandler);
   fakeDataProducer = FakeDataProducer(&eventHandler);
   dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
-                                            &ads1299DataProcessor, NEvent::eEvent::Event_ProcessedADS1299DataReady,
+                                            &ads1299DataProcessor, NEvent::eEvent::Event_BufferedADS1299DataReady,
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
@@ -67,7 +67,7 @@ void setup() {
   eventHandler.AddEventHandler(&fakeDataProducer, NEvent::eEvent::Event_1mSTimeout);
 
   // Add data ready event handlers
-  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_ProcessedADS1299DataReady);
+  eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_BufferedADS1299DataReady);
   eventHandler.AddEventHandler(&dataFlowController, NEvent::eEvent::Event_EDFDataReady);
 
   eventHandler.AddEventHandler(&ads1299DataProcessor, NEvent::Event_ADS1299DataReady);

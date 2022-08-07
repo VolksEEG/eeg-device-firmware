@@ -179,12 +179,11 @@ class Ads1299LowDriver {
         // definitions for srb1 connection setting
         static const uint8_t MISC_1_SRB1_MASK = 0x20;
 
-        typedef enum _REG_BUFFER_STATE
+        typedef enum _REG_SRB1_STATE
         {
             MISC_1_SRB1_DISABLE = 0x00,
             MISC_1_SRB1_ENABLE = 0x20
-        }eRefBufferState;
-
+        }eSrb1State;
 
         // used to clock the SPI data out of the ADS1299
         static const uint8_t BLANK_DATA = 0x00;

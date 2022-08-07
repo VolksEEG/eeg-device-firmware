@@ -6,13 +6,14 @@
 
 #include <EEGDataProducer.h>
 #include <EegData.h>
+#include <ErrorHandler.h>
 
 class Ads1299DataProcessor : public EegDataProducer, public CanProcessEvents  {
 
     public:
 
         Ads1299DataProcessor();
-        Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * eh);
+        Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * eh, ErrorHandler * erh);
 
         void StartProducingData() override; 
         void StopProducingData() override; 
@@ -27,6 +28,14 @@ class Ads1299DataProcessor : public EegDataProducer, public CanProcessEvents  {
 
         Ads1299Driver * _Ads1299Driver_ptr;
         EventHandler * _EventHandler_ptr;
+        ErrorHandler * _ErrorHandler_ptr;
+
+        static const uint16_t _MAX_SAMPLES_TO_BUFFER = 50;      // 100 milliSeconds of data
+
+        EegData::sEegSamples _AdsBufferedData[_MAX_SAMPLES_TO_BUFFER];
+        uint16_t _AdsSampleBufferInputIndex;
+        uint16_t _AdsSampleBufferOutputIndex;
+        uint16_t _AdsSampleBufferCount;
 };
 
 #endif

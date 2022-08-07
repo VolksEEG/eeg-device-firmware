@@ -1,5 +1,7 @@
 #include "Ads1299DataProcessor.h"
 
+#include <string.h>
+
 //
 // Constructor
 //
@@ -11,11 +13,25 @@ Ads1299DataProcessor::Ads1299DataProcessor()
 //
 // Constructor
 //
-Ads1299DataProcessor::Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * eh) :
+Ads1299DataProcessor::Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * eh, ErrorHandler * erh) :
     _Ads1299Driver_ptr(ads),
-    _EventHandler_ptr(eh)
+    _EventHandler_ptr(eh),
+    _ErrorHandler_ptr(erh),
+    _AdsSampleBufferInputIndex(0),
+    _AdsSampleBufferOutputIndex(0),
+    _AdsSampleBufferCount(0)
 {
-    
+    for (int i = 0; i < _MAX_SAMPLES_TO_BUFFER; ++i)
+    {
+        _AdsBufferedData[i].channel_1 = 0;
+        _AdsBufferedData[i].channel_2 = 0;
+        _AdsBufferedData[i].channel_3 = 0;
+        _AdsBufferedData[i].channel_4 = 0;
+        _AdsBufferedData[i].channel_5 = 0;
+        _AdsBufferedData[i].channel_6 = 0;
+        _AdsBufferedData[i].channel_7 = 0;
+        _AdsBufferedData[i].channel_8 = 0;
+    }
 }
 
 //
@@ -28,8 +44,45 @@ void Ads1299DataProcessor::ProcessEvent(NEvent::eEvent event)
         return;
     }
 
-    // For now, just signal the Processed ADS1299 Data ready event
-     _EventHandler_ptr->SignalEvent(NEvent::Event_ProcessedADS1299DataReady);
+    if (_AdsSampleBufferCount >= _MAX_SAMPLES_TO_BUFFER)
+    {
+        // no space remaining, so raise an error and do not attempt to buffer the sample
+        _ErrorHandler_ptr->RaiseError(ErrorHandler::eError::Error_AdsSampleUnableToBeBuffered);
+
+        return;
+    }
+
+    EegData::sEegSamples eegSamples;
+
+    // get the latest sample
+    Ads1299Driver::sAds1299SampleData adsSamples = _Ads1299Driver_ptr->GetLatestSampleData();
+
+    eegSamples.channel_1 = adsSamples.SampleData[0];
+    eegSamples.channel_2 = adsSamples.SampleData[1];
+    eegSamples.channel_3 = adsSamples.SampleData[2];
+    eegSamples.channel_4 = adsSamples.SampleData[3];
+    eegSamples.channel_5 = adsSamples.SampleData[4];
+    eegSamples.channel_6 = adsSamples.SampleData[5];
+    eegSamples.channel_7 = adsSamples.SampleData[6];
+    eegSamples.channel_8 = adsSamples.SampleData[7];
+    
+    // buffer it
+    _AdsBufferedData[_AdsSampleBufferInputIndex++] = eegSamples;
+
+    // wrap around the input index
+    if (_AdsSampleBufferInputIndex == _MAX_SAMPLES_TO_BUFFER)
+    {
+        _AdsSampleBufferInputIndex = 0;
+    }
+
+    // track the count
+    _AdsSampleBufferCount++;
+
+    if (1 == _AdsSampleBufferCount)
+    {
+        // if this if the first sample then signal the buffered ADS1299 Data ready event
+        _EventHandler_ptr->SignalEvent(NEvent::Event_BufferedADS1299DataReady);        
+    }
 }
 
 //
@@ -53,18 +106,21 @@ void Ads1299DataProcessor::StopProducingData()
 //
 EegData::sEegSamples Ads1299DataProcessor::GetLatestSample()
 {
-    EegData::sEegSamples eegSamples;
+    EegData::sEegSamples eegSamples = _AdsBufferedData[_AdsSampleBufferOutputIndex++];
 
-    Ads1299Driver::sAds1299SampleData adsSamples = _Ads1299Driver_ptr->GetLatestSampleData();
+    // wrap around the input index
+    if (_AdsSampleBufferOutputIndex == _MAX_SAMPLES_TO_BUFFER)
+    {
+        _AdsSampleBufferOutputIndex = 0;
+    }
 
-    eegSamples.channel_1 = adsSamples.SampleData[0];
-    eegSamples.channel_2 = adsSamples.SampleData[1];
-    eegSamples.channel_3 = adsSamples.SampleData[2];
-    eegSamples.channel_4 = adsSamples.SampleData[3];
-    eegSamples.channel_5 = adsSamples.SampleData[4];
-    eegSamples.channel_6 = adsSamples.SampleData[5];
-    eegSamples.channel_7 = adsSamples.SampleData[6];
-    eegSamples.channel_8 = adsSamples.SampleData[7];
-    
+    // track the count
+    _AdsSampleBufferCount--;
+
+    if (0 != _AdsSampleBufferCount)
+    {
+        _EventHandler_ptr->SignalEvent(NEvent::Event_BufferedADS1299DataReady);
+    }
+
     return eegSamples;
 }
