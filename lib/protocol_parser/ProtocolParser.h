@@ -23,31 +23,40 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     private:
 
         static const int _PROTOCOL_PAYLOAD_SIZE = 18;
-        static const int _RX_DATA_SIZE = 20;
+        static const int _MAX_PAYLOAD_SIZE = 20;
+
+        static const uint8_t _MAX_VALID_ID = 255;
 
         ProtocolFrameParser * _ProtocolFrameParser;
         SerialPort * _SerialPort;
         EegDataProducer * _EEGDataProducer;
 
-        short _SampleSetIndex;
-
         typedef struct _RX_STATE
         {
+            // reception varaibles
             _RX_STATE (*state_fptr)(uint8_t c, _RX_STATE state, ProtocolParser * protocolParser);
-            uint8_t rxData[_RX_DATA_SIZE];
             uint8_t rxIndex;
             uint8_t rxMultiByteCounter;
+
+            // message values
+            uint8_t payload[_MAX_PAYLOAD_SIZE];
+            uint8_t payloadLength;
+            uint8_t messageID;
+            uint8_t checksum;
         }sRxStruct;
 
-
         sRxStruct _RxState;
+        uint8_t _LastValidId;
 
         static ProtocolParser * _ProtocolParser;
 
         static sRxStruct GetDefaultRxStruct();
 
         static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetCommand(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
 };
 
 #endif

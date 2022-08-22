@@ -1,7 +1,7 @@
 
 #include "SpiDriver.h"
 
-#ifndef UNIT_TEST
+#ifndef PIO_UNIT_TESTING
 #include <SPI.h>
 #else
 #include <../../src/ArduinoMock.h>

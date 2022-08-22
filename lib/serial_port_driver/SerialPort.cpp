@@ -2,7 +2,7 @@
 #include "SerialPort.h"
 #include <string.h>
 
-#ifndef UNIT_TEST
+#ifndef PIO_UNIT_TESTING
 #include <Adafruit_TinyUSB.h>
 //#include <Arduino.h>
 #else

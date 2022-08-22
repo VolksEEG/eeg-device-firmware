@@ -1,6 +1,6 @@
 
-#include <EventHandler.h>
 #include <unity.h>
+#include <EventHandler.h>
 
 class EventProcessTest : public CanProcessEvents {
     public:

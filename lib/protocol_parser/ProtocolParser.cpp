@@ -15,7 +15,7 @@ ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp, EegDa
     _ProtocolFrameParser(pfp),
     _SerialPort(sp),
     _EEGDataProducer(edp),
-    _SampleSetIndex(0)
+    _LastValidId(_MAX_VALID_ID)
 {
     _RxState = GetDefaultRxStruct();
 }
@@ -48,8 +48,6 @@ void ProtocolParser::ProcessEvent(NEvent::eEvent event)
 void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
 {
     uint8_t payload[_PROTOCOL_PAYLOAD_SIZE] = {
-        (uint8_t)(_SampleSetIndex & 0x00FF),
-        (uint8_t)((_SampleSetIndex & 0xFF00) >> 8),
         (uint8_t)(samples.channel_1 & 0x00FF),
         (uint8_t)((samples.channel_1 & 0xFF00) >> 8),
         (uint8_t)(samples.channel_2 & 0x00FF),
@@ -69,8 +67,6 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
     };
 
     _ProtocolFrameParser->AddFrameToPayloadAndSendToPc(payload, _PROTOCOL_PAYLOAD_SIZE);
-
-    _SampleSetIndex++;
 }
 
 // 
@@ -78,10 +74,10 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
-    static const uint8_t SYNC_SEQ_BYTE = 0xFF;
+    static const uint8_t SYNC_SEQ_BYTES[] = {0xAA, 0x55};
     static const uint8_t SYNC_SEQ_BYTE_COUNT = 2;
 
-    if (c != SYNC_SEQ_BYTE)
+    if (c != SYNC_SEQ_BYTES[state.rxMultiByteCounter])
     {
         return GetDefaultRxStruct();
     }
@@ -91,34 +87,85 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
         return state;
     }
 
+    // update state to the next field.
     state.rxMultiByteCounter = 0;
-    state.state_fptr = RxState_GetCommand;
+    state.state_fptr = RxState_GetProtocolVersion;
 
     return state;
 }
 
 // 
-//  Data reception state function to process the received command
+//  Data reception state function to process the received protocol version
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetCommand(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
-    static const uint8_t CMD_START_DATA_CAPTURE = 0x01;
-    static const uint8_t CMD_STOP_DATA_CAPTURE = 0x02;
+    static const uint8_t IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
 
-    switch (c)
+    if (c != IMPLEMENTED_PROTOCOL_VERSION)
     {
-        case CMD_START_DATA_CAPTURE:
-            protocolParser->_EEGDataProducer->StartProducingData();//_ProtocolParser->_EEGDataProducer->StartProducingData();
-            break;
-        case CMD_STOP_DATA_CAPTURE:
-            protocolParser->_EEGDataProducer->StopProducingData();//_ProtocolParser->_EEGDataProducer->StopProducingData();
-            break;
-        default: 
-            // Do nothing if the command is not recognised.
-            break;
+        return GetDefaultRxStruct();
     }
 
-    return GetDefaultRxStruct();
+    // update state to the next field.
+    state.state_fptr = RxState_GetPayloadLength;
+
+    return state;
+}
+
+// 
+//  Data reception state function to process the received payload length
+//
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+{
+    // quick check that the payload length is not greater than the buffer we have assigned.
+    if (c > _MAX_PAYLOAD_SIZE)
+    {
+        // TODO - what should we do in this case
+        return GetDefaultRxStruct();
+    }
+
+    // store the payload length
+    state.payloadLength = c;
+
+    // update state to the next field.
+    state.state_fptr = RxState_GetIdNumber;
+
+    return state;
+}
+
+// 
+//  Data reception state function to process the received message ID
+//
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+{
+    const uint8_t NEXT_EXPECTED_ID_NUMBER = protocolParser->_LastValidId + 1;
+
+    // check the ID to ensure we have not missed a message.
+    if (c != NEXT_EXPECTED_ID_NUMBER)
+    {
+        // TODO - return an ack with the last valid ID number
+
+        return GetDefaultRxStruct();
+    }
+
+    // update state to the next field.
+    state.messageID = c;
+
+    // update state to get the acknowledge ID
+    state.state_fptr = RxState_GetAcknowledgeId;
+
+    return state;
+}
+
+// 
+//  Data reception state function to process the received acknowledge ID
+//
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+{
+    // update state to the next field.
+    //state.state_fptr = ;
+
+    return state;
 }
 
 //
@@ -128,12 +175,16 @@ ProtocolParser::sRxStruct ProtocolParser::GetDefaultRxStruct(void)
 {
     ProtocolParser::sRxStruct temp;
 
-    memset(temp.rxData, 0, _RX_DATA_SIZE);
+    memset(temp.payload, 0, _MAX_PAYLOAD_SIZE);
+    temp.payloadLength = 0;
+    temp.messageID = 255;
+    temp.checksum = 0;
 
     temp.rxIndex = 0;
     temp.rxMultiByteCounter = 0;
 
     temp.state_fptr = RxState_WaitForSyncSequence;
+    
 
     return temp;
 }

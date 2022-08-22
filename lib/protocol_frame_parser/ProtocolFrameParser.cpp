@@ -1,7 +1,7 @@
 
 #include "ProtocolFrameParser.h"
 
-#ifndef UNIT_TEST 
+#ifndef PIO_UNIT_TESTING 
 #include "Arduino.h"
 #else 
 #include <string.h>
