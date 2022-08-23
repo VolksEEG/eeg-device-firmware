@@ -11,8 +11,7 @@ ProtocolParser::ProtocolParser()
     
 }
 
-ProtocolParser::ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp, EegDataProducer * edp) :
-    _ProtocolFrameParser(pfp),
+ProtocolParser::ProtocolParser(SerialPort * sp, EegDataProducer * edp) :
     _SerialPort(sp),
     _EEGDataProducer(edp),
     _LastValidId(_MAX_VALID_ID)
@@ -65,8 +64,6 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
         (uint8_t)(samples.channel_8 & 0x00FF),
         (uint8_t)((samples.channel_8 & 0xFF00) >> 8)
     };
-
-    _ProtocolFrameParser->AddFrameToPayloadAndSendToPc(payload, _PROTOCOL_PAYLOAD_SIZE);
 }
 
 // 
@@ -188,3 +185,34 @@ ProtocolParser::sRxStruct ProtocolParser::GetDefaultRxStruct(void)
 
     return temp;
 }
+
+
+#ifdef PIO_UNIT_TESTING
+
+ProtocolParser::RX_STATE ProtocolParser::GetCurrentRxState()
+{
+    if (RxState_WaitForSyncSequence == _RxState.state_fptr)
+    {
+        return WaitForSequence;
+    }
+    else if (RxState_GetProtocolVersion == _RxState.state_fptr)
+    {
+        return GetProtocolVersion;
+    }
+    else if (RxState_GetPayloadLength == _RxState.state_fptr)
+    {
+        return GetPayloadLength;
+    }
+    else if (RxState_GetIdNumber == _RxState.state_fptr)
+    {
+        return GetIdNumber;
+    }
+    else if (RxState_GetAcknowledgeId == _RxState.state_fptr)
+    {
+        return GetAckId;
+    }
+
+    return InvalidState;
+}
+
+#endif

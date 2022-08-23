@@ -12,12 +12,27 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     public:
 
         ProtocolParser();
-        ProtocolParser(ProtocolFrameParser * pfp, SerialPort * sp, EegDataProducer * edp);
+        ProtocolParser(SerialPort * sp, EegDataProducer * edp);
 
         void PushLatestSample(EegData::sEegSamples samples) override;
         
         void ProcessEvent(NEvent::eEvent event) override;
 
+        #ifdef PIO_UNIT_TESTING
+
+        typedef enum _RX_STATES
+        {
+            WaitForSequence,
+            GetProtocolVersion,
+            GetPayloadLength,
+            GetIdNumber,
+            GetAckId,
+            InvalidState
+        }RX_STATE;
+
+        RX_STATE GetCurrentRxState();
+
+        #endif
     protected:
 
     private:
@@ -27,7 +42,6 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         static const uint8_t _MAX_VALID_ID = 255;
 
-        ProtocolFrameParser * _ProtocolFrameParser;
         SerialPort * _SerialPort;
         EegDataProducer * _EEGDataProducer;
 
