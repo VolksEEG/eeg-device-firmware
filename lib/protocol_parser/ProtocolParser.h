@@ -2,7 +2,8 @@
 #ifndef _PROTOCOL_PARSER
 #define _PROTOCOL_PARSER
 
-#include <../protocol_frame_parser/ProtocolFrameParser.h>
+#include "PcCommunicationsInterface.h"
+
 #include <EEGDataConsumer.h>
 #include <EEGDataProducer.h>
 #include <SerialPort.h>
@@ -12,7 +13,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     public:
 
         ProtocolParser();
-        ProtocolParser(SerialPort * sp, EegDataProducer * edp);
+        ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp);
 
         void PushLatestSample(EegData::sEegSamples samples) override;
         
@@ -32,6 +33,8 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         RX_STATE GetCurrentRxState();
 
+        uint8_t GetImplementedProtocolVersion();
+
         #endif
     protected:
 
@@ -42,7 +45,9 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         static const uint8_t _MAX_VALID_ID = 255;
 
-        SerialPort * _SerialPort;
+        static const uint8_t IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
+
+        PcCommunicationsInterface * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
 
         typedef struct _RX_STATE

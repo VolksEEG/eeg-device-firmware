@@ -11,8 +11,8 @@ ProtocolParser::ProtocolParser()
     
 }
 
-ProtocolParser::ProtocolParser(SerialPort * sp, EegDataProducer * edp) :
-    _SerialPort(sp),
+ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp) :
+    _PcComsInterface(pci),
     _EEGDataProducer(edp),
     _LastValidId(_MAX_VALID_ID)
 {
@@ -31,7 +31,7 @@ void ProtocolParser::ProcessEvent(NEvent::eEvent event)
 
     uint8_t buf[1];
 
-    const uint8_t RX_COUNT = _SerialPort->GetReceivedBytes(buf, 1);
+    const uint8_t RX_COUNT = _PcComsInterface->GetReceivedBytes(buf, 1);
 
     if (0 == RX_COUNT)
     {
@@ -96,8 +96,6 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
-    static const uint8_t IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
-
     if (c != IMPLEMENTED_PROTOCOL_VERSION)
     {
         return GetDefaultRxStruct();
@@ -213,6 +211,11 @@ ProtocolParser::RX_STATE ProtocolParser::GetCurrentRxState()
     }
 
     return InvalidState;
+}
+
+uint8_t ProtocolParser::GetImplementedProtocolVersion()
+{
+    return IMPLEMENTED_PROTOCOL_VERSION;
 }
 
 #endif
