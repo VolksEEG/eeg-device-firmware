@@ -28,12 +28,16 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
             GetPayloadLength,
             GetIdNumber,
             GetAckId,
+            GetChecksum,
+            GetPayload,
             InvalidState
         }RX_STATE;
 
         RX_STATE GetCurrentRxState();
 
         uint8_t GetImplementedProtocolVersion();
+
+        uint8_t GetMaximumPayloadLength();
 
         #endif
     protected:
@@ -45,7 +49,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         static const uint8_t _MAX_VALID_ID = 255;
 
-        static const uint8_t IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
+        static const uint8_t _IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
 
         PcCommunicationsInterface * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
@@ -76,6 +80,8 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
         static sRxStruct RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
         static sRxStruct RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
         static sRxStruct RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
 };
 
 #endif

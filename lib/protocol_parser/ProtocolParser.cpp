@@ -96,7 +96,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
-    if (c != IMPLEMENTED_PROTOCOL_VERSION)
+    if (c != _IMPLEMENTED_PROTOCOL_VERSION)
     {
         return GetDefaultRxStruct();
     }
@@ -158,8 +158,27 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStru
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
     // update state to the next field.
-    //state.state_fptr = ;
+    state.state_fptr = RxState_GetChecksum;
 
+    return state;
+}
+
+// 
+//  Data reception state function to capture the checksum
+//
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+{
+    // just store the checksum for now
+    state.checksum = c;
+
+    state.state_fptr = RxState_GetPayload;
+    
+    return state;
+}
+
+ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+{
+    
     return state;
 }
 
@@ -209,13 +228,26 @@ ProtocolParser::RX_STATE ProtocolParser::GetCurrentRxState()
     {
         return GetAckId;
     }
+    else if (RxState_GetChecksum == _RxState.state_fptr)
+    {
+        return GetChecksum;
+    }
+    else if (RxState_GetPayload == _RxState.state_fptr)
+    {
+        return GetPayload;
+    }
 
     return InvalidState;
 }
 
 uint8_t ProtocolParser::GetImplementedProtocolVersion()
 {
-    return IMPLEMENTED_PROTOCOL_VERSION;
+    return _IMPLEMENTED_PROTOCOL_VERSION;
+}
+
+uint8_t ProtocolParser::GetMaximumPayloadLength()
+{
+    return _MAX_PAYLOAD_SIZE;
 }
 
 #endif
