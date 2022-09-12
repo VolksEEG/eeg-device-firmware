@@ -297,17 +297,132 @@ void test_ProtocolParserGoesToGetPayloadStateAfterTheGetChecksumState(void)
 void test_ProtocolParserRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived(void) 
 {
     // setup
-    uint8_t data[17] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 10, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
-    pci.LoadReceiveBytes(data, 17);
+    uint8_t data[16] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 10, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+    pci.LoadReceiveBytes(data, 16);
 
     // run 
-    for (int i = 0; i < 17; ++i)
+    for (int i = 0; i < 16; ++i)
     {
         uut.ProcessEvent(NEvent::Event_DataRxFromPC);
     }
 
     // assert
     TEST_ASSERT_EQUAL(uut.RX_STATE::GetPayload, uut.GetCurrentRxState());
+}
+
+//
+//  test protocol parser returns to looking for the next packet when all bytes are received.
+//
+void test_ProtocolParserReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived(void) 
+{
+    // setup
+    uint8_t data[16] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 9, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+    pci.LoadReceiveBytes(data, 16);
+
+    // run 
+    for (int i = 0; i < 16; ++i)
+    {
+        uut.ProcessEvent(NEvent::Event_DataRxFromPC);
+    }
+
+    // assert
+    TEST_ASSERT_EQUAL(uut.RX_STATE::WaitForSequence, uut.GetCurrentRxState());
+}
+
+//
+//  test protocol parser returns to waiting for Sync Sequence if the payload is zero length.
+//
+void test_ProtocolParserReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength(void) 
+{   
+    // setup
+    uint8_t data[4] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 0};
+    pci.LoadReceiveBytes(data, 4);
+
+    // run 
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        uut.ProcessEvent(NEvent::Event_DataRxFromPC);
+    }
+
+    TEST_ASSERT_EQUAL(uut.RX_STATE::WaitForSequence, uut.GetCurrentRxState());
+}
+
+//
+//  test protocol parser starts with a next expected ID of 0.
+//
+void test_ProtocolParserInitiallyExpectesAnIdOfZero(void) 
+{
+    // assert
+    TEST_ASSERT_EQUAL(0, uut.GetNextExpectedId());
+}
+
+//
+//  test protocol parser increments the expected ID after each message with a correct ID.
+//
+void test_ProtocolParserIncrementsTheExpectedIdAfterEachMessageWithACorrectId(void) 
+{
+    // 256 values from 0 to 255 and an extra 1 to roll back to 0
+    for (uint16_t i = 0; i < 257; ++i)
+    {
+        const uint8_t THIS_ID = (uint8_t)(i % 256);
+        const uint8_t NEXT_ID = (uint8_t)(THIS_ID + 1);
+
+        // setup
+        uint8_t data[8] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 1, THIS_ID, 0x00, 0x00, 0x00};
+        pci.LoadReceiveBytes(data, 8);
+
+        // run 
+        for (uint8_t j = 0; j < 8; ++j)
+        {
+            uut.ProcessEvent(NEvent::Event_DataRxFromPC);
+        }
+
+        // assert
+        TEST_ASSERT_EQUAL(NEXT_ID, uut.GetNextExpectedId());
+    }
+}
+
+//
+//  test protocol parser does not increment the expected ID after a message with an incorrect ID.
+//
+void test_ProtocolParserDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId(void) 
+{
+    // 25 values with the correct ID
+    for (uint16_t i = 0; i < 25; ++i)
+    {
+        const uint8_t THIS_ID = (uint8_t)(i % 256);
+        const uint8_t NEXT_ID = (uint8_t)(THIS_ID + 1);
+
+        // setup
+        uint8_t data[8] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 1, THIS_ID, 0x00, 0x00, 0x00};
+        pci.LoadReceiveBytes(data, 8);
+
+        // run 
+        for (uint8_t j = 0; j < 8; ++j)
+        {
+            uut.ProcessEvent(NEvent::Event_DataRxFromPC);
+        }
+
+        // assert
+        TEST_ASSERT_EQUAL(NEXT_ID, uut.GetNextExpectedId());
+    }
+
+    // assert that the next expected ID is 25
+    TEST_ASSERT_EQUAL(25, uut.GetNextExpectedId());
+
+    // Send one more with an incorrect ID
+    // setup
+    uint8_t data[8] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 1, 24, 0x00, 0x00, 0x00};
+    pci.LoadReceiveBytes(data, 8);
+
+    // run 
+    for (uint8_t j = 0; j < 8; ++j)
+    {
+        uut.ProcessEvent(NEvent::Event_DataRxFromPC);
+    }
+
+    // assert that the next expected ID is still 25
+    TEST_ASSERT_EQUAL(25, uut.GetNextExpectedId());
 }
 
 int main(int argc, char **argv) {
@@ -325,6 +440,11 @@ int main(int argc, char **argv) {
     RUN_TEST(test_ProtocolParserGoesToGetChecksumAfterTheAckIdState);
     RUN_TEST(test_ProtocolParserGoesToGetPayloadStateAfterTheGetChecksumState);
     RUN_TEST(test_ProtocolParserRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived);
+    RUN_TEST(test_ProtocolParserReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived);
+    RUN_TEST(test_ProtocolParserReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength);
+    RUN_TEST(test_ProtocolParserInitiallyExpectesAnIdOfZero);
+    RUN_TEST(test_ProtocolParserIncrementsTheExpectedIdAfterEachMessageWithACorrectId);
+    RUN_TEST(test_ProtocolParserDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId);
     UNITY_END();
 
     return 0;

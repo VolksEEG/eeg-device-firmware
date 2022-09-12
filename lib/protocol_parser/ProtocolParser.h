@@ -39,6 +39,8 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         uint8_t GetMaximumPayloadLength();
 
+        uint8_t GetNextExpectedId();
+
         #endif
     protected:
 
@@ -50,6 +52,22 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
         static const uint8_t _MAX_VALID_ID = 255;
 
         static const uint8_t _IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
+
+        // command groups and commands
+        typedef enum _COMS_COMMAND_GROUPS
+        {
+            GROUP_ACKNOWLEDGE = 0x00,
+            GROUP_QUERY = 0x20,
+            GROUP_WRITE = 0x40
+        }eComsCommandGroup;
+
+        typedef enum _COMS_COMMANDS
+        {
+            CMD_ACKNOWLEDGE = 0x00,
+            CMD_NOT_ACKNOWLEDGE = 0x10,
+            CMD_EEG_DATA_MODE = 0x01,
+            CMD_EEG_DATA_VALUES = 0x02
+        }eComsCommands;
 
         PcCommunicationsInterface * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
@@ -66,14 +84,18 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
             uint8_t payloadLength;
             uint8_t messageID;
             uint8_t checksum;
+
+            uint8_t nextExpectedId;
         }sRxStruct;
 
         sRxStruct _RxState;
-        uint8_t _LastValidId;
+
+        void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
 
         static ProtocolParser * _ProtocolParser;
 
-        static sRxStruct GetDefaultRxStruct();
+        static sRxStruct ResetRxStruct(sRxStruct state);
+        static uint8_t CalculateChecksum(sRxStruct state);
 
         static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
         static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
