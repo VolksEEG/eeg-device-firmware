@@ -131,7 +131,7 @@ uint8_t SerialPort::GetReceivedBytes(uint8_t data[], uint8_t max_length)
 //
 //  Overriden function to transmit a number of bytes to the PC
 //
-void SerialPort::TransmitData(uint8_t data[], uint8_t count)
+void SerialPort::TransmitData(uint8_t data[], uint16_t count)
 {
     Serial.write(data, count);
 }

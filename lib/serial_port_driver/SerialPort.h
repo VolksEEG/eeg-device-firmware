@@ -17,7 +17,7 @@ class SerialPort : public CanProcessEvents, public PcCommunicationsInterface {
         void ProcessEvent(NEvent::eEvent event) override;
         
         uint8_t GetReceivedBytes(uint8_t data[], uint8_t max_length) override;
-        void TransmitData(uint8_t data[], uint8_t count) override;
+        void TransmitData(uint8_t data[], uint16_t count) override;
 
     protected:
 

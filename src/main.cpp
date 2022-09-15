@@ -57,7 +57,7 @@ void setup() {
                                             &protocolParser,
                                             &protocolParser);
   ledControl = LedControl(&errorHandler, &pinControl);
-  protocolParser = ProtocolParser(&serialPort, &dataFlowController);
+  protocolParser = ProtocolParser(&serialPort, &dataFlowController, &eventHandler);
 
   // Add handlers for the 1mS timeout event
   eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
@@ -72,6 +72,9 @@ void setup() {
   // Add Data rx from PC event handlers  
   eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataRxFromPC);
   eventHandler.AddEventHandler(&serialPort, NEvent::Event_DataRxFromPC);  // Serial port must be the last event handler for the DataRxFromPc Event
+
+  // Add Data to tx to PC event handlers
+  eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataToTxToPC);
 
   // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);

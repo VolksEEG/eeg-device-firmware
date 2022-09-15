@@ -11,14 +11,26 @@ ProtocolParser::ProtocolParser()
     
 }
 
-ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp) :
+ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh) :
     _PcComsInterface(pci),
-    _EEGDataProducer(edp)
+    _EEGDataProducer(edp),
+    _EventHandler(evh),
+    _TxIpIndex(0),
+    _TxNextUnackedIndex(0),
+    _TxNextOpIndex(0),
+    _TxCount(0),
+    _TxNextIdToSend(0)
 {
     _RxState = ResetRxStruct(_RxState);
 
-    // the first expected ID is always 0
+    // the last Valid ID is always MAX and the first expected ID is always 0
+    _RxState.lastValidId = _MAX_VALID_ID;
     _RxState.nextExpectedId = 0;
+
+    for (int i = 0; i < _MAX_TX_MESSAGES; ++i)
+    {
+        ResetTxMessage(&_TxMessages[i]);
+    }
 }
 
 //
@@ -26,21 +38,52 @@ ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer 
 //
 void ProtocolParser::ProcessEvent(NEvent::eEvent event)
 {
-    if (NEvent::Event_DataRxFromPC != event)
+    if (NEvent::Event_DataRxFromPC == event)
     {
-        return;
+        uint8_t buf[1];
+
+        const uint8_t RX_COUNT = _PcComsInterface->GetReceivedBytes(buf, 1);
+
+        if (0 == RX_COUNT)
+        {
+            return;
+        }
+
+        _RxState = _RxState.state_fptr(buf[0], _RxState, this);
     }
-
-    uint8_t buf[1];
-
-    const uint8_t RX_COUNT = _PcComsInterface->GetReceivedBytes(buf, 1);
-
-    if (0 == RX_COUNT)
+    else if (NEvent::Event_DataToTxToPC == event)
     {
-        return;
-    }
+        // send all messages from the last acknowledged one
+        for (uint8_t i = _TxNextUnackedIndex; i < _TxIpIndex; ++i)
+        {
+            // TODO - Simplify this to prevent copying so much data.
 
-    _RxState = _RxState.state_fptr(buf[0], _RxState, this);
+            uint8_t message[_MAX_MESSAGE_LENGTH];
+
+            // populate the header
+            message[0] = 0xAA;
+            message[1] = 0x55;
+            message[2] = _IMPLEMENTED_PROTOCOL_VERSION;
+            message[3] = _TxMessages[i].payloadLength;
+            message[4] = _TxMessages[i].idNumber;
+            message[5] = _RxState.lastValidId;          // always return the last valid ID we have received.
+            // Skip the checksum until we have populated the payload.
+
+            // copy over the payload
+            for (int j = 0; j < _TxMessages[i].payloadLength; ++j)
+            {
+                message[_HEADER_SIZE + j] = _TxMessages[i].payload[j];
+            }
+
+            const uint16_t TOTAL_COUNT = _TxMessages[i].payloadLength + _HEADER_SIZE;
+
+            // Add the checksum to the message
+            message[6] = CalculateChecksum(message, TOTAL_COUNT);
+
+            // finally sent it to the PC
+            _PcComsInterface->TransmitData(message, TOTAL_COUNT);
+        }
+    }
 }
 
 //
@@ -66,6 +109,8 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
         (uint8_t)(samples.channel_8 & 0x00FF),
         (uint8_t)((samples.channel_8 & 0xFF00) >> 8)
     };
+
+    // TODO - Link this to the above data. SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
 }
 
 // 
@@ -73,8 +118,31 @@ void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
 //
 void ProtocolParser::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength)
 {
-    // TODO - fill this in 
-    // TODO - public function to send EEG data.
+    if (_TxCount >= _MAX_TX_MESSAGES)
+    {
+        // no space to transmit
+        return;
+    }
+
+    if (payloadLength > _MAX_PAYLOAD_SIZE)
+    {
+        // payload won't fit
+        return;
+    }
+
+    // Add the message to the Tx Messages fifo
+    _TxMessages[_TxIpIndex].idNumber = _TxNextIdToSend++;
+    _TxMessages[_TxIpIndex].payloadLength = payloadLength;
+
+    for (int i = 0; i < payloadLength; ++i)
+    {
+        _TxMessages[_TxIpIndex].payload[i] = payload_ptr[i];
+    }
+
+    _TxIpIndex++;
+    _TxCount++;
+
+    _EventHandler->SignalEvent(NEvent::Event_DataToTxToPC);
 }
 
 // 
@@ -89,6 +157,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
     {
         return ResetRxStruct(state);
     }
+
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
 
     if (++state.rxMultiByteCounter < SYNC_SEQ_BYTE_COUNT)
     {
@@ -111,6 +182,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, 
     {
         return ResetRxStruct(state);
     }
+
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
 
     // update state to the next field.
     state.state_fptr = RxState_GetPayloadLength;
@@ -136,6 +210,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayloadLength(uint8_t c, sR
         return ResetRxStruct(state);
     }
 
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
+
     // store the payload length
     state.payloadLength = c;
 
@@ -150,6 +227,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayloadLength(uint8_t c, sR
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
+
     // update state to the next field.
     state.messageID = c;
 
@@ -164,6 +244,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStru
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
+
     // update state to the next field.
     state.state_fptr = RxState_GetChecksum;
 
@@ -175,6 +258,9 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sR
 //
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
+
     // just store the checksum for now
     state.checksum = c;
 
@@ -185,18 +271,18 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetChecksum(uint8_t c, sRxStru
 
 ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
 {
-    // append this byte to the payload.
-    state.payload[state.rxMultiByteCounter++] = c;
+    // store the recieved value
+    state.message[state.rxIndex++] = c;
 
     // have all payload bytes been received.
-    if (state.rxMultiByteCounter < state.payloadLength)
+    if (++state.rxMultiByteCounter < state.payloadLength)
     {
         // no, so wait for the next byte
         return state;
     }
 
     // process the payload
-    const uint8_t CALC_CHECKSUM = CalculateChecksum(state);
+    const uint8_t CALC_CHECKSUM = CalculateChecksum(state.message, state.payloadLength + _HEADER_SIZE);
 
     if (CALC_CHECKSUM != state.checksum)
     {
@@ -213,10 +299,11 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruc
 
         protocolParser->SendPayloadToPc(ackData, 1);
 
-        return ResetRxStruct(state);   
+        return ResetRxStruct(state); 
     }
 
-    // ID is what we expect, so the next one we expect will be 1 greater.
+    // ID is what we expect, so updated the last Valid ID and the next one we expect will be 1 greater.
+    state.lastValidId = state.nextExpectedId;
     state.nextExpectedId++;
 
     return ResetRxStruct(state);
@@ -227,7 +314,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruc
 //
 ProtocolParser::sRxStruct ProtocolParser::ResetRxStruct(sRxStruct state)
 {
-    memset(state.payload, 0, _MAX_PAYLOAD_SIZE);
+    memset(state.message, 0, _MAX_MESSAGE_LENGTH);
     state.payloadLength = 0;
     state.messageID = 255;
     state.checksum = 0;
@@ -240,9 +327,20 @@ ProtocolParser::sRxStruct ProtocolParser::ResetRxStruct(sRxStruct state)
     return state;
 }
 
-uint8_t ProtocolParser::CalculateChecksum(sRxStruct state)
+uint8_t ProtocolParser::CalculateChecksum(uint8_t * data, uint16_t count)
 {
     return 0x00;
+}
+
+void ProtocolParser::ResetTxMessage(sTxMessageStruct * message_ptr)
+{
+    message_ptr->idNumber = 0;
+    message_ptr->payloadLength = 0;
+
+    for (int i = 0; i < _MAX_PAYLOAD_SIZE; ++i)
+    {
+        message_ptr->payload[i] = 0;
+    }
 }
 
 

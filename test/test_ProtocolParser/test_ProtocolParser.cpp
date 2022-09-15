@@ -1,6 +1,7 @@
 
 #include <ProtocolParser.h>
 #include <EEGDataProducer.h>
+#include <EventHandler.h>
 
 #include <unity.h>
 
@@ -33,7 +34,7 @@ class MockPcCommunicationsInterface : public PcCommunicationsInterface {
             return copied_bytes;
         }
 
-        void TransmitData(uint8_t data[], uint8_t count) override {
+        void TransmitData(uint8_t data[], uint16_t count) override {
 
         }
 
@@ -71,15 +72,21 @@ class MockEegDataProducer : public EegDataProducer {
 
 };
 
+class MockEvenHandler : public EventHandler {
+
+};
+
 MockPcCommunicationsInterface pci;
 MockEegDataProducer edp;
+MockEvenHandler evh;
 ProtocolParser uut;
 
 void setUp(void) {
     pci = MockPcCommunicationsInterface();
     edp = MockEegDataProducer();
+    evh = MockEvenHandler();
 
-    uut = ProtocolParser(&pci, &edp);
+    uut = ProtocolParser(&pci, &edp, &evh);
 }
 
 void tearDown(void) {

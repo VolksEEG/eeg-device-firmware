@@ -13,7 +13,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     public:
 
         ProtocolParser();
-        ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp);
+        ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh);
 
         void PushLatestSample(EegData::sEegSamples samples) override;
         
@@ -47,11 +47,15 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
     private:
 
         static const int _PROTOCOL_PAYLOAD_SIZE = 18;
-        static const int _MAX_PAYLOAD_SIZE = 20;
+        static const int _MAX_PAYLOAD_SIZE = 255;
+        static const int _HEADER_SIZE = 7;
+        static const int _MAX_MESSAGE_LENGTH = _HEADER_SIZE + _MAX_PAYLOAD_SIZE;
 
         static const uint8_t _MAX_VALID_ID = 255;
 
         static const uint8_t _IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
+
+        static const uint8_t _MAX_TX_MESSAGES = 10;
 
         // command groups and commands
         typedef enum _COMS_COMMAND_GROUPS
@@ -71,6 +75,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         PcCommunicationsInterface * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
+        EventHandler * _EventHandler;
 
         typedef struct _RX_STATE
         {
@@ -80,22 +85,40 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
             uint8_t rxMultiByteCounter;
 
             // message values
-            uint8_t payload[_MAX_PAYLOAD_SIZE];
+            uint8_t message[_MAX_MESSAGE_LENGTH];
             uint8_t payloadLength;
             uint8_t messageID;
             uint8_t checksum;
 
+            uint8_t lastValidId;
             uint8_t nextExpectedId;
         }sRxStruct;
 
         sRxStruct _RxState;
+
+        typedef struct _TX_MESSAGE
+        {
+            uint8_t payloadLength;
+            uint8_t idNumber;
+            uint8_t payload[_MAX_PAYLOAD_SIZE];
+        }sTxMessageStruct;
+
+        // tx fifo variables
+        uint8_t _TxIpIndex;
+        uint8_t _TxNextUnackedIndex;
+        uint8_t _TxNextOpIndex;
+        uint8_t _TxCount;
+        sTxMessageStruct _TxMessages[_MAX_TX_MESSAGES];
+
+        uint8_t _TxNextIdToSend;
 
         void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
 
         static ProtocolParser * _ProtocolParser;
 
         static sRxStruct ResetRxStruct(sRxStruct state);
-        static uint8_t CalculateChecksum(sRxStruct state);
+        static uint8_t CalculateChecksum(uint8_t * data, uint16_t count);
+        static void ResetTxMessage(sTxMessageStruct * message_ptr);
 
         static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
         static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
