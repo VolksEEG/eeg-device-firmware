@@ -1,17 +1,17 @@
 
-#include "ProtocolParser.h"
+#include "ProtocolReceiver.h"
 
 #include <string.h>
 
 //
 // Constructor
 //
-ProtocolParser::ProtocolParser()
+ProtocolReceiver::ProtocolReceiver()
 {
     
 }
 
-ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh) :
+ProtocolReceiver::ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh) :
     _PcComsInterface(pci),
     _EEGDataProducer(edp),
     _EventHandler(evh),
@@ -36,7 +36,7 @@ ProtocolParser::ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer 
 //
 //  Overriden function for processing events.
 //
-void ProtocolParser::ProcessEvent(NEvent::eEvent event)
+void ProtocolReceiver::ProcessEvent(NEvent::eEvent event)
 {
     if (NEvent::Event_DataRxFromPC == event)
     {
@@ -86,37 +86,10 @@ void ProtocolParser::ProcessEvent(NEvent::eEvent event)
     }
 }
 
-//
-//  Overridden function from EegDataConsumer used to push EEG samples to the PC.
-//
-void ProtocolParser::PushLatestSample(EegData::sEegSamples samples)
-{
-    uint8_t payload[_PROTOCOL_PAYLOAD_SIZE] = {
-        (uint8_t)(samples.channel_1 & 0x00FF),
-        (uint8_t)((samples.channel_1 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_2 & 0x00FF),
-        (uint8_t)((samples.channel_2 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_3 & 0x00FF),
-        (uint8_t)((samples.channel_3 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_4 & 0x00FF),
-        (uint8_t)((samples.channel_4 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_5 & 0x00FF),
-        (uint8_t)((samples.channel_5 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_6 & 0x00FF),
-        (uint8_t)((samples.channel_6 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_7 & 0x00FF),
-        (uint8_t)((samples.channel_7 & 0xFF00) >> 8),
-        (uint8_t)(samples.channel_8 & 0x00FF),
-        (uint8_t)((samples.channel_8 & 0xFF00) >> 8)
-    };
-
-    // TODO - Link this to the above data. SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
-}
-
 // 
 //  Function to send a payload of data to the PC
 //
-void ProtocolParser::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength)
+void ProtocolReceiver::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength)
 {
     if (_TxCount >= _MAX_TX_MESSAGES)
     {
@@ -148,7 +121,7 @@ void ProtocolParser::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLengt
 // 
 //  Data reception state function to wait for the sync sequence
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     static const uint8_t SYNC_SEQ_BYTES[] = {0xAA, 0x55};
     static const uint8_t SYNC_SEQ_BYTE_COUNT = 2;
@@ -176,7 +149,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_WaitForSyncSequence(uint8_t c,
 // 
 //  Data reception state function to process the received protocol version
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     if (c != _IMPLEMENTED_PROTOCOL_VERSION)
     {
@@ -195,7 +168,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetProtocolVersion(uint8_t c, 
 // 
 //  Data reception state function to process the received payload length
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // quick check that the payload length is not greater than the buffer we have assigned.
     if (c > _MAX_PAYLOAD_SIZE)
@@ -225,7 +198,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayloadLength(uint8_t c, sR
 // 
 //  Data reception state function to process the received message ID
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
@@ -242,7 +215,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetIdNumber(uint8_t c, sRxStru
 // 
 //  Data reception state function to process the received acknowledge ID
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
@@ -256,7 +229,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetAcknowledgeId(uint8_t c, sR
 // 
 //  Data reception state function to capture the checksum
 //
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
@@ -269,7 +242,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetChecksum(uint8_t c, sRxStru
     return state;
 }
 
-ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolParser * protocolParser)
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
@@ -297,7 +270,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruc
         // Send a response with the last Valid ID Acknowledged.
         uint8_t ackData[1] = {(uint8_t)GROUP_ACKNOWLEDGE | (uint8_t)CMD_ACKNOWLEDGE};
 
-        protocolParser->SendPayloadToPc(ackData, 1);
+        protocolReceiver->SendPayloadToPc(ackData, 1);
 
         return ResetRxStruct(state); 
     }
@@ -312,7 +285,7 @@ ProtocolParser::sRxStruct ProtocolParser::RxState_GetPayload(uint8_t c, sRxStruc
 //
 //  Helper function to get a default rx state struct
 //
-ProtocolParser::sRxStruct ProtocolParser::ResetRxStruct(sRxStruct state)
+ProtocolReceiver::sRxStruct ProtocolReceiver::ResetRxStruct(sRxStruct state)
 {
     memset(state.message, 0, _MAX_MESSAGE_LENGTH);
     state.payloadLength = 0;
@@ -327,12 +300,12 @@ ProtocolParser::sRxStruct ProtocolParser::ResetRxStruct(sRxStruct state)
     return state;
 }
 
-uint8_t ProtocolParser::CalculateChecksum(uint8_t * data, uint16_t count)
+uint8_t ProtocolReceiver::CalculateChecksum(uint8_t * data, uint16_t count)
 {
     return 0x00;
 }
 
-void ProtocolParser::ResetTxMessage(sTxMessageStruct * message_ptr)
+void ProtocolReceiver::ResetTxMessage(sTxMessageStruct * message_ptr)
 {
     message_ptr->idNumber = 0;
     message_ptr->payloadLength = 0;
@@ -346,7 +319,7 @@ void ProtocolParser::ResetTxMessage(sTxMessageStruct * message_ptr)
 
 #ifdef PIO_UNIT_TESTING
 
-ProtocolParser::RX_STATE ProtocolParser::GetCurrentRxState()
+ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
 {
     if (RxState_WaitForSyncSequence == _RxState.state_fptr)
     {
@@ -380,17 +353,17 @@ ProtocolParser::RX_STATE ProtocolParser::GetCurrentRxState()
     return InvalidState;
 }
 
-uint8_t ProtocolParser::GetImplementedProtocolVersion()
+uint8_t ProtocolReceiver::GetImplementedProtocolVersion()
 {
     return _IMPLEMENTED_PROTOCOL_VERSION;
 }
 
-uint8_t ProtocolParser::GetMaximumPayloadLength()
+uint8_t ProtocolReceiver::GetMaximumPayloadLength()
 {
     return _MAX_PAYLOAD_SIZE;
 }
 
-uint8_t ProtocolParser::GetNextExpectedId()
+uint8_t ProtocolReceiver::GetNextExpectedId()
 {
     return _RxState.nextExpectedId;
 }

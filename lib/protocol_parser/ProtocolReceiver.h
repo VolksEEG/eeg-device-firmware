@@ -1,22 +1,20 @@
 
-#ifndef _PROTOCOL_PARSER
-#define _PROTOCOL_PARSER
+#ifndef _PROTOCOL_RECEIVER
+#define _PROTOCOL_RECEIVER
 
 #include "PcCommunicationsInterface.h"
 
-#include <EEGDataConsumer.h>
 #include <EEGDataProducer.h>
-#include <SerialPort.h>
+#include <CanProcesEvents.h>
+#include <EventHandler.h>
 
-class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
+class ProtocolReceiver : public CanProcessEvents  {
 
     public:
 
-        ProtocolParser();
-        ProtocolParser(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh);
+        ProtocolReceiver();
+        ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh);
 
-        void PushLatestSample(EegData::sEegSamples samples) override;
-        
         void ProcessEvent(NEvent::eEvent event) override;
 
         #ifdef PIO_UNIT_TESTING
@@ -80,7 +78,7 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
         typedef struct _RX_STATE
         {
             // reception varaibles
-            _RX_STATE (*state_fptr)(uint8_t c, _RX_STATE state, ProtocolParser * protocolParser);
+            _RX_STATE (*state_fptr)(uint8_t c, _RX_STATE state, ProtocolReceiver * protocolReceiver);
             uint8_t rxIndex;
             uint8_t rxMultiByteCounter;
 
@@ -114,19 +112,19 @@ class ProtocolParser : public EegDataConsumer, public CanProcessEvents  {
 
         void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
 
-        static ProtocolParser * _ProtocolParser;
+        static ProtocolReceiver * _ProtocolParser;
 
         static sRxStruct ResetRxStruct(sRxStruct state);
         static uint8_t CalculateChecksum(uint8_t * data, uint16_t count);
         static void ResetTxMessage(sTxMessageStruct * message_ptr);
 
-        static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
-        static sRxStruct RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolParser * protocolParser);
+        static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
 };
 
 #endif

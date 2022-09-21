@@ -1,5 +1,5 @@
 
-#include <ProtocolParser.h>
+#include <ProtocolReceiver.h>
 #include <EEGDataProducer.h>
 #include <EventHandler.h>
 
@@ -79,14 +79,14 @@ class MockEvenHandler : public EventHandler {
 MockPcCommunicationsInterface pci;
 MockEegDataProducer edp;
 MockEvenHandler evh;
-ProtocolParser uut;
+ProtocolReceiver uut;
 
 void setUp(void) {
     pci = MockPcCommunicationsInterface();
     edp = MockEegDataProducer();
     evh = MockEvenHandler();
 
-    uut = ProtocolParser(&pci, &edp, &evh);
+    uut = ProtocolReceiver(&pci, &edp, &evh);
 }
 
 void tearDown(void) {
@@ -95,7 +95,7 @@ void tearDown(void) {
 //
 //  test protocol parser starts in the waiting for sync state
 //
-void test_ProtocolParserDefaultsToWaitingForSync(void) 
+void test_ProtocolReceiverDefaultsToWaitingForSync(void) 
 {
     TEST_ASSERT_EQUAL(uut.RX_STATE::WaitForSequence, uut.GetCurrentRxState());
 }
@@ -103,7 +103,7 @@ void test_ProtocolParserDefaultsToWaitingForSync(void)
 //
 //  test protocol parser stays in the waiting for sync state for invalid sync patterns
 //
-void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync1(void) 
+void test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync1(void) 
 {
     // setup
     uint8_t data[2] = {0x55, 0x55};
@@ -121,7 +121,7 @@ void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync1(void)
 //
 //  test protocol parser stays in the waiting for sync state for invalid sync patterns
 //
-void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync2(void) 
+void test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync2(void) 
 {
     // setup
     uint8_t data[2] = {0x55, 0xAA};
@@ -139,7 +139,7 @@ void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync2(void)
 //
 //  test protocol parser stays in the waiting for sync state for invalid sync patterns
 //
-void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync3(void) 
+void test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync3(void) 
 {
     // setup
     uint8_t data[2] = {0xAA, 0xAA};
@@ -157,7 +157,7 @@ void test_ProtocolParserRemainsWaitingForSyncWithInvalidSync3(void)
 //
 //  test protocol parser goes to the Get Protocol Version state after Valid sync pattern
 //
-void test_ProtocolParserGoesToGetProtocolVersionWithValidSync(void) 
+void test_ProtocolReceiverGoesToGetProtocolVersionWithValidSync(void) 
 {
     // setup
     uint8_t data[2] = {0xAA, 0x55};
@@ -175,10 +175,10 @@ void test_ProtocolParserGoesToGetProtocolVersionWithValidSync(void)
 //
 //  test protocol parser goes back to the Wait For Sync state if the protocol version is not the version implemented
 //
-void test_ProtocolParserReturnsToWaitingForSyncWithInvalidProtocolVersion(void) 
+void test_ProtocolReceiverReturnsToWaitingForSyncWithInvalidProtocolVersion(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetProtocolVersionWithValidSync();
+    test_ProtocolReceiverGoesToGetProtocolVersionWithValidSync();
 
     uint8_t data[1] = {(uint8_t)~uut.GetImplementedProtocolVersion()};
     pci.LoadReceiveBytes(data, 1);
@@ -193,10 +193,10 @@ void test_ProtocolParserReturnsToWaitingForSyncWithInvalidProtocolVersion(void)
 //
 //  test protocol parser goes to the Get Payload Length state if the protocol version is the version implemented
 //
-void test_ProtocolParserGoesToGetPayloadLengthWithValidProtocolVersion(void) 
+void test_ProtocolReceiverGoesToGetPayloadLengthWithValidProtocolVersion(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetProtocolVersionWithValidSync();
+    test_ProtocolReceiverGoesToGetProtocolVersionWithValidSync();
 
     uint8_t data[1] = {uut.GetImplementedProtocolVersion()};
     pci.LoadReceiveBytes(data, 1);
@@ -211,10 +211,10 @@ void test_ProtocolParserGoesToGetPayloadLengthWithValidProtocolVersion(void)
 //
 //  test protocol parser goes to the Wait for sync state if the payload version is too large
 //
-void test_ProtocolParserGoesToWaitForSyncIfThePayloadLengthIsTooLarge(void) 
+void test_ProtocolReceiverGoesToWaitForSyncIfThePayloadLengthIsTooLarge(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetPayloadLengthWithValidProtocolVersion();
+    test_ProtocolReceiverGoesToGetPayloadLengthWithValidProtocolVersion();
 
     uint8_t data[1] = {(uint8_t)(uut.GetMaximumPayloadLength() + 1)};
     pci.LoadReceiveBytes(data, 1);
@@ -229,10 +229,10 @@ void test_ProtocolParserGoesToWaitForSyncIfThePayloadLengthIsTooLarge(void)
 //
 //  test protocol parser goes to the get Id state if the payload version is not too large
 //
-void test_ProtocolParserGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge(void) 
+void test_ProtocolReceiverGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetPayloadLengthWithValidProtocolVersion();
+    test_ProtocolReceiverGoesToGetPayloadLengthWithValidProtocolVersion();
 
     uint8_t data[1] = {uut.GetMaximumPayloadLength()};
     pci.LoadReceiveBytes(data, 1);
@@ -247,10 +247,10 @@ void test_ProtocolParserGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge(void)
 //
 //  test protocol parser goes to the ack Id state after get id state
 //
-void test_ProtocolParserGoesToGetAckIdAfterTheGetIdState(void) 
+void test_ProtocolReceiverGoesToGetAckIdAfterTheGetIdState(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge();
+    test_ProtocolReceiverGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge();
 
     uint8_t data[1] = {0x00};
     pci.LoadReceiveBytes(data, 1);
@@ -265,10 +265,10 @@ void test_ProtocolParserGoesToGetAckIdAfterTheGetIdState(void)
 //
 //  test protocol parser goes to the get checksum after the ack Id state
 //
-void test_ProtocolParserGoesToGetChecksumAfterTheAckIdState(void) 
+void test_ProtocolReceiverGoesToGetChecksumAfterTheAckIdState(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetAckIdAfterTheGetIdState();
+    test_ProtocolReceiverGoesToGetAckIdAfterTheGetIdState();
 
     uint8_t data[1] = {0x00};
     pci.LoadReceiveBytes(data, 1);
@@ -283,10 +283,10 @@ void test_ProtocolParserGoesToGetChecksumAfterTheAckIdState(void)
 //
 //  test protocol parser goes to the get payload state after the get checksum state
 //
-void test_ProtocolParserGoesToGetPayloadStateAfterTheGetChecksumState(void) 
+void test_ProtocolReceiverGoesToGetPayloadStateAfterTheGetChecksumState(void) 
 {
     // setup
-    test_ProtocolParserGoesToGetChecksumAfterTheAckIdState();
+    test_ProtocolReceiverGoesToGetChecksumAfterTheAckIdState();
 
     uint8_t data[1] = {0x00};
     pci.LoadReceiveBytes(data, 1);
@@ -301,7 +301,7 @@ void test_ProtocolParserGoesToGetPayloadStateAfterTheGetChecksumState(void)
 //
 //  test protocol parser stays in the get payload state while all bytes are not yet received.
 //
-void test_ProtocolParserRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived(void) 
+void test_ProtocolReceiverRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived(void) 
 {
     // setup
     uint8_t data[16] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 10, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
@@ -320,7 +320,7 @@ void test_ProtocolParserRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived
 //
 //  test protocol parser returns to looking for the next packet when all bytes are received.
 //
-void test_ProtocolParserReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived(void) 
+void test_ProtocolReceiverReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived(void) 
 {
     // setup
     uint8_t data[16] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 9, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
@@ -339,7 +339,7 @@ void test_ProtocolParserReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived(v
 //
 //  test protocol parser returns to waiting for Sync Sequence if the payload is zero length.
 //
-void test_ProtocolParserReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength(void) 
+void test_ProtocolReceiverReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength(void) 
 {   
     // setup
     uint8_t data[4] = {0xAA, 0x55, uut.GetImplementedProtocolVersion(), 0};
@@ -357,7 +357,7 @@ void test_ProtocolParserReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength(
 //
 //  test protocol parser starts with a next expected ID of 0.
 //
-void test_ProtocolParserInitiallyExpectesAnIdOfZero(void) 
+void test_ProtocolReceiverInitiallyExpectesAnIdOfZero(void) 
 {
     // assert
     TEST_ASSERT_EQUAL(0, uut.GetNextExpectedId());
@@ -366,7 +366,7 @@ void test_ProtocolParserInitiallyExpectesAnIdOfZero(void)
 //
 //  test protocol parser increments the expected ID after each message with a correct ID.
 //
-void test_ProtocolParserIncrementsTheExpectedIdAfterEachMessageWithACorrectId(void) 
+void test_ProtocolReceiverIncrementsTheExpectedIdAfterEachMessageWithACorrectId(void) 
 {
     // 256 values from 0 to 255 and an extra 1 to roll back to 0
     for (uint16_t i = 0; i < 257; ++i)
@@ -392,7 +392,7 @@ void test_ProtocolParserIncrementsTheExpectedIdAfterEachMessageWithACorrectId(vo
 //
 //  test protocol parser does not increment the expected ID after a message with an incorrect ID.
 //
-void test_ProtocolParserDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId(void) 
+void test_ProtocolReceiverDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId(void) 
 {
     // 25 values with the correct ID
     for (uint16_t i = 0; i < 25; ++i)
@@ -434,24 +434,24 @@ void test_ProtocolParserDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrect
 
 int main(int argc, char **argv) {
     UNITY_BEGIN();
-    RUN_TEST(test_ProtocolParserDefaultsToWaitingForSync);
-    RUN_TEST(test_ProtocolParserRemainsWaitingForSyncWithInvalidSync1);
-    RUN_TEST(test_ProtocolParserRemainsWaitingForSyncWithInvalidSync2);
-    RUN_TEST(test_ProtocolParserRemainsWaitingForSyncWithInvalidSync3);
-    RUN_TEST(test_ProtocolParserGoesToGetProtocolVersionWithValidSync);
-    RUN_TEST(test_ProtocolParserReturnsToWaitingForSyncWithInvalidProtocolVersion);
-    RUN_TEST(test_ProtocolParserGoesToGetPayloadLengthWithValidProtocolVersion);
-    RUN_TEST(test_ProtocolParserGoesToWaitForSyncIfThePayloadLengthIsTooLarge);
-    RUN_TEST(test_ProtocolParserGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge);
-    RUN_TEST(test_ProtocolParserGoesToGetAckIdAfterTheGetIdState);
-    RUN_TEST(test_ProtocolParserGoesToGetChecksumAfterTheAckIdState);
-    RUN_TEST(test_ProtocolParserGoesToGetPayloadStateAfterTheGetChecksumState);
-    RUN_TEST(test_ProtocolParserRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived);
-    RUN_TEST(test_ProtocolParserReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived);
-    RUN_TEST(test_ProtocolParserReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength);
-    RUN_TEST(test_ProtocolParserInitiallyExpectesAnIdOfZero);
-    RUN_TEST(test_ProtocolParserIncrementsTheExpectedIdAfterEachMessageWithACorrectId);
-    RUN_TEST(test_ProtocolParserDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId);
+    RUN_TEST(test_ProtocolReceiverDefaultsToWaitingForSync);
+    RUN_TEST(test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync1);
+    RUN_TEST(test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync2);
+    RUN_TEST(test_ProtocolReceiverRemainsWaitingForSyncWithInvalidSync3);
+    RUN_TEST(test_ProtocolReceiverGoesToGetProtocolVersionWithValidSync);
+    RUN_TEST(test_ProtocolReceiverReturnsToWaitingForSyncWithInvalidProtocolVersion);
+    RUN_TEST(test_ProtocolReceiverGoesToGetPayloadLengthWithValidProtocolVersion);
+    RUN_TEST(test_ProtocolReceiverGoesToWaitForSyncIfThePayloadLengthIsTooLarge);
+    RUN_TEST(test_ProtocolReceiverGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge);
+    RUN_TEST(test_ProtocolReceiverGoesToGetAckIdAfterTheGetIdState);
+    RUN_TEST(test_ProtocolReceiverGoesToGetChecksumAfterTheAckIdState);
+    RUN_TEST(test_ProtocolReceiverGoesToGetPayloadStateAfterTheGetChecksumState);
+    RUN_TEST(test_ProtocolReceiverRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceived);
+    RUN_TEST(test_ProtocolReceiverReturnsToWaitingForSyncAfterAllPayloadBytesAreReceived);
+    RUN_TEST(test_ProtocolReceiverReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLength);
+    RUN_TEST(test_ProtocolReceiverInitiallyExpectesAnIdOfZero);
+    RUN_TEST(test_ProtocolReceiverIncrementsTheExpectedIdAfterEachMessageWithACorrectId);
+    RUN_TEST(test_ProtocolReceiverDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorrectId);
     UNITY_END();
 
     return 0;

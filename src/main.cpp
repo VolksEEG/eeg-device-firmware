@@ -1,6 +1,7 @@
 
 #include <PinControl.h>
-#include <ProtocolParser.h>
+#include <ProtocolReceiver.h>
+#include <ProtocolTransmitter.h>
 #include <SpiDriver.h>
 #include <Ads1299Driver.h>
 #include <Ads1299DataProcessor.h>
@@ -18,7 +19,8 @@
 //  Class instances
 //
 PinControl pinControl;
-ProtocolParser protocolParser;
+ProtocolReceiver protocolReceiver;
+ProtocolTransmitter protocolTransmitter;
 SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
 Ads1299DataProcessor ads1299DataProcessor;
@@ -52,12 +54,13 @@ void setup() {
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl, Ads1299Driver::eMontage::Referential);
   ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler, &errorHandler);
   fakeDataProducer = FakeDataProducer(&eventHandler);
+  protocolReceiver = ProtocolReceiver(&serialPort, &dataFlowController, &eventHandler);
+  protocolTransmitter = ProtocolTransmitter(&serialPort);
   dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
                                             &ads1299DataProcessor, NEvent::eEvent::Event_BufferedADS1299DataReady,
-                                            &protocolParser,
-                                            &protocolParser);
+                                            &protocolTransmitter,
+                                            &protocolTransmitter);
   ledControl = LedControl(&errorHandler, &pinControl);
-  protocolParser = ProtocolParser(&serialPort, &dataFlowController, &eventHandler);
 
   // Add handlers for the 1mS timeout event
   eventHandler.AddEventHandler(&ledControl, NEvent::Event_1mSTimeout);
@@ -70,11 +73,11 @@ void setup() {
   eventHandler.AddEventHandler(&ads1299DataProcessor, NEvent::Event_ADS1299DataReady);
 
   // Add Data rx from PC event handlers  
-  eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataRxFromPC);
+  eventHandler.AddEventHandler(&protocolReceiver, NEvent::Event_DataRxFromPC);
   eventHandler.AddEventHandler(&serialPort, NEvent::Event_DataRxFromPC);  // Serial port must be the last event handler for the DataRxFromPc Event
 
   // Add Data to tx to PC event handlers
-  eventHandler.AddEventHandler(&protocolParser, NEvent::Event_DataToTxToPC);
+  eventHandler.AddEventHandler(&protocolReceiver, NEvent::Event_DataToTxToPC);
 
   // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
