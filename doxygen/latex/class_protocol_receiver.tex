@@ -1,0 +1,70 @@
+\hypertarget{class_protocol_receiver}{}\doxysection{Protocol\+Receiver Class Reference}
+\label{class_protocol_receiver}\index{ProtocolReceiver@{ProtocolReceiver}}
+Inheritance diagram for Protocol\+Receiver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_protocol_receiver}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}\label{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}} 
+{\bfseries Protocol\+Receiver} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}{Protocol\+Receiver}} (\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$pci, \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$edp, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$evh, \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$pti)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}{Process\+Event}} (NEvent\+::e\+Event event) override
+\begin{DoxyCompactList}\small\item\em Overridden function to process events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}\label{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!ProtocolReceiver@{ProtocolReceiver}}
+\index{ProtocolReceiver@{ProtocolReceiver}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{ProtocolReceiver()}{ProtocolReceiver()}}
+{\footnotesize\ttfamily Protocol\+Receiver\+::\+Protocol\+Receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$}]{pci,  }\item[{\mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$}]{edp,  }\item[{\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$}]{evh,  }\item[{\mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$}]{pti }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pci} & Pointer to the PC Communications interface to be used to communicate with the PC. \\
+\hline
+{\em edp} & Pointer to the Eeg Data Producer which will be configured by this protocol. \\
+\hline
+{\em evh} & Pointer to the event handler module which is used to set the events raised by this module. \\
+\hline
+{\em pti} & Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}\label{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily void Protocol\+Receiver\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{NEvent\+::e\+Event}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Overridden function to process events. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event which is being processed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/protocol\+\_\+parser/Protocol\+Receiver.\+h\item 
+lib/protocol\+\_\+parser/\mbox{\hyperlink{_protocol_receiver_8cpp}{Protocol\+Receiver.\+cpp}}\end{DoxyCompactItemize}

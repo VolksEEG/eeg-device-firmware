@@ -8,17 +8,25 @@ struct \mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_ads1299_driver_a37e8419d52bad3b8d7eb3d7092a12554}\label{class_ads1299_driver_a37e8419d52bad3b8d7eb3d7092a12554}} 
+enum {\bfseries \+\_\+\+MONTAGE} \{ {\bfseries Sequential}
+, {\bfseries Referential}
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_driver_abe8017a424d6323e3c1fab1c5eb13f8d}\label{class_ads1299_driver_abe8017a424d6323e3c1fab1c5eb13f8d}} 
+typedef enum Ads1299\+Driver\+::\+\_\+\+MONTAGE {\bfseries e\+Montage}
+\item 
 \mbox{\Hypertarget{class_ads1299_driver_a9b77f1a0f35a961129a155d8520a72cb}\label{class_ads1299_driver_a9b77f1a0f35a961129a155d8520a72cb}} 
 typedef struct \mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{Ads1299\+Driver\+::\+\_\+\+ADS\+\_\+\+SAMPLE\+\_\+\+DATA}} {\bfseries s\+Ads1299\+Sample\+Data}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_ads1299_driver_a7ffaabbafde5662e00889d7b41913b9a}\label{class_ads1299_driver_a7ffaabbafde5662e00889d7b41913b9a}} 
-{\bfseries Ads1299\+Driver} (\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} $\ast$spi, \mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$pins)
+\mbox{\Hypertarget{class_ads1299_driver_a30fe07e61cb97f4fb595d425049083f6}\label{class_ads1299_driver_a30fe07e61cb97f4fb595d425049083f6}} 
+{\bfseries Ads1299\+Driver} (\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} $\ast$spi, \mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$pins, e\+Montage montage)
 \item 
-\mbox{\Hypertarget{class_ads1299_driver_a55b83d8e0867b9c9767ebef9469e365e}\label{class_ads1299_driver_a55b83d8e0867b9c9767ebef9469e365e}} 
-void {\bfseries Start\+Producing\+Data} ()
+\mbox{\Hypertarget{class_ads1299_driver_afee12305e96c42e78e9a80e11e84fcea}\label{class_ads1299_driver_afee12305e96c42e78e9a80e11e84fcea}} 
+void {\bfseries Start\+Producing\+Data} (Ads1299\+Low\+Driver\+::e\+Sample\+Rate rate)
 \item 
 \mbox{\Hypertarget{class_ads1299_driver_a90dec58a5a90add55628bd955070737f}\label{class_ads1299_driver_a90dec58a5a90add55628bd955070737f}} 
 void {\bfseries Stop\+Producing\+Data} ()

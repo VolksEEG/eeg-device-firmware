@@ -1,0 +1,133 @@
+\hypertarget{class_protocol_general}{}\doxysection{Protocol\+General Class Reference}
+\label{class_protocol_general}\index{ProtocolGeneral@{ProtocolGeneral}}
+Inheritance diagram for Protocol\+General\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_protocol_general}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_general_a4bea32e1fa83fd461ff76b20886bc279}\label{class_protocol_general_a4bea32e1fa83fd461ff76b20886bc279}} 
+enum {\bfseries \+\_\+\+COMS\+\_\+\+COMMAND\+\_\+\+GROUPS} \{ {\bfseries GROUP\+\_\+\+ACKNOWLEDGE} = 0x00
+, {\bfseries GROUP\+\_\+\+QUERY} = 0x20
+, {\bfseries GROUP\+\_\+\+WRITE} = 0x40
+ \}
+\item 
+\mbox{\Hypertarget{class_protocol_general_a6928c030b8d9ef961dbaf0f7a55dbcfb}\label{class_protocol_general_a6928c030b8d9ef961dbaf0f7a55dbcfb}} 
+enum {\bfseries \+\_\+\+COMS\+\_\+\+COMMANDS} \{ {\bfseries CMD\+\_\+\+ACKNOWLEDGE} = 0x00
+, {\bfseries CMD\+\_\+\+NOT\+\_\+\+ACKNOWLEDGE} = 0x10
+, {\bfseries CMD\+\_\+\+EEG\+\_\+\+DATA\+\_\+\+MODE} = 0x01
+, {\bfseries CMD\+\_\+\+EEG\+\_\+\+DATA\+\_\+\+VALUES} = 0x02
+ \}
+\item 
+\mbox{\Hypertarget{class_protocol_general_affd7be9245d302f4f25b6550a33707cd}\label{class_protocol_general_affd7be9245d302f4f25b6550a33707cd}} 
+typedef enum Protocol\+General\+::\+\_\+\+COMS\+\_\+\+COMMAND\+\_\+\+GROUPS {\bfseries e\+Coms\+Command\+Group}
+\item 
+\mbox{\Hypertarget{class_protocol_general_aa7023fcbc1cef4413847044886739484}\label{class_protocol_general_aa7023fcbc1cef4413847044886739484}} 
+typedef enum Protocol\+General\+::\+\_\+\+COMS\+\_\+\+COMMANDS {\bfseries e\+Coms\+Commands}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_general_ac59cf81318227170c3977337bb5aacf8}\label{class_protocol_general_ac59cf81318227170c3977337bb5aacf8}} 
+{\bfseries Protocol\+General} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static uint8\+\_\+t \mbox{\hyperlink{class_protocol_general_a99cbb5ed40bc06b76c450dd475524145}{Calculate\+Checksum\+Of\+Message\+Header}} (uint8\+\_\+t $\ast$message\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Function to Calculate the checksum of the passed messages header. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \mbox{\hyperlink{class_protocol_general_aaab7d5978e551862cd08a3486bfec1be}{Calculate\+Checksum\+Of\+Message\+Payload}} (uint8\+\_\+t $\ast$message\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Function to Calculate the checksum of the passed messages payload. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_general_acf2f03239d6edffb0f01e1f4aa7d8b6f}\label{class_protocol_general_acf2f03239d6edffb0f01e1f4aa7d8b6f}} 
+static const int {\bfseries \+\_\+\+MAX\+\_\+\+PAYLOAD\+\_\+\+SIZE} = 255
+\item 
+\mbox{\Hypertarget{class_protocol_general_ab247bc8a996826f613bb87dacc17ab9f}\label{class_protocol_general_ab247bc8a996826f613bb87dacc17ab9f}} 
+static const int {\bfseries \+\_\+\+HEADER\+\_\+\+SIZE} = 8
+\item 
+\mbox{\Hypertarget{class_protocol_general_a3de95bec7240bf67583b74b349c9cd3b}\label{class_protocol_general_a3de95bec7240bf67583b74b349c9cd3b}} 
+static const int {\bfseries \+\_\+\+MAX\+\_\+\+MESSAGE\+\_\+\+LENGTH} = \+\_\+\+HEADER\+\_\+\+SIZE + \+\_\+\+MAX\+\_\+\+PAYLOAD\+\_\+\+SIZE
+\item 
+\mbox{\Hypertarget{class_protocol_general_a453f4f38c45acadf5ba1dd73eb88a0c3}\label{class_protocol_general_a453f4f38c45acadf5ba1dd73eb88a0c3}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+SYNC\+\_\+\+WORD\+\_\+\+MSB} = 0x\+AA
+\item 
+\mbox{\Hypertarget{class_protocol_general_aa404f50f3ad9f8b0d67c0ea68ed24e07}\label{class_protocol_general_aa404f50f3ad9f8b0d67c0ea68ed24e07}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+SYNC\+\_\+\+WORD\+\_\+\+LSB} = 0x55
+\item 
+\mbox{\Hypertarget{class_protocol_general_a0e018e245cb4ce9fcc55c77a144a2959}\label{class_protocol_general_a0e018e245cb4ce9fcc55c77a144a2959}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+IMPLEMENTED\+\_\+\+PROTOCOL\+\_\+\+VERSION} = 0x01
+\item 
+\mbox{\Hypertarget{class_protocol_general_a44f27206d04cc66447efe33018f4610f}\label{class_protocol_general_a44f27206d04cc66447efe33018f4610f}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+MAX\+\_\+\+VALID\+\_\+\+ID} = 255
+\item 
+\mbox{\Hypertarget{class_protocol_general_a3c88f4e81311598e871a624f3644e6ed}\label{class_protocol_general_a3c88f4e81311598e871a624f3644e6ed}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+SYNC\+\_\+\+WORD\+\_\+\+MSB\+\_\+\+INDEX} = 0
+\item 
+\mbox{\Hypertarget{class_protocol_general_a4c19a075423dd27c0652856c62fe23eb}\label{class_protocol_general_a4c19a075423dd27c0652856c62fe23eb}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+SYNC\+\_\+\+WORD\+\_\+\+LSB\+\_\+\+INDEX} = 1
+\item 
+\mbox{\Hypertarget{class_protocol_general_aeb83f9a115bb64c871025130d0cf4c3a}\label{class_protocol_general_aeb83f9a115bb64c871025130d0cf4c3a}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+PROTOCOL\+\_\+\+VERSION\+\_\+\+INDEX} = 2
+\item 
+\mbox{\Hypertarget{class_protocol_general_a26d647c190b3c72ccb5b7621a66a99dc}\label{class_protocol_general_a26d647c190b3c72ccb5b7621a66a99dc}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+PAYLOAD\+\_\+\+LENGTH\+\_\+\+INDEX} = 3
+\item 
+\mbox{\Hypertarget{class_protocol_general_a17e36aa2fd4b152d65d02cc97efa817b}\label{class_protocol_general_a17e36aa2fd4b152d65d02cc97efa817b}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+ID\+\_\+\+NUMBER\+\_\+\+INDEX} = 4
+\item 
+\mbox{\Hypertarget{class_protocol_general_afd3db22849f87298562bcc42d3b79866}\label{class_protocol_general_afd3db22849f87298562bcc42d3b79866}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+ID\+\_\+\+ACKNOWLEDGE\+\_\+\+INDEX} = 5
+\item 
+\mbox{\Hypertarget{class_protocol_general_a9efca1ca39e5b4e77ae2b14474d051c9}\label{class_protocol_general_a9efca1ca39e5b4e77ae2b14474d051c9}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+PAYLOAD\+\_\+\+CHECKSUM\+\_\+\+INDEX} = 6
+\item 
+\mbox{\Hypertarget{class_protocol_general_a2c2df8f228d42c556b3b89e287fdaab5}\label{class_protocol_general_a2c2df8f228d42c556b3b89e287fdaab5}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+HEADER\+\_\+\+CHECKSUM\+\_\+\+INDEX} = 7
+\item 
+\mbox{\Hypertarget{class_protocol_general_a0d7b1855da94f69b2b5003edd3ad7c1d}\label{class_protocol_general_a0d7b1855da94f69b2b5003edd3ad7c1d}} 
+static const uint8\+\_\+t {\bfseries \+\_\+\+PAYLOAD\+\_\+\+START\+\_\+\+INDEX} = 8
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_protocol_general_a99cbb5ed40bc06b76c450dd475524145}\label{class_protocol_general_a99cbb5ed40bc06b76c450dd475524145}} 
+\index{ProtocolGeneral@{ProtocolGeneral}!CalculateChecksumOfMessageHeader@{CalculateChecksumOfMessageHeader}}
+\index{CalculateChecksumOfMessageHeader@{CalculateChecksumOfMessageHeader}!ProtocolGeneral@{ProtocolGeneral}}
+\doxysubsubsection{\texorpdfstring{CalculateChecksumOfMessageHeader()}{CalculateChecksumOfMessageHeader()}}
+{\footnotesize\ttfamily uint8\+\_\+t Protocol\+General\+::\+Calculate\+Checksum\+Of\+Message\+Header (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{message\+\_\+ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to Calculate the checksum of the passed messages header. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+ptr} & A pointer to the message to return the header checksum of. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_protocol_general_aaab7d5978e551862cd08a3486bfec1be}\label{class_protocol_general_aaab7d5978e551862cd08a3486bfec1be}} 
+\index{ProtocolGeneral@{ProtocolGeneral}!CalculateChecksumOfMessagePayload@{CalculateChecksumOfMessagePayload}}
+\index{CalculateChecksumOfMessagePayload@{CalculateChecksumOfMessagePayload}!ProtocolGeneral@{ProtocolGeneral}}
+\doxysubsubsection{\texorpdfstring{CalculateChecksumOfMessagePayload()}{CalculateChecksumOfMessagePayload()}}
+{\footnotesize\ttfamily uint8\+\_\+t Protocol\+General\+::\+Calculate\+Checksum\+Of\+Message\+Payload (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{message\+\_\+ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to Calculate the checksum of the passed messages payload. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+ptr} & A pointer to the message to return the payloads checksum. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/protocol\+\_\+parser/Protocol\+General.\+h\item 
+lib/protocol\+\_\+parser/\mbox{\hyperlink{_protocol_general_8cpp}{Protocol\+General.\+cpp}}\end{DoxyCompactItemize}

@@ -10,20 +10,21 @@
 \DoxyCodeLine{6 }
 \DoxyCodeLine{7 \textcolor{keyword}{namespace }NEvent \{}
 \DoxyCodeLine{8 }
-\DoxyCodeLine{9     \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_EVENTS}
-\DoxyCodeLine{10     \{}
-\DoxyCodeLine{11         Event\_ADS1299DataReady = 0x00,}
-\DoxyCodeLine{12         Event\_EDFDataReady = 0x01,}
-\DoxyCodeLine{13         Event\_1mSTimeout = 0x02,}
-\DoxyCodeLine{14         Event\_DataRxFromPC = 0x03,}
-\DoxyCodeLine{15         Event\_ProcessedADS1299DataReady = 0x04}
-\DoxyCodeLine{16     \}eEvent;}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t NO\_EVENTS = 0;}
-\DoxyCodeLine{19     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t MAX\_EVENTS = 5;}
-\DoxyCodeLine{20     }
-\DoxyCodeLine{21 \}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{9     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t NO\_EVENTS = 0;}
+\DoxyCodeLine{10     \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t MAX\_EVENTS = 6;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_EVENTS}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         Event\_ADS1299DataReady = 0x00,}
+\DoxyCodeLine{15         Event\_EDFDataReady = 0x01,}
+\DoxyCodeLine{16         Event\_1mSTimeout = 0x02,}
+\DoxyCodeLine{17         Event\_DataRxFromPC = 0x03,}
+\DoxyCodeLine{18         Event\_BufferedADS1299DataReady = 0x04,}
+\DoxyCodeLine{19         Event\_DataToTxToPC = 0x05,}
+\DoxyCodeLine{20         Event\_InvalidEvent = MAX\_EVENTS}
+\DoxyCodeLine{21     \}eEvent;   }
+\DoxyCodeLine{22 \}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

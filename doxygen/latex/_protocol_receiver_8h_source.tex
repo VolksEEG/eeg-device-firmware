@@ -1,0 +1,81 @@
+\hypertarget{_protocol_receiver_8h_source}{}\doxysection{Protocol\+Receiver.\+h}
+\label{_protocol_receiver_8h_source}\index{lib/protocol\_parser/ProtocolReceiver.h@{lib/protocol\_parser/ProtocolReceiver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_PROTOCOL\_RECEIVER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_PROTOCOL\_RECEIVER}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}PcCommunicationsInterface.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}ProtocolGeneral.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}IProtocolTransmission.h"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}../data\_flow\_controller/EEGDataProducer.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../event\_handler/CanProcesEvents.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../event\_handler/EventHandler.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }\mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}, \textcolor{keyword}{private} \mbox{\hyperlink{class_protocol_general}{ProtocolGeneral}}  \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{public}:}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17         \mbox{\hyperlink{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}{ProtocolReceiver}}();}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}{ProtocolReceiver}}(\mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} * pci, \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * edp, \mbox{\hyperlink{class_event_handler}{EventHandler}} * evh, \mbox{\hyperlink{class_i_protocol_transmission}{IProtocolTransmission}} * pti);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}{ProcessEvent}}(NEvent::eEvent event) \textcolor{keyword}{override};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{        \#ifdef PIO\_UNIT\_TESTING}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_RX\_STATES}
+\DoxyCodeLine{25         \{}
+\DoxyCodeLine{26             WaitForSequence,}
+\DoxyCodeLine{27             GetProtocolVersion,}
+\DoxyCodeLine{28             GetPayloadLength,}
+\DoxyCodeLine{29             GetIdNumber,}
+\DoxyCodeLine{30             GetAckId,}
+\DoxyCodeLine{31             GetPayloadChecksum,}
+\DoxyCodeLine{32             GetHeaderChecksum,}
+\DoxyCodeLine{33             GetPayload,}
+\DoxyCodeLine{34             InvalidState}
+\DoxyCodeLine{35         \}RX\_STATE;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         RX\_STATE GetCurrentRxState();}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{        \#endif}}
+\DoxyCodeLine{40     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keyword}{private}:}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} * \_PcComsInterface;}
+\DoxyCodeLine{45         \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}} * \_EEGDataProducer;}
+\DoxyCodeLine{46         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandler;}
+\DoxyCodeLine{47         \mbox{\hyperlink{class_i_protocol_transmission}{IProtocolTransmission}} * \_ProtocolTransmissionInstance;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\_RX\_STATE}
+\DoxyCodeLine{50         \{}
+\DoxyCodeLine{51             \textcolor{comment}{// reception varaibles}}
+\DoxyCodeLine{52             \_RX\_STATE (*state\_fptr)(uint8\_t c, \_RX\_STATE state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{53             uint8\_t rxIndex;}
+\DoxyCodeLine{54             uint8\_t rxMultiByteCounter;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56             \textcolor{comment}{// message values array}}
+\DoxyCodeLine{57             uint8\_t message[ProtocolGeneral::\_MAX\_MESSAGE\_LENGTH];}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59         \}sRxStruct;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61         sRxStruct \_RxState;}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63         \textcolor{keyword}{static} sRxStruct ResetRxStruct(sRxStruct state);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         \textcolor{keyword}{static} sRxStruct RxState\_WaitForSyncSequence(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{66         \textcolor{keyword}{static} sRxStruct RxState\_GetProtocolVersion(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{67         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadLength(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{68         \textcolor{keyword}{static} sRxStruct RxState\_GetIdNumber(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{69         \textcolor{keyword}{static} sRxStruct RxState\_GetAcknowledgeId(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{70         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadChecksum(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{71         \textcolor{keyword}{static} sRxStruct RxState\_GetHeaderChecksum(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{72         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadAndProcessMessageContents(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

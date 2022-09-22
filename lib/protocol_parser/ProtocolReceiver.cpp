@@ -29,17 +29,13 @@ ProtocolReceiver::ProtocolReceiver()
  * @param evh Pointer to the event handler module which is used to set the events raised by this module.
  * @param pti Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC.
  */
-ProtocolReceiver::ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti) :
+ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti) :
     _PcComsInterface(pci),
     _EEGDataProducer(edp),
     _EventHandler(evh),
     _ProtocolTransmissionInstance(pti)
 {
     _RxState = ResetRxStruct(_RxState);
-
-    // the last Valid ID is always MAX and the first expected ID is always 0
-    _RxState.lastValidId = _MAX_VALID_ID;
-    _RxState.nextExpectedId = 0;
 }
 
 /**
@@ -277,20 +273,15 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessag
 
     // checksum is OK, and header checksum will be OK
     // is the ID.
-    if (state.message[_ID_NUMBER_INDEX] != state.nextExpectedId)
+    if (false == protocolReceiver->_ProtocolTransmissionInstance->ProcessReceivedId(state.message[_ID_NUMBER_INDEX]))
     {
-        // ID is not what we expect.
-        // Send a response with the last Valid ID Acknowledged.
-        uint8_t ackData[1] = {(uint8_t)protocolReceiver->GROUP_ACKNOWLEDGE | (uint8_t)protocolReceiver->CMD_ACKNOWLEDGE};
-
-        protocolReceiver->_ProtocolTransmissionInstance->SendPayloadToPc(ackData, 1);
-
         return ResetRxStruct(state); 
     }
 
-    // ID is what we expect, so updated the last Valid ID and the next one we expect will be 1 greater.
-    state.lastValidId = state.nextExpectedId;
-    state.nextExpectedId++;
+    // ID is OK, does this ack any of our ID's
+    protocolReceiver->_ProtocolTransmissionInstance->ProcessAcknowledgedId(state.message[_ID_ACKNOWLEDGE_INDEX]);
+
+    // TODO - Process the message contents
 
     return ResetRxStruct(state);
 }
@@ -362,16 +353,6 @@ ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
     }
 
     return InvalidState;
-}
-
-/**
- * @brief Unit testing helper function to get the next expected ID value.
- * 
- * @return The next expected ID value.
- */
-uint8_t ProtocolReceiver::GetNextExpectedId()
-{
-    return _RxState.nextExpectedId;
 }
 
 #endif

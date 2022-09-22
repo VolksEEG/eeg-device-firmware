@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-class PcCommunicationsInterface {
+class IPcCommunications {
 
     public:
         // TODO - consider splitting this into two interfaces as no module is likely to need both functions

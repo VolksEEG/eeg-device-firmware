@@ -144,151 +144,163 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_ads1299_low_driver.html#a40464eed572d5e13bef49489c61e7264">SetChannelGain</a>(eChannelId chan, eChannelGain gain);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_ads1299_low_driver.html#ae282a97ac33df44aa6612be7710d0dff">SetReferenceSource</a>(eReferenceSource src);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_ads1299_low_driver.html#a0e9a89172fb1d6e63b8a2f6f9c4a5151">SetTestSignal</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">   77</a></span>        <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">_ADS1299_CHANNEL_DATA</a></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            int32_t gain;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            int32_t count;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }<a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">sAds1299ChannelData</a>;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">   83</a></span>        <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">_ADS1299_ALL_CHANNELS_DATA</a></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">Ads1299LowDriver::sAds1299ChannelData</a> channels[MAX_CHANNELS];</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordtype">float</span> vrefVoltage;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        }<a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">sAds1299AllChannelsData</a>;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">Ads1299LowDriver::sAds1299AllChannelsData</a> <a class="code hl_function" href="class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55">GetAds1299Data</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">// Command Definitions</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _COMMANDS</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            COMMAND_WAKEUP = 0x02,</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            COMMAND_STANDBY = 0x04,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            COMMAND_RESET = 0x06,</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            COMMAND_START = 0x08,</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            COMMAND_STOP = 0x0A,</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            COMMAND_READ_DATA_CONTINUOUSLY = 0x10,</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            COMMAND_STOP_READING_DATA_CONTINUOUSLY = 0x11,</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            COMMAND_READ_DATA = 0x12,</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            COMMAND_READ_REGISTER = 0x20,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            COMMAND_WRITE_REGISTER = 0x40</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }eCommands;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="comment">// Register definitions</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _REGISTERS</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            REGISTER_ID = 0x00,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            REGISTER_CONFIG_1 = 0x01,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            REGISTER_CONFIG_2 = 0x02,</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            REGISTER_CONFIG_3 = 0x03,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            REGISTER_CH1SET = 0x05,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            REGISTER_CH2SET = 0x06,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            REGISTER_CH3SET = 0x07,</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            REGISTER_CH4SET = 0x08,</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            REGISTER_CH5SET = 0x09,</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            REGISTER_CH6SET = 0x0A,</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            REGISTER_CH7SET = 0x0B,</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            REGISTER_CH8SET = 0x0C</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }eRegisters;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// definitions for determining the number of channels from the ID register.</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t ID_NUMBER_OF_CHANNELS_MASK = 0x03;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _NUMBER_OF_CHANNELS</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        {</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            ID_NUMBER_OF_CHANNELS_4 = 0x00,</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            ID_NUMBER_OF_CHANNELS_6 = 0x01,</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            ID_NUMBER_OF_CHANNELS_8 = 0x02</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        }eNumChannels;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="comment">// definitions for setting sample rate</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_1_DATARATE_MASK = 0x07;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">// definitions for setting internal calibration signal</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_INTERNAL_CAL_MASK = 0x10;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_CAL_AMPLITUDE_MASK = 0x04;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_CAL_FREQUENCY_MASK = 0x03;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_STATE</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            CONFIG_2_INTERNAL_CAL_DISABLE = 0x00,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            CONFIG_2_INTERNAL_CAL_ENABLE = 0x10</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }eCalSignalState;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_AMPLITUDE</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            CONFIG_2_CAL_AMPLITUDE_LOW = 0x00,</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            CONFIG_2_CAL_AMPLITUDE_HIGH = 0x04</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }eCalSignalAmplitude;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_FREQUENCY</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            CONFIG_2_CAL_FREQUENCY_SLOW = 0x00,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            CONFIG_2_CAL_FREQUENCY_FAST = 0x01,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            CONFIG_2_CAL_FREQUENCY_DC = 0x03</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }eCalSignalFrequency;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="comment">// definitions for setting the reference buffer.</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_3_REF_BUFFER_MASK = 0x80;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _REG_BUFFER_STATE</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        {</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            CONFIG_3_REF_BUFFER_DISABLE = 0x00,</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            CONFIG_3_REF_BUFFER_ENABLE = 0x80</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        }eRefBufferState;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="comment">// definitions for channel settings</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CHNSET_GAIN_MASK = 0x70;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CHNSET_STATE_MASK = 0x87;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="comment">// used to clock the SPI data out of the ADS1299</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t BLANK_DATA = 0x00;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keyword">static</span> <span class="keyword">const</span> int32_t DEFAULT_CHANNEL_GAIN = 24;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> INTERNAL_VREF_VOLTAGE = 4.5f;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> EXTERNAL_VREF_VOLTAGE = 5.0f;    <span class="comment">// Modify this value to suit your circuit.</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="comment">// private member variables</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">// instance of the SPI Scheduler and Pin Control.</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <a class="code hl_class" href="class_spi_driver.html">SpiDriver</a> * _SpiDriverInstance;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <a class="code hl_class" href="class_pin_control.html">PinControl</a> * _PinControlInstance;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        int32_t _ChannelGainsCache[MAX_CHANNELS];</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordtype">float</span> _VotlageReferenceCache;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="comment">// private member functions </span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        uint8_t ReadRegister(eRegisters reg);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordtype">void</span> WriteRegister(eRegisters reg, uint8_t newValue);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordtype">void</span> ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        int32_t GetMultiplierFromChannelGain(eChannelGain gain);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordtype">void</span> SetChannelGainsToDefault(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_ads1299_low_driver.html#a2234e7688ca22886db6141c55aa99bd9">SetNegativeInputsConnectionToSRB1</a>(<span class="keywordtype">bool</span> connect);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">   78</a></span>        <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">_ADS1299_CHANNEL_DATA</a></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            int32_t gain;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            int32_t count;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }<a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">sAds1299ChannelData</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">   84</a></span>        <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">_ADS1299_ALL_CHANNELS_DATA</a></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">Ads1299LowDriver::sAds1299ChannelData</a> channels[MAX_CHANNELS];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordtype">float</span> vrefVoltage;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }<a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">sAds1299AllChannelsData</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_struct" href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">Ads1299LowDriver::sAds1299AllChannelsData</a> <a class="code hl_function" href="class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55">GetAds1299Data</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">// Command Definitions</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _COMMANDS</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            COMMAND_WAKEUP = 0x02,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            COMMAND_STANDBY = 0x04,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            COMMAND_RESET = 0x06,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            COMMAND_START = 0x08,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            COMMAND_STOP = 0x0A,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            COMMAND_READ_DATA_CONTINUOUSLY = 0x10,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            COMMAND_STOP_READING_DATA_CONTINUOUSLY = 0x11,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            COMMAND_READ_DATA = 0x12,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            COMMAND_READ_REGISTER = 0x20,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            COMMAND_WRITE_REGISTER = 0x40</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }eCommands;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">// Register definitions</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _REGISTERS</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            REGISTER_ID = 0x00,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            REGISTER_CONFIG_1 = 0x01,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            REGISTER_CONFIG_2 = 0x02,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            REGISTER_CONFIG_3 = 0x03,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            REGISTER_CH1SET = 0x05,</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            REGISTER_CH2SET = 0x06,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            REGISTER_CH3SET = 0x07,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            REGISTER_CH4SET = 0x08,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            REGISTER_CH5SET = 0x09,</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            REGISTER_CH6SET = 0x0A,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            REGISTER_CH7SET = 0x0B,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            REGISTER_CH8SET = 0x0C,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            REGISTER_MISC1 = 0x15</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }eRegisters;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">// definitions for determining the number of channels from the ID register.</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t ID_NUMBER_OF_CHANNELS_MASK = 0x03;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _NUMBER_OF_CHANNELS</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            ID_NUMBER_OF_CHANNELS_4 = 0x00,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            ID_NUMBER_OF_CHANNELS_6 = 0x01,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            ID_NUMBER_OF_CHANNELS_8 = 0x02</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        }eNumChannels;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="comment">// definitions for setting sample rate</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_1_DATARATE_MASK = 0x07;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="comment">// definitions for setting internal calibration signal</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_INTERNAL_CAL_MASK = 0x10;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_CAL_AMPLITUDE_MASK = 0x04;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_2_CAL_FREQUENCY_MASK = 0x03;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_STATE</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            CONFIG_2_INTERNAL_CAL_DISABLE = 0x00,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            CONFIG_2_INTERNAL_CAL_ENABLE = 0x10</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }eCalSignalState;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_AMPLITUDE</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            CONFIG_2_CAL_AMPLITUDE_LOW = 0x00,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            CONFIG_2_CAL_AMPLITUDE_HIGH = 0x04</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        }eCalSignalAmplitude;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _CAL_SIGNAL_FREQUENCY</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            CONFIG_2_CAL_FREQUENCY_SLOW = 0x00,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            CONFIG_2_CAL_FREQUENCY_FAST = 0x01,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            CONFIG_2_CAL_FREQUENCY_DC = 0x03</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }eCalSignalFrequency;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="comment">// definitions for setting the reference buffer.</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONFIG_3_REF_BUFFER_MASK = 0x80;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _REG_BUFFER_STATE</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            CONFIG_3_REF_BUFFER_DISABLE = 0x00,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            CONFIG_3_REF_BUFFER_ENABLE = 0x80</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        }eRefBufferState;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="comment">// definitions for channel settings</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CHNSET_GAIN_MASK = 0x70;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CHNSET_STATE_MASK = 0x87;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="comment">// definitions for srb1 connection setting</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t MISC_1_SRB1_MASK = 0x20;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keyword">typedef</span> <span class="keyword">enum</span> _REG_SRB1_STATE</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            MISC_1_SRB1_DISABLE = 0x00,</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            MISC_1_SRB1_ENABLE = 0x20</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        }eSrb1State;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="comment">// used to clock the SPI data out of the ADS1299</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t BLANK_DATA = 0x00;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keyword">static</span> <span class="keyword">const</span> int32_t DEFAULT_CHANNEL_GAIN = 24;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> INTERNAL_VREF_VOLTAGE = 4.5f;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> EXTERNAL_VREF_VOLTAGE = 5.0f;    <span class="comment">// Modify this value to suit your circuit.</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="comment">// private member variables</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="comment">// instance of the SPI Scheduler and Pin Control.</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <a class="code hl_class" href="class_spi_driver.html">SpiDriver</a> * _SpiDriverInstance;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <a class="code hl_class" href="class_pin_control.html">PinControl</a> * _PinControlInstance;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        int32_t _ChannelGainsCache[MAX_CHANNELS];</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordtype">float</span> _VotlageReferenceCache;</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="comment">// private member functions </span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        eRegisters GetChannelRegisterFromChannelIdEnum(eChannelId chan);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        uint8_t ReadRegister(eRegisters reg);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keywordtype">void</span> WriteRegister(eRegisters reg, uint8_t newValue);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordtype">void</span> ModifyRegister(eRegisters reg, uint8_t mask, uint8_t newValue);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        int32_t GetMultiplierFromChannelGain(eChannelGain gain);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordtype">void</span> SetChannelGainsToDefault(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>};</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_ads1299_low_driver_html"><div class="ttname"><a href="class_ads1299_low_driver.html">Ads1299LowDriver</a></div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.h:9</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_a0c3ea205c7095ac78d042dda6216a83b"><div class="ttname"><a href="class_ads1299_low_driver.html#a0c3ea205c7095ac78d042dda6216a83b">Ads1299LowDriver::StopContinuousDataCapture</a></div><div class="ttdeci">void StopContinuousDataCapture(void)</div><div class="ttdoc">Instructs the device to stop capturing data continuously.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:82</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_a0e9a89172fb1d6e63b8a2f6f9c4a5151"><div class="ttname"><a href="class_ads1299_low_driver.html#a0e9a89172fb1d6e63b8a2f6f9c4a5151">Ads1299LowDriver::SetTestSignal</a></div><div class="ttdeci">void SetTestSignal(void)</div><div class="ttdoc">Function to set up a test signal.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:182</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_a40464eed572d5e13bef49489c61e7264"><div class="ttname"><a href="class_ads1299_low_driver.html#a40464eed572d5e13bef49489c61e7264">Ads1299LowDriver::SetChannelGain</a></div><div class="ttdeci">void SetChannelGain(eChannelId chan, eChannelGain gain)</div><div class="ttdoc">Sets the gain for the selected channel.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:147</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_a442d33011e2aea2b3f9a329828b5f063"><div class="ttname"><a href="class_ads1299_low_driver.html#a442d33011e2aea2b3f9a329828b5f063">Ads1299LowDriver::StartContinuousDataCapture</a></div><div class="ttdeci">void StartContinuousDataCapture(eSampleRate rate)</div><div class="ttdoc">Sets up the Device to start capturing data continuously at the set rate.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:59</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_acc7fb24b78294d727fbe72f15ca6caa7"><div class="ttname"><a href="class_ads1299_low_driver.html#acc7fb24b78294d727fbe72f15ca6caa7">Ads1299LowDriver::SetChannelState</a></div><div class="ttdeci">void SetChannelState(eChannelId chan, eChannelState state)</div><div class="ttdoc">Configures an ADS1299 EEG channels data capture state.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:134</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_ae282a97ac33df44aa6612be7710d0dff"><div class="ttname"><a href="class_ads1299_low_driver.html#ae282a97ac33df44aa6612be7710d0dff">Ads1299LowDriver::SetReferenceSource</a></div><div class="ttdeci">void SetReferenceSource(eReferenceSource src)</div><div class="ttdoc">Function to set the voltage reference source.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:162</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_ae79a60be950a35ca47f740a16ed39609"><div class="ttname"><a href="class_ads1299_low_driver.html#ae79a60be950a35ca47f740a16ed39609">Ads1299LowDriver::ResetDevice</a></div><div class="ttdeci">void ResetDevice(void)</div><div class="ttdoc">Sends the command to Reset the ADS1299 device over the SPI Interface.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:41</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_aeb5f242a94d60c7fcaabc8bbb67b6845"><div class="ttname"><a href="class_ads1299_low_driver.html#aeb5f242a94d60c7fcaabc8bbb67b6845">Ads1299LowDriver::Ads1299LowDriver</a></div><div class="ttdeci">Ads1299LowDriver()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:18</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_aeef277492407cca99e3d839bb7f11a55"><div class="ttname"><a href="class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55">Ads1299LowDriver::GetAds1299Data</a></div><div class="ttdeci">Ads1299LowDriver::sAds1299AllChannelsData GetAds1299Data(void)</div><div class="ttdoc">Get the latest EEG Channel data and sign extend it to 32 bits.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:197</div></div>
-<div class="ttc" id="aclass_ads1299_low_driver_html_af141c3d81e7829d2437e1d8d467b2b37"><div class="ttname"><a href="class_ads1299_low_driver.html#af141c3d81e7829d2437e1d8d467b2b37">Ads1299LowDriver::GetNumberOfSupportedChannels</a></div><div class="ttdeci">uint8_t GetNumberOfSupportedChannels(void)</div><div class="ttdoc">Gets the number of channels supported by the ADS1299.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:105</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_a0c3ea205c7095ac78d042dda6216a83b"><div class="ttname"><a href="class_ads1299_low_driver.html#a0c3ea205c7095ac78d042dda6216a83b">Ads1299LowDriver::StopContinuousDataCapture</a></div><div class="ttdeci">void StopContinuousDataCapture(void)</div><div class="ttdoc">Instructs the device to stop capturing data continuously.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:81</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_a0e9a89172fb1d6e63b8a2f6f9c4a5151"><div class="ttname"><a href="class_ads1299_low_driver.html#a0e9a89172fb1d6e63b8a2f6f9c4a5151">Ads1299LowDriver::SetTestSignal</a></div><div class="ttdeci">void SetTestSignal(void)</div><div class="ttdoc">Function to set up a test signal.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:181</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_a2234e7688ca22886db6141c55aa99bd9"><div class="ttname"><a href="class_ads1299_low_driver.html#a2234e7688ca22886db6141c55aa99bd9">Ads1299LowDriver::SetNegativeInputsConnectionToSRB1</a></div><div class="ttdeci">void SetNegativeInputsConnectionToSRB1(bool connect)</div><div class="ttdoc">Function to set whether the Negative input is connected to SRB1.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:192</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_a40464eed572d5e13bef49489c61e7264"><div class="ttname"><a href="class_ads1299_low_driver.html#a40464eed572d5e13bef49489c61e7264">Ads1299LowDriver::SetChannelGain</a></div><div class="ttdeci">void SetChannelGain(eChannelId chan, eChannelGain gain)</div><div class="ttdoc">Sets the gain for the selected channel.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:146</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_a442d33011e2aea2b3f9a329828b5f063"><div class="ttname"><a href="class_ads1299_low_driver.html#a442d33011e2aea2b3f9a329828b5f063">Ads1299LowDriver::StartContinuousDataCapture</a></div><div class="ttdeci">void StartContinuousDataCapture(eSampleRate rate)</div><div class="ttdoc">Sets up the Device to start capturing data continuously at the set rate.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:58</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_acc7fb24b78294d727fbe72f15ca6caa7"><div class="ttname"><a href="class_ads1299_low_driver.html#acc7fb24b78294d727fbe72f15ca6caa7">Ads1299LowDriver::SetChannelState</a></div><div class="ttdeci">void SetChannelState(eChannelId chan, eChannelState state)</div><div class="ttdoc">Configures an ADS1299 EEG channels data capture state.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:133</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_ae282a97ac33df44aa6612be7710d0dff"><div class="ttname"><a href="class_ads1299_low_driver.html#ae282a97ac33df44aa6612be7710d0dff">Ads1299LowDriver::SetReferenceSource</a></div><div class="ttdeci">void SetReferenceSource(eReferenceSource src)</div><div class="ttdoc">Function to set the voltage reference source.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:161</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_ae79a60be950a35ca47f740a16ed39609"><div class="ttname"><a href="class_ads1299_low_driver.html#ae79a60be950a35ca47f740a16ed39609">Ads1299LowDriver::ResetDevice</a></div><div class="ttdeci">void ResetDevice(void)</div><div class="ttdoc">Sends the command to Reset the ADS1299 device over the SPI Interface.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:40</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_aeb5f242a94d60c7fcaabc8bbb67b6845"><div class="ttname"><a href="class_ads1299_low_driver.html#aeb5f242a94d60c7fcaabc8bbb67b6845">Ads1299LowDriver::Ads1299LowDriver</a></div><div class="ttdeci">Ads1299LowDriver()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:17</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_aeef277492407cca99e3d839bb7f11a55"><div class="ttname"><a href="class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55">Ads1299LowDriver::GetAds1299Data</a></div><div class="ttdeci">Ads1299LowDriver::sAds1299AllChannelsData GetAds1299Data(void)</div><div class="ttdoc">Get the latest EEG Channel data and sign extend it to 32 bits.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:212</div></div>
+<div class="ttc" id="aclass_ads1299_low_driver_html_af141c3d81e7829d2437e1d8d467b2b37"><div class="ttname"><a href="class_ads1299_low_driver.html#af141c3d81e7829d2437e1d8d467b2b37">Ads1299LowDriver::GetNumberOfSupportedChannels</a></div><div class="ttdeci">uint8_t GetNumberOfSupportedChannels(void)</div><div class="ttdoc">Gets the number of channels supported by the ADS1299.</div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.cpp:104</div></div>
 <div class="ttc" id="aclass_pin_control_html"><div class="ttname"><a href="class_pin_control.html">PinControl</a></div><div class="ttdef"><b>Definition:</b> PinControl.h:9</div></div>
 <div class="ttc" id="aclass_spi_driver_html"><div class="ttname"><a href="class_spi_driver.html">SpiDriver</a></div><div class="ttdef"><b>Definition:</b> SpiDriver.h:7</div></div>
-<div class="ttc" id="astruct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a_html"><div class="ttname"><a href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">Ads1299LowDriver::_ADS1299_ALL_CHANNELS_DATA</a></div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.h:84</div></div>
-<div class="ttc" id="astruct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a_html"><div class="ttname"><a href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">Ads1299LowDriver::_ADS1299_CHANNEL_DATA</a></div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.h:78</div></div>
+<div class="ttc" id="astruct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a_html"><div class="ttname"><a href="struct_ads1299_low_driver_1_1___a_d_s1299___a_l_l___c_h_a_n_n_e_l_s___d_a_t_a.html">Ads1299LowDriver::_ADS1299_ALL_CHANNELS_DATA</a></div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.h:85</div></div>
+<div class="ttc" id="astruct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a_html"><div class="ttname"><a href="struct_ads1299_low_driver_1_1___a_d_s1299___c_h_a_n_n_e_l___d_a_t_a.html">Ads1299LowDriver::_ADS1299_CHANNEL_DATA</a></div><div class="ttdef"><b>Definition:</b> Ads1299LowDriver.h:79</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

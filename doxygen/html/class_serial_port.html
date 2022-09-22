@@ -91,17 +91,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>BackgroundTaskHandler
 <tr class="separator:a6677eea9000e7fe5e703c48089409e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addf45e9e614519103540cdf28c01d39c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_serial_port.html#addf45e9e614519103540cdf28c01d39c">GetReceivedBytes</a> (uint8_t data[], uint8_t max_length) override</td></tr>
 <tr class="separator:addf45e9e614519103540cdf28c01d39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae136de2e9da076c1da9398624e02942d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_serial_port.html#ae136de2e9da076c1da9398624e02942d">TransmitData</a> (uint8_t data[], uint8_t count) override</td></tr>
-<tr class="separator:ae136de2e9da076c1da9398624e02942d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memItemLeft" align="right" valign="top"><a id="a09f3dc474ba87a4e79f85f279dae48bc" name="a09f3dc474ba87a4e79f85f279dae48bc"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessEvent</b> (NEvent::eEvent event)=0</td></tr>
+<tr class="memitem:a3b944154864b48efe33b13085b2aa747"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_serial_port.html#a3b944154864b48efe33b13085b2aa747">TransmitData</a> (uint8_t data[], uint16_t count) override</td></tr>
+<tr class="separator:a3b944154864b48efe33b13085b2aa747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_can_process_events.html#a09f3dc474ba87a4e79f85f279dae48bc">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
 <tr class="separator:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68b918b841a8e53aeb644fd85c6b3440"><td class="memItemLeft" align="right" valign="top"><a id="a68b918b841a8e53aeb644fd85c6b3440" name="a68b918b841a8e53aeb644fd85c6b3440"></a>
 virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetReceivedBytes</b> (uint8_t data[], uint8_t max_length)=0</td></tr>
 <tr class="separator:a68b918b841a8e53aeb644fd85c6b3440"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfd31191b7437b92e95038e32ea3c776"><td class="memItemLeft" align="right" valign="top"><a id="acfd31191b7437b92e95038e32ea3c776" name="acfd31191b7437b92e95038e32ea3c776"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TransmitData</b> (uint8_t data[], uint8_t count)=0</td></tr>
-<tr class="separator:acfd31191b7437b92e95038e32ea3c776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ebc9d1594fef876bea42b8cbb332ad"><td class="memItemLeft" align="right" valign="top"><a id="a47ebc9d1594fef876bea42b8cbb332ad" name="a47ebc9d1594fef876bea42b8cbb332ad"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TransmitData</b> (uint8_t data[], uint16_t count)=0</td></tr>
+<tr class="separator:a47ebc9d1594fef876bea42b8cbb332ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="addf45e9e614519103540cdf28c01d39c" name="addf45e9e614519103540cdf28c01d39c"></a>
@@ -170,8 +169,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TransmitData<
 
 </div>
 </div>
-<a id="ae136de2e9da076c1da9398624e02942d" name="ae136de2e9da076c1da9398624e02942d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae136de2e9da076c1da9398624e02942d">&#9670;&nbsp;</a></span>TransmitData()</h2>
+<a id="a3b944154864b48efe33b13085b2aa747" name="a3b944154864b48efe33b13085b2aa747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b944154864b48efe33b13085b2aa747">&#9670;&nbsp;</a></span>TransmitData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +187,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>TransmitData<
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>count</em>&#160;</td>
         </tr>
         <tr>

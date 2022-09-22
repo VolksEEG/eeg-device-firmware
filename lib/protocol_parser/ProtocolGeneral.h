@@ -9,7 +9,12 @@ class ProtocolGeneral
     public:
 
         // Size definitions
+#ifndef PIO_UNIT_TESTING
         static const int _MAX_PAYLOAD_SIZE = 255;
+#else
+        // payload size is 1 less for unit testing to allow payloads greater than the max to be tested
+        static const int _MAX_PAYLOAD_SIZE = 254;
+#endif
         static const int _HEADER_SIZE = 8;
         static const int _MAX_MESSAGE_LENGTH = _HEADER_SIZE + _MAX_PAYLOAD_SIZE;
 

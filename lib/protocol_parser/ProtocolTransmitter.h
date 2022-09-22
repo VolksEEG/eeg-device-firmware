@@ -2,7 +2,7 @@
 #ifndef _PROTOCOL_TRANSMITTER
 #define _PROTOCOL_TRANSMITTER
 
-#include "PcCommunicationsInterface.h"
+#include "IPcCommunications.h"
 #include "IProtocolTransmission.h"
 #include "ProtocolGeneral.h"
 
@@ -15,31 +15,32 @@ class ProtocolTransmitter : public EegDataConsumer, public CanProcessEvents, pub
     public:
 
         ProtocolTransmitter();
-        ProtocolTransmitter(PcCommunicationsInterface * pci, EventHandler * eh);
+        ProtocolTransmitter(IPcCommunications * pci, EventHandler * evh);
 
         void ProcessEvent(NEvent::eEvent event) override;
 
-        void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload_length) override;
+        bool SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload_length) override;
+        bool ProcessReceivedId(uint8_t id) override;
+        void ProcessAcknowledgedId(uint8_t id) override;
 
         void PushLatestSample(EegData::sEegSamples samples) override;
+
+        static const uint8_t _MAX_TX_MESSAGES = 10;
 
     protected:
 
     private:
 
-        PcCommunicationsInterface * _PcComsInterfaceInstance;
+        IPcCommunications * _PcComsInterfaceInstance;
         EventHandler * _EventHandlerInstance;
-
-        static const uint8_t _MAX_TX_MESSAGES = 10;
 
         typedef struct _TX_MESSAGE
         {
-            uint8_t payloadLength;
-            uint8_t idNumber;
             uint8_t message[ProtocolGeneral::_MAX_MESSAGE_LENGTH];
         }sTxMessageStruct;
 
-        uint8_t _TxNextIdToSend;
+        uint8_t _IdAckToSend;
+        uint8_t _IdToSend;
 
         // tx fifo variables
         uint8_t _TxIpIndex;

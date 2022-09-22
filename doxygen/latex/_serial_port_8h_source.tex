@@ -8,7 +8,7 @@
 \DoxyCodeLine{4 }
 \DoxyCodeLine{5 \textcolor{preprocessor}{\#include <EventHandler.h>}}
 \DoxyCodeLine{6 \textcolor{preprocessor}{\#include <CanProcesEvents.h>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <../protocol\_frame\_parser/PcCommunicationsInterface.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <../protocol\_parser/PcCommunicationsInterface.h>}}
 \DoxyCodeLine{8 }
 \DoxyCodeLine{9 \textcolor{keyword}{class }\mbox{\hyperlink{class_serial_port}{SerialPort}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} \{}
 \DoxyCodeLine{10 }
@@ -21,7 +21,7 @@
 \DoxyCodeLine{17         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
 \DoxyCodeLine{18         }
 \DoxyCodeLine{19         uint8\_t GetReceivedBytes(uint8\_t data[], uint8\_t max\_length) \textcolor{keyword}{override};}
-\DoxyCodeLine{20         \textcolor{keywordtype}{void} TransmitData(uint8\_t data[], uint8\_t count) \textcolor{keyword}{override};}
+\DoxyCodeLine{20         \textcolor{keywordtype}{void} TransmitData(uint8\_t data[], uint16\_t count) \textcolor{keyword}{override};}
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22     \textcolor{keyword}{protected}:}
 \DoxyCodeLine{23 }

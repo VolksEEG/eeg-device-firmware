@@ -1,5 +1,33 @@
 # Protocol Parser
-This module parses packets recieved from the PC to enact change on the EEG data acquisition or pushed EEG data packets to the PC.
+## Overview
+This library deals with parsing and generation of communications packets between this firmware and a PC to the requirements of the protocol defined at https://github.com/VolksEEG/VolksEEG/wiki/FrontEndToPcApi.
 
-## Inheritance
-This class publicly inherits from the EegDataConsumer class in order to consume EEG data, it uses the Protocol Frame Parser module to wrap the EEG data, and passes it on to the PC.
+## Architecture 
+**Note** this diagrma is not complete.
+```mermaid
+classDiagram
+    class IProtocolTransmission{
+       <<interface>>
+
+    }
+
+    class IPcCommunications{
+        <<interface>>
+    }
+
+    class ProtocolGeneral{
+
+    }
+
+    class ProtocolReceiver{
+
+    }
+
+    class ProtocolTransmitter{
+
+    }
+
+    ProtocolGeneral <|-- ProtocolReceiver
+    IPcCommunications <|-- ProtocolTransmitter
+    ProtocolGeneral <|-- ProtocolTransmitter
+```

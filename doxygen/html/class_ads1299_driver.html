@@ -78,18 +78,25 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a37e8419d52bad3b8d7eb3d7092a12554"><td class="memItemLeft" align="right" valign="top"><a id="a37e8419d52bad3b8d7eb3d7092a12554" name="a37e8419d52bad3b8d7eb3d7092a12554"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_MONTAGE</b> { <b>Sequential</b>
+, <b>Referential</b>
+ }</td></tr>
+<tr class="separator:a37e8419d52bad3b8d7eb3d7092a12554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe8017a424d6323e3c1fab1c5eb13f8d"><td class="memItemLeft" align="right" valign="top"><a id="abe8017a424d6323e3c1fab1c5eb13f8d" name="abe8017a424d6323e3c1fab1c5eb13f8d"></a>
+typedef enum Ads1299Driver::_MONTAGE&#160;</td><td class="memItemRight" valign="bottom"><b>eMontage</b></td></tr>
+<tr class="separator:abe8017a424d6323e3c1fab1c5eb13f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b77f1a0f35a961129a155d8520a72cb"><td class="memItemLeft" align="right" valign="top"><a id="a9b77f1a0f35a961129a155d8520a72cb" name="a9b77f1a0f35a961129a155d8520a72cb"></a>
 typedef struct <a class="el" href="struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a.html">Ads1299Driver::_ADS_SAMPLE_DATA</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sAds1299SampleData</b></td></tr>
 <tr class="separator:a9b77f1a0f35a961129a155d8520a72cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7ffaabbafde5662e00889d7b41913b9a"><td class="memItemLeft" align="right" valign="top"><a id="a7ffaabbafde5662e00889d7b41913b9a" name="a7ffaabbafde5662e00889d7b41913b9a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Ads1299Driver</b> (<a class="el" href="class_spi_driver.html">SpiDriver</a> *spi, <a class="el" href="class_pin_control.html">PinControl</a> *pins)</td></tr>
-<tr class="separator:a7ffaabbafde5662e00889d7b41913b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55b83d8e0867b9c9767ebef9469e365e"><td class="memItemLeft" align="right" valign="top"><a id="a55b83d8e0867b9c9767ebef9469e365e" name="a55b83d8e0867b9c9767ebef9469e365e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>StartProducingData</b> ()</td></tr>
-<tr class="separator:a55b83d8e0867b9c9767ebef9469e365e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30fe07e61cb97f4fb595d425049083f6"><td class="memItemLeft" align="right" valign="top"><a id="a30fe07e61cb97f4fb595d425049083f6" name="a30fe07e61cb97f4fb595d425049083f6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Ads1299Driver</b> (<a class="el" href="class_spi_driver.html">SpiDriver</a> *spi, <a class="el" href="class_pin_control.html">PinControl</a> *pins, eMontage montage)</td></tr>
+<tr class="separator:a30fe07e61cb97f4fb595d425049083f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afee12305e96c42e78e9a80e11e84fcea"><td class="memItemLeft" align="right" valign="top"><a id="afee12305e96c42e78e9a80e11e84fcea" name="afee12305e96c42e78e9a80e11e84fcea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>StartProducingData</b> (Ads1299LowDriver::eSampleRate rate)</td></tr>
+<tr class="separator:afee12305e96c42e78e9a80e11e84fcea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90dec58a5a90add55628bd955070737f"><td class="memItemLeft" align="right" valign="top"><a id="a90dec58a5a90add55628bd955070737f" name="a90dec58a5a90add55628bd955070737f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>StopProducingData</b> ()</td></tr>
 <tr class="separator:a90dec58a5a90add55628bd955070737f"><td class="memSeparator" colspan="2">&#160;</td></tr>

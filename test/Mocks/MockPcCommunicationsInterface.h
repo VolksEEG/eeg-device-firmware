@@ -1,9 +1,9 @@
 #ifndef MOCK_PC_COMMUNICATIONS_INTERFACE
 #define MOCK_PC_COMMUNICATIONS_INTERFACE
 
-#include <PcCommunicationsInterface.h>
+#include <IPcCommunications.h>
 
-class MockPcCommunicationsInterface : public PcCommunicationsInterface {
+class MockPcCommunicationsInterface : public IPcCommunications {
     public:
 
         MockPcCommunicationsInterface()

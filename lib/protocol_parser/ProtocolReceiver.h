@@ -2,7 +2,7 @@
 #ifndef _PROTOCOL_RECEIVER
 #define _PROTOCOL_RECEIVER
 
-#include "PcCommunicationsInterface.h"
+#include "IPcCommunications.h"
 #include "ProtocolGeneral.h"
 #include "IProtocolTransmission.h"
 
@@ -15,7 +15,7 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
     public:
 
         ProtocolReceiver();
-        ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
+        ProtocolReceiver(IPcCommunications * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
 
         void ProcessEvent(NEvent::eEvent event) override;
 
@@ -36,14 +36,12 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
 
         RX_STATE GetCurrentRxState();
 
-        uint8_t GetNextExpectedId();
-
         #endif
     protected:
 
     private:
 
-        PcCommunicationsInterface * _PcComsInterface;
+        IPcCommunications * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
         EventHandler * _EventHandler;
         IProtocolTransmission * _ProtocolTransmissionInstance;
@@ -55,18 +53,12 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
             uint8_t rxIndex;
             uint8_t rxMultiByteCounter;
 
-            // message values
+            // message values array
             uint8_t message[ProtocolGeneral::_MAX_MESSAGE_LENGTH];
 
-            uint8_t lastValidId;
-            uint8_t nextExpectedId;
         }sRxStruct;
 
         sRxStruct _RxState;
-
-        void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
-
-        static ProtocolReceiver * _ProtocolParser;
 
         static sRxStruct ResetRxStruct(sRxStruct state);
 

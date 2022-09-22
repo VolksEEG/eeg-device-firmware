@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Volks EEG Firmware: lib/protocol_frame_parser/PcCommunicationsInterface.h Source File</title>
+<title>Volks EEG Firmware: lib/protocol_parser/PcCommunicationsInterface.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_7ba65bb324df29c2d8713566b8c7b6f5.html">protocol_frame_parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_66b653c69da7f53dfb1517c65649e305.html">protocol_parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -78,11 +78,12 @@ $(function() {
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_pc_communications_interface.html">    7</a></span><span class="keyword">class </span><a class="code hl_class" href="class_pc_communications_interface.html">PcCommunicationsInterface</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keyword">virtual</span> uint8_t GetReceivedBytes(uint8_t data[], uint8_t max_length) = 0;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> TransmitData(uint8_t data[], uint8_t count) = 0;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>};</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="comment">// TODO - consider splitting this into two interfaces as no module is likely to need both functions</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keyword">virtual</span> uint8_t GetReceivedBytes(uint8_t data[], uint8_t max_length) = 0;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> TransmitData(uint8_t data[], uint16_t count) = 0;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_pc_communications_interface_html"><div class="ttname"><a href="class_pc_communications_interface.html">PcCommunicationsInterface</a></div><div class="ttdef"><b>Definition:</b> PcCommunicationsInterface.h:7</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

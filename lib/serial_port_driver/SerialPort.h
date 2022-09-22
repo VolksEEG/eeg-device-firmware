@@ -4,9 +4,9 @@
 
 #include <EventHandler.h>
 #include <CanProcesEvents.h>
-#include <../protocol_parser/PcCommunicationsInterface.h>
+#include <../protocol_parser/iPcCommunications.h>
 
-class SerialPort : public CanProcessEvents, public PcCommunicationsInterface {
+class SerialPort : public CanProcessEvents, public IPcCommunications {
 
     public:
 

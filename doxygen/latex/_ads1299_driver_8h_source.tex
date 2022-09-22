@@ -15,28 +15,34 @@
 \DoxyCodeLine{11 }
 \DoxyCodeLine{12     \textcolor{keyword}{public}:}
 \DoxyCodeLine{13 }
-\DoxyCodeLine{14         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}();}
-\DoxyCodeLine{15         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}(\mbox{\hyperlink{class_spi_driver}{SpiDriver}} * spi, \mbox{\hyperlink{class_pin_control}{PinControl}} * pins);}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17         \textcolor{keywordtype}{void} StartProducingData(); }
-\DoxyCodeLine{18         \textcolor{keywordtype}{void} StopProducingData(); }
+\DoxyCodeLine{14         \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \_MONTAGE}
+\DoxyCodeLine{15         \{}
+\DoxyCodeLine{16             Sequential,}
+\DoxyCodeLine{17             Referential}
+\DoxyCodeLine{18         \}eMontage;}
 \DoxyCodeLine{19 }
-\DoxyCodeLine{20         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{\_ADS\_SAMPLE\_DATA}}}
-\DoxyCodeLine{21         \{}
-\DoxyCodeLine{22             int16\_t SampleData[Ads1299LowDriver::MAX\_CHANNELS];}
-\DoxyCodeLine{23         \}\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{sAds1299SampleData}};}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25         \mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{Ads1299Driver::sAds1299SampleData}} GetLatestSampleData();}
-\DoxyCodeLine{26         }
-\DoxyCodeLine{27     \textcolor{keyword}{protected}:}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29     \textcolor{keyword}{private}:}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}();}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}}(\mbox{\hyperlink{class_spi_driver}{SpiDriver}} * spi, \mbox{\hyperlink{class_pin_control}{PinControl}} * pins, eMontage montage);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} StartProducingData(Ads1299LowDriver::eSampleRate rate); }
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} StopProducingData(); }
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{\_ADS\_SAMPLE\_DATA}}}
+\DoxyCodeLine{27         \{}
+\DoxyCodeLine{28             int16\_t SampleData[Ads1299LowDriver::MAX\_CHANNELS];}
+\DoxyCodeLine{29         \}\mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{sAds1299SampleData}};}
 \DoxyCodeLine{30 }
-\DoxyCodeLine{31         \mbox{\hyperlink{class_ads1299_low_driver}{Ads1299LowDriver}} \_Ads1299LowDriver;}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33         uint8\_t \_SupportedChannels;}
-\DoxyCodeLine{34 \};}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{31         \mbox{\hyperlink{struct_ads1299_driver_1_1___a_d_s___s_a_m_p_l_e___d_a_t_a}{Ads1299Driver::sAds1299SampleData}} GetLatestSampleData();}
+\DoxyCodeLine{32         }
+\DoxyCodeLine{33     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{private}:}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         \mbox{\hyperlink{class_ads1299_low_driver}{Ads1299LowDriver}} \_Ads1299LowDriver;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         uint8\_t \_SupportedChannels;}
+\DoxyCodeLine{40 \};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

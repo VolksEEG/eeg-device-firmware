@@ -10,29 +10,38 @@
 \DoxyCodeLine{6 }
 \DoxyCodeLine{7 \textcolor{preprocessor}{\#include <EEGDataProducer.h>}}
 \DoxyCodeLine{8 \textcolor{preprocessor}{\#include <EegData.h>}}
-\DoxyCodeLine{9 }
-\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}  \{}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12     \textcolor{keyword}{public}:}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14         \mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}}();}
-\DoxyCodeLine{15         \mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}}(\mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}} * ads, \mbox{\hyperlink{class_event_handler}{EventHandler}} * eh);}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17         \textcolor{keywordtype}{void} StartProducingData() \textcolor{keyword}{override}; }
-\DoxyCodeLine{18         \textcolor{keywordtype}{void} StopProducingData() \textcolor{keyword}{override}; }
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20         \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} GetLatestSample() \textcolor{keyword}{override};}
-\DoxyCodeLine{21         }
-\DoxyCodeLine{22         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
-\DoxyCodeLine{23         }
-\DoxyCodeLine{24     \textcolor{keyword}{protected}:}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26     \textcolor{keyword}{private}:}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}} * \_Ads1299Driver\_ptr;}
-\DoxyCodeLine{29         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandler\_ptr;}
-\DoxyCodeLine{30 \};}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <ErrorHandler.h>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_eeg_data_producer}{EegDataProducer}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}  \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15         \mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}}();}
+\DoxyCodeLine{16         \mbox{\hyperlink{class_ads1299_data_processor}{Ads1299DataProcessor}}(\mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}} * ads, \mbox{\hyperlink{class_event_handler}{EventHandler}} * eh, \mbox{\hyperlink{class_error_handler}{ErrorHandler}} * erh);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keywordtype}{void} StartProducingData() \textcolor{keyword}{override}; }
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} StopProducingData() \textcolor{keyword}{override}; }
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} GetLatestSample() \textcolor{keyword}{override};}
+\DoxyCodeLine{22         }
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} ProcessEvent(NEvent::eEvent event) \textcolor{keyword}{override};}
+\DoxyCodeLine{24         }
+\DoxyCodeLine{25     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{private}:}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \mbox{\hyperlink{class_ads1299_driver}{Ads1299Driver}} * \_Ads1299Driver\_ptr;}
+\DoxyCodeLine{30         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandler\_ptr;}
+\DoxyCodeLine{31         \mbox{\hyperlink{class_error_handler}{ErrorHandler}} * \_ErrorHandler\_ptr;}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t \_MAX\_SAMPLES\_TO\_BUFFER = 50;      \textcolor{comment}{// 100 milliSeconds of data}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35         \mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} \_AdsBufferedData[\_MAX\_SAMPLES\_TO\_BUFFER];}
+\DoxyCodeLine{36         uint16\_t \_AdsSampleBufferInputIndex;}
+\DoxyCodeLine{37         uint16\_t \_AdsSampleBufferOutputIndex;}
+\DoxyCodeLine{38         uint16\_t \_AdsSampleBufferCount;}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
