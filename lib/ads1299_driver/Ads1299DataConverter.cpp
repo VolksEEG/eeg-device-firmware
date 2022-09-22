@@ -2,7 +2,6 @@
  * @file Ads1299DataConverter.cpp
  * @author Graham Long (longevoty_software@mail.com)
  * @brief Data convertor helper class
- * @version 0.1
  * @date 2022-06-10
  * 
  * @copyright Copyright (c) 2022

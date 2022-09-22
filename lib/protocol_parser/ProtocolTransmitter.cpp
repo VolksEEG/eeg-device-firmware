@@ -1,23 +1,48 @@
+/**
+ * @file ProtocolTransmitter.cpp
+ * @author Graham Long (longevoty_software@mail.com)
+ * @brief Class which deals with transmission of payload data to the PC.
+ * @date 2022-Sept-21
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include "ProtocolTransmitter.h"
 
-//
-// Constructor
-//
+/**
+ * @brief Constructor
+ * 
+ */
 ProtocolTransmitter::ProtocolTransmitter()
 {
     
 }
 
-ProtocolTransmitter::ProtocolTransmitter(PcCommunicationsInterface * pci) :
-    _PcComsInterface(pci)
+
+/**
+ * @brief Constructor
+ * 
+ * @param pci Pointer to the PC Communications interface to be used to communicate with the PC.
+ * @param eh Pointer to the event handler module which is used to set the events raised by this module.
+ */
+ProtocolTransmitter::ProtocolTransmitter(PcCommunicationsInterface * pci, EventHandler * eh) :
+    _PcComsInterfaceInstance(pci),
+    _EventHandlerInstance(eh),
+    _TxIpIndex(0),
+    _TxNextUnackedIndex(0),
+    _TxNextOpIndex(0),
+    _TxCount(0),
+    _TxNextIdToSend(0)
 {
     
 }
 
-//
-//  Overriden function for processing events.
-//
+/**
+ * @brief Overridden function to process events.
+ * 
+ * @param event The event which is being processed.
+ */
 void ProtocolTransmitter::ProcessEvent(NEvent::eEvent event)
 {
     if (NEvent::Event_DataToTxToPC != event)
@@ -55,4 +80,61 @@ void ProtocolTransmitter::ProcessEvent(NEvent::eEvent event)
         // finally sent it to the PC
         _PcComsInterface->TransmitData(message, TOTAL_COUNT);
     }*/
+}
+
+/**
+ * @brief Overridden function to send a payload to the PC.
+ * 
+ * @param payload_ptr A pointer to the payload to be sent.
+ * @param payload_length The length of the payload to be sent.
+ */
+void ProtocolTransmitter::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload_length)
+{
+
+    _TxCount++;
+
+    if (1 == _TxCount)
+    {
+        // this is the only message in the queue, so kick off processing the messages
+        _EventHandlerInstance->SignalEvent(NEvent::Event_DataToTxToPC);
+    }
+    
+/*    if (_TxCount >= _MAX_TX_MESSAGES)
+    {
+        // no space to transmit
+        return;
+    }
+
+    if (payloadLength > _MAX_RX_PAYLOAD_SIZE)
+    {
+        // payload won't fit
+        return;
+    }
+
+    // Add the message to the Tx Messages fifo
+    _TxMessages[_TxIpIndex].idNumber = _TxNextIdToSend++;
+    _TxMessages[_TxIpIndex].payloadLength = payloadLength;
+
+    for (int i = 0; i < payloadLength; ++i)
+    {
+        _TxMessages[_TxIpIndex].payload[i] = payload_ptr[i];
+    }
+
+    _TxIpIndex++;
+    _TxCount++;
+
+    _EventHandler->SignalEvent(NEvent::Event_DataToTxToPC);
+    */
+}
+
+/**
+ * @brief Overridden function to consume the latest EEG samples.
+ * 
+ * @param samples The latest received samples.
+ */
+void ProtocolTransmitter::PushLatestSample(EegData::sEegSamples samples)
+{
+    uint8_t eeg_data_payload[10];       // TODO - actually populate this
+
+    this->SendPayloadToPc(eeg_data_payload, 10);    // TODO - send the correct amount.
 }

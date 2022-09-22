@@ -54,8 +54,8 @@ void setup() {
   ads1299Driver = Ads1299Driver(&spiDriver, &pinControl, Ads1299Driver::eMontage::Referential);
   ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler, &errorHandler);
   fakeDataProducer = FakeDataProducer(&eventHandler);
-  protocolReceiver = ProtocolReceiver(&serialPort, &dataFlowController, &eventHandler);
-  protocolTransmitter = ProtocolTransmitter(&serialPort);
+  protocolTransmitter = ProtocolTransmitter(&serialPort, &eventHandler);
+  protocolReceiver = ProtocolReceiver(&serialPort, &dataFlowController, &eventHandler, &protocolTransmitter);
   dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
                                             &ads1299DataProcessor, NEvent::eEvent::Event_BufferedADS1299DataReady,
                                             &protocolTransmitter,

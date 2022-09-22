@@ -3,17 +3,19 @@
 #define _PROTOCOL_RECEIVER
 
 #include "PcCommunicationsInterface.h"
+#include "ProtocolGeneral.h"
+#include "IProtocolTransmission.h"
 
-#include <EEGDataProducer.h>
-#include <CanProcesEvents.h>
-#include <EventHandler.h>
+#include "../data_flow_controller/EEGDataProducer.h"
+#include "../event_handler/CanProcesEvents.h"
+#include "../event_handler/EventHandler.h"
 
-class ProtocolReceiver : public CanProcessEvents  {
+class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
 
     public:
 
         ProtocolReceiver();
-        ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh);
+        ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
 
         void ProcessEvent(NEvent::eEvent event) override;
 
@@ -26,16 +28,13 @@ class ProtocolReceiver : public CanProcessEvents  {
             GetPayloadLength,
             GetIdNumber,
             GetAckId,
-            GetChecksum,
+            GetPayloadChecksum,
+            GetHeaderChecksum,
             GetPayload,
             InvalidState
         }RX_STATE;
 
         RX_STATE GetCurrentRxState();
-
-        uint8_t GetImplementedProtocolVersion();
-
-        uint8_t GetMaximumPayloadLength();
 
         uint8_t GetNextExpectedId();
 
@@ -44,36 +43,10 @@ class ProtocolReceiver : public CanProcessEvents  {
 
     private:
 
-        static const int _PROTOCOL_PAYLOAD_SIZE = 18;
-        static const int _MAX_PAYLOAD_SIZE = 255;
-        static const int _HEADER_SIZE = 7;
-        static const int _MAX_MESSAGE_LENGTH = _HEADER_SIZE + _MAX_PAYLOAD_SIZE;
-
-        static const uint8_t _MAX_VALID_ID = 255;
-
-        static const uint8_t _IMPLEMENTED_PROTOCOL_VERSION = 0x01; // Version 0.1
-
-        static const uint8_t _MAX_TX_MESSAGES = 10;
-
-        // command groups and commands
-        typedef enum _COMS_COMMAND_GROUPS
-        {
-            GROUP_ACKNOWLEDGE = 0x00,
-            GROUP_QUERY = 0x20,
-            GROUP_WRITE = 0x40
-        }eComsCommandGroup;
-
-        typedef enum _COMS_COMMANDS
-        {
-            CMD_ACKNOWLEDGE = 0x00,
-            CMD_NOT_ACKNOWLEDGE = 0x10,
-            CMD_EEG_DATA_MODE = 0x01,
-            CMD_EEG_DATA_VALUES = 0x02
-        }eComsCommands;
-
         PcCommunicationsInterface * _PcComsInterface;
         EegDataProducer * _EEGDataProducer;
         EventHandler * _EventHandler;
+        IProtocolTransmission * _ProtocolTransmissionInstance;
 
         typedef struct _RX_STATE
         {
@@ -83,10 +56,7 @@ class ProtocolReceiver : public CanProcessEvents  {
             uint8_t rxMultiByteCounter;
 
             // message values
-            uint8_t message[_MAX_MESSAGE_LENGTH];
-            uint8_t payloadLength;
-            uint8_t messageID;
-            uint8_t checksum;
+            uint8_t message[ProtocolGeneral::_MAX_MESSAGE_LENGTH];
 
             uint8_t lastValidId;
             uint8_t nextExpectedId;
@@ -94,37 +64,20 @@ class ProtocolReceiver : public CanProcessEvents  {
 
         sRxStruct _RxState;
 
-        typedef struct _TX_MESSAGE
-        {
-            uint8_t payloadLength;
-            uint8_t idNumber;
-            uint8_t payload[_MAX_PAYLOAD_SIZE];
-        }sTxMessageStruct;
-
-        // tx fifo variables
-        uint8_t _TxIpIndex;
-        uint8_t _TxNextUnackedIndex;
-        uint8_t _TxNextOpIndex;
-        uint8_t _TxCount;
-        sTxMessageStruct _TxMessages[_MAX_TX_MESSAGES];
-
-        uint8_t _TxNextIdToSend;
-
         void SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength);
 
         static ProtocolReceiver * _ProtocolParser;
 
         static sRxStruct ResetRxStruct(sRxStruct state);
-        static uint8_t CalculateChecksum(uint8_t * data, uint16_t count);
-        static void ResetTxMessage(sTxMessageStruct * message_ptr);
 
         static sRxStruct RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
         static sRxStruct RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
         static sRxStruct RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
         static sRxStruct RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
         static sRxStruct RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
-        static sRxStruct RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
-        static sRxStruct RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetPayloadChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetHeaderChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
+        static sRxStruct RxState_GetPayloadAndProcessMessageContents(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver);
 };
 
 #endif

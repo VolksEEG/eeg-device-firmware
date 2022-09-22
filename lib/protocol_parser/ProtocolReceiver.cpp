@@ -1,130 +1,84 @@
+/**
+ * @file ProtocolReceiver.cpp
+ * @author Graham Long (longevoty_software@mail.com)
+ * @brief Class which deals with common protocol receive functions
+ * @date 2022-Sept-21
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include "ProtocolReceiver.h"
 
 #include <string.h>
 
-//
-// Constructor
-//
+/**
+ * @brief Constructor
+ * 
+ */
 ProtocolReceiver::ProtocolReceiver()
 {
     
 }
 
-ProtocolReceiver::ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh) :
+/**
+ * @brief Constructor
+ * 
+ * @param pci Pointer to the PC Communications interface to be used to communicate with the PC.
+ * @param edp Pointer to the Eeg Data Producer which will be configured by this protocol.
+ * @param evh Pointer to the event handler module which is used to set the events raised by this module.
+ * @param pti Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC.
+ */
+ProtocolReceiver::ProtocolReceiver(PcCommunicationsInterface * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti) :
     _PcComsInterface(pci),
     _EEGDataProducer(edp),
     _EventHandler(evh),
-    _TxIpIndex(0),
-    _TxNextUnackedIndex(0),
-    _TxNextOpIndex(0),
-    _TxCount(0),
-    _TxNextIdToSend(0)
+    _ProtocolTransmissionInstance(pti)
 {
     _RxState = ResetRxStruct(_RxState);
 
     // the last Valid ID is always MAX and the first expected ID is always 0
     _RxState.lastValidId = _MAX_VALID_ID;
     _RxState.nextExpectedId = 0;
-
-    for (int i = 0; i < _MAX_TX_MESSAGES; ++i)
-    {
-        ResetTxMessage(&_TxMessages[i]);
-    }
 }
 
-//
-//  Overriden function for processing events.
-//
+/**
+ * @brief Overridden function to process events.
+ * 
+ * @param event The event which is being processed.
+ */
 void ProtocolReceiver::ProcessEvent(NEvent::eEvent event)
 {
-    if (NEvent::Event_DataRxFromPC == event)
+    if (NEvent::Event_DataRxFromPC != event)
     {
-        uint8_t buf[1];
-
-        const uint8_t RX_COUNT = _PcComsInterface->GetReceivedBytes(buf, 1);
-
-        if (0 == RX_COUNT)
-        {
-            return;
-        }
-
-        _RxState = _RxState.state_fptr(buf[0], _RxState, this);
-    }
-    else if (NEvent::Event_DataToTxToPC == event)
-    {
-        // send all messages from the last acknowledged one
-        for (uint8_t i = _TxNextUnackedIndex; i < _TxIpIndex; ++i)
-        {
-            // TODO - Simplify this to prevent copying so much data.
-
-            uint8_t message[_MAX_MESSAGE_LENGTH];
-
-            // populate the header
-            message[0] = 0xAA;
-            message[1] = 0x55;
-            message[2] = _IMPLEMENTED_PROTOCOL_VERSION;
-            message[3] = _TxMessages[i].payloadLength;
-            message[4] = _TxMessages[i].idNumber;
-            message[5] = _RxState.lastValidId;          // always return the last valid ID we have received.
-            // Skip the checksum until we have populated the payload.
-
-            // copy over the payload
-            for (int j = 0; j < _TxMessages[i].payloadLength; ++j)
-            {
-                message[_HEADER_SIZE + j] = _TxMessages[i].payload[j];
-            }
-
-            const uint16_t TOTAL_COUNT = _TxMessages[i].payloadLength + _HEADER_SIZE;
-
-            // Add the checksum to the message
-            message[6] = CalculateChecksum(message, TOTAL_COUNT);
-
-            // finally sent it to the PC
-            _PcComsInterface->TransmitData(message, TOTAL_COUNT);
-        }
-    }
-}
-
-// 
-//  Function to send a payload of data to the PC
-//
-void ProtocolReceiver::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payloadLength)
-{
-    if (_TxCount >= _MAX_TX_MESSAGES)
-    {
-        // no space to transmit
         return;
     }
 
-    if (payloadLength > _MAX_PAYLOAD_SIZE)
+    uint8_t buf[1];
+
+    const uint8_t RX_COUNT = _PcComsInterface->GetReceivedBytes(buf, 1);
+
+    if (0 == RX_COUNT)
     {
-        // payload won't fit
         return;
     }
 
-    // Add the message to the Tx Messages fifo
-    _TxMessages[_TxIpIndex].idNumber = _TxNextIdToSend++;
-    _TxMessages[_TxIpIndex].payloadLength = payloadLength;
-
-    for (int i = 0; i < payloadLength; ++i)
-    {
-        _TxMessages[_TxIpIndex].payload[i] = payload_ptr[i];
-    }
-
-    _TxIpIndex++;
-    _TxCount++;
-
-    _EventHandler->SignalEvent(NEvent::Event_DataToTxToPC);
+    _RxState = _RxState.state_fptr(buf[0], _RxState, this);
 }
 
-// 
-//  Data reception state function to wait for the sync sequence
-//
+/**
+ * @brief Rx State function which waits for the synchronization sequence to be received.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_WaitForSyncSequence(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
-    static const uint8_t SYNC_SEQ_BYTES[] = {0xAA, 0x55};
     static const uint8_t SYNC_SEQ_BYTE_COUNT = 2;
+    static const uint8_t SYNC_SEQ_BYTES[SYNC_SEQ_BYTE_COUNT] = {_SYNC_WORD_MSB, _SYNC_WORD_LSB};
 
     if (c != SYNC_SEQ_BYTES[state.rxMultiByteCounter])
     {
@@ -146,12 +100,18 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_WaitForSyncSequence(uint8_
     return state;
 }
 
-// 
-//  Data reception state function to process the received protocol version
-//
+/**
+ * @brief Rx State function which gets and stores the protocol version.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetProtocolVersion(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
-    if (c != _IMPLEMENTED_PROTOCOL_VERSION)
+    if (c != protocolReceiver->_IMPLEMENTED_PROTOCOL_VERSION)
     {
         return ResetRxStruct(state);
     }
@@ -165,15 +125,21 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetProtocolVersion(uint8_t
     return state;
 }
 
-// 
-//  Data reception state function to process the received payload length
-//
+/**
+ * @brief Rx State function which gets the payload length.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadLength(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // quick check that the payload length is not greater than the buffer we have assigned.
-    if (c > _MAX_PAYLOAD_SIZE)
+    if (c > protocolReceiver->_MAX_PAYLOAD_SIZE)
     {
-        // TODO - what should we do in this case
+        // This should never happen unless we reduce the max payload size below 255
         return ResetRxStruct(state);
     }
 
@@ -186,25 +152,25 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadLength(uint8_t c
     // store the recieved value
     state.message[state.rxIndex++] = c;
 
-    // store the payload length
-    state.payloadLength = c;
-
     // update state to the next field.
     state.state_fptr = RxState_GetIdNumber;
 
     return state;
 }
 
-// 
-//  Data reception state function to process the received message ID
-//
+/**
+ * @brief Rx State function which gets the ID Number.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetIdNumber(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
-
-    // update state to the next field.
-    state.messageID = c;
 
     // update state to get the acknowledge ID
     state.state_fptr = RxState_GetAcknowledgeId;
@@ -212,65 +178,112 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetIdNumber(uint8_t c, sRx
     return state;
 }
 
-// 
-//  Data reception state function to process the received acknowledge ID
-//
+/**
+ * @brief Rx State function which gets the Acknowledge ID Number.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetAcknowledgeId(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
 
     // update state to the next field.
-    state.state_fptr = RxState_GetChecksum;
+    state.state_fptr = RxState_GetPayloadChecksum;
 
     return state;
 }
 
-// 
-//  Data reception state function to capture the checksum
-//
-ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
+/**
+ * @brief Rx State function which Gets the payload checksum.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
 
-    // just store the checksum for now
-    state.checksum = c;
-
-    state.state_fptr = RxState_GetPayload;
+    state.state_fptr = RxState_GetHeaderChecksum;
 
     return state;
 }
 
-ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayload(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
+/**
+ * @brief Rx State function which Gets and checks the header checksum.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetHeaderChecksum(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
+{
+    // store the received value
+    state.message[state.rxIndex++] = c;
+
+    // process the header checksum
+    const uint8_t CALC_CHECKSUM = protocolReceiver->CalculateChecksumOfMessageHeader(state.message);
+
+    if (CALC_CHECKSUM != state.message[_HEADER_CHECKSUM_INDEX])
+    {
+        // header checksum does not match
+        return ResetRxStruct(state);
+    }
+
+    // checksum is OK so get the payload
+    state.state_fptr = RxState_GetPayloadAndProcessMessageContents;
+
+    return state;
+}
+
+/**
+ * @brief Rx State function which gets the payload number of bytes and processes the message contents.
+ * 
+ * @param c The character/byte recieved.
+ * @param state The current receive state structure.
+ * @param protocolReceiver The instance of this class which is calling this state function.
+ * 
+ * @return The updated recieve state structure.
+ */
+ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessageContents(uint8_t c, sRxStruct state, ProtocolReceiver * protocolReceiver)
 {
     // store the recieved value
     state.message[state.rxIndex++] = c;
 
     // have all payload bytes been received.
-    if (++state.rxMultiByteCounter < state.payloadLength)
+    if (++state.rxMultiByteCounter < state.message[_PAYLOAD_LENGTH_INDEX])
     {
         // no, so wait for the next byte
         return state;
     }
 
-    // process the payload
-    const uint8_t CALC_CHECKSUM = CalculateChecksum(state.message, state.payloadLength + _HEADER_SIZE);
+    // process the payload checksum
+    const uint8_t CALC_CHECKSUM = protocolReceiver->CalculateChecksumOfMessagePayload(state.message);
 
-    if (CALC_CHECKSUM != state.checksum)
+    if (CALC_CHECKSUM != state.message[_PAYLOAD_CHECKSUM_INDEX])
     {
         return ResetRxStruct(state);
     }
 
-    // checksum is OK
+    // checksum is OK, and header checksum will be OK
     // is the ID.
-    if (state.messageID != state.nextExpectedId)
+    if (state.message[_ID_NUMBER_INDEX] != state.nextExpectedId)
     {
         // ID is not what we expect.
         // Send a response with the last Valid ID Acknowledged.
-        uint8_t ackData[1] = {(uint8_t)GROUP_ACKNOWLEDGE | (uint8_t)CMD_ACKNOWLEDGE};
+        uint8_t ackData[1] = {(uint8_t)protocolReceiver->GROUP_ACKNOWLEDGE | (uint8_t)protocolReceiver->CMD_ACKNOWLEDGE};
 
-        protocolReceiver->SendPayloadToPc(ackData, 1);
+        protocolReceiver->_ProtocolTransmissionInstance->SendPayloadToPc(ackData, 1);
 
         return ResetRxStruct(state); 
     }
@@ -282,43 +295,37 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayload(uint8_t c, sRxS
     return ResetRxStruct(state);
 }
 
-//
-//  Helper function to get a default rx state struct
-//
+/**
+ * @brief helper function to reset the an Rx State structure ready to restart the receiving process.
+ * @note Only the fields which are specific to a message reception are reset.
+ * 
+ * @param state The receive state structure to reset.
+ * 
+ * @return The updated recieve state structure.
+ */
 ProtocolReceiver::sRxStruct ProtocolReceiver::ResetRxStruct(sRxStruct state)
 {
+    // clear the message
     memset(state.message, 0, _MAX_MESSAGE_LENGTH);
-    state.payloadLength = 0;
-    state.messageID = 255;
-    state.checksum = 0;
 
+    // and the receive indexes.
     state.rxIndex = 0;
     state.rxMultiByteCounter = 0;
 
+    // reset the state machine
     state.state_fptr = RxState_WaitForSyncSequence;
 
+    // and return the reset state
     return state;
 }
 
-uint8_t ProtocolReceiver::CalculateChecksum(uint8_t * data, uint16_t count)
-{
-    return 0x00;
-}
-
-void ProtocolReceiver::ResetTxMessage(sTxMessageStruct * message_ptr)
-{
-    message_ptr->idNumber = 0;
-    message_ptr->payloadLength = 0;
-
-    for (int i = 0; i < _MAX_PAYLOAD_SIZE; ++i)
-    {
-        message_ptr->payload[i] = 0;
-    }
-}
-
-
 #ifdef PIO_UNIT_TESTING
 
+/**
+ * @brief Unit testing helper function used to query the current state.
+ * 
+ * @return An enum representation of the current state.
+ */
 ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
 {
     if (RxState_WaitForSyncSequence == _RxState.state_fptr)
@@ -341,11 +348,15 @@ ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
     {
         return GetAckId;
     }
-    else if (RxState_GetChecksum == _RxState.state_fptr)
+    else if (RxState_GetPayloadChecksum == _RxState.state_fptr)
     {
-        return GetChecksum;
+        return GetPayloadChecksum;
     }
-    else if (RxState_GetPayload == _RxState.state_fptr)
+    else if (RxState_GetHeaderChecksum == _RxState.state_fptr)
+    {
+        return GetHeaderChecksum;
+    }
+    else if (RxState_GetPayloadAndProcessMessageContents == _RxState.state_fptr)
     {
         return GetPayload;
     }
@@ -353,16 +364,11 @@ ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
     return InvalidState;
 }
 
-uint8_t ProtocolReceiver::GetImplementedProtocolVersion()
-{
-    return _IMPLEMENTED_PROTOCOL_VERSION;
-}
-
-uint8_t ProtocolReceiver::GetMaximumPayloadLength()
-{
-    return _MAX_PAYLOAD_SIZE;
-}
-
+/**
+ * @brief Unit testing helper function to get the next expected ID value.
+ * 
+ * @return The next expected ID value.
+ */
 uint8_t ProtocolReceiver::GetNextExpectedId()
 {
     return _RxState.nextExpectedId;

@@ -2,7 +2,6 @@
  * @file Ads1299LowDriver.cpp
  * @author Graham Long (longevoty_software@mail.com)
  * @brief Low level driver for the ADS1299 EEG Amplifier.
- * @version 0.1
  * @date 2022-06-10
  * 
  * @copyright Copyright (c) 2022

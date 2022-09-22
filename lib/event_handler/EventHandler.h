@@ -16,7 +16,7 @@ class EventHandler : public CanProcessEvents {
         EventHandler();
         explicit EventHandler(ErrorHandler * eh);
 
-        void SignalEvent(NEvent::eEvent event);
+        virtual void SignalEvent(NEvent::eEvent event);
         void AddEventHandler(CanProcessEvents * handler_ptr,
                                 NEvent::eEvent event);
         void HandleEvents(void);
