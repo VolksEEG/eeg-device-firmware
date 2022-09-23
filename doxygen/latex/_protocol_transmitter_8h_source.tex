@@ -6,55 +6,60 @@
 \DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_PROTOCOL\_TRANSMITTER}}
 \DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_PROTOCOL\_TRANSMITTER}}
 \DoxyCodeLine{4 }
-\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}PcCommunicationsInterface.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}IPcCommunications.h"{}}}
 \DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}IProtocolTransmission.h"{}}}
 \DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}ProtocolGeneral.h"{}}}
 \DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}../data\_flow\_controller/EEGDataConsumer.h"{}}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../event\_handler/CanProcesEvents.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}../data\_flow\_controller/IEEGDataConsumer.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../event\_handler/ICanProcesEvents.h"{}}}
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../event\_handler/EventHandler.h"{}}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{class }\mbox{\hyperlink{class_protocol_transmitter}{ProtocolTransmitter}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_eeg_data_consumer}{EegDataConsumer}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_can_process_events}{CanProcessEvents}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_i_protocol_transmission}{IProtocolTransmission}}, \textcolor{keyword}{private} \mbox{\hyperlink{class_protocol_general}{ProtocolGeneral}}  \{}
+\DoxyCodeLine{13 \textcolor{keyword}{class }\mbox{\hyperlink{class_protocol_transmitter}{ProtocolTransmitter}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_i_eeg_data_consumer}{IEegDataConsumer}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_i_can_process_events}{ICanProcessEvents}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_i_protocol_transmission}{IProtocolTransmission}}, \textcolor{keyword}{private} \mbox{\hyperlink{class_protocol_general}{ProtocolGeneral}}  \{}
 \DoxyCodeLine{14 }
 \DoxyCodeLine{15     \textcolor{keyword}{public}:}
 \DoxyCodeLine{16 }
 \DoxyCodeLine{17         \mbox{\hyperlink{class_protocol_transmitter_a2c378a68dd97c951283c742e84ced50f}{ProtocolTransmitter}}();}
-\DoxyCodeLine{18         \mbox{\hyperlink{class_protocol_transmitter_a2c378a68dd97c951283c742e84ced50f}{ProtocolTransmitter}}(\mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} * pci, \mbox{\hyperlink{class_event_handler}{EventHandler}} * evh);}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_protocol_transmitter_a2c378a68dd97c951283c742e84ced50f}{ProtocolTransmitter}}(\mbox{\hyperlink{class_i_pc_communications}{IPcCommunications}} * pci, \mbox{\hyperlink{class_event_handler}{EventHandler}} * evh);}
 \DoxyCodeLine{19 }
 \DoxyCodeLine{20         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}{ProcessEvent}}(NEvent::eEvent event) \textcolor{keyword}{override};}
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}{SendPayloadToPc}}(uint8\_t * payload\_ptr, uint8\_t payload\_length) \textcolor{keyword}{override};}
-\DoxyCodeLine{23         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_protocol_transmitter_aafade37920acf305de6bbb68ecfa641f}{ProcessReceivedId}}(uint8\_t \textcolor{keywordtype}{id}) \textcolor{keyword}{override};}
-\DoxyCodeLine{24         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_transmitter_ab5f42682292ff08ac81ca80a2b0d06b0}{ProcessAcknowledgedId}}(uint8\_t \textcolor{keywordtype}{id}) \textcolor{keyword}{override};}
+\DoxyCodeLine{23         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}{UpdateIdToAcknowledge}}(uint8\_t \textcolor{keywordtype}{id}) \textcolor{keyword}{override};}
+\DoxyCodeLine{24         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_transmitter_a3dd4446f3df7555d598996e742ba73a1}{UpdateAcknowledgedId}}(uint8\_t \textcolor{keywordtype}{id}) \textcolor{keyword}{override};}
 \DoxyCodeLine{25 }
 \DoxyCodeLine{26         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_protocol_transmitter_afc66ff3180068469b696a618dfd26537}{PushLatestSample}}(\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{EegData::sEegSamples}} samples) \textcolor{keyword}{override};}
 \DoxyCodeLine{27 }
 \DoxyCodeLine{28         \textcolor{keyword}{static} \textcolor{keyword}{const} uint8\_t \_MAX\_TX\_MESSAGES = 10;}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{30 \textcolor{preprocessor}{        \#ifdef PIO\_UNIT\_TESTING}}
 \DoxyCodeLine{31 }
-\DoxyCodeLine{32     \textcolor{keyword}{private}:}
+\DoxyCodeLine{32             uint8\_t GetTxCount();}
 \DoxyCodeLine{33 }
-\DoxyCodeLine{34         \mbox{\hyperlink{class_pc_communications_interface}{PcCommunicationsInterface}} * \_PcComsInterfaceInstance;}
-\DoxyCodeLine{35         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandlerInstance;}
+\DoxyCodeLine{34 \textcolor{preprocessor}{        \#endif}}
+\DoxyCodeLine{35     \textcolor{keyword}{protected}:}
 \DoxyCodeLine{36 }
-\DoxyCodeLine{37         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\_TX\_MESSAGE}
-\DoxyCodeLine{38         \{}
-\DoxyCodeLine{39             uint8\_t message[ProtocolGeneral::\_MAX\_MESSAGE\_LENGTH];}
-\DoxyCodeLine{40         \}sTxMessageStruct;}
+\DoxyCodeLine{37     \textcolor{keyword}{private}:}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         \mbox{\hyperlink{class_i_pc_communications}{IPcCommunications}} * \_PcComsInterfaceInstance;}
+\DoxyCodeLine{40         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandlerInstance;}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42         uint8\_t \_IdAckToSend;}
-\DoxyCodeLine{43         uint8\_t \_IdToSend;}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45         \textcolor{comment}{// tx fifo variables}}
-\DoxyCodeLine{46         uint8\_t \_TxIpIndex;}
-\DoxyCodeLine{47         uint8\_t \_TxNextUnackedIndex;}
-\DoxyCodeLine{48         uint8\_t \_TxNextOpIndex;}
-\DoxyCodeLine{49         uint8\_t \_TxCount;}
-\DoxyCodeLine{50         sTxMessageStruct \_TxMessages[\_MAX\_TX\_MESSAGES];}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\_TX\_MESSAGE}
+\DoxyCodeLine{43         \{}
+\DoxyCodeLine{44             uint8\_t message[ProtocolGeneral::\_MAX\_MESSAGE\_LENGTH];}
+\DoxyCodeLine{45         \}sTxMessageStruct;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         uint8\_t \_IdToAcknowledge;}
+\DoxyCodeLine{48         uint8\_t \_IdToSend;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         \textcolor{comment}{// tx fifo variables}}
+\DoxyCodeLine{51         uint8\_t \_TxIpIndex;}
+\DoxyCodeLine{52         uint8\_t \_TxNextUnackedIndex;}
+\DoxyCodeLine{53         uint8\_t \_TxNextOpIndex;}
+\DoxyCodeLine{54         uint8\_t \_TxCount;}
+\DoxyCodeLine{55         sTxMessageStruct \_TxMessages[\_MAX\_TX\_MESSAGES];}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

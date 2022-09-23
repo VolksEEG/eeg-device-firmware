@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Volks EEG Firmware: Protocol Parser</title>
+<title>Volks EEG Firmware: Protocol Parser Library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,13 +62,16 @@ $(function() {
 
 </div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">Protocol Parser </div></div>
+  <div class="headertitle"><div class="title">Protocol Parser Library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >This module parses packets recieved from the PC to enact change on the EEG data acquisition or pushed EEG data packets to the PC.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
-Inheritance</h1>
-<p >This class publicly inherits from the <a class="el" href="class_eeg_data_consumer.html">EegDataConsumer</a> class in order to consume EEG data, it uses the Protocol Frame Parser module to wrap the EEG data, and passes it on to the PC. </p>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md18"></a>
+Overview</h1>
+<p >This library deals with parsing and generation of communications packets between this firmware and a PC to the requirements of the protocol defined at <a href="https://github.com/VolksEEG/VolksEEG/wiki/FrontEndToPcApi">https://github.com/VolksEEG/VolksEEG/wiki/FrontEndToPcApi</a>.</p>
+<h1><a class="anchor" id="autotoc_md19"></a>
+Architecture</h1>
+<p >Architecture export as generated from the Architecture.puml file assosciated with this library.</p>
+<p ><img src="Architecture.png?raw=true" alt="Architecture" title="Protocol Parser Library Architecture" class="inline"/> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

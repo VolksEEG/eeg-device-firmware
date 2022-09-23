@@ -12,18 +12,18 @@ Inheritance diagram for Protocol\+Receiver\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}\label{class_protocol_receiver_a0a47d7343e69cc67d75147494695bc85}} 
 {\bfseries Protocol\+Receiver} ()
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}{Protocol\+Receiver}} (\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$pci, \mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$edp, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$evh, \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$pti)
+\mbox{\hyperlink{class_protocol_receiver_a6c8ba2bc63d07e88ba4a5a01d02d95d2}{Protocol\+Receiver}} (\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$pci, \mbox{\hyperlink{class_i_eeg_data_producer}{IEeg\+Data\+Producer}} $\ast$edp, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$evh, \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$pti)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}{Process\+Event}} (NEvent\+::e\+Event event) override
 \begin{DoxyCompactList}\small\item\em Overridden function to process events. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}\label{class_protocol_receiver_af35886dc7ef23b16d09c9dbe15bd79b9}} 
+\mbox{\Hypertarget{class_protocol_receiver_a6c8ba2bc63d07e88ba4a5a01d02d95d2}\label{class_protocol_receiver_a6c8ba2bc63d07e88ba4a5a01d02d95d2}} 
 \index{ProtocolReceiver@{ProtocolReceiver}!ProtocolReceiver@{ProtocolReceiver}}
 \index{ProtocolReceiver@{ProtocolReceiver}!ProtocolReceiver@{ProtocolReceiver}}
 \doxysubsubsection{\texorpdfstring{ProtocolReceiver()}{ProtocolReceiver()}}
-{\footnotesize\ttfamily Protocol\+Receiver\+::\+Protocol\+Receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$}]{pci,  }\item[{\mbox{\hyperlink{class_eeg_data_producer}{Eeg\+Data\+Producer}} $\ast$}]{edp,  }\item[{\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$}]{evh,  }\item[{\mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$}]{pti }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Protocol\+Receiver\+::\+Protocol\+Receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$}]{pci,  }\item[{\mbox{\hyperlink{class_i_eeg_data_producer}{IEeg\+Data\+Producer}} $\ast$}]{edp,  }\item[{\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$}]{evh,  }\item[{\mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$}]{pti }\end{DoxyParamCaption})}
 
 
 
@@ -60,7 +60,7 @@ Overridden function to process events.
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
+Implements \mbox{\hyperlink{class_i_can_process_events}{ICan\+Process\+Events}}.
 
 
 

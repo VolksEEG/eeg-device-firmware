@@ -82,68 +82,12 @@ Inheritance diagram for IProtocolTransmission:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a57fa3d003cab245a4fe549749e560f0a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a57fa3d003cab245a4fe549749e560f0a">SendPayloadToPc</a> (uint8_t *payload_ptr, uint8_t payload_length)=0</td></tr>
 <tr class="separator:a57fa3d003cab245a4fe549749e560f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cff30b503f4d248ebd1fa36fe9ba4d9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a5cff30b503f4d248ebd1fa36fe9ba4d9">ProcessReceivedId</a> (uint8_t id)=0</td></tr>
-<tr class="separator:a5cff30b503f4d248ebd1fa36fe9ba4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210552421384004e92a46de1c0614c7d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a210552421384004e92a46de1c0614c7d">ProcessAcknowledgedId</a> (uint8_t id)=0</td></tr>
-<tr class="separator:a210552421384004e92a46de1c0614c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a5e71d43977d84b55d83d78c6a5253"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#ab9a5e71d43977d84b55d83d78c6a5253">UpdateIdToAcknowledge</a> (uint8_t id)=0</td></tr>
+<tr class="separator:ab9a5e71d43977d84b55d83d78c6a5253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d83bb7bda45eea504c5bcd664ea20a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a1d83bb7bda45eea504c5bcd664ea20a5">UpdateAcknowledgedId</a> (uint8_t id)=0</td></tr>
+<tr class="separator:a1d83bb7bda45eea504c5bcd664ea20a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a210552421384004e92a46de1c0614c7d" name="a210552421384004e92a46de1c0614c7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a210552421384004e92a46de1c0614c7d">&#9670;&nbsp;</a></span>ProcessAcknowledgedId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void IProtocolTransmission::ProcessAcknowledgedId </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="class_protocol_transmitter.html#ab5f42682292ff08ac81ca80a2b0d06b0">ProtocolTransmitter</a>.</p>
-
-</div>
-</div>
-<a id="a5cff30b503f4d248ebd1fa36fe9ba4d9" name="a5cff30b503f4d248ebd1fa36fe9ba4d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cff30b503f4d248ebd1fa36fe9ba4d9">&#9670;&nbsp;</a></span>ProcessReceivedId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool IProtocolTransmission::ProcessReceivedId </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="class_protocol_transmitter.html#aafade37920acf305de6bbb68ecfa641f">ProtocolTransmitter</a>.</p>
-
-</div>
-</div>
 <a id="a57fa3d003cab245a4fe549749e560f0a" name="a57fa3d003cab245a4fe549749e560f0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57fa3d003cab245a4fe549749e560f0a">&#9670;&nbsp;</a></span>SendPayloadToPc()</h2>
 
@@ -179,6 +123,62 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="class_protocol_transmitter.html#ae281b6a8f3ea16b392c46868e86876ca">ProtocolTransmitter</a>.</p>
+
+</div>
+</div>
+<a id="a1d83bb7bda45eea504c5bcd664ea20a5" name="a1d83bb7bda45eea504c5bcd664ea20a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d83bb7bda45eea504c5bcd664ea20a5">&#9670;&nbsp;</a></span>UpdateAcknowledgedId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IProtocolTransmission::UpdateAcknowledgedId </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_protocol_transmitter.html#a3dd4446f3df7555d598996e742ba73a1">ProtocolTransmitter</a>.</p>
+
+</div>
+</div>
+<a id="ab9a5e71d43977d84b55d83d78c6a5253" name="ab9a5e71d43977d84b55d83d78c6a5253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a5e71d43977d84b55d83d78c6a5253">&#9670;&nbsp;</a></span>UpdateIdToAcknowledge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IProtocolTransmission::UpdateIdToAcknowledge </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_protocol_transmitter.html#a40cf497bd486020baa84b4e2ee7ce111">ProtocolTransmitter</a>.</p>
 
 </div>
 </div>

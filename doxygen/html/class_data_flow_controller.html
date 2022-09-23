@@ -75,9 +75,9 @@ Inheritance diagram for DataFlowController:</div>
  <div class="center">
   <img src="class_data_flow_controller.png" usemap="#DataFlowController_map" alt=""/>
   <map id="DataFlowController_map" name="DataFlowController_map">
-<area href="class_can_process_events.html" alt="CanProcessEvents" shape="rect" coords="0,0,121,24"/>
-<area href="class_eeg_data_producer.html" alt="EegDataProducer" shape="rect" coords="131,0,252,24"/>
-<area href="class_eeg_data_consumer.html" alt="EegDataConsumer" shape="rect" coords="262,0,383,24"/>
+<area href="class_i_can_process_events.html" alt="ICanProcessEvents" shape="rect" coords="0,0,122,24"/>
+<area href="class_i_eeg_data_producer.html" alt="IEegDataProducer" shape="rect" coords="132,0,254,24"/>
+<area href="class_i_eeg_data_consumer.html" alt="IEegDataConsumer" shape="rect" coords="264,0,386,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -93,9 +93,9 @@ typedef enum DataFlowController::_PROD_CONS&#160;</td><td class="memItemRight" v
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1991a8bb5cad660fade0c1197b9a0260"><td class="memItemLeft" align="right" valign="top"><a id="a1991a8bb5cad660fade0c1197b9a0260" name="a1991a8bb5cad660fade0c1197b9a0260"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DataFlowController</b> (<a class="el" href="class_eeg_data_producer.html">EegDataProducer</a> *primaryProducer, NEvent::eEvent primaryDataReadyEvent, <a class="el" href="class_eeg_data_producer.html">EegDataProducer</a> *secondaryProducer, NEvent::eEvent secondaryDataReadyEvent, <a class="el" href="class_eeg_data_consumer.html">EegDataConsumer</a> *primaryConsumer, <a class="el" href="class_eeg_data_consumer.html">EegDataConsumer</a> *secondaryConsumer)</td></tr>
-<tr class="separator:a1991a8bb5cad660fade0c1197b9a0260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa50a3048266bc27b950c46ff85d5f711"><td class="memItemLeft" align="right" valign="top"><a id="aa50a3048266bc27b950c46ff85d5f711" name="aa50a3048266bc27b950c46ff85d5f711"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DataFlowController</b> (<a class="el" href="class_i_eeg_data_producer.html">IEegDataProducer</a> *primaryProducer, NEvent::eEvent primaryDataReadyEvent, <a class="el" href="class_i_eeg_data_producer.html">IEegDataProducer</a> *secondaryProducer, NEvent::eEvent secondaryDataReadyEvent, <a class="el" href="class_i_eeg_data_consumer.html">IEegDataConsumer</a> *primaryConsumer, <a class="el" href="class_i_eeg_data_consumer.html">IEegDataConsumer</a> *secondaryConsumer)</td></tr>
+<tr class="separator:aa50a3048266bc27b950c46ff85d5f711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b331c5499f2658c2130ad7dc4f6258f"><td class="memItemLeft" align="right" valign="top"><a id="a0b331c5499f2658c2130ad7dc4f6258f" name="a0b331c5499f2658c2130ad7dc4f6258f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetProducer</b> (eProducerConsumer priOrSec)</td></tr>
 <tr class="separator:a0b331c5499f2658c2130ad7dc4f6258f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,17 +112,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetConsumer</b> (ePro
 <tr class="separator:a4361e1e0645136957c83b716306f0681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1ac0c5c2379e49b35bd1715f3f14d36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data_flow_controller.html#ab1ac0c5c2379e49b35bd1715f3f14d36">GetLatestSample</a> () override</td></tr>
 <tr class="separator:ab1ac0c5c2379e49b35bd1715f3f14d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_can_process_events.html#a09f3dc474ba87a4e79f85f279dae48bc">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
-<tr class="separator:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f636a22b4a267737bcd5e77ce5fe9c6"><td class="memItemLeft" align="right" valign="top"><a id="a3f636a22b4a267737bcd5e77ce5fe9c6" name="a3f636a22b4a267737bcd5e77ce5fe9c6"></a>
+<tr class="memitem:a8e764361ab2e1a39342996bf90bb5030"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_can_process_events.html#a8e764361ab2e1a39342996bf90bb5030">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
+<tr class="separator:a8e764361ab2e1a39342996bf90bb5030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cce04740d5563e955923a6de7f97126"><td class="memItemLeft" align="right" valign="top"><a id="a9cce04740d5563e955923a6de7f97126" name="a9cce04740d5563e955923a6de7f97126"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>StartProducingData</b> ()=0</td></tr>
-<tr class="separator:a3f636a22b4a267737bcd5e77ce5fe9c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e1c8cb63545aa0595faaed6b2f716f6"><td class="memItemLeft" align="right" valign="top"><a id="a8e1c8cb63545aa0595faaed6b2f716f6" name="a8e1c8cb63545aa0595faaed6b2f716f6"></a>
+<tr class="separator:a9cce04740d5563e955923a6de7f97126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88d7c1e27a9f33e8926dafda55234019"><td class="memItemLeft" align="right" valign="top"><a id="a88d7c1e27a9f33e8926dafda55234019" name="a88d7c1e27a9f33e8926dafda55234019"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>StopProducingData</b> ()=0</td></tr>
-<tr class="separator:a8e1c8cb63545aa0595faaed6b2f716f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae67fa6f7d9707631b1ae8f19288d3d2c"><td class="memItemLeft" align="right" valign="top"><a id="ae67fa6f7d9707631b1ae8f19288d3d2c" name="ae67fa6f7d9707631b1ae8f19288d3d2c"></a>
+<tr class="separator:a88d7c1e27a9f33e8926dafda55234019"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a989df1c35bb8ec809bf0fb6e0636d2a9"><td class="memItemLeft" align="right" valign="top"><a id="a989df1c35bb8ec809bf0fb6e0636d2a9" name="a989df1c35bb8ec809bf0fb6e0636d2a9"></a>
 virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLatestSample</b> ()</td></tr>
-<tr class="separator:ae67fa6f7d9707631b1ae8f19288d3d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a989df1c35bb8ec809bf0fb6e0636d2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab1ac0c5c2379e49b35bd1715f3f14d36" name="ab1ac0c5c2379e49b35bd1715f3f14d36"></a>
@@ -148,7 +148,7 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_eeg_data_producer.html">EegDataProducer</a>.</p>
+<p>Reimplemented from <a class="el" href="class_i_eeg_data_producer.html">IEegDataProducer</a>.</p>
 
 </div>
 </div>
@@ -176,7 +176,7 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_can_process_events.html">CanProcessEvents</a>.</p>
+<p>Implements <a class="el" href="class_i_can_process_events.html">ICanProcessEvents</a>.</p>
 
 </div>
 </div>
@@ -204,7 +204,7 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="class_eeg_data_consumer.html">EegDataConsumer</a>.</p>
+<p>Reimplemented from <a class="el" href="class_i_eeg_data_consumer.html">IEegDataConsumer</a>.</p>
 
 </div>
 </div>
@@ -231,7 +231,7 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_eeg_data_producer.html">EegDataProducer</a>.</p>
+<p>Implements <a class="el" href="class_i_eeg_data_producer.html">IEegDataProducer</a>.</p>
 
 </div>
 </div>
@@ -258,7 +258,7 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_eeg_data_producer.html">EegDataProducer</a>.</p>
+<p>Implements <a class="el" href="class_i_eeg_data_producer.html">IEegDataProducer</a>.</p>
 
 </div>
 </div>

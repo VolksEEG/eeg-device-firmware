@@ -77,7 +77,7 @@ void setup() {
   eventHandler.AddEventHandler(&serialPort, NEvent::Event_DataRxFromPC);  // Serial port must be the last event handler for the DataRxFromPc Event
 
   // Add Data to tx to PC event handlers
-  eventHandler.AddEventHandler(&protocolReceiver, NEvent::Event_DataToTxToPC);
+  eventHandler.AddEventHandler(&protocolTransmitter, NEvent::Event_DataToTxToPC);
 
   // TODO - these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);

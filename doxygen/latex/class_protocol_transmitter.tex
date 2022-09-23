@@ -12,15 +12,15 @@ Inheritance diagram for Protocol\+Transmitter\+:\begin{figure}[H]
 \mbox{\Hypertarget{class_protocol_transmitter_a2c378a68dd97c951283c742e84ced50f}\label{class_protocol_transmitter_a2c378a68dd97c951283c742e84ced50f}} 
 {\bfseries Protocol\+Transmitter} ()
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_protocol_transmitter_af6761199bed5297b6ad53b5ad795f6d8}{Protocol\+Transmitter}} (\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$pci, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$evh)
+\mbox{\hyperlink{class_protocol_transmitter_ade761ca1c9f39b71efe20bd9d35440eb}{Protocol\+Transmitter}} (\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$pci, \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$evh)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}{Process\+Event}} (NEvent\+::e\+Event event) override
 \begin{DoxyCompactList}\small\item\em Overridden function to process events. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}{Send\+Payload\+To\+Pc}} (uint8\+\_\+t $\ast$payload\+\_\+ptr, uint8\+\_\+t payload\+\_\+length) override
 \begin{DoxyCompactList}\small\item\em Overridden function to send a payload to the PC. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{class_protocol_transmitter_aafade37920acf305de6bbb68ecfa641f}{Process\+Received\+Id}} (uint8\+\_\+t id) override
-\begin{DoxyCompactList}\small\item\em Overridden function to process the recieved ID. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_protocol_transmitter_ab5f42682292ff08ac81ca80a2b0d06b0}{Process\+Acknowledged\+Id}} (uint8\+\_\+t id) override
+void \mbox{\hyperlink{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}{Update\+Id\+To\+Acknowledge}} (uint8\+\_\+t id) override
+\begin{DoxyCompactList}\small\item\em Overridden function to update the id to acknowledge in future transmissions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_protocol_transmitter_a3dd4446f3df7555d598996e742ba73a1}{Update\+Acknowledged\+Id}} (uint8\+\_\+t id) override
 \begin{DoxyCompactList}\small\item\em Overridden function to process an acknowledged ID. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_transmitter_afc66ff3180068469b696a618dfd26537}{Push\+Latest\+Sample}} (\mbox{\hyperlink{struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s}{Eeg\+Data\+::s\+Eeg\+Samples}} samples) override
 \begin{DoxyCompactList}\small\item\em Overridden function to consume the latest EEG samples. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -33,11 +33,11 @@ static const uint8\+\_\+t {\bfseries \+\_\+\+MAX\+\_\+\+TX\+\_\+\+MESSAGES} = 10
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_protocol_transmitter_af6761199bed5297b6ad53b5ad795f6d8}\label{class_protocol_transmitter_af6761199bed5297b6ad53b5ad795f6d8}} 
+\mbox{\Hypertarget{class_protocol_transmitter_ade761ca1c9f39b71efe20bd9d35440eb}\label{class_protocol_transmitter_ade761ca1c9f39b71efe20bd9d35440eb}} 
 \index{ProtocolTransmitter@{ProtocolTransmitter}!ProtocolTransmitter@{ProtocolTransmitter}}
 \index{ProtocolTransmitter@{ProtocolTransmitter}!ProtocolTransmitter@{ProtocolTransmitter}}
 \doxysubsubsection{\texorpdfstring{ProtocolTransmitter()}{ProtocolTransmitter()}}
-{\footnotesize\ttfamily Protocol\+Transmitter\+::\+Protocol\+Transmitter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pc_communications_interface}{Pc\+Communications\+Interface}} $\ast$}]{pci,  }\item[{\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$}]{evh }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Protocol\+Transmitter\+::\+Protocol\+Transmitter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$}]{pci,  }\item[{\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$}]{evh }\end{DoxyParamCaption})}
 
 
 
@@ -53,25 +53,6 @@ Constructor.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_protocol_transmitter_ab5f42682292ff08ac81ca80a2b0d06b0}\label{class_protocol_transmitter_ab5f42682292ff08ac81ca80a2b0d06b0}} 
-\index{ProtocolTransmitter@{ProtocolTransmitter}!ProcessAcknowledgedId@{ProcessAcknowledgedId}}
-\index{ProcessAcknowledgedId@{ProcessAcknowledgedId}!ProtocolTransmitter@{ProtocolTransmitter}}
-\doxysubsubsection{\texorpdfstring{ProcessAcknowledgedId()}{ProcessAcknowledgedId()}}
-{\footnotesize\ttfamily void Protocol\+Transmitter\+::\+Process\+Acknowledged\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Overridden function to process an acknowledged ID. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em id} & The ID being acknowledged. \\
-\hline
-\end{DoxyParams}
-
-
-Implements \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}}.
-
 \mbox{\Hypertarget{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}\label{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}} 
 \index{ProtocolTransmitter@{ProtocolTransmitter}!ProcessEvent@{ProcessEvent}}
 \index{ProcessEvent@{ProcessEvent}!ProtocolTransmitter@{ProtocolTransmitter}}
@@ -89,29 +70,7 @@ Overridden function to process events.
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{class_can_process_events}{Can\+Process\+Events}}.
-
-\mbox{\Hypertarget{class_protocol_transmitter_aafade37920acf305de6bbb68ecfa641f}\label{class_protocol_transmitter_aafade37920acf305de6bbb68ecfa641f}} 
-\index{ProtocolTransmitter@{ProtocolTransmitter}!ProcessReceivedId@{ProcessReceivedId}}
-\index{ProcessReceivedId@{ProcessReceivedId}!ProtocolTransmitter@{ProtocolTransmitter}}
-\doxysubsubsection{\texorpdfstring{ProcessReceivedId()}{ProcessReceivedId()}}
-{\footnotesize\ttfamily bool Protocol\+Transmitter\+::\+Process\+Received\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Overridden function to process the recieved ID. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em id} & The ID to process.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-true if the received ID is valid, else false. 
-\end{DoxyReturn}
-
-
-Implements \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}}.
+Implements \mbox{\hyperlink{class_i_can_process_events}{ICan\+Process\+Events}}.
 
 \mbox{\Hypertarget{class_protocol_transmitter_afc66ff3180068469b696a618dfd26537}\label{class_protocol_transmitter_afc66ff3180068469b696a618dfd26537}} 
 \index{ProtocolTransmitter@{ProtocolTransmitter}!PushLatestSample@{PushLatestSample}}
@@ -130,7 +89,7 @@ Overridden function to consume the latest EEG samples.
 \end{DoxyParams}
 
 
-Reimplemented from \mbox{\hyperlink{class_eeg_data_consumer}{Eeg\+Data\+Consumer}}.
+Reimplemented from \mbox{\hyperlink{class_i_eeg_data_consumer}{IEeg\+Data\+Consumer}}.
 
 \mbox{\Hypertarget{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}\label{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}} 
 \index{ProtocolTransmitter@{ProtocolTransmitter}!SendPayloadToPc@{SendPayloadToPc}}
@@ -155,6 +114,44 @@ true if adding the payload was successful, else false
 \begin{DoxyNote}{Note}
 this function returning true only means it was successfully added to the queue for transmission not that it was successfully transmitted. 
 \end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}}.
+
+\mbox{\Hypertarget{class_protocol_transmitter_a3dd4446f3df7555d598996e742ba73a1}\label{class_protocol_transmitter_a3dd4446f3df7555d598996e742ba73a1}} 
+\index{ProtocolTransmitter@{ProtocolTransmitter}!UpdateAcknowledgedId@{UpdateAcknowledgedId}}
+\index{UpdateAcknowledgedId@{UpdateAcknowledgedId}!ProtocolTransmitter@{ProtocolTransmitter}}
+\doxysubsubsection{\texorpdfstring{UpdateAcknowledgedId()}{UpdateAcknowledgedId()}}
+{\footnotesize\ttfamily void Protocol\+Transmitter\+::\+Update\+Acknowledged\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Overridden function to process an acknowledged ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID being acknowledged. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}}.
+
+\mbox{\Hypertarget{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}\label{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}} 
+\index{ProtocolTransmitter@{ProtocolTransmitter}!UpdateIdToAcknowledge@{UpdateIdToAcknowledge}}
+\index{UpdateIdToAcknowledge@{UpdateIdToAcknowledge}!ProtocolTransmitter@{ProtocolTransmitter}}
+\doxysubsubsection{\texorpdfstring{UpdateIdToAcknowledge()}{UpdateIdToAcknowledge()}}
+{\footnotesize\ttfamily void Protocol\+Transmitter\+::\+Update\+Id\+To\+Acknowledge (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Overridden function to update the id to acknowledge in future transmissions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID to acknowledge in future transmissions. \\
+\hline
+\end{DoxyParams}
 
 
 Implements \mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}}.

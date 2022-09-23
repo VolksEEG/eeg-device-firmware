@@ -27,6 +27,11 @@ class ProtocolTransmitter : public IEegDataConsumer, public ICanProcessEvents, p
 
         static const uint8_t _MAX_TX_MESSAGES = 10;
 
+        #ifdef PIO_UNIT_TESTING
+
+            uint8_t GetTxCount();
+
+        #endif
     protected:
 
     private:

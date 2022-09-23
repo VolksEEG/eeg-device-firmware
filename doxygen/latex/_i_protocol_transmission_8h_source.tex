@@ -12,8 +12,8 @@
 \DoxyCodeLine{8 }
 \DoxyCodeLine{9     \textcolor{keyword}{public}:}
 \DoxyCodeLine{10         \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} SendPayloadToPc(uint8\_t * payload\_ptr, uint8\_t payload\_length) = 0;}
-\DoxyCodeLine{11         \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} ProcessReceivedId(uint8\_t \textcolor{keywordtype}{id}) = 0;}
-\DoxyCodeLine{12         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} ProcessAcknowledgedId(uint8\_t \textcolor{keywordtype}{id}) = 0;}
+\DoxyCodeLine{11         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} UpdateIdToAcknowledge(uint8\_t \textcolor{keywordtype}{id}) = 0;}
+\DoxyCodeLine{12         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} UpdateAcknowledgedId(uint8\_t \textcolor{keywordtype}{id}) = 0;}
 \DoxyCodeLine{13 \};}
 \DoxyCodeLine{14 }
 \DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}

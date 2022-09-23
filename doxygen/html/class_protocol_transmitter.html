@@ -76,8 +76,8 @@ Inheritance diagram for ProtocolTransmitter:</div>
  <div class="center">
   <img src="class_protocol_transmitter.png" usemap="#ProtocolTransmitter_map" alt=""/>
   <map id="ProtocolTransmitter_map" name="ProtocolTransmitter_map">
-<area href="class_eeg_data_consumer.html" alt="EegDataConsumer" shape="rect" coords="0,0,135,24"/>
-<area href="class_can_process_events.html" alt="CanProcessEvents" shape="rect" coords="145,0,280,24"/>
+<area href="class_i_eeg_data_consumer.html" alt="IEegDataConsumer" shape="rect" coords="0,0,135,24"/>
+<area href="class_i_can_process_events.html" alt="ICanProcessEvents" shape="rect" coords="145,0,280,24"/>
 <area href="class_i_protocol_transmission.html" alt="IProtocolTransmission" shape="rect" coords="290,0,425,24"/>
 <area href="class_protocol_general.html" alt="ProtocolGeneral" shape="rect" coords="435,0,570,24"/>
   </map>
@@ -89,34 +89,34 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ProtocolTransmitter</b> ()</td></tr>
 <tr class="memdesc:a2c378a68dd97c951283c742e84ced50f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
 <tr class="separator:a2c378a68dd97c951283c742e84ced50f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6761199bed5297b6ad53b5ad795f6d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#af6761199bed5297b6ad53b5ad795f6d8">ProtocolTransmitter</a> (<a class="el" href="class_pc_communications_interface.html">PcCommunicationsInterface</a> *pci, <a class="el" href="class_event_handler.html">EventHandler</a> *evh)</td></tr>
-<tr class="memdesc:af6761199bed5297b6ad53b5ad795f6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_protocol_transmitter.html#af6761199bed5297b6ad53b5ad795f6d8">More...</a><br /></td></tr>
-<tr class="separator:af6761199bed5297b6ad53b5ad795f6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade761ca1c9f39b71efe20bd9d35440eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#ade761ca1c9f39b71efe20bd9d35440eb">ProtocolTransmitter</a> (<a class="el" href="class_i_pc_communications.html">IPcCommunications</a> *pci, <a class="el" href="class_event_handler.html">EventHandler</a> *evh)</td></tr>
+<tr class="memdesc:ade761ca1c9f39b71efe20bd9d35440eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_protocol_transmitter.html#ade761ca1c9f39b71efe20bd9d35440eb">More...</a><br /></td></tr>
+<tr class="separator:ade761ca1c9f39b71efe20bd9d35440eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45273aa587b61d98115a6d3e1c6b636b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#a45273aa587b61d98115a6d3e1c6b636b">ProcessEvent</a> (NEvent::eEvent event) override</td></tr>
 <tr class="memdesc:a45273aa587b61d98115a6d3e1c6b636b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to process events.  <a href="class_protocol_transmitter.html#a45273aa587b61d98115a6d3e1c6b636b">More...</a><br /></td></tr>
 <tr class="separator:a45273aa587b61d98115a6d3e1c6b636b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae281b6a8f3ea16b392c46868e86876ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#ae281b6a8f3ea16b392c46868e86876ca">SendPayloadToPc</a> (uint8_t *payload_ptr, uint8_t payload_length) override</td></tr>
 <tr class="memdesc:ae281b6a8f3ea16b392c46868e86876ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to send a payload to the PC.  <a href="class_protocol_transmitter.html#ae281b6a8f3ea16b392c46868e86876ca">More...</a><br /></td></tr>
 <tr class="separator:ae281b6a8f3ea16b392c46868e86876ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafade37920acf305de6bbb68ecfa641f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#aafade37920acf305de6bbb68ecfa641f">ProcessReceivedId</a> (uint8_t id) override</td></tr>
-<tr class="memdesc:aafade37920acf305de6bbb68ecfa641f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to process the recieved ID.  <a href="class_protocol_transmitter.html#aafade37920acf305de6bbb68ecfa641f">More...</a><br /></td></tr>
-<tr class="separator:aafade37920acf305de6bbb68ecfa641f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f42682292ff08ac81ca80a2b0d06b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#ab5f42682292ff08ac81ca80a2b0d06b0">ProcessAcknowledgedId</a> (uint8_t id) override</td></tr>
-<tr class="memdesc:ab5f42682292ff08ac81ca80a2b0d06b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to process an acknowledged ID.  <a href="class_protocol_transmitter.html#ab5f42682292ff08ac81ca80a2b0d06b0">More...</a><br /></td></tr>
-<tr class="separator:ab5f42682292ff08ac81ca80a2b0d06b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40cf497bd486020baa84b4e2ee7ce111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#a40cf497bd486020baa84b4e2ee7ce111">UpdateIdToAcknowledge</a> (uint8_t id) override</td></tr>
+<tr class="memdesc:a40cf497bd486020baa84b4e2ee7ce111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to update the id to acknowledge in future transmissions.  <a href="class_protocol_transmitter.html#a40cf497bd486020baa84b4e2ee7ce111">More...</a><br /></td></tr>
+<tr class="separator:a40cf497bd486020baa84b4e2ee7ce111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dd4446f3df7555d598996e742ba73a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#a3dd4446f3df7555d598996e742ba73a1">UpdateAcknowledgedId</a> (uint8_t id) override</td></tr>
+<tr class="memdesc:a3dd4446f3df7555d598996e742ba73a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to process an acknowledged ID.  <a href="class_protocol_transmitter.html#a3dd4446f3df7555d598996e742ba73a1">More...</a><br /></td></tr>
+<tr class="separator:a3dd4446f3df7555d598996e742ba73a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc66ff3180068469b696a618dfd26537"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_protocol_transmitter.html#afc66ff3180068469b696a618dfd26537">PushLatestSample</a> (<a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a> samples) override</td></tr>
 <tr class="memdesc:afc66ff3180068469b696a618dfd26537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overridden function to consume the latest EEG samples.  <a href="class_protocol_transmitter.html#afc66ff3180068469b696a618dfd26537">More...</a><br /></td></tr>
 <tr class="separator:afc66ff3180068469b696a618dfd26537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee89f1ad6c0f359cacb69472e88f7c7c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_eeg_data_consumer.html#aee89f1ad6c0f359cacb69472e88f7c7c">PushLatestSample</a> (<a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a> samples)</td></tr>
-<tr class="separator:aee89f1ad6c0f359cacb69472e88f7c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_can_process_events.html#a09f3dc474ba87a4e79f85f279dae48bc">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
-<tr class="separator:a09f3dc474ba87a4e79f85f279dae48bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d0461a48dfdbdd50530bc689f2e567e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_eeg_data_consumer.html#a2d0461a48dfdbdd50530bc689f2e567e">PushLatestSample</a> (<a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a> samples)</td></tr>
+<tr class="separator:a2d0461a48dfdbdd50530bc689f2e567e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e764361ab2e1a39342996bf90bb5030"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_can_process_events.html#a8e764361ab2e1a39342996bf90bb5030">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
+<tr class="separator:a8e764361ab2e1a39342996bf90bb5030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57fa3d003cab245a4fe549749e560f0a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a57fa3d003cab245a4fe549749e560f0a">SendPayloadToPc</a> (uint8_t *payload_ptr, uint8_t payload_length)=0</td></tr>
 <tr class="separator:a57fa3d003cab245a4fe549749e560f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cff30b503f4d248ebd1fa36fe9ba4d9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a5cff30b503f4d248ebd1fa36fe9ba4d9">ProcessReceivedId</a> (uint8_t id)=0</td></tr>
-<tr class="separator:a5cff30b503f4d248ebd1fa36fe9ba4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210552421384004e92a46de1c0614c7d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a210552421384004e92a46de1c0614c7d">ProcessAcknowledgedId</a> (uint8_t id)=0</td></tr>
-<tr class="separator:a210552421384004e92a46de1c0614c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a5e71d43977d84b55d83d78c6a5253"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#ab9a5e71d43977d84b55d83d78c6a5253">UpdateIdToAcknowledge</a> (uint8_t id)=0</td></tr>
+<tr class="separator:ab9a5e71d43977d84b55d83d78c6a5253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d83bb7bda45eea504c5bcd664ea20a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_protocol_transmission.html#a1d83bb7bda45eea504c5bcd664ea20a5">UpdateAcknowledgedId</a> (uint8_t id)=0</td></tr>
+<tr class="separator:a1d83bb7bda45eea504c5bcd664ea20a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -125,8 +125,8 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
 <tr class="separator:af93011483fed961884634695874f4e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af6761199bed5297b6ad53b5ad795f6d8" name="af6761199bed5297b6ad53b5ad795f6d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6761199bed5297b6ad53b5ad795f6d8">&#9670;&nbsp;</a></span>ProtocolTransmitter()</h2>
+<a id="ade761ca1c9f39b71efe20bd9d35440eb" name="ade761ca1c9f39b71efe20bd9d35440eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade761ca1c9f39b71efe20bd9d35440eb">&#9670;&nbsp;</a></span>ProtocolTransmitter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +134,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
         <tr>
           <td class="memname">ProtocolTransmitter::ProtocolTransmitter </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_pc_communications_interface.html">PcCommunicationsInterface</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_i_pc_communications.html">IPcCommunications</a> *&#160;</td>
           <td class="paramname"><em>pci</em>, </td>
         </tr>
         <tr>
@@ -163,42 +163,6 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab5f42682292ff08ac81ca80a2b0d06b0" name="ab5f42682292ff08ac81ca80a2b0d06b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f42682292ff08ac81ca80a2b0d06b0">&#9670;&nbsp;</a></span>ProcessAcknowledgedId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ProtocolTransmitter::ProcessAcknowledgedId </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overridden function to process an acknowledged ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The ID being acknowledged. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="class_i_protocol_transmission.html">IProtocolTransmission</a>.</p>
-
-</div>
-</div>
 <a id="a45273aa587b61d98115a6d3e1c6b636b" name="a45273aa587b61d98115a6d3e1c6b636b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45273aa587b61d98115a6d3e1c6b636b">&#9670;&nbsp;</a></span>ProcessEvent()</h2>
 
@@ -231,44 +195,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="class_can_process_events.html">CanProcessEvents</a>.</p>
-
-</div>
-</div>
-<a id="aafade37920acf305de6bbb68ecfa641f" name="aafade37920acf305de6bbb68ecfa641f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafade37920acf305de6bbb68ecfa641f">&#9670;&nbsp;</a></span>ProcessReceivedId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ProtocolTransmitter::ProcessReceivedId </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overridden function to process the recieved ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The ID to process.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the received ID is valid, else false. </dd></dl>
-
-<p>Implements <a class="el" href="class_i_protocol_transmission.html">IProtocolTransmission</a>.</p>
+<p>Implements <a class="el" href="class_i_can_process_events.html">ICanProcessEvents</a>.</p>
 
 </div>
 </div>
@@ -304,7 +231,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_eeg_data_consumer.html">EegDataConsumer</a>.</p>
+<p>Reimplemented from <a class="el" href="class_i_eeg_data_consumer.html">IEegDataConsumer</a>.</p>
 
 </div>
 </div>
@@ -352,6 +279,78 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if adding the payload was successful, else false </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>this function returning true only means it was successfully added to the queue for transmission not that it was successfully transmitted. </dd></dl>
+
+<p>Implements <a class="el" href="class_i_protocol_transmission.html">IProtocolTransmission</a>.</p>
+
+</div>
+</div>
+<a id="a3dd4446f3df7555d598996e742ba73a1" name="a3dd4446f3df7555d598996e742ba73a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dd4446f3df7555d598996e742ba73a1">&#9670;&nbsp;</a></span>UpdateAcknowledgedId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProtocolTransmitter::UpdateAcknowledgedId </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overridden function to process an acknowledged ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID being acknowledged. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_i_protocol_transmission.html">IProtocolTransmission</a>.</p>
+
+</div>
+</div>
+<a id="a40cf497bd486020baa84b4e2ee7ce111" name="a40cf497bd486020baa84b4e2ee7ce111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40cf497bd486020baa84b4e2ee7ce111">&#9670;&nbsp;</a></span>UpdateIdToAcknowledge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProtocolTransmitter::UpdateIdToAcknowledge </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overridden function to update the id to acknowledge in future transmissions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID to acknowledge in future transmissions. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="class_i_protocol_transmission.html">IProtocolTransmission</a>.</p>
 

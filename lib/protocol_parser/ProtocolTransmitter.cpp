@@ -50,37 +50,34 @@ void ProtocolTransmitter::ProcessEvent(NEvent::eEvent event)
     {
         return;
     }
-    
-    /*// send all messages from the last acknowledged one
-    for (uint8_t i = _TxNextUnackedIndex; i < _TxIpIndex; ++i)
+
+    // confirm there are messages to send
+    if (0 == _TxCount)
     {
-        // TODO - Simplify this to prevent copying so much data.
+        return;
+    }
 
-        uint8_t message[_MAX_MESSAGE_LENGTH];
+    // first populate the next message to send with the latest ID to Ack
+    _TxMessages[_TxNextOpIndex].message[_ID_ACKNOWLEDGE_INDEX] = _IdToAcknowledge;
+    // and update the header checksum as this may have changed
+    _TxMessages[_TxNextOpIndex].message[_HEADER_CHECKSUM_INDEX] = CalculateChecksumOfMessageHeader(_TxMessages[_TxNextOpIndex].message);
 
-        // populate the header
-        message[0] = 0xAA;
-        message[1] = 0x55;
-        message[2] = _IMPLEMENTED_PROTOCOL_VERSION;
-        message[3] = _TxMessages[i].payloadLength;
-        message[4] = _TxMessages[i].idNumber;
-        message[5] = _RxState.lastValidId;          // always return the last valid ID we have received.
-        // Skip the checksum until we have populated the payload.
+    // and send it to the PC
+    _PcComsInterfaceInstance->TransmitData(_TxMessages[_TxNextOpIndex].message, (uint16_t)(_HEADER_SIZE + _TxMessages[_TxNextOpIndex].message[_PAYLOAD_LENGTH_INDEX]));
 
-        // copy over the payload
-        for (int j = 0; j < _TxMessages[i].payloadLength; ++j)
-        {
-            message[_HEADER_SIZE + j] = _TxMessages[i].payload[j];
-        }
+    const uint8_t NEXT_NEXT_OP_INDEX = ((_TxNextOpIndex + 1) == _MAX_TX_MESSAGES) ? 0 : (_TxNextOpIndex + 1);
 
-        const uint16_t TOTAL_COUNT = _TxMessages[i].payloadLength + _HEADER_SIZE;
+    if (NEXT_NEXT_OP_INDEX == _TxIpIndex)
+    {
+        // the next index is where the next message will go, therefore there are no more messages to send.
+        // do not update the next op index, if this function gets called again, it will resend the last message.
+        return;
+    }
 
-        // Add the checksum to the message
-        message[6] = CalculateChecksum(message, TOTAL_COUNT);
+    // update the op index to send the next message next time
+    _TxNextOpIndex = NEXT_NEXT_OP_INDEX;
 
-        // finally sent it to the PC
-        _PcComsInterface->TransmitData(message, TOTAL_COUNT);
-    }*/
+    // TODO - Event_DataToTxToPC will only be called once, we can't signal it again here, as that will cause an overrun, maybe set up some timer and/or do as in the SerialPortDriver.
 }
 
 /**
@@ -158,7 +155,52 @@ void ProtocolTransmitter::UpdateIdToAcknowledge(uint8_t id)
  */
 void ProtocolTransmitter::UpdateAcknowledgedId(uint8_t id)
 {
-    // TODO - Process acknowledged messages.
+    uint8_t newUnackedIndex = _TxNextUnackedIndex;
+    uint8_t newCount = _TxCount;
+    bool idFound = false;
+    
+    for (
+            uint8_t i = _TxNextUnackedIndex; 
+            (newCount > 0) && (newUnackedIndex == _TxNextUnackedIndex);              // end if the end has been found, or we have tested all messages
+            i = ((i + 1) == _MAX_TX_MESSAGES) ? 0 : (i + 1)     // Increment and wrap around 
+        )
+    {
+        if (!idFound)
+        {
+            // is this message the same ID as we have received
+            if (_TxMessages[i].message[_ID_NUMBER_INDEX] == id)
+            {
+                idFound = true;
+            }
+            
+            // this ID is not it so the new count is at least one less if we do find the id in future
+            newCount--;
+        }
+        else
+        {
+            // the id has been found, so the next id is the newest Unacked Index.
+            newUnackedIndex = i;
+        }
+    }
+
+    if (newUnackedIndex != _TxNextUnackedIndex)
+    {
+        // the next unacked index needs updating
+        _TxNextUnackedIndex = newUnackedIndex;
+
+        // restart message delivery from this point
+        _TxNextOpIndex = _TxNextUnackedIndex;
+
+        _TxCount = newCount;
+    }
+    else if (idFound)
+    {
+        // if the ID has been found, but the nextUnackedIndex has not changed, then the ID is the latest in the queue.
+        // effectively clear the queue
+        _TxNextUnackedIndex = _TxIpIndex;
+        _TxNextOpIndex = _TxNextUnackedIndex;
+        _TxCount = 0;
+    }
 }
 
 /**
@@ -172,3 +214,17 @@ void ProtocolTransmitter::PushLatestSample(EegData::sEegSamples samples)
 
     this->SendPayloadToPc(eeg_data_payload, 10);    // TODO - send the correct amount.
 }
+
+#ifdef PIO_UNIT_TESTING
+
+/**
+ * @brief Unit testing helper function to get the number of Tx messages.
+ * 
+ * @return The local _TxCount variable.
+ */
+uint8_t ProtocolTransmitter::GetTxCount()
+{
+    return _TxCount;
+}
+
+#endif

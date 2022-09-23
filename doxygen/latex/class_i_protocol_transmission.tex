@@ -11,33 +11,13 @@ Inheritance diagram for IProtocol\+Transmission\+:\begin{figure}[H]
 \item 
 virtual bool \mbox{\hyperlink{class_i_protocol_transmission_a57fa3d003cab245a4fe549749e560f0a}{Send\+Payload\+To\+Pc}} (uint8\+\_\+t $\ast$payload\+\_\+ptr, uint8\+\_\+t payload\+\_\+length)=0
 \item 
-virtual bool \mbox{\hyperlink{class_i_protocol_transmission_a5cff30b503f4d248ebd1fa36fe9ba4d9}{Process\+Received\+Id}} (uint8\+\_\+t id)=0
+virtual void \mbox{\hyperlink{class_i_protocol_transmission_ab9a5e71d43977d84b55d83d78c6a5253}{Update\+Id\+To\+Acknowledge}} (uint8\+\_\+t id)=0
 \item 
-virtual void \mbox{\hyperlink{class_i_protocol_transmission_a210552421384004e92a46de1c0614c7d}{Process\+Acknowledged\+Id}} (uint8\+\_\+t id)=0
+virtual void \mbox{\hyperlink{class_i_protocol_transmission_a1d83bb7bda45eea504c5bcd664ea20a5}{Update\+Acknowledged\+Id}} (uint8\+\_\+t id)=0
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_i_protocol_transmission_a210552421384004e92a46de1c0614c7d}\label{class_i_protocol_transmission_a210552421384004e92a46de1c0614c7d}} 
-\index{IProtocolTransmission@{IProtocolTransmission}!ProcessAcknowledgedId@{ProcessAcknowledgedId}}
-\index{ProcessAcknowledgedId@{ProcessAcknowledgedId}!IProtocolTransmission@{IProtocolTransmission}}
-\doxysubsubsection{\texorpdfstring{ProcessAcknowledgedId()}{ProcessAcknowledgedId()}}
-{\footnotesize\ttfamily virtual void IProtocol\+Transmission\+::\+Process\+Acknowledged\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-Implemented in \mbox{\hyperlink{class_protocol_transmitter_ab5f42682292ff08ac81ca80a2b0d06b0}{Protocol\+Transmitter}}.
-
-\mbox{\Hypertarget{class_i_protocol_transmission_a5cff30b503f4d248ebd1fa36fe9ba4d9}\label{class_i_protocol_transmission_a5cff30b503f4d248ebd1fa36fe9ba4d9}} 
-\index{IProtocolTransmission@{IProtocolTransmission}!ProcessReceivedId@{ProcessReceivedId}}
-\index{ProcessReceivedId@{ProcessReceivedId}!IProtocolTransmission@{IProtocolTransmission}}
-\doxysubsubsection{\texorpdfstring{ProcessReceivedId()}{ProcessReceivedId()}}
-{\footnotesize\ttfamily virtual bool IProtocol\+Transmission\+::\+Process\+Received\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-Implemented in \mbox{\hyperlink{class_protocol_transmitter_aafade37920acf305de6bbb68ecfa641f}{Protocol\+Transmitter}}.
-
 \mbox{\Hypertarget{class_i_protocol_transmission_a57fa3d003cab245a4fe549749e560f0a}\label{class_i_protocol_transmission_a57fa3d003cab245a4fe549749e560f0a}} 
 \index{IProtocolTransmission@{IProtocolTransmission}!SendPayloadToPc@{SendPayloadToPc}}
 \index{SendPayloadToPc@{SendPayloadToPc}!IProtocolTransmission@{IProtocolTransmission}}
@@ -47,6 +27,26 @@ Implemented in \mbox{\hyperlink{class_protocol_transmitter_aafade37920acf305de6b
 
 
 Implemented in \mbox{\hyperlink{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}{Protocol\+Transmitter}}.
+
+\mbox{\Hypertarget{class_i_protocol_transmission_a1d83bb7bda45eea504c5bcd664ea20a5}\label{class_i_protocol_transmission_a1d83bb7bda45eea504c5bcd664ea20a5}} 
+\index{IProtocolTransmission@{IProtocolTransmission}!UpdateAcknowledgedId@{UpdateAcknowledgedId}}
+\index{UpdateAcknowledgedId@{UpdateAcknowledgedId}!IProtocolTransmission@{IProtocolTransmission}}
+\doxysubsubsection{\texorpdfstring{UpdateAcknowledgedId()}{UpdateAcknowledgedId()}}
+{\footnotesize\ttfamily virtual void IProtocol\+Transmission\+::\+Update\+Acknowledged\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_protocol_transmitter_a3dd4446f3df7555d598996e742ba73a1}{Protocol\+Transmitter}}.
+
+\mbox{\Hypertarget{class_i_protocol_transmission_ab9a5e71d43977d84b55d83d78c6a5253}\label{class_i_protocol_transmission_ab9a5e71d43977d84b55d83d78c6a5253}} 
+\index{IProtocolTransmission@{IProtocolTransmission}!UpdateIdToAcknowledge@{UpdateIdToAcknowledge}}
+\index{UpdateIdToAcknowledge@{UpdateIdToAcknowledge}!IProtocolTransmission@{IProtocolTransmission}}
+\doxysubsubsection{\texorpdfstring{UpdateIdToAcknowledge()}{UpdateIdToAcknowledge()}}
+{\footnotesize\ttfamily virtual void IProtocol\+Transmission\+::\+Update\+Id\+To\+Acknowledge (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}{Protocol\+Transmitter}}.
 
 
 

@@ -70,16 +70,97 @@ void test_ProtocolTransmitterOnlyAllowsMessagesWithUptoMaxPayloadSizeBytesToBeQu
     TEST_ASSERT_TRUE(uut.SendPayloadToPc(testPayload, ProtocolGeneral::_MAX_PAYLOAD_SIZE));
 }
 
+void test_ProtocolTransmitterUpdateAcknowledgedIdForFirstIdRemovesCorrectNumberOfMessagesFromTxQueue()
+{
+    uint8_t testPayload[1] = {0};
+
+    // Arrange
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 0
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 1
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 2
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 3
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 4
+
+    TEST_ASSERT_EQUAL(5, uut.GetTxCount());
+
+    // Act
+    uut.UpdateAcknowledgedId(0);
+
+    // Assert
+    TEST_ASSERT_EQUAL(4, uut.GetTxCount());
+}
+
+void test_ProtocolTransmitterUpdateAcknowledgedIdForLastIdRemovesCorrectNumberOfMessagesFromTxQueue()
+{
+    uint8_t testPayload[1] = {0};
+
+    // Arrange
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 0
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 1
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 2
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 3
+    uut.SendPayloadToPc(testPayload, 1);    // ID will be 4
+
+    TEST_ASSERT_EQUAL(5, uut.GetTxCount());
+
+    // Act
+    uut.UpdateAcknowledgedId(4);
+
+    // Assert
+    TEST_ASSERT_EQUAL(0, uut.GetTxCount());
+}
+
+void test_ProtocolTransmitterUpdateAcknowledgedIdRemovesCorrectNumberOfMessagesFromTxQueueWhenQueueWrapsAround()
+{
+    uint8_t testPayload[1] = {0};
+    uint8_t expectedID = 0;
+
+    const int INITIAL_MESSAGES_TO_ACK = 1;
+
+    // Arrange
+
+    // fill up the queue with the INITIAL_MESSAGES_TO_ACK
+    for (int i = 0; i < INITIAL_MESSAGES_TO_ACK; ++i)
+    {
+        uut.SendPayloadToPc(testPayload, 1);
+
+        expectedID = i;
+    }
+
+    TEST_ASSERT_EQUAL(INITIAL_MESSAGES_TO_ACK, uut.GetTxCount());
+
+    // Acknowledge all these messages in one
+    uut.UpdateAcknowledgedId(expectedID);
+
+    TEST_ASSERT_EQUAL(0, uut.GetTxCount());
+
+    // fill up the full queue to cause a wrap around
+    for (int i = 0; i < uut._MAX_TX_MESSAGES; ++i)
+    {
+        uut.SendPayloadToPc(testPayload, 1);
+
+        expectedID++;
+    }
+
+    TEST_ASSERT_EQUAL(uut._MAX_TX_MESSAGES, uut.GetTxCount());
+
+    // Acknowledge all these messages in one
+    uut.UpdateAcknowledgedId(expectedID);
+
+    TEST_ASSERT_EQUAL(0, uut.GetTxCount());
+   
+}
+
 int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_ProtocolTransmitterDataToTxToPCEventIsRaisedWhenFirstPayloadIsToBeTransmitted);
     RUN_TEST(test_ProtocolTransmitterDataToTxToPCEventIsNotRaisedWhenSubsequentPayloadsAreToBeTransmitted);
     RUN_TEST(test_ProtocolTransmitterOnlyAllowsUptoMaxTxMessagesToBeQueued);
     RUN_TEST(test_ProtocolTransmitterOnlyAllowsMessagesWithUptoMaxPayloadSizeBytesToBeQueued);
-    /*RUN_TEST(test_ProtocolTransmitterValidIdsAreReportedAsValid);
-    RUN_TEST(test_ProtocolTransmitterInvalidIdsAreReportedAsInvalid);
-    RUN_TEST(test_ProtocolReceiverGoesToGetProtocolVersionWithValidSync);
-    RUN_TEST(test_ProtocolReceiverReturnsToWaitingForSyncWithInvalidProtocolVersion);
+    RUN_TEST(test_ProtocolTransmitterUpdateAcknowledgedIdForFirstIdRemovesCorrectNumberOfMessagesFromTxQueue);
+    RUN_TEST(test_ProtocolTransmitterUpdateAcknowledgedIdForLastIdRemovesCorrectNumberOfMessagesFromTxQueue);
+    RUN_TEST(test_ProtocolTransmitterUpdateAcknowledgedIdRemovesCorrectNumberOfMessagesFromTxQueueWhenQueueWrapsAround);
+    /*RUN_TEST(test_ProtocolReceiverReturnsToWaitingForSyncWithInvalidProtocolVersion);
     RUN_TEST(test_ProtocolReceiverGoesToGetPayloadLengthWithValidProtocolVersion);
     RUN_TEST(test_ProtocolReceiverGoesToWaitForSyncIfThePayloadLengthIsTooLarge);
     RUN_TEST(test_ProtocolReceiverGoesToGetIdNumberIfThePayloadLengthIsNoTooLarge);

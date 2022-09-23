@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['canprocessevents_0',['CanProcessEvents',['../class_can_process_events.html',1,'']]]
+  ['dataflowcontroller_0',['DataFlowController',['../class_data_flow_controller.html',1,'']]]
 ];
