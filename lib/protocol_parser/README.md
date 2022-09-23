@@ -5,4 +5,4 @@ This library deals with parsing and generation of communications packets between
 ## Architecture 
 Architecture export as generated from the Architecture.puml file assosciated with this library.
 
-![Architecture](Architecture.png?raw=true "Protocol Parser Library Architecture")
+![Architecture](ProtocolParserLibraryArchitecture.png?raw=true "Protocol Parser Library Architecture")
