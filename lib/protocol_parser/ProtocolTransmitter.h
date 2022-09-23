@@ -20,8 +20,8 @@ class ProtocolTransmitter : public EegDataConsumer, public CanProcessEvents, pub
         void ProcessEvent(NEvent::eEvent event) override;
 
         bool SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload_length) override;
-        bool ProcessReceivedId(uint8_t id) override;
-        void ProcessAcknowledgedId(uint8_t id) override;
+        void UpdateIdToAcknowledge(uint8_t id) override;
+        void UpdateAcknowledgedId(uint8_t id) override;
 
         void PushLatestSample(EegData::sEegSamples samples) override;
 
@@ -39,7 +39,7 @@ class ProtocolTransmitter : public EegDataConsumer, public CanProcessEvents, pub
             uint8_t message[ProtocolGeneral::_MAX_MESSAGE_LENGTH];
         }sTxMessageStruct;
 
-        uint8_t _IdAckToSend;
+        uint8_t _IdToAcknowledge;
         uint8_t _IdToSend;
 
         // tx fifo variables

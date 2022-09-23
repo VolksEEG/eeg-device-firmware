@@ -436,7 +436,7 @@ void test_ProtocolReceiverReturnsToWaitingForSyncSequenceIfThePayloadIsZeroLengt
 void test_ProtocolReceiverInitiallyExpectesAnIdOfZero(void) 
 {
     // assert
-    TEST_ASSERT_EQUAL(0, pti.GetNextExpectedId());
+    TEST_ASSERT_EQUAL(0, uut.GetNextExpectedId());
 }
 
 //
@@ -478,7 +478,7 @@ void test_ProtocolReceiverIncrementsTheExpectedIdAfterEachMessageWithACorrectId(
         }
 
         // assert
-        TEST_ASSERT_EQUAL(NEXT_ID, pti.GetNextExpectedId());
+        TEST_ASSERT_EQUAL(NEXT_ID, uut.GetNextExpectedId());
     }
 }
 
@@ -523,11 +523,11 @@ void test_ProtocolReceiverDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorre
         }
 
         // assert
-        TEST_ASSERT_EQUAL(NEXT_ID, pti.GetNextExpectedId());
+        TEST_ASSERT_EQUAL(NEXT_ID, uut.GetNextExpectedId());
     }
 
     // assert that the next expected ID is TEST_ID
-    TEST_ASSERT_EQUAL(TEST_ID, pti.GetNextExpectedId());
+    TEST_ASSERT_EQUAL(TEST_ID, uut.GetNextExpectedId());
 
     // Send one more with an incorrect ID
 
@@ -555,7 +555,7 @@ void test_ProtocolReceiverDoesNoIncrementTheExpectedIdAfterAMessageWithAnIncorre
     }
 
     // assert that the next expected ID is still TEST_ID
-    TEST_ASSERT_EQUAL(TEST_ID, pti.GetNextExpectedId());
+    TEST_ASSERT_EQUAL(TEST_ID, uut.GetNextExpectedId());
 }
 
 int main(int argc, char **argv) {

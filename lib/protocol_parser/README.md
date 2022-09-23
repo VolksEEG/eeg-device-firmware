@@ -3,16 +3,19 @@
 This library deals with parsing and generation of communications packets between this firmware and a PC to the requirements of the protocol defined at https://github.com/VolksEEG/VolksEEG/wiki/FrontEndToPcApi.
 
 ## Architecture 
-**Note** this diagrma is not complete.
 ```mermaid
 classDiagram
     class IProtocolTransmission{
        <<interface>>
-
+        +SendPayloadToPc()
+        +UpdateIdToAcknowledge()
+        +UpdateAcknowledgedId()
     }
 
     class IPcCommunications{
         <<interface>>
+        +GetReceivedBytes()
+        +TransmitData()
     }
 
     class ProtocolGeneral{
@@ -28,6 +31,10 @@ classDiagram
     }
 
     ProtocolGeneral <|-- ProtocolReceiver
-    IPcCommunications <|-- ProtocolTransmitter
-    ProtocolGeneral <|-- ProtocolTransmitter
+    ProtocolReceiver ..> IProtocolTransmission
+    ProtocolReceiver ..> IPcCommunications
+
+    ProtocolTransmitter --|> IProtocolTransmission
+    ProtocolTransmitter --|> ProtocolGeneral
+    ProtocolTransmitter ..> IPcCommunications
 ```

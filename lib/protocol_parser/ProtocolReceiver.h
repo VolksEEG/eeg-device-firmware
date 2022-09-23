@@ -36,6 +36,8 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
 
         RX_STATE GetCurrentRxState();
 
+        uint8_t GetNextExpectedId();
+
         #endif
     protected:
 
@@ -55,6 +57,8 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
 
             // message values array
             uint8_t message[ProtocolGeneral::_MAX_MESSAGE_LENGTH];
+
+            uint8_t nextExpectedID;
 
         }sRxStruct;
 

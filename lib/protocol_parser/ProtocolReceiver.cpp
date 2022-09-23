@@ -36,6 +36,9 @@ ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, EegDataProducer * ed
     _ProtocolTransmissionInstance(pti)
 {
     _RxState = ResetRxStruct(_RxState);
+
+    // first ID is always expected to be 0
+    _RxState.nextExpectedID = 0;
 }
 
 /**
@@ -273,13 +276,27 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessag
 
     // checksum is OK, and header checksum will be OK
     // is the ID.
-    if (false == protocolReceiver->_ProtocolTransmissionInstance->ProcessReceivedId(state.message[_ID_NUMBER_INDEX]))
+    if (state.nextExpectedID != state.message[_ID_NUMBER_INDEX])
     {
-        return ResetRxStruct(state); 
+        // the id is not as expected, so add an ack which will ack the most recent valid ID
+        uint8_t ackData[1] = {(uint8_t)GROUP_ACKNOWLEDGE | (uint8_t)CMD_ACKNOWLEDGE};
+
+        protocolReceiver->_ProtocolTransmissionInstance->SendPayloadToPc(ackData, 1);
+
+        return ResetRxStruct(state);
     }
 
+    // the recieved ID is as expected, update the next one to expect
+    if (state.nextExpectedID++ == _MAX_VALID_ID)
+    {
+        state.nextExpectedID = 0;
+    }
+
+    // The ID is valid, so update the Transmission instance so it can acknowledge it in future messages.
+    protocolReceiver->_ProtocolTransmissionInstance->UpdateIdToAcknowledge(state.message[_ID_NUMBER_INDEX]);
+
     // ID is OK, does this ack any of our ID's
-    protocolReceiver->_ProtocolTransmissionInstance->ProcessAcknowledgedId(state.message[_ID_ACKNOWLEDGE_INDEX]);
+    protocolReceiver->_ProtocolTransmissionInstance->UpdateAcknowledgedId(state.message[_ID_ACKNOWLEDGE_INDEX]);
 
     // TODO - Process the message contents
 
@@ -288,7 +305,7 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessag
 
 /**
  * @brief helper function to reset the an Rx State structure ready to restart the receiving process.
- * @note Only the fields which are specific to a message reception are reset.
+ * @note Only the fields which are specific to a single isolated message reception are reset.
  * 
  * @param state The receive state structure to reset.
  * 
@@ -353,6 +370,16 @@ ProtocolReceiver::RX_STATE ProtocolReceiver::GetCurrentRxState()
     }
 
     return InvalidState;
+}
+
+/**
+ * @brief Unit testing helper function used to query the next expected ID.
+ * 
+ * @return The next expected ID to be recieved.
+ */
+uint8_t ProtocolReceiver::GetNextExpectedId()
+{
+    return _RxState.nextExpectedID;
 }
 
 #endif

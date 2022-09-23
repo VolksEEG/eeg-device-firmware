@@ -29,7 +29,7 @@ ProtocolTransmitter::ProtocolTransmitter()
 ProtocolTransmitter::ProtocolTransmitter(IPcCommunications * pci, EventHandler * evh) :
     _PcComsInterfaceInstance(pci),
     _EventHandlerInstance(evh),
-    _IdAckToSend(_MAX_VALID_ID),
+    _IdToAcknowledge(_MAX_VALID_ID),
     _IdToSend(0),
     _TxIpIndex(0),
     _TxNextUnackedIndex(0),
@@ -142,30 +142,13 @@ bool ProtocolTransmitter::SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload
 }
 
 /**
- * @brief Overridden function to process the recieved ID.
+ * @brief Overridden function to update the id to acknowledge in future transmissions.
  * 
- * @param id The ID to process.
- * 
- * @return true if the received ID is valid, else false.
+ * @param id The ID to acknowledge in future transmissions.
  */
-bool ProtocolTransmitter::ProcessReceivedId(uint8_t id)
+void ProtocolTransmitter::UpdateIdToAcknowledge(uint8_t id)
 {
-    const uint8_t NEXT_EXPECTED_ID = (_IdAckToSend == _MAX_VALID_ID) ? 0 : (_IdAckToSend + 1);
-
-    if (NEXT_EXPECTED_ID != id)
-    {
-        // the id is not as expected, so add an ack which will ack the most recent valid ID
-        uint8_t ackData[1] = {(uint8_t)GROUP_ACKNOWLEDGE | (uint8_t)CMD_ACKNOWLEDGE};
-
-        SendPayloadToPc(ackData, 1);
-
-        return false;
-    }
-
-    // ID is valid so update the ID ack to send
-    _IdAckToSend = id;
-    
-    return true;
+    _IdToAcknowledge = id;
 }
 
 /**
@@ -173,7 +156,7 @@ bool ProtocolTransmitter::ProcessReceivedId(uint8_t id)
  * 
  * @param id The ID being acknowledged.
  */
-void ProtocolTransmitter::ProcessAcknowledgedId(uint8_t id)
+void ProtocolTransmitter::UpdateAcknowledgedId(uint8_t id)
 {
     // TODO - Process acknowledged messages.
 }
