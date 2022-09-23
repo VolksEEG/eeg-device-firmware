@@ -6,11 +6,11 @@
 #include "IProtocolTransmission.h"
 #include "ProtocolGeneral.h"
 
-#include "../data_flow_controller/EEGDataConsumer.h"
-#include "../event_handler/CanProcesEvents.h"
+#include "../data_flow_controller/IEEGDataConsumer.h"
+#include "../event_handler/ICanProcesEvents.h"
 #include "../event_handler/EventHandler.h"
 
-class ProtocolTransmitter : public EegDataConsumer, public CanProcessEvents, public IProtocolTransmission, private ProtocolGeneral  {
+class ProtocolTransmitter : public IEegDataConsumer, public ICanProcessEvents, public IProtocolTransmission, private ProtocolGeneral  {
 
     public:
 

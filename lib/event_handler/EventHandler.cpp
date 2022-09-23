@@ -55,7 +55,7 @@ void EventHandler::SignalEvent(NEvent::eEvent event)
 //
 //  Called by other classes to add an event handler for an event
 //
-void EventHandler::AddEventHandler(CanProcessEvents * handler_ptr, NEvent::eEvent event)
+void EventHandler::AddEventHandler(ICanProcessEvents * handler_ptr, NEvent::eEvent event)
 {
     const uint8_t SET_COUNT = _EventProcessers[(uint8_t)event].setCount;
 

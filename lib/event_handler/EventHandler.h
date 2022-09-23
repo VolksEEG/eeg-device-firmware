@@ -3,11 +3,11 @@
 #define _EVENT_HANDLER
 
 #include "../error_handler/ErrorHandler.h"
-#include "CanProcesEvents.h"
+#include "ICanProcesEvents.h"
 
 #include <stdint.h>
 
-class EventHandler : public CanProcessEvents {
+class EventHandler : public ICanProcessEvents {
 
     public:
 
@@ -17,7 +17,7 @@ class EventHandler : public CanProcessEvents {
         explicit EventHandler(ErrorHandler * eh);
 
         virtual void SignalEvent(NEvent::eEvent event);
-        void AddEventHandler(CanProcessEvents * handler_ptr,
+        void AddEventHandler(ICanProcessEvents * handler_ptr,
                                 NEvent::eEvent event);
         void HandleEvents(void);
 
@@ -32,7 +32,7 @@ class EventHandler : public CanProcessEvents {
         typedef struct _EVENT_HANDLERS
         {
             uint8_t setCount;
-            CanProcessEvents * processerInstance_ptrs[MAX_PROCESS_HANDLERS];
+            ICanProcessEvents * processerInstance_ptrs[MAX_PROCESS_HANDLERS];
         }sEventProcessers;
 
         sEventProcessers _EventProcessers[NEvent::MAX_EVENTS];

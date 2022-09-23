@@ -32,7 +32,7 @@ LedControl::LedControl(ErrorHandler * eh, PinControl * pc) :
 }
 
 //
-// Overridden function from the CanProcessEvents Base Class
+// Overridden function from the ICanProcessEvents Base Class
 //
 void LedControl::ProcessEvent(NEvent::eEvent event)
 {

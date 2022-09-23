@@ -4,11 +4,11 @@
 
 #include "Ads1299Driver.h"
 
-#include <EEGDataProducer.h>
+#include <IEEGDataProducer.h>
 #include <EegData.h>
 #include <ErrorHandler.h>
 
-class Ads1299DataProcessor : public EegDataProducer, public CanProcessEvents  {
+class Ads1299DataProcessor : public IEegDataProducer, public ICanProcessEvents  {
 
     public:
 

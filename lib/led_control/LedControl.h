@@ -7,7 +7,7 @@
 #include <PinControl.h>
 #include <stdint.h>
 
-class LedControl : public CanProcessEvents {
+class LedControl : public ICanProcessEvents {
 
     public:
 

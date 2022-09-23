@@ -1,29 +1,10 @@
 
-#include <unity.h>
 #include <EventHandler.h>
 
-class EventProcessTest : public CanProcessEvents {
-    public:
+#include "../Mocks/MockICanProcessEvents.h"
 
-    EventProcessTest() : 
-        _ProcessEventCalledCount(0)
-    {
+#include <unity.h>
 
-    }
-
-    void ProcessEvent(NEvent::eEvent event) override {
-        _ProcessEventCalledCount++;
-    }
-
-    int GetProcessedEventCalledTimes() 
-    {
-        return _ProcessEventCalledCount;
-    }
-
-    private:
-
-        int _ProcessEventCalledCount;
-};
 
 void setUp(void) {
 }
@@ -53,9 +34,9 @@ void test_EventHandler_EventProcessedOnlyOnce(void) {
     ErrorHandler eh = ErrorHandler();
     EventHandler uut = EventHandler(&eh);
 
-    EventProcessTest ep = EventProcessTest();
+    MockICanProcessEvents micpe = MockICanProcessEvents();
 
-    uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
+    uut.AddEventHandler(&micpe, NEvent::eEvent::Event_ADS1299DataReady);
 
     // signal the event
     uut.SignalEvent(NEvent::eEvent::Event_ADS1299DataReady);
@@ -64,7 +45,7 @@ void test_EventHandler_EventProcessedOnlyOnce(void) {
     uut.HandleEvents();
     uut.HandleEvents();
 
-    TEST_ASSERT_EQUAL(1, ep.GetProcessedEventCalledTimes());
+    TEST_ASSERT_EQUAL(1, micpe.GetProcessedEventCalledTimes());
 }
 
 //
@@ -75,18 +56,18 @@ void test_EventHandler_EventProcessersFullErrorIsRaised(void) {
     ErrorHandler eh = ErrorHandler();
     EventHandler uut = EventHandler(&eh);
 
-    EventProcessTest ep = EventProcessTest();
+    MockICanProcessEvents micpe = MockICanProcessEvents();
 
     for (int i = 0; i < EventHandler::MAX_PROCESS_HANDLERS; ++i)
     {
         // add the same event handler  max times
-        uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
+        uut.AddEventHandler(&micpe, NEvent::eEvent::Event_ADS1299DataReady);
     }
 
     TEST_ASSERT_FALSE(eh.IsErrorPresent());
 
     // try to add one more
-    uut.AddEventHandler(&ep, NEvent::eEvent::Event_ADS1299DataReady);
+    uut.AddEventHandler(&micpe, NEvent::eEvent::Event_ADS1299DataReady);
 
     TEST_ASSERT_TRUE(eh.IsErrorPresent());
 }

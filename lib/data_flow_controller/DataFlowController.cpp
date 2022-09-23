@@ -20,12 +20,12 @@ DataFlowController::DataFlowController() :
 //
 // Constructor
 //
-DataFlowController::DataFlowController(EegDataProducer * primaryProducer, 
+DataFlowController::DataFlowController(IEegDataProducer * primaryProducer, 
                             NEvent::eEvent primaryDataReadyEvent,
-                            EegDataProducer * secondaryProducer,
+                            IEegDataProducer * secondaryProducer,
                             NEvent::eEvent secondaryDataReadyEvent,
-                            EegDataConsumer * primaryConsumer,
-                            EegDataConsumer * secondaryConsumer) :
+                            IEegDataConsumer * primaryConsumer,
+                            IEegDataConsumer * secondaryConsumer) :
     _PrimaryProducerInstance(primaryProducer),
     _PrimaryDataReadyEvent(primaryDataReadyEvent),
     _SecondaryProducerInstance(secondaryProducer),
@@ -84,7 +84,7 @@ void DataFlowController::SetConsumer(eProducerConsumer priOrSec)
 }
 
 //
-// Overriden function from CanProcessEvents
+// Overriden function from ICanProcessEvents
 //
 void DataFlowController::ProcessEvent(NEvent::eEvent event)
 {
@@ -109,7 +109,7 @@ void DataFlowController::ProcessEvent(NEvent::eEvent event)
 
 
 //
-//  Overridden function from EegDataProducer to start producing EEG data
+//  Overridden function from IEegDataProducer to start producing EEG data
 //
 void DataFlowController::StartProducingData()
 {
@@ -118,7 +118,7 @@ void DataFlowController::StartProducingData()
 }
 
 //
-// Overridden function from EegDataProducer to stop producing EEG data
+// Overridden function from IEegDataProducer to stop producing EEG data
 //
 void DataFlowController::StopProducingData()
 {

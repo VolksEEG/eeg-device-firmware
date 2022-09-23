@@ -2,12 +2,12 @@
 #ifndef _FAKE_DATA_PRODUCER
 #define _FAKE_DATA_PRODUCER
 
-#include "EEGDataProducer.h"
+#include "IEEGDataProducer.h"
 
-#include <CanProcesEvents.h>
+#include <ICanProcesEvents.h>
 #include <EventHandler.h>
 
-class FakeDataProducer : public EegDataProducer, public CanProcessEvents {
+class FakeDataProducer : public IEegDataProducer, public ICanProcessEvents {
 
     public:
 

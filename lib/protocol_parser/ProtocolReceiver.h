@@ -6,16 +6,16 @@
 #include "ProtocolGeneral.h"
 #include "IProtocolTransmission.h"
 
-#include "../data_flow_controller/EEGDataProducer.h"
-#include "../event_handler/CanProcesEvents.h"
+#include "../data_flow_controller/IEEGDataProducer.h"
+#include "../event_handler/ICanProcesEvents.h"
 #include "../event_handler/EventHandler.h"
 
-class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
+class ProtocolReceiver : public ICanProcessEvents, private ProtocolGeneral  {
 
     public:
 
         ProtocolReceiver();
-        ProtocolReceiver(IPcCommunications * pci, EegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
+        ProtocolReceiver(IPcCommunications * pci, IEegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
 
         void ProcessEvent(NEvent::eEvent event) override;
 
@@ -44,7 +44,7 @@ class ProtocolReceiver : public CanProcessEvents, private ProtocolGeneral  {
     private:
 
         IPcCommunications * _PcComsInterface;
-        EegDataProducer * _EEGDataProducer;
+        IEegDataProducer * _EEGDataProducer;
         EventHandler * _EventHandler;
         IProtocolTransmission * _ProtocolTransmissionInstance;
 

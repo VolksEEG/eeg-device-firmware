@@ -3,10 +3,10 @@
 #define _SERIAL_PORT_DRIVER
 
 #include <EventHandler.h>
-#include <CanProcesEvents.h>
+#include <ICanProcesEvents.h>
 #include <../protocol_parser/iPcCommunications.h>
 
-class SerialPort : public CanProcessEvents, public IPcCommunications {
+class SerialPort : public ICanProcessEvents, public IPcCommunications {
 
     public:
 

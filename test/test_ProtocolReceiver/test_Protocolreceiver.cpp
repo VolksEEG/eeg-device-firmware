@@ -1,6 +1,6 @@
 
 #include <ProtocolReceiver.h>
-#include <EEGDataProducer.h>
+#include <IEEGDataProducer.h>
 
 #include "../Mocks/MockEventHandler.h"
 #include "../Mocks/MockPcCommunicationsInterface.h"
@@ -8,7 +8,7 @@
 
 #include <unity.h>
 
-class MockEegDataProducer : public EegDataProducer {
+class MockEegDataProducer : public IEegDataProducer {
     public:
 
         void StartProducingData() override {

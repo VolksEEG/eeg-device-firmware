@@ -27,7 +27,7 @@ FakeDataProducer::FakeDataProducer(EventHandler * eh) :
 }
 
 //
-// Overriden function from CanProcessEvents
+// Overriden function from ICanProcessEvents
 //
 void FakeDataProducer::ProcessEvent(NEvent::eEvent event)
 {
@@ -57,7 +57,7 @@ void FakeDataProducer::ProcessEvent(NEvent::eEvent event)
 }
 
 //
-//  Overridden function from EegDataProducer to start producing EEG data
+//  Overridden function from IEegDataProducer to start producing EEG data
 //
 void FakeDataProducer::StartProducingData()
 {
@@ -65,7 +65,7 @@ void FakeDataProducer::StartProducingData()
 }
 
 //
-//  Overridden function from EegDataProducer to stop producing EEG data
+//  Overridden function from IEegDataProducer to stop producing EEG data
 //
 void FakeDataProducer::StopProducingData()
 {
@@ -73,7 +73,7 @@ void FakeDataProducer::StopProducingData()
 }
 
 //
-//  Overriden function from EegDataProducer to get the latest samples.
+//  Overriden function from IEegDataProducer to get the latest samples.
 //
 EegData::sEegSamples FakeDataProducer::GetLatestSample()
 {

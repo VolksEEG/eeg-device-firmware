@@ -6,97 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <EEGDataProducer.h>
-#include <EEGDataConsumer.h>
-
-class ProducerMock : public EegDataProducer {
-
-    public:
-
-        ProducerMock() :
-            _TimesCalled(0)
-        {
-            _Samples.channel_1 = 0;
-            _Samples.channel_2 = 0;
-            _Samples.channel_3 = 0;
-            _Samples.channel_4 = 0;
-            _Samples.channel_5 = 0;
-            _Samples.channel_6 = 0;
-            _Samples.channel_7 = 0;
-            _Samples.channel_8 = 0;
-
-        }
-
-        void StartProducingData() override {
-
-        }
-
-        void StopProducingData() override {
-            
-        }
-
-        EegData::sEegSamples GetLatestSample() override {
-
-            _TimesCalled++;
-
-            return _Samples;
-        }
-
-        uint8_t GetTimesCalled() {
-            return _TimesCalled;
-        }
-
-        void SetOutputValues(EegData::sEegSamples newSamples)
-        {
-            _Samples = newSamples;
-        }
-        
-    protected:
-
-    private:
-
-        uint8_t _TimesCalled;
-        EegData::sEegSamples _Samples;
-};
-
-class ConsumerMock : public EegDataConsumer {
-
-    public:
-
-        ConsumerMock() :
-            _TimesCalled(0)
-        {
-            _ReceivedSamples.channel_1 = 0;
-            _ReceivedSamples.channel_2 = 0;
-            _ReceivedSamples.channel_3 = 0;
-            _ReceivedSamples.channel_4 = 0;
-            _ReceivedSamples.channel_5 = 0;
-            _ReceivedSamples.channel_6 = 0;
-            _ReceivedSamples.channel_7 = 0;
-            _ReceivedSamples.channel_8 = 0;
-        }
-
-        void PushLatestSample(EegData::sEegSamples samples) {
-            _ReceivedSamples = samples;
-            _TimesCalled++;
-        }
-
-        uint8_t GetTimesCalled() {
-            return _TimesCalled;
-        }
-
-        EegData::sEegSamples GetReceivedSamples()
-        {
-            return _ReceivedSamples;
-        }
-        
-    protected:
-
-    private:
-
-        uint8_t _TimesCalled;
-        EegData::sEegSamples _ReceivedSamples;
-};
+#include "../Mocks/MockIEegDataProducer.h"
+#include "../Mocks/MockIEegDataConsumer.h"
 
 static const NEvent::eEvent PrimaryProducerEvent = NEvent::eEvent::Event_ADS1299DataReady;
 static const NEvent::eEvent SecondaryProducerEvent = NEvent::eEvent::Event_EDFDataReady;
@@ -112,10 +23,10 @@ void tearDown(void) {
 //
 void test_DataFlowController_PrimaryProducerIsCalledByDefault(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -135,10 +46,10 @@ void test_DataFlowController_PrimaryProducerIsCalledByDefault(void)
 //
 void test_DataFlowController_SecondaryProducerIsCalledWhenProducerIsChanged(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -161,10 +72,10 @@ void test_DataFlowController_SecondaryProducerIsCalledWhenProducerIsChanged(void
 //
 void test_DataFlowController_PrimaryProducerIsCalledWhenProducerIsChangedBack(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -190,10 +101,10 @@ void test_DataFlowController_PrimaryProducerIsCalledWhenProducerIsChangedBack(vo
 //
 void test_DataFlowController_PrimaryConsumerIsCalledByDefault(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -213,10 +124,10 @@ void test_DataFlowController_PrimaryConsumerIsCalledByDefault(void)
 //
 void test_DataFlowController_SecondaryConsumerIsCalledWhenProducerIsChanged(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -239,10 +150,10 @@ void test_DataFlowController_SecondaryConsumerIsCalledWhenProducerIsChanged(void
 //
 void test_DataFlowController_PrimaryConsumerIsCalledWhenProducerIsChangedBack(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
@@ -268,16 +179,16 @@ void test_DataFlowController_PrimaryConsumerIsCalledWhenProducerIsChangedBack(vo
 //
 void test_DataFlowController_ProducerDataIsPassedToConsumer(void) 
 {
-    ProducerMock primaryProducer = ProducerMock();
-    ProducerMock secondaryProducer = ProducerMock();
-    ConsumerMock primaryConsumer = ConsumerMock();
-    ConsumerMock secondaryConsumer = ConsumerMock();
+    MockIEegDataProducer primaryProducer = MockIEegDataProducer();
+    MockIEegDataProducer secondaryProducer = MockIEegDataProducer();
+    MockIEegDataConsumer primaryConsumer = MockIEegDataConsumer();
+    MockIEegDataConsumer secondaryConsumer = MockIEegDataConsumer();
 
     DataFlowController uut = DataFlowController(&primaryProducer, PrimaryProducerEvent, &secondaryProducer, SecondaryProducerEvent, &primaryConsumer, &secondaryConsumer);
 
     // select a producer and consumer to use.
-    ProducerMock * producerInstance;
-    ConsumerMock * consumerInstance;
+    MockIEegDataProducer * producerInstance;
+    MockIEegDataConsumer * consumerInstance;
     NEvent::eEvent producerEvent;
 
     // initialize random seed

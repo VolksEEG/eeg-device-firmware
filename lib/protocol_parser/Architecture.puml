@@ -1,0 +1,70 @@
+@startuml
+
+package protocol_parser {
+    interface IProtocolTransmission{
+        +SendPayloadToPc()
+        +UpdateIdToAcknowledge()
+        +UpdateAcknowledgedId()
+    }
+
+    interface IPcCommunications{
+        +GetReceivedBytes()
+        +TransmitData()
+    }
+
+    class ProtocolGeneral{
+
+    }
+
+    class ProtocolReceiver{
+
+    }
+
+    class ProtocolTransmitter{
+
+    }
+}
+
+package data_flow_controller #DDDDDD {
+    interface IEegDataProducer{
+        +StartProducingData()
+        +StopProducingData()
+        +GetLatestSample()
+    }
+
+    interface IEegDataConsumer{
+        +PushLatestSample()
+    }
+}
+
+package event_handler #DDDDDD {
+    interface ICanProcesEvents{
+        +ProcessEvent()
+    }
+
+    class EventHandler{
+
+    }
+}
+
+' Protocol Receiver Dependencies
+ProtocolReceiver ..> IProtocolTransmission
+ProtocolReceiver ..> IPcCommunications
+ProtocolReceiver ..> EventHandler
+ProtocolReceiver .left.> IEegDataProducer
+
+' Protocol Receiver Inherritance
+ProtocolReceiver -up-|> ProtocolGeneral
+ProtocolReceiver --|> ICanProcesEvents
+
+' Protocol Transmitter Dependencies
+ProtocolTransmitter ..> IPcCommunications
+ProtocolTransmitter ..> EventHandler
+
+' Protocol Transmitter Inherritance
+ProtocolTransmitter --|> IProtocolTransmission
+ProtocolTransmitter -up-|> ProtocolGeneral
+ProtocolTransmitter --|> ICanProcesEvents
+ProtocolTransmitter -left-|> IEegDataConsumer
+
+@enduml

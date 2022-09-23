@@ -4,12 +4,12 @@
 
 #include <stdint.h>
 
-#include "EEGDataProducer.h"
-#include "EEGDataConsumer.h"
+#include "IEEGDataProducer.h"
+#include "IEEGDataConsumer.h"
 
-#include <CanProcesEvents.h>
+#include <ICanProcesEvents.h>
 
-class DataFlowController : public CanProcessEvents, public EegDataProducer, EegDataConsumer {
+class DataFlowController : public ICanProcessEvents, public IEegDataProducer, IEegDataConsumer {
 
     public:
 
@@ -20,12 +20,12 @@ class DataFlowController : public CanProcessEvents, public EegDataProducer, EegD
         }eProducerConsumer;
 
         DataFlowController();
-        DataFlowController(EegDataProducer * primaryProducer, 
+        DataFlowController(IEegDataProducer * primaryProducer, 
                             NEvent::eEvent primaryDataReadyEvent,
-                            EegDataProducer * secondaryProducer,
+                            IEegDataProducer * secondaryProducer,
                             NEvent::eEvent secondaryDataReadyEvent,
-                            EegDataConsumer * primaryConsumer,
-                            EegDataConsumer * secondaryConsumer);
+                            IEegDataConsumer * primaryConsumer,
+                            IEegDataConsumer * secondaryConsumer);
         
         void SetProducer(eProducerConsumer priOrSec);
         void SetConsumer(eProducerConsumer priOrSec);
@@ -59,16 +59,16 @@ class DataFlowController : public CanProcessEvents, public EegDataProducer, EegD
 
     private:
 
-        EegDataProducer * _PrimaryProducerInstance;
+        IEegDataProducer * _PrimaryProducerInstance;
         NEvent::eEvent _PrimaryDataReadyEvent;
-        EegDataProducer * _SecondaryProducerInstance;
+        IEegDataProducer * _SecondaryProducerInstance;
         NEvent::eEvent _SecondaryDataReadyEvent;
-        EegDataProducer * _CurrentProducerInstance;
+        IEegDataProducer * _CurrentProducerInstance;
         NEvent::eEvent _CurrentDataReadyEvent;
 
-        EegDataConsumer * _PrimaryConsumerInstance;
-        EegDataConsumer * _SecondaryConsumerInstance;
-        EegDataConsumer * _CurrentConsumerInstance;
+        IEegDataConsumer * _PrimaryConsumerInstance;
+        IEegDataConsumer * _SecondaryConsumerInstance;
+        IEegDataConsumer * _CurrentConsumerInstance;
 
         bool _DataProductionInProgress;
 };

@@ -35,7 +35,7 @@ Ads1299DataProcessor::Ads1299DataProcessor(Ads1299Driver * ads, EventHandler * e
 }
 
 //
-// Overriden function from CanProcessEvents
+// Overriden function from ICanProcessEvents
 //
 void Ads1299DataProcessor::ProcessEvent(NEvent::eEvent event)
 {
@@ -86,7 +86,7 @@ void Ads1299DataProcessor::ProcessEvent(NEvent::eEvent event)
 }
 
 //
-//  Overridden function from EegDataProducer to start producing EEG data
+//  Overridden function from IEegDataProducer to start producing EEG data
 //
 void Ads1299DataProcessor::StartProducingData()
 {
@@ -94,7 +94,7 @@ void Ads1299DataProcessor::StartProducingData()
 }
 
 //
-//  Overridden function from EegDataProducer to stop producing EEG data
+//  Overridden function from IEegDataProducer to stop producing EEG data
 //
 void Ads1299DataProcessor::StopProducingData()
 {
@@ -102,7 +102,7 @@ void Ads1299DataProcessor::StopProducingData()
 }
 
 //
-//  Overriden function from EegDataProducer to get the latest samples.
+//  Overriden function from IEegDataProducer to get the latest samples.
 //
 EegData::sEegSamples Ads1299DataProcessor::GetLatestSample()
 {

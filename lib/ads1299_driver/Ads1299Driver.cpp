@@ -38,7 +38,7 @@ Ads1299Driver::Ads1299Driver(SpiDriver * spi, PinControl * pins, eMontage montag
 }
 
 //
-//  Overridden function from EegDataProducer to start producing EEG data
+//  Overridden function from IEegDataProducer to start producing EEG data
 //
 void Ads1299Driver::StartProducingData(Ads1299LowDriver::eSampleRate rate)
 {
@@ -69,7 +69,7 @@ void Ads1299Driver::StartProducingData(Ads1299LowDriver::eSampleRate rate)
 }
 
 //
-//  Overridden function from EegDataProducer to stop producing EEG data
+//  Overridden function from IEegDataProducer to stop producing EEG data
 //
 void Ads1299Driver::StopProducingData()
 {

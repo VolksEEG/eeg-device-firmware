@@ -4,7 +4,7 @@
 
 #include "EegData.h"
 
-class EegDataProducer {
+class IEegDataProducer {
 
     public:
 

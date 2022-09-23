@@ -4,7 +4,7 @@
 
 #include "Events.h"
 
-class CanProcessEvents {
+class ICanProcessEvents {
 
     public:
         virtual void ProcessEvent(NEvent::eEvent event) = 0;
