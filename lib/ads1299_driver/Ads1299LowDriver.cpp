@@ -44,7 +44,8 @@ void Ads1299LowDriver::ResetDevice(void)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     resetData,
-                                    1); 
+                                    1,
+                                    4000000); 
 
     // device has been reset, so set stored gains to the default.
     SetChannelGainsToDefault();                  
@@ -64,14 +65,16 @@ void Ads1299LowDriver::StartContinuousDataCapture(eSampleRate rate)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     startData,
-                                    1);     
+                                    1,
+                                    4000000);     
 
     uint8_t readContinuousData[1] = { (uint8_t)COMMAND_READ_DATA_CONTINUOUSLY };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     readContinuousData,
-                                    1);     
+                                    1,
+                                    4000000);     
 }
 
 /**
@@ -86,14 +89,16 @@ void Ads1299LowDriver::StopContinuousDataCapture(void)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     stopContinuousData,
-                                    1);   
+                                    1,
+                                    4000000);   
 
     uint8_t stopData[1] = { (uint8_t)COMMAND_STOP };
     
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     stopData,
-                                    1);     
+                                    1,
+                                    4000000);     
 }
 
 /**
@@ -218,7 +223,8 @@ Ads1299LowDriver::sAds1299AllChannelsData Ads1299LowDriver::GetAds1299Data(void)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     eegRawData,
-                                    27);
+                                    27,
+                                    12000000);
 
     Ads1299LowDriver::sAds1299AllChannelsData eegData;
 
@@ -278,7 +284,8 @@ uint8_t Ads1299LowDriver::ReadRegister(eRegisters reg)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     readRegData,
-                                    3);
+                                    3,
+                                    4000000);
 
     return readRegData[2];
 }
@@ -297,7 +304,8 @@ void Ads1299LowDriver::WriteRegister(eRegisters reg, uint8_t newValue)
     _SpiDriverInstance->TransmitDataOverSPI(_PinControlInstance,
                                     &PinControl::SetADS1299ChipSelectState,
                                     writeRegData,
-                                    3);
+                                    3,
+                                    4000000);
 }
 
 /**

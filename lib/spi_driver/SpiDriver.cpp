@@ -24,19 +24,19 @@ SpiDriver::SpiDriver()
 void SpiDriver::TransmitDataOverSPI(PinControl * pinControl, 
                                 void (PinControl::*chipSelectFptr)(PinControl::eSetPinState), 
                                 uint8_t dataTxRx[],
-                                uint8_t dataCount)
+                                uint8_t dataCount,
+                                uint32_t speed)
 {
 
-    SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE1));
+    SPI.beginTransaction(SPISettings(speed, MSBFIRST, SPI_MODE1));
 
+    // Assert chip select
     (pinControl->*chipSelectFptr)(PinControl::eSetPinState::SetActive);
 
-    // transfer each byte and set the dataTxRx array to the received byte.
-    for (int i = 0; i < dataCount; ++i)
-    {
-        dataTxRx[i] = (uint8_t)SPI.transfer(dataTxRx[i]);
-    }    
+    // transfer the data
+    SPI.transfer(dataTxRx, dataCount); 
 
+    // deassert the chip select
     (pinControl->*chipSelectFptr)(PinControl::eSetPinState::SetInactive);
 
     SPI.endTransaction();

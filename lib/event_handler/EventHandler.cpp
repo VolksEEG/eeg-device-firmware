@@ -34,6 +34,14 @@ EventHandler::EventHandler(ErrorHandler * eh) :
             _EventProcessers[event].processerInstance_ptrs[handler] = this;
         }
     }
+
+    // initialise debugging pins
+    for (uint8_t pin = 0; pin < NEvent::MAX_EVENTS; ++pin)
+    {
+        pinMode(A0 + pin, OUTPUT);
+
+        digitalWrite(A0 + pin, LOW);
+    }
 }
 
 //
@@ -50,6 +58,8 @@ void EventHandler::SignalEvent(NEvent::eEvent event)
     }   
 
     _EventsSetBits |= (uint8_t)(1 << event);
+    
+    digitalWrite(A0 + (uint8_t)event, HIGH);
 }   
 
 //
@@ -132,4 +142,7 @@ void EventHandler::HandleEvents(void)
 
     // this event has been processed, so clear it's bit
     _EventsSetBits &= ~(1 << eventIndex);
+    
+    
+    digitalWrite(A0 + (uint8_t)eventIndex, LOW);
 }
