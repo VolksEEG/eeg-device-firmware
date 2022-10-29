@@ -19,6 +19,8 @@ class ProtocolTransmitter : public IEegDataConsumer, public ICanProcessEvents, p
 
         void ProcessEvent(NEvent::eEvent event) override;
 
+        void BackgroundTaskHandler(void);
+
         bool SendPayloadToPc(uint8_t * payload_ptr, uint8_t payload_length) override;
         void UpdateIdToAcknowledge(uint8_t id) override;
         void UpdateAcknowledgedId(uint8_t id) override;
@@ -53,7 +55,8 @@ class ProtocolTransmitter : public IEegDataConsumer, public ICanProcessEvents, p
         uint8_t _TxNextOpIndex;
         uint8_t _TxCount;
         sTxMessageStruct _TxMessages[_MAX_TX_MESSAGES];
-
+        
+        bool _MoreMessagesToTransmit;
 };
 
 #endif

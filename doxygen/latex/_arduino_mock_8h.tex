@@ -1,0 +1,138 @@
+\hypertarget{_arduino_mock_8h}{}\doxysection{src/\+Arduino\+Mock.h File Reference}
+\label{_arduino_mock_8h}\index{src/ArduinoMock.h@{src/ArduinoMock.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_p_i_settings}{SPISettings}}
+\item 
+class \mbox{\hyperlink{class_s_p_i__mock}{SPI\+\_\+mock}}
+\item 
+class \mbox{\hyperlink{class_s_e_r_i_a_l__mock}{SERIAL\+\_\+mock}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_ab811d8c6ff3a505312d3276590444289}{LOW}}~0
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a5bb885982ff66a2e0a0a45a8ee9c35e2}{HIGH}}~1
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a61a3c9a18380aafb6e430e79bf596557}{OUTPUT}}~0
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a1bb283bd7893b9855e2f23013891fc82}{INPUT}}~1
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a450a7c16ead7b3c7b882536b08f30a00}{LED\+\_\+\+BUILTIN}}~13
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a9b5b7a81a27c468d90cbfe71d110bc50}{pin\+Mode}}(a,  b)
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a4b4f9efe7c391ae4ca92d034cd4e3a83}{digital\+Write}}(a,  b)
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a001c2fcf1523fd4c2049a0580106165c}{digital\+Read}}(a)~(0)
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a1c7ef42eff02618bde70868af4944d81}{MSBFIRST}}~0
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a9481b7327b91aa52ff5f70eb2d0acc95}{SPI\+\_\+\+MODE1}}~1
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a8dfd0b70aa3eb3c592d6de11711fce91}{no\+Interrupts}}()
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_aeab54da5ac84f3441a91cb982b2276bc}{interrupts}}()
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a33f31f398d4e35131ab46c4d5c35ecc3}{attach\+Interrupt}}(a,  b,  c)
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_a70e68d90c196202d17e93cb1feac3356}{digital\+Pin\+To\+Interrupt}}()
+\item 
+\#define \mbox{\hyperlink{_arduino_mock_8h_ac00eb6fc2047dc399280f31b0c5f4472}{FALLING}}~0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_arduino_mock_8h_a33f31f398d4e35131ab46c4d5c35ecc3}\label{_arduino_mock_8h_a33f31f398d4e35131ab46c4d5c35ecc3}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!attachInterrupt@{attachInterrupt}}
+\index{attachInterrupt@{attachInterrupt}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{attachInterrupt}{attachInterrupt}}
+{\footnotesize\ttfamily \#define attach\+Interrupt(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b,  }\item[{}]{c }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a70e68d90c196202d17e93cb1feac3356}\label{_arduino_mock_8h_a70e68d90c196202d17e93cb1feac3356}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!digitalPinToInterrupt@{digitalPinToInterrupt}}
+\index{digitalPinToInterrupt@{digitalPinToInterrupt}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{digitalPinToInterrupt}{digitalPinToInterrupt}}
+{\footnotesize\ttfamily \#define digital\+Pin\+To\+Interrupt(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a001c2fcf1523fd4c2049a0580106165c}\label{_arduino_mock_8h_a001c2fcf1523fd4c2049a0580106165c}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!digitalRead@{digitalRead}}
+\index{digitalRead@{digitalRead}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{digitalRead}{digitalRead}}
+{\footnotesize\ttfamily \#define digital\+Read(\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})~(0)}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a4b4f9efe7c391ae4ca92d034cd4e3a83}\label{_arduino_mock_8h_a4b4f9efe7c391ae4ca92d034cd4e3a83}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!digitalWrite@{digitalWrite}}
+\index{digitalWrite@{digitalWrite}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{digitalWrite}{digitalWrite}}
+{\footnotesize\ttfamily \#define digital\+Write(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_ac00eb6fc2047dc399280f31b0c5f4472}\label{_arduino_mock_8h_ac00eb6fc2047dc399280f31b0c5f4472}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!FALLING@{FALLING}}
+\index{FALLING@{FALLING}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{FALLING}{FALLING}}
+{\footnotesize\ttfamily \#define FALLING~0}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a5bb885982ff66a2e0a0a45a8ee9c35e2}\label{_arduino_mock_8h_a5bb885982ff66a2e0a0a45a8ee9c35e2}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!HIGH@{HIGH}}
+\index{HIGH@{HIGH}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{HIGH}{HIGH}}
+{\footnotesize\ttfamily \#define HIGH~1}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a1bb283bd7893b9855e2f23013891fc82}\label{_arduino_mock_8h_a1bb283bd7893b9855e2f23013891fc82}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!INPUT@{INPUT}}
+\index{INPUT@{INPUT}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{INPUT}{INPUT}}
+{\footnotesize\ttfamily \#define INPUT~1}
+
+\mbox{\Hypertarget{_arduino_mock_8h_aeab54da5ac84f3441a91cb982b2276bc}\label{_arduino_mock_8h_aeab54da5ac84f3441a91cb982b2276bc}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!interrupts@{interrupts}}
+\index{interrupts@{interrupts}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{interrupts}{interrupts}}
+{\footnotesize\ttfamily \#define interrupts(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a450a7c16ead7b3c7b882536b08f30a00}\label{_arduino_mock_8h_a450a7c16ead7b3c7b882536b08f30a00}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!LED\_BUILTIN@{LED\_BUILTIN}}
+\index{LED\_BUILTIN@{LED\_BUILTIN}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{LED\_BUILTIN}{LED\_BUILTIN}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+BUILTIN~13}
+
+\mbox{\Hypertarget{_arduino_mock_8h_ab811d8c6ff3a505312d3276590444289}\label{_arduino_mock_8h_ab811d8c6ff3a505312d3276590444289}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!LOW@{LOW}}
+\index{LOW@{LOW}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{LOW}{LOW}}
+{\footnotesize\ttfamily \#define LOW~0}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a1c7ef42eff02618bde70868af4944d81}\label{_arduino_mock_8h_a1c7ef42eff02618bde70868af4944d81}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!MSBFIRST@{MSBFIRST}}
+\index{MSBFIRST@{MSBFIRST}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{MSBFIRST}{MSBFIRST}}
+{\footnotesize\ttfamily \#define MSBFIRST~0}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a8dfd0b70aa3eb3c592d6de11711fce91}\label{_arduino_mock_8h_a8dfd0b70aa3eb3c592d6de11711fce91}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!noInterrupts@{noInterrupts}}
+\index{noInterrupts@{noInterrupts}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{noInterrupts}{noInterrupts}}
+{\footnotesize\ttfamily \#define no\+Interrupts(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a61a3c9a18380aafb6e430e79bf596557}\label{_arduino_mock_8h_a61a3c9a18380aafb6e430e79bf596557}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!OUTPUT@{OUTPUT}}
+\index{OUTPUT@{OUTPUT}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{OUTPUT}{OUTPUT}}
+{\footnotesize\ttfamily \#define OUTPUT~0}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a9b5b7a81a27c468d90cbfe71d110bc50}\label{_arduino_mock_8h_a9b5b7a81a27c468d90cbfe71d110bc50}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!pinMode@{pinMode}}
+\index{pinMode@{pinMode}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{pinMode}{pinMode}}
+{\footnotesize\ttfamily \#define pin\+Mode(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_arduino_mock_8h_a9481b7327b91aa52ff5f70eb2d0acc95}\label{_arduino_mock_8h_a9481b7327b91aa52ff5f70eb2d0acc95}} 
+\index{ArduinoMock.h@{ArduinoMock.h}!SPI\_MODE1@{SPI\_MODE1}}
+\index{SPI\_MODE1@{SPI\_MODE1}!ArduinoMock.h@{ArduinoMock.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_MODE1}{SPI\_MODE1}}
+{\footnotesize\ttfamily \#define SPI\+\_\+\+MODE1~1}
+

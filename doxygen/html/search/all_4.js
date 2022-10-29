@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['eegdata_0',['EegData',['../class_eeg_data.html',1,'']]],
-  ['error_20handler_1',['Error Handler',['../md_lib_error_handler__r_e_a_d_m_e.html',1,'']]],
-  ['errorhandler_2',['ErrorHandler',['../class_error_handler.html',1,'']]],
-  ['event_20handler_3',['Event Handler',['../md_lib_event_handler__r_e_a_d_m_e.html',1,'']]],
-  ['eventhandler_4',['EventHandler',['../class_event_handler.html',1,'']]]
+  ['data_20flow_20controller_0',['Data Flow Controller',['../md_lib_data_flow_controller__r_e_a_d_m_e.html',1,'']]],
+  ['dataflowcontroller_1',['DataFlowController',['../class_data_flow_controller.html',1,'']]]
 ];

@@ -64,6 +64,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_ads1299_data_processor-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ads1299DataProcessor Class Reference</div></div>
 </div><!--header-->
@@ -103,6 +105,36 @@ virtual <a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">Ee
 <tr class="separator:a989df1c35bb8ec809bf0fb6e0636d2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e764361ab2e1a39342996bf90bb5030"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_can_process_events.html#a8e764361ab2e1a39342996bf90bb5030">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
 <tr class="separator:a8e764361ab2e1a39342996bf90bb5030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a61b02f8523c21c7d09918ad7a0b5d309"><td class="memItemLeft" align="right" valign="top"><a id="a61b02f8523c21c7d09918ad7a0b5d309" name="a61b02f8523c21c7d09918ad7a0b5d309"></a>
+<a class="el" href="class_ads1299_driver.html">Ads1299Driver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_Ads1299Driver_ptr</b></td></tr>
+<tr class="separator:a61b02f8523c21c7d09918ad7a0b5d309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77df460234c2e3a0aad92b54ef90edfb"><td class="memItemLeft" align="right" valign="top"><a id="a77df460234c2e3a0aad92b54ef90edfb" name="a77df460234c2e3a0aad92b54ef90edfb"></a>
+<a class="el" href="class_event_handler.html">EventHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_EventHandler_ptr</b></td></tr>
+<tr class="separator:a77df460234c2e3a0aad92b54ef90edfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d500b5b0f060fe4d44d9aaf366a0a20"><td class="memItemLeft" align="right" valign="top"><a id="a8d500b5b0f060fe4d44d9aaf366a0a20" name="a8d500b5b0f060fe4d44d9aaf366a0a20"></a>
+<a class="el" href="class_error_handler.html">ErrorHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_ErrorHandler_ptr</b></td></tr>
+<tr class="separator:a8d500b5b0f060fe4d44d9aaf366a0a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ba947e95f84aff9214c9731eb8eed2"><td class="memItemLeft" align="right" valign="top"><a id="a76ba947e95f84aff9214c9731eb8eed2" name="a76ba947e95f84aff9214c9731eb8eed2"></a>
+<a class="el" href="struct_eeg_data_1_1___e_e_g___s_a_m_p_l_e_s.html">EegData::sEegSamples</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_AdsBufferedData</b> [_MAX_SAMPLES_TO_BUFFER]</td></tr>
+<tr class="separator:a76ba947e95f84aff9214c9731eb8eed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e483b7e9fd3dcf72e85270659042929"><td class="memItemLeft" align="right" valign="top"><a id="a1e483b7e9fd3dcf72e85270659042929" name="a1e483b7e9fd3dcf72e85270659042929"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_AdsSampleBufferInputIndex</b></td></tr>
+<tr class="separator:a1e483b7e9fd3dcf72e85270659042929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18292ec9f3159602e6eff5f2fcee38e"><td class="memItemLeft" align="right" valign="top"><a id="ae18292ec9f3159602e6eff5f2fcee38e" name="ae18292ec9f3159602e6eff5f2fcee38e"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_AdsSampleBufferOutputIndex</b></td></tr>
+<tr class="separator:ae18292ec9f3159602e6eff5f2fcee38e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac772bdeccb82ad7546ce90283396dc1d"><td class="memItemLeft" align="right" valign="top"><a id="ac772bdeccb82ad7546ce90283396dc1d" name="ac772bdeccb82ad7546ce90283396dc1d"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_AdsSampleBufferCount</b></td></tr>
+<tr class="separator:ac772bdeccb82ad7546ce90283396dc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:af49deb1b3b0d257546c50caca3cf5eca"><td class="memItemLeft" align="right" valign="top"><a id="af49deb1b3b0d257546c50caca3cf5eca" name="af49deb1b3b0d257546c50caca3cf5eca"></a>
+static const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_MAX_SAMPLES_TO_BUFFER</b> = 50</td></tr>
+<tr class="separator:af49deb1b3b0d257546c50caca3cf5eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a161da6888c9595be43e4b50abd70a6a0" name="a161da6888c9595be43e4b50abd70a6a0"></a>

@@ -34,7 +34,8 @@ ProtocolTransmitter::ProtocolTransmitter(IPcCommunications * pci, EventHandler *
     _TxIpIndex(0),
     _TxNextUnackedIndex(0),
     _TxNextOpIndex(0),
-    _TxCount(0)
+    _TxCount(0),
+    _MoreMessagesToTransmit(false)
 {
     
 }
@@ -59,6 +60,7 @@ void ProtocolTransmitter::ProcessEvent(NEvent::eEvent event)
 
     // first populate the next message to send with the latest ID to Ack
     _TxMessages[_TxNextOpIndex].message[_ID_ACKNOWLEDGE_INDEX] = _IdToAcknowledge;
+    
     // and update the header checksum as this may have changed
     _TxMessages[_TxNextOpIndex].message[_HEADER_CHECKSUM_INDEX] = CalculateChecksumOfMessageHeader(_TxMessages[_TxNextOpIndex].message);
 
@@ -67,17 +69,38 @@ void ProtocolTransmitter::ProcessEvent(NEvent::eEvent event)
 
     const uint8_t NEXT_NEXT_OP_INDEX = ((_TxNextOpIndex + 1) == _MAX_TX_MESSAGES) ? 0 : (_TxNextOpIndex + 1);
 
+    //! \todo Remove this, only in so that messages are sent and ack'd straight away
+    UpdateAcknowledgedId(_TxMessages[_TxNextOpIndex].message[_ID_NUMBER_INDEX]);
+
     if (NEXT_NEXT_OP_INDEX == _TxIpIndex)
     {
         // the next index is where the next message will go, therefore there are no more messages to send.
         // do not update the next op index, if this function gets called again, it will resend the last message.
+        _MoreMessagesToTransmit = false;
+
         return;
     }
 
     // update the op index to send the next message next time
     _TxNextOpIndex = NEXT_NEXT_OP_INDEX;
 
-    // TODO - Event_DataToTxToPC will only be called once, we can't signal it again here, as that will cause an overrun, maybe set up some timer and/or do as in the SerialPortDriver.
+    // set flag so that the Event_DataToTxToPC is raised again
+    _MoreMessagesToTransmit = true;
+}
+
+/**
+ * @brief re-signals the Event_DataToTxToPC if required.
+ */
+void ProtocolTransmitter::BackgroundTaskHandler(void)
+{
+    if (!_MoreMessagesToTransmit)
+    {
+        return;
+    }
+
+    _MoreMessagesToTransmit = false; // this will be set back true when the event is processed.
+
+    _EventHandlerInstance->SignalEvent(NEvent::Event_DataToTxToPC);
 }
 
 /**
@@ -210,9 +233,27 @@ void ProtocolTransmitter::UpdateAcknowledgedId(uint8_t id)
  */
 void ProtocolTransmitter::PushLatestSample(EegData::sEegSamples samples)
 {
-    uint8_t eeg_data_payload[10];       // TODO - actually populate this
+    uint8_t eeg_data_payload[17] = {
+        1,      // 1 sample per channel at the moment
+        ((samples.channel_1 & 0xFF00) >> 8),
+        (samples.channel_1 & 0x00FF),
+        ((samples.channel_2 & 0xFF00) >> 8),
+        (samples.channel_2 & 0x00FF),
+        ((samples.channel_3 & 0xFF00) >> 8),
+        (samples.channel_3 & 0x00FF),
+        ((samples.channel_4 & 0xFF00) >> 8),
+        (samples.channel_4 & 0x00FF),
+        ((samples.channel_5 & 0xFF00) >> 8),
+        (samples.channel_5 & 0x00FF),
+        ((samples.channel_6 & 0xFF00) >> 8),
+        (samples.channel_6 & 0x00FF),
+        ((samples.channel_7 & 0xFF00) >> 8),
+        (samples.channel_7 & 0x00FF),
+        ((samples.channel_8 & 0xFF00) >> 8),
+        (samples.channel_8 & 0x00FF),
+    };
 
-    this->SendPayloadToPc(eeg_data_payload, 10);    // TODO - send the correct amount.
+    this->SendPayloadToPc(eeg_data_payload, 17);
 }
 
 #ifdef PIO_UNIT_TESTING

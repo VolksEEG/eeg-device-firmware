@@ -298,7 +298,7 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessag
     // ID is OK, does this ack any of our ID's
     protocolReceiver->_ProtocolTransmissionInstance->UpdateAcknowledgedId(state.message[_ID_ACKNOWLEDGE_INDEX]);
 
-    // TODO - Process the message contents
+    //! @todo Process the message contents
 
     return ResetRxStruct(state);
 }

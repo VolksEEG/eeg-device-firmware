@@ -52,10 +52,10 @@
 \DoxyCodeLine{48         \mbox{\hyperlink{class_event_handler}{EventHandler}} * \_EventHandler;}
 \DoxyCodeLine{49         \mbox{\hyperlink{class_i_protocol_transmission}{IProtocolTransmission}} * \_ProtocolTransmissionInstance;}
 \DoxyCodeLine{50 }
-\DoxyCodeLine{51         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\_RX\_STATE}
+\DoxyCodeLine{51         \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{\_RX\_STATE}}}
 \DoxyCodeLine{52         \{}
 \DoxyCodeLine{53             \textcolor{comment}{// reception varaibles}}
-\DoxyCodeLine{54             \_RX\_STATE (*state\_fptr)(uint8\_t c, \_RX\_STATE state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{54             \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{\_RX\_STATE}} (*state\_fptr)(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{\_RX\_STATE}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
 \DoxyCodeLine{55             uint8\_t rxIndex;}
 \DoxyCodeLine{56             uint8\_t rxMultiByteCounter;}
 \DoxyCodeLine{57 }
@@ -64,20 +64,20 @@
 \DoxyCodeLine{60 }
 \DoxyCodeLine{61             uint8\_t nextExpectedID;}
 \DoxyCodeLine{62 }
-\DoxyCodeLine{63         \}sRxStruct;}
+\DoxyCodeLine{63         \}\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}};}
 \DoxyCodeLine{64 }
-\DoxyCodeLine{65         sRxStruct \_RxState;}
+\DoxyCodeLine{65         \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \_RxState;}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{67         \textcolor{keyword}{static} sRxStruct ResetRxStruct(sRxStruct state);}
+\DoxyCodeLine{67         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_a01e102370fb2ed82c68a147b7a3dfd1f}{ResetRxStruct}}(\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state);}
 \DoxyCodeLine{68 }
-\DoxyCodeLine{69         \textcolor{keyword}{static} sRxStruct RxState\_WaitForSyncSequence(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{70         \textcolor{keyword}{static} sRxStruct RxState\_GetProtocolVersion(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{71         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadLength(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{72         \textcolor{keyword}{static} sRxStruct RxState\_GetIdNumber(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{73         \textcolor{keyword}{static} sRxStruct RxState\_GetAcknowledgeId(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{74         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadChecksum(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{75         \textcolor{keyword}{static} sRxStruct RxState\_GetHeaderChecksum(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
-\DoxyCodeLine{76         \textcolor{keyword}{static} sRxStruct RxState\_GetPayloadAndProcessMessageContents(uint8\_t c, sRxStruct state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{69         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_a8122610488cb525b5b33408a4c0287d9}{RxState\_WaitForSyncSequence}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{70         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_a8e1b9b683a56f3e87e24872bf7c5a1ce}{RxState\_GetProtocolVersion}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{71         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_acf8eb9108bcf1528b17eec6bf9068a7e}{RxState\_GetPayloadLength}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{72         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_ab599b58913c7a4c9599138b920f3d874}{RxState\_GetIdNumber}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{73         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_a9b3b5775cac97714924e229dbee6c938}{RxState\_GetAcknowledgeId}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{74         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_a06b0739338a0fb691ba2084857086436}{RxState\_GetPayloadChecksum}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{75         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_acda7a7a8ecb028f47a86606e20e68f07}{RxState\_GetHeaderChecksum}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
+\DoxyCodeLine{76         \textcolor{keyword}{static} \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} \mbox{\hyperlink{class_protocol_receiver_abc474ba439dcc4a299e95d8b17a2a06a}{RxState\_GetPayloadAndProcessMessageContents}}(uint8\_t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{sRxStruct}} state, \mbox{\hyperlink{class_protocol_receiver}{ProtocolReceiver}} * protocolReceiver);}
 \DoxyCodeLine{77 \};}
 \DoxyCodeLine{78 }
 \DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}

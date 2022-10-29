@@ -14,6 +14,48 @@ Inheritance diagram for Led\+Control\+:\begin{figure}[H]
 \item 
 void \mbox{\hyperlink{class_led_control_aa8af3b5c511f4e67a498ec9067e49a7a}{Process\+Event}} (NEvent\+::e\+Event event) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_led_control_afadda3153f9f2acafc2a78cfc8fab784}\label{class_led_control_afadda3153f9f2acafc2a78cfc8fab784}} 
+void {\bfseries Led\+State\+On} (void)
+\item 
+\mbox{\Hypertarget{class_led_control_a4b17ad90e005d3a257337749117c3dea}\label{class_led_control_a4b17ad90e005d3a257337749117c3dea}} 
+void {\bfseries Led\+State\+Off} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_led_control_ae86cb379491d98e61c4d25712adcb028}\label{class_led_control_ae86cb379491d98e61c4d25712adcb028}} 
+\mbox{\hyperlink{class_error_handler}{Error\+Handler}} $\ast$ {\bfseries \+\_\+\+Error\+HAndler\+Instance}
+\item 
+\mbox{\Hypertarget{class_led_control_a6b2d3edac20c8f09f62d8c8a777234b0}\label{class_led_control_a6b2d3edac20c8f09f62d8c8a777234b0}} 
+\mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$ {\bfseries \+\_\+\+Pin\+Control\+Instance}
+\item 
+\mbox{\Hypertarget{class_led_control_a4fd27f1851a963aa318c53024b417cb9}\label{class_led_control_a4fd27f1851a963aa318c53024b417cb9}} 
+uint16\+\_\+t {\bfseries \+\_\+\+Led\+Counter}
+\item 
+\mbox{\Hypertarget{class_led_control_ab74c008546b445eaf5af3c2668cf77e4}\label{class_led_control_ab74c008546b445eaf5af3c2668cf77e4}} 
+uint16\+\_\+t {\bfseries \+\_\+\+Led\+Timeout}
+\item 
+\mbox{\Hypertarget{class_led_control_a46c7b0064ec8d873bffac8000317c632}\label{class_led_control_a46c7b0064ec8d873bffac8000317c632}} 
+void(Led\+Control\+::$\ast$ {\bfseries \+\_\+\+Led\+State\+Function} )()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_led_control_a2547441457efbc20c6dabeae7c566acb}\label{class_led_control_a2547441457efbc20c6dabeae7c566acb}} 
+static const uint16\+\_\+t {\bfseries NORMAL\+\_\+\+ON\+\_\+\+TIMEOUT} = 500
+\item 
+\mbox{\Hypertarget{class_led_control_ad13e0ec0d14828090811e4e1a92c47ed}\label{class_led_control_ad13e0ec0d14828090811e4e1a92c47ed}} 
+static const uint16\+\_\+t {\bfseries NORMAL\+\_\+\+OFF\+\_\+\+TIMEOUT} = 1500
+\item 
+\mbox{\Hypertarget{class_led_control_a0851cca9ebef15da0176952d87285356}\label{class_led_control_a0851cca9ebef15da0176952d87285356}} 
+static const uint16\+\_\+t {\bfseries ERROR\+\_\+\+ON\+\_\+\+TIMEOUT} = 1500
+\item 
+\mbox{\Hypertarget{class_led_control_a89fea9e1d276935461a278df259d4a41}\label{class_led_control_a89fea9e1d276935461a278df259d4a41}} 
+static const uint16\+\_\+t {\bfseries ERROR\+\_\+\+OFF\+\_\+\+TIMEOUT} = 500
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}

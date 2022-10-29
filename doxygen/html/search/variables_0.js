@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['_5fheader_5fchecksum_5findex_0',['_HEADER_CHECKSUM_INDEX',['../class_protocol_general.html#a2c2df8f228d42c556b3b89e287fdaab5',1,'ProtocolGeneral']]],
+  ['_5fheader_5fsize_1',['_HEADER_SIZE',['../class_protocol_general.html#ab247bc8a996826f613bb87dacc17ab9f',1,'ProtocolGeneral']]],
+  ['_5fid_5facknowledge_5findex_2',['_ID_ACKNOWLEDGE_INDEX',['../class_protocol_general.html#afd3db22849f87298562bcc42d3b79866',1,'ProtocolGeneral']]],
+  ['_5fid_5fnumber_5findex_3',['_ID_NUMBER_INDEX',['../class_protocol_general.html#a17e36aa2fd4b152d65d02cc97efa817b',1,'ProtocolGeneral']]],
+  ['_5fimplemented_5fprotocol_5fversion_4',['_IMPLEMENTED_PROTOCOL_VERSION',['../class_protocol_general.html#a0e018e245cb4ce9fcc55c77a144a2959',1,'ProtocolGeneral']]],
+  ['_5fmax_5fmessage_5flength_5',['_MAX_MESSAGE_LENGTH',['../class_protocol_general.html#a3de95bec7240bf67583b74b349c9cd3b',1,'ProtocolGeneral']]],
+  ['_5fmax_5fpayload_5fsize_6',['_MAX_PAYLOAD_SIZE',['../class_protocol_general.html#acf2f03239d6edffb0f01e1f4aa7d8b6f',1,'ProtocolGeneral']]],
+  ['_5fmax_5ftx_5fmessages_7',['_MAX_TX_MESSAGES',['../class_protocol_transmitter.html#af93011483fed961884634695874f4e0b',1,'ProtocolTransmitter']]],
+  ['_5fmax_5fvalid_5fid_8',['_MAX_VALID_ID',['../class_protocol_general.html#a44f27206d04cc66447efe33018f4610f',1,'ProtocolGeneral']]],
+  ['_5fpayload_5fchecksum_5findex_9',['_PAYLOAD_CHECKSUM_INDEX',['../class_protocol_general.html#a9efca1ca39e5b4e77ae2b14474d051c9',1,'ProtocolGeneral']]],
+  ['_5fpayload_5flength_5findex_10',['_PAYLOAD_LENGTH_INDEX',['../class_protocol_general.html#a26d647c190b3c72ccb5b7621a66a99dc',1,'ProtocolGeneral']]],
+  ['_5fpayload_5fstart_5findex_11',['_PAYLOAD_START_INDEX',['../class_protocol_general.html#a0d7b1855da94f69b2b5003edd3ad7c1d',1,'ProtocolGeneral']]],
+  ['_5fprotocol_5fversion_5findex_12',['_PROTOCOL_VERSION_INDEX',['../class_protocol_general.html#aeb83f9a115bb64c871025130d0cf4c3a',1,'ProtocolGeneral']]],
+  ['_5fsync_5fword_5flsb_13',['_SYNC_WORD_LSB',['../class_protocol_general.html#aa404f50f3ad9f8b0d67c0ea68ed24e07',1,'ProtocolGeneral']]],
+  ['_5fsync_5fword_5flsb_5findex_14',['_SYNC_WORD_LSB_INDEX',['../class_protocol_general.html#a4c19a075423dd27c0652856c62fe23eb',1,'ProtocolGeneral']]],
+  ['_5fsync_5fword_5fmsb_15',['_SYNC_WORD_MSB',['../class_protocol_general.html#a453f4f38c45acadf5ba1dd73eb88a0c3',1,'ProtocolGeneral']]],
+  ['_5fsync_5fword_5fmsb_5findex_16',['_SYNC_WORD_MSB_INDEX',['../class_protocol_general.html#a3c88f4e81311598e871a624f3644e6ed',1,'ProtocolGeneral']]]
+];

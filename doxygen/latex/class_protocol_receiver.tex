@@ -6,6 +6,11 @@ Inheritance diagram for Protocol\+Receiver\+:\begin{figure}[H]
 \includegraphics[height=2.000000cm]{class_protocol_receiver}
 \end{center}
 \end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{\+\_\+\+RX\+\_\+\+STATE}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,6 +21,52 @@ Inheritance diagram for Protocol\+Receiver\+:\begin{figure}[H]
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_receiver_a0faff55ee749eaf8d9dffa16d26d0915}{Process\+Event}} (NEvent\+::e\+Event event) override
 \begin{DoxyCompactList}\small\item\em Overridden function to process events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a6dbbe03a4c18063f49acdb04111d3158}\label{class_protocol_receiver_a6dbbe03a4c18063f49acdb04111d3158}} 
+typedef struct \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::\+\_\+\+RX\+\_\+\+STATE}} {\bfseries s\+Rx\+Struct}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_a01e102370fb2ed82c68a147b7a3dfd1f}{Reset\+Rx\+Struct}} (\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state)
+\begin{DoxyCompactList}\small\item\em helper function to reset the an Rx State structure ready to restart the receiving process. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_a8122610488cb525b5b33408a4c0287d9}{Rx\+State\+\_\+\+Wait\+For\+Sync\+Sequence}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which waits for the synchronization sequence to be received. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_a8e1b9b683a56f3e87e24872bf7c5a1ce}{Rx\+State\+\_\+\+Get\+Protocol\+Version}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which gets and stores the protocol version. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_acf8eb9108bcf1528b17eec6bf9068a7e}{Rx\+State\+\_\+\+Get\+Payload\+Length}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which gets the payload length. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_ab599b58913c7a4c9599138b920f3d874}{Rx\+State\+\_\+\+Get\+Id\+Number}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which gets the ID Number. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_a9b3b5775cac97714924e229dbee6c938}{Rx\+State\+\_\+\+Get\+Acknowledge\+Id}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which gets the Acknowledge ID Number. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_a06b0739338a0fb691ba2084857086436}{Rx\+State\+\_\+\+Get\+Payload\+Checksum}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which Gets the payload checksum. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_acda7a7a8ecb028f47a86606e20e68f07}{Rx\+State\+\_\+\+Get\+Header\+Checksum}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which Gets and checks the header checksum. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} \mbox{\hyperlink{class_protocol_receiver_abc474ba439dcc4a299e95d8b17a2a06a}{Rx\+State\+\_\+\+Get\+Payload\+And\+Process\+Message\+Contents}} (uint8\+\_\+t c, \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)
+\begin{DoxyCompactList}\small\item\em Rx State function which gets the payload number of bytes and processes the message contents. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a606f2a842f9a2d3d0613d5abce19fa5b}\label{class_protocol_receiver_a606f2a842f9a2d3d0613d5abce19fa5b}} 
+\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$ {\bfseries \+\_\+\+Pc\+Coms\+Interface}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a29388294b6708574443635c4663f126d}\label{class_protocol_receiver_a29388294b6708574443635c4663f126d}} 
+\mbox{\hyperlink{class_i_eeg_data_producer}{IEeg\+Data\+Producer}} $\ast$ {\bfseries \+\_\+\+EEGData\+Producer}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a7b76c594e32caaaf8fcc5a05bd4f3189}\label{class_protocol_receiver_a7b76c594e32caaaf8fcc5a05bd4f3189}} 
+\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$ {\bfseries \+\_\+\+Event\+Handler}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_afec85b4f9002aaf6fc029acbd0f2304d}\label{class_protocol_receiver_afec85b4f9002aaf6fc029acbd0f2304d}} 
+\mbox{\hyperlink{class_i_protocol_transmission}{IProtocol\+Transmission}} $\ast$ {\bfseries \+\_\+\+Protocol\+Transmission\+Instance}
+\item 
+\mbox{\Hypertarget{class_protocol_receiver_a708eb620c14ffdc7c35e6e9d6253c262}\label{class_protocol_receiver_a708eb620c14ffdc7c35e6e9d6253c262}} 
+\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}} {\bfseries \+\_\+\+Rx\+State}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -62,6 +113,205 @@ Overridden function to process events.
 
 Implements \mbox{\hyperlink{class_i_can_process_events}{ICan\+Process\+Events}}.
 
+\mbox{\Hypertarget{class_protocol_receiver_a01e102370fb2ed82c68a147b7a3dfd1f}\label{class_protocol_receiver_a01e102370fb2ed82c68a147b7a3dfd1f}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!ResetRxStruct@{ResetRxStruct}}
+\index{ResetRxStruct@{ResetRxStruct}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{ResetRxStruct()}{ResetRxStruct()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Reset\+Rx\+Struct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+helper function to reset the an Rx State structure ready to restart the receiving process. 
+
+\begin{DoxyNote}{Note}
+Only the fields which are specific to a single isolated message reception are reset.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The receive state structure to reset.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_a9b3b5775cac97714924e229dbee6c938}\label{class_protocol_receiver_a9b3b5775cac97714924e229dbee6c938}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetAcknowledgeId@{RxState\_GetAcknowledgeId}}
+\index{RxState\_GetAcknowledgeId@{RxState\_GetAcknowledgeId}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetAcknowledgeId()}{RxState\_GetAcknowledgeId()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Acknowledge\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which gets the Acknowledge ID Number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_acda7a7a8ecb028f47a86606e20e68f07}\label{class_protocol_receiver_acda7a7a8ecb028f47a86606e20e68f07}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetHeaderChecksum@{RxState\_GetHeaderChecksum}}
+\index{RxState\_GetHeaderChecksum@{RxState\_GetHeaderChecksum}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetHeaderChecksum()}{RxState\_GetHeaderChecksum()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Header\+Checksum (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which Gets and checks the header checksum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_ab599b58913c7a4c9599138b920f3d874}\label{class_protocol_receiver_ab599b58913c7a4c9599138b920f3d874}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetIdNumber@{RxState\_GetIdNumber}}
+\index{RxState\_GetIdNumber@{RxState\_GetIdNumber}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetIdNumber()}{RxState\_GetIdNumber()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Id\+Number (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which gets the ID Number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_abc474ba439dcc4a299e95d8b17a2a06a}\label{class_protocol_receiver_abc474ba439dcc4a299e95d8b17a2a06a}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetPayloadAndProcessMessageContents@{RxState\_GetPayloadAndProcessMessageContents}}
+\index{RxState\_GetPayloadAndProcessMessageContents@{RxState\_GetPayloadAndProcessMessageContents}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetPayloadAndProcessMessageContents()}{RxState\_GetPayloadAndProcessMessageContents()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Payload\+And\+Process\+Message\+Contents (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which gets the payload number of bytes and processes the message contents. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]Process the message contents \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_protocol_receiver_a06b0739338a0fb691ba2084857086436}\label{class_protocol_receiver_a06b0739338a0fb691ba2084857086436}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetPayloadChecksum@{RxState\_GetPayloadChecksum}}
+\index{RxState\_GetPayloadChecksum@{RxState\_GetPayloadChecksum}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetPayloadChecksum()}{RxState\_GetPayloadChecksum()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Payload\+Checksum (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which Gets the payload checksum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_acf8eb9108bcf1528b17eec6bf9068a7e}\label{class_protocol_receiver_acf8eb9108bcf1528b17eec6bf9068a7e}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetPayloadLength@{RxState\_GetPayloadLength}}
+\index{RxState\_GetPayloadLength@{RxState\_GetPayloadLength}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetPayloadLength()}{RxState\_GetPayloadLength()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Payload\+Length (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which gets the payload length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_a8e1b9b683a56f3e87e24872bf7c5a1ce}\label{class_protocol_receiver_a8e1b9b683a56f3e87e24872bf7c5a1ce}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_GetProtocolVersion@{RxState\_GetProtocolVersion}}
+\index{RxState\_GetProtocolVersion@{RxState\_GetProtocolVersion}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_GetProtocolVersion()}{RxState\_GetProtocolVersion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Get\+Protocol\+Version (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which gets and stores the protocol version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_protocol_receiver_a8122610488cb525b5b33408a4c0287d9}\label{class_protocol_receiver_a8122610488cb525b5b33408a4c0287d9}} 
+\index{ProtocolReceiver@{ProtocolReceiver}!RxState\_WaitForSyncSequence@{RxState\_WaitForSyncSequence}}
+\index{RxState\_WaitForSyncSequence@{RxState\_WaitForSyncSequence}!ProtocolReceiver@{ProtocolReceiver}}
+\doxysubsubsection{\texorpdfstring{RxState\_WaitForSyncSequence()}{RxState\_WaitForSyncSequence()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{Protocol\+Receiver\+::s\+Rx\+Struct}} Protocol\+Receiver\+::\+Rx\+State\+\_\+\+Wait\+For\+Sync\+Sequence (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c,  }\item[{\mbox{\hyperlink{struct_protocol_receiver_1_1___r_x___s_t_a_t_e}{s\+Rx\+Struct}}}]{state,  }\item[{\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$}]{protocol\+Receiver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Rx State function which waits for the synchronization sequence to be received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character/byte recieved. \\
+\hline
+{\em state} & The current receive state structure. \\
+\hline
+{\em protocol\+Receiver} & The instance of this class which is calling this state function.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated recieve state structure. 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

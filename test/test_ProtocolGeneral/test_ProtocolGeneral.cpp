@@ -25,7 +25,7 @@ void test_ProtocolGeneralHeaderChecksumCalculatedCorrectly(void)
     message[pg._PAYLOAD_CHECKSUM_INDEX] = 0;
     message[pg._HEADER_CHECKSUM_INDEX] = 0;
 
-    TEST_ASSERT_EQUAL(0x00, pg.CalculateChecksumOfMessageHeader(message));
+    TEST_ASSERT_EQUAL(0xFE, pg.CalculateChecksumOfMessageHeader(message));
 }
 
 void test_ProtocolGeneralPayloadChecksumCalculatedCorrectly(void)
@@ -38,7 +38,10 @@ void test_ProtocolGeneralPayloadChecksumCalculatedCorrectly(void)
         message[pg._PAYLOAD_START_INDEX + i] = i;
     }
 
-    TEST_ASSERT_EQUAL(0x01, pg.CalculateChecksumOfMessagePayload(message));
+    // with a known length
+    message[pg._PAYLOAD_LENGTH_INDEX] = 10;
+
+    TEST_ASSERT_EQUAL(0x85, pg.CalculateChecksumOfMessagePayload(message));
 }
 
 void test_ProtocolGeneralHeaderChecksumCalculationDoesNotUpdateTheMessage(void)

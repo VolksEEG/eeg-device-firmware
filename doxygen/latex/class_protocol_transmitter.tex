@@ -6,6 +6,11 @@ Inheritance diagram for Protocol\+Transmitter\+:\begin{figure}[H]
 \includegraphics[height=1.958042cm]{class_protocol_transmitter}
 \end{center}
 \end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_protocol_transmitter_1_1___t_x___m_e_s_s_a_g_e}{\+\_\+\+TX\+\_\+\+MESSAGE}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,6 +21,9 @@ Inheritance diagram for Protocol\+Transmitter\+:\begin{figure}[H]
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}{Process\+Event}} (NEvent\+::e\+Event event) override
 \begin{DoxyCompactList}\small\item\em Overridden function to process events. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a33ce67866a6a6ce9a243d20697929236}\label{class_protocol_transmitter_a33ce67866a6a6ce9a243d20697929236}} 
+void {\bfseries Background\+Task\+Handler} (void)
+\begin{DoxyCompactList}\small\item\em re-\/signals the Event\+\_\+\+Data\+To\+Tx\+To\+PC if required. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_protocol_transmitter_ae281b6a8f3ea16b392c46868e86876ca}{Send\+Payload\+To\+Pc}} (uint8\+\_\+t $\ast$payload\+\_\+ptr, uint8\+\_\+t payload\+\_\+length) override
 \begin{DoxyCompactList}\small\item\em Overridden function to send a payload to the PC. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_protocol_transmitter_a40cf497bd486020baa84b4e2ee7ce111}{Update\+Id\+To\+Acknowledge}} (uint8\+\_\+t id) override
@@ -30,6 +38,46 @@ void \mbox{\hyperlink{class_protocol_transmitter_afc66ff3180068469b696a618dfd265
 \mbox{\Hypertarget{class_protocol_transmitter_af93011483fed961884634695874f4e0b}\label{class_protocol_transmitter_af93011483fed961884634695874f4e0b}} 
 static const uint8\+\_\+t {\bfseries \+\_\+\+MAX\+\_\+\+TX\+\_\+\+MESSAGES} = 10
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a1c95aee091df67018830eaeb3bf55f57}\label{class_protocol_transmitter_a1c95aee091df67018830eaeb3bf55f57}} 
+typedef struct \mbox{\hyperlink{struct_protocol_transmitter_1_1___t_x___m_e_s_s_a_g_e}{Protocol\+Transmitter\+::\+\_\+\+TX\+\_\+\+MESSAGE}} {\bfseries s\+Tx\+Message\+Struct}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a60e272eeb41b276652acbac1989a844c}\label{class_protocol_transmitter_a60e272eeb41b276652acbac1989a844c}} 
+\mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}} $\ast$ {\bfseries \+\_\+\+Pc\+Coms\+Interface\+Instance}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a3a6384de8ca3ce2034d76e7974845a70}\label{class_protocol_transmitter_a3a6384de8ca3ce2034d76e7974845a70}} 
+\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$ {\bfseries \+\_\+\+Event\+Handler\+Instance}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_af5edf8be04bf76b86aa80abfbc3b5d36}\label{class_protocol_transmitter_af5edf8be04bf76b86aa80abfbc3b5d36}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Id\+To\+Acknowledge}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a7a2ae08fc8308e4c967ea97e03c43bf6}\label{class_protocol_transmitter_a7a2ae08fc8308e4c967ea97e03c43bf6}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Id\+To\+Send}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_aecf4996c3bfe97781e92412db0046809}\label{class_protocol_transmitter_aecf4996c3bfe97781e92412db0046809}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Tx\+Ip\+Index}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a3afed6ab158b31dbae32c603690a017b}\label{class_protocol_transmitter_a3afed6ab158b31dbae32c603690a017b}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Tx\+Next\+Unacked\+Index}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_af03b6e6065be257481f3d7f0ae2d6e76}\label{class_protocol_transmitter_af03b6e6065be257481f3d7f0ae2d6e76}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Tx\+Next\+Op\+Index}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a9fdb5b0e8cb18d1e899cdefb6ea10dc0}\label{class_protocol_transmitter_a9fdb5b0e8cb18d1e899cdefb6ea10dc0}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Tx\+Count}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a11bf56545c508912d871362fb86a3ea9}\label{class_protocol_transmitter_a11bf56545c508912d871362fb86a3ea9}} 
+\mbox{\hyperlink{struct_protocol_transmitter_1_1___t_x___m_e_s_s_a_g_e}{s\+Tx\+Message\+Struct}} {\bfseries \+\_\+\+Tx\+Messages} \mbox{[}\+\_\+\+MAX\+\_\+\+TX\+\_\+\+MESSAGES\mbox{]}
+\item 
+\mbox{\Hypertarget{class_protocol_transmitter_a1816465cb10b24fc2157634439f8191e}\label{class_protocol_transmitter_a1816465cb10b24fc2157634439f8191e}} 
+bool {\bfseries \+\_\+\+More\+Messages\+To\+Transmit}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -68,6 +116,8 @@ Overridden function to process events.
 {\em event} & The event which is being processed. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]Remove this, only in so that messages are sent and ack\textquotesingle{}d straight away \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{class_i_can_process_events}{ICan\+Process\+Events}}.

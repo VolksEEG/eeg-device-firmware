@@ -344,8 +344,8 @@ void test_ProtocolReceiverRemainsInGetPayloadStateBeforeAllPayloadBytesAreReceiv
         0x09};
 
     // set the checksums to the correct values
-    message[ProtocolGeneral::_HEADER_CHECKSUM_INDEX] = ProtocolGeneral::CalculateChecksumOfMessageHeader(message);
     message[ProtocolGeneral::_PAYLOAD_CHECKSUM_INDEX] = ProtocolGeneral::CalculateChecksumOfMessagePayload(message);
+    message[ProtocolGeneral::_HEADER_CHECKSUM_INDEX] = ProtocolGeneral::CalculateChecksumOfMessageHeader(message);
 
     pci.LoadReceiveBytes(message, TEST_MESSAGE_LENGTH);
 

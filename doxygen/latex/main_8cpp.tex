@@ -1,0 +1,156 @@
+\hypertarget{main_8cpp}{}\doxysection{src/main.cpp File Reference}
+\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include $<$Pin\+Control.\+h$>$}\newline
+{\ttfamily \#include $<$Protocol\+Receiver.\+h$>$}\newline
+{\ttfamily \#include $<$Protocol\+Transmitter.\+h$>$}\newline
+{\ttfamily \#include $<$Spi\+Driver.\+h$>$}\newline
+{\ttfamily \#include $<$Ads1299\+Driver.\+h$>$}\newline
+{\ttfamily \#include $<$Ads1299\+Data\+Processor.\+h$>$}\newline
+{\ttfamily \#include $<$Error\+Handler.\+h$>$}\newline
+{\ttfamily \#include $<$Event\+Handler.\+h$>$}\newline
+{\ttfamily \#include $<$Data\+Flow\+Controller.\+h$>$}\newline
+{\ttfamily \#include $<$Led\+Control.\+h$>$}\newline
+{\ttfamily \#include $<$Fake\+Data\+Producer.\+h$>$}\newline
+{\ttfamily \#include $<$Serial\+Port.\+h$>$}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$My\+Delay.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8cpp_a101a581b94ce579b7b31ff412ec0d8e8}{event\+Timer\+Update}} ()
+\item 
+My\+Delay \mbox{\hyperlink{main_8cpp_a319cc3ebfdd0ba5b4d4eacf4a6c3e783}{event\+Timer}} (1, \mbox{\hyperlink{main_8cpp_a101a581b94ce579b7b31ff412ec0d8e8}{event\+Timer\+Update}}, MYDELAY\+\_\+\+REPEAT\+\_\+\+FOREVER)
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_pin_control}{Pin\+Control}} \mbox{\hyperlink{main_8cpp_a1a9161fa61605365225c2382372331f0}{pin\+Control}}
+\item 
+\mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} \mbox{\hyperlink{main_8cpp_a184e163ba85ec57515bd05dc38351f9f}{protocol\+Receiver}}
+\item 
+\mbox{\hyperlink{class_protocol_transmitter}{Protocol\+Transmitter}} \mbox{\hyperlink{main_8cpp_a3689e0488dae68d1862d292a4c94959f}{protocol\+Transmitter}}
+\item 
+\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} \mbox{\hyperlink{main_8cpp_a2948b557994e7bc62307096957a5726c}{spi\+Driver}}
+\item 
+\mbox{\hyperlink{class_ads1299_driver}{Ads1299\+Driver}} \mbox{\hyperlink{main_8cpp_aa44a7e2dc5fa6f8dc664e1316d0ce326}{ads1299\+Driver}}
+\item 
+\mbox{\hyperlink{class_ads1299_data_processor}{Ads1299\+Data\+Processor}} \mbox{\hyperlink{main_8cpp_ac9508af0a108298b25014f817ed39783}{ads1299\+Data\+Processor}}
+\item 
+\mbox{\hyperlink{class_error_handler}{Error\+Handler}} \mbox{\hyperlink{main_8cpp_a923fc9936fb43a9ee1b45d5edd87e6f9}{error\+Handler}}
+\item 
+\mbox{\hyperlink{class_event_handler}{Event\+Handler}} \mbox{\hyperlink{main_8cpp_aa80d0f6014a0d0a7dd7cd96c4890ef33}{event\+Handler}}
+\item 
+\mbox{\hyperlink{class_data_flow_controller}{Data\+Flow\+Controller}} \mbox{\hyperlink{main_8cpp_a87e4131e87e1c7f1d090c3209f877cc8}{data\+Flow\+Controller}}
+\item 
+\mbox{\hyperlink{class_led_control}{Led\+Control}} \mbox{\hyperlink{main_8cpp_a1120aeea8a853477d2f7bea17efe312c}{led\+Control}}
+\item 
+\mbox{\hyperlink{class_fake_data_producer}{Fake\+Data\+Producer}} \mbox{\hyperlink{main_8cpp_a0e0c415d1e27563091d228f744c0c505}{fake\+Data\+Producer}}
+\item 
+\mbox{\hyperlink{class_serial_port}{Serial\+Port}} \mbox{\hyperlink{main_8cpp_aecc5efaf92bbc6cbeab011d8d6e5386d}{serial\+Port}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a319cc3ebfdd0ba5b4d4eacf4a6c3e783}\label{main_8cpp_a319cc3ebfdd0ba5b4d4eacf4a6c3e783}} 
+\index{main.cpp@{main.cpp}!eventTimer@{eventTimer}}
+\index{eventTimer@{eventTimer}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{eventTimer()}{eventTimer()}}
+{\footnotesize\ttfamily My\+Delay event\+Timer (\begin{DoxyParamCaption}\item[{1}]{,  }\item[{\mbox{\hyperlink{main_8cpp_a101a581b94ce579b7b31ff412ec0d8e8}{event\+Timer\+Update}}}]{,  }\item[{MYDELAY\+\_\+\+REPEAT\+\_\+\+FOREVER}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a101a581b94ce579b7b31ff412ec0d8e8}\label{main_8cpp_a101a581b94ce579b7b31ff412ec0d8e8}} 
+\index{main.cpp@{main.cpp}!eventTimerUpdate@{eventTimerUpdate}}
+\index{eventTimerUpdate@{eventTimerUpdate}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{eventTimerUpdate()}{eventTimerUpdate()}}
+{\footnotesize\ttfamily void event\+Timer\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f}} 
+\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_ac9508af0a108298b25014f817ed39783}\label{main_8cpp_ac9508af0a108298b25014f817ed39783}} 
+\index{main.cpp@{main.cpp}!ads1299DataProcessor@{ads1299DataProcessor}}
+\index{ads1299DataProcessor@{ads1299DataProcessor}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ads1299DataProcessor}{ads1299DataProcessor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_ads1299_data_processor}{Ads1299\+Data\+Processor}} ads1299\+Data\+Processor}
+
+\mbox{\Hypertarget{main_8cpp_aa44a7e2dc5fa6f8dc664e1316d0ce326}\label{main_8cpp_aa44a7e2dc5fa6f8dc664e1316d0ce326}} 
+\index{main.cpp@{main.cpp}!ads1299Driver@{ads1299Driver}}
+\index{ads1299Driver@{ads1299Driver}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ads1299Driver}{ads1299Driver}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_ads1299_driver}{Ads1299\+Driver}} ads1299\+Driver}
+
+\mbox{\Hypertarget{main_8cpp_a87e4131e87e1c7f1d090c3209f877cc8}\label{main_8cpp_a87e4131e87e1c7f1d090c3209f877cc8}} 
+\index{main.cpp@{main.cpp}!dataFlowController@{dataFlowController}}
+\index{dataFlowController@{dataFlowController}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dataFlowController}{dataFlowController}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_data_flow_controller}{Data\+Flow\+Controller}} data\+Flow\+Controller}
+
+\mbox{\Hypertarget{main_8cpp_a923fc9936fb43a9ee1b45d5edd87e6f9}\label{main_8cpp_a923fc9936fb43a9ee1b45d5edd87e6f9}} 
+\index{main.cpp@{main.cpp}!errorHandler@{errorHandler}}
+\index{errorHandler@{errorHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{errorHandler}{errorHandler}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_error_handler}{Error\+Handler}} error\+Handler}
+
+\mbox{\Hypertarget{main_8cpp_aa80d0f6014a0d0a7dd7cd96c4890ef33}\label{main_8cpp_aa80d0f6014a0d0a7dd7cd96c4890ef33}} 
+\index{main.cpp@{main.cpp}!eventHandler@{eventHandler}}
+\index{eventHandler@{eventHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{eventHandler}{eventHandler}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_event_handler}{Event\+Handler}} event\+Handler}
+
+\mbox{\Hypertarget{main_8cpp_a0e0c415d1e27563091d228f744c0c505}\label{main_8cpp_a0e0c415d1e27563091d228f744c0c505}} 
+\index{main.cpp@{main.cpp}!fakeDataProducer@{fakeDataProducer}}
+\index{fakeDataProducer@{fakeDataProducer}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{fakeDataProducer}{fakeDataProducer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_fake_data_producer}{Fake\+Data\+Producer}} fake\+Data\+Producer}
+
+\mbox{\Hypertarget{main_8cpp_a1120aeea8a853477d2f7bea17efe312c}\label{main_8cpp_a1120aeea8a853477d2f7bea17efe312c}} 
+\index{main.cpp@{main.cpp}!ledControl@{ledControl}}
+\index{ledControl@{ledControl}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ledControl}{ledControl}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_led_control}{Led\+Control}} led\+Control}
+
+\mbox{\Hypertarget{main_8cpp_a1a9161fa61605365225c2382372331f0}\label{main_8cpp_a1a9161fa61605365225c2382372331f0}} 
+\index{main.cpp@{main.cpp}!pinControl@{pinControl}}
+\index{pinControl@{pinControl}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{pinControl}{pinControl}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_pin_control}{Pin\+Control}} pin\+Control}
+
+\mbox{\Hypertarget{main_8cpp_a184e163ba85ec57515bd05dc38351f9f}\label{main_8cpp_a184e163ba85ec57515bd05dc38351f9f}} 
+\index{main.cpp@{main.cpp}!protocolReceiver@{protocolReceiver}}
+\index{protocolReceiver@{protocolReceiver}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{protocolReceiver}{protocolReceiver}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} protocol\+Receiver}
+
+\mbox{\Hypertarget{main_8cpp_a3689e0488dae68d1862d292a4c94959f}\label{main_8cpp_a3689e0488dae68d1862d292a4c94959f}} 
+\index{main.cpp@{main.cpp}!protocolTransmitter@{protocolTransmitter}}
+\index{protocolTransmitter@{protocolTransmitter}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{protocolTransmitter}{protocolTransmitter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_protocol_transmitter}{Protocol\+Transmitter}} protocol\+Transmitter}
+
+\mbox{\Hypertarget{main_8cpp_aecc5efaf92bbc6cbeab011d8d6e5386d}\label{main_8cpp_aecc5efaf92bbc6cbeab011d8d6e5386d}} 
+\index{main.cpp@{main.cpp}!serialPort@{serialPort}}
+\index{serialPort@{serialPort}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{serialPort}{serialPort}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_serial_port}{Serial\+Port}} serial\+Port}
+
+\mbox{\Hypertarget{main_8cpp_a2948b557994e7bc62307096957a5726c}\label{main_8cpp_a2948b557994e7bc62307096957a5726c}} 
+\index{main.cpp@{main.cpp}!spiDriver@{spiDriver}}
+\index{spiDriver@{spiDriver}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{spiDriver}{spiDriver}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} spi\+Driver}
+

@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['sendpayloadtopc_0',['SendPayloadToPc',['../class_protocol_transmitter.html#ae281b6a8f3ea16b392c46868e86876ca',1,'ProtocolTransmitter']]],
-  ['setchannelgain_1',['SetChannelGain',['../class_ads1299_low_driver.html#a40464eed572d5e13bef49489c61e7264',1,'Ads1299LowDriver']]],
-  ['setchannelstate_2',['SetChannelState',['../class_ads1299_low_driver.html#acc7fb24b78294d727fbe72f15ca6caa7',1,'Ads1299LowDriver']]],
-  ['setnegativeinputsconnectiontosrb1_3',['SetNegativeInputsConnectionToSRB1',['../class_ads1299_low_driver.html#a2234e7688ca22886db6141c55aa99bd9',1,'Ads1299LowDriver']]],
-  ['setreferencesource_4',['SetReferenceSource',['../class_ads1299_low_driver.html#ae282a97ac33df44aa6612be7710d0dff',1,'Ads1299LowDriver']]],
-  ['settestsignal_5',['SetTestSignal',['../class_ads1299_low_driver.html#a0e9a89172fb1d6e63b8a2f6f9c4a5151',1,'Ads1299LowDriver']]],
-  ['startcontinuousdatacapture_6',['StartContinuousDataCapture',['../class_ads1299_low_driver.html#a442d33011e2aea2b3f9a329828b5f063',1,'Ads1299LowDriver']]],
-  ['stopcontinuousdatacapture_7',['StopContinuousDataCapture',['../class_ads1299_low_driver.html#a0c3ea205c7095ac78d042dda6216a83b',1,'Ads1299LowDriver']]]
+  ['processevent_0',['ProcessEvent',['../class_protocol_receiver.html#a0faff55ee749eaf8d9dffa16d26d0915',1,'ProtocolReceiver::ProcessEvent()'],['../class_protocol_transmitter.html#a45273aa587b61d98115a6d3e1c6b636b',1,'ProtocolTransmitter::ProcessEvent()']]],
+  ['protocolgeneral_1',['ProtocolGeneral',['../class_protocol_general.html#ac59cf81318227170c3977337bb5aacf8',1,'ProtocolGeneral']]],
+  ['protocolreceiver_2',['ProtocolReceiver',['../class_protocol_receiver.html#a0a47d7343e69cc67d75147494695bc85',1,'ProtocolReceiver::ProtocolReceiver()'],['../class_protocol_receiver.html#a6c8ba2bc63d07e88ba4a5a01d02d95d2',1,'ProtocolReceiver::ProtocolReceiver(IPcCommunications *pci, IEegDataProducer *edp, EventHandler *evh, IProtocolTransmission *pti)']]],
+  ['protocoltransmitter_3',['ProtocolTransmitter',['../class_protocol_transmitter.html#a2c378a68dd97c951283c742e84ced50f',1,'ProtocolTransmitter::ProtocolTransmitter()'],['../class_protocol_transmitter.html#ade761ca1c9f39b71efe20bd9d35440eb',1,'ProtocolTransmitter::ProtocolTransmitter(IPcCommunications *pci, EventHandler *evh)']]],
+  ['pushlatestsample_4',['PushLatestSample',['../class_protocol_transmitter.html#afc66ff3180068469b696a618dfd26537',1,'ProtocolTransmitter']]]
 ];

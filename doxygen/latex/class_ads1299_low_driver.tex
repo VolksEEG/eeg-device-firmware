@@ -121,6 +121,174 @@ void {\bfseries Set\+Negative\+Inputs\+Connection\+To\+SRB1} (bool connect)
 \mbox{\Hypertarget{class_ads1299_low_driver_ae91844fe53f3f59d79d754497c7c9f60}\label{class_ads1299_low_driver_ae91844fe53f3f59d79d754497c7c9f60}} 
 static const uint8\+\_\+t {\bfseries MAX\+\_\+\+CHANNELS} = 8u
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a930cbadcef8b27352815068e199b7fae}\label{class_ads1299_low_driver_a930cbadcef8b27352815068e199b7fae}} 
+enum {\bfseries \+\_\+\+COMMANDS} \{ \newline
+{\bfseries COMMAND\+\_\+\+WAKEUP} = 0x02
+, {\bfseries COMMAND\+\_\+\+STANDBY} = 0x04
+, {\bfseries COMMAND\+\_\+\+RESET} = 0x06
+, {\bfseries COMMAND\+\_\+\+START} = 0x08
+, \newline
+{\bfseries COMMAND\+\_\+\+STOP} = 0x0A
+, {\bfseries COMMAND\+\_\+\+READ\+\_\+\+DATA\+\_\+\+CONTINUOUSLY} = 0x10
+, {\bfseries COMMAND\+\_\+\+STOP\+\_\+\+READING\+\_\+\+DATA\+\_\+\+CONTINUOUSLY} = 0x11
+, {\bfseries COMMAND\+\_\+\+READ\+\_\+\+DATA} = 0x12
+, \newline
+{\bfseries COMMAND\+\_\+\+READ\+\_\+\+REGISTER} = 0x20
+, {\bfseries COMMAND\+\_\+\+WRITE\+\_\+\+REGISTER} = 0x40
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a3c447d1399c8628e4129ecdf4beea130}\label{class_ads1299_low_driver_a3c447d1399c8628e4129ecdf4beea130}} 
+enum {\bfseries \+\_\+\+REGISTERS} \{ \newline
+{\bfseries REGISTER\+\_\+\+ID} = 0x00
+, {\bfseries REGISTER\+\_\+\+CONFIG\+\_\+1} = 0x01
+, {\bfseries REGISTER\+\_\+\+CONFIG\+\_\+2} = 0x02
+, {\bfseries REGISTER\+\_\+\+CONFIG\+\_\+3} = 0x03
+, \newline
+{\bfseries REGISTER\+\_\+\+CH1\+SET} = 0x05
+, {\bfseries REGISTER\+\_\+\+CH2\+SET} = 0x06
+, {\bfseries REGISTER\+\_\+\+CH3\+SET} = 0x07
+, {\bfseries REGISTER\+\_\+\+CH4\+SET} = 0x08
+, \newline
+{\bfseries REGISTER\+\_\+\+CH5\+SET} = 0x09
+, {\bfseries REGISTER\+\_\+\+CH6\+SET} = 0x0A
+, {\bfseries REGISTER\+\_\+\+CH7\+SET} = 0x0B
+, {\bfseries REGISTER\+\_\+\+CH8\+SET} = 0x0C
+, \newline
+{\bfseries REGISTER\+\_\+\+MISC1} = 0x15
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a03c10e19c90e32a788af6728432bff62}\label{class_ads1299_low_driver_a03c10e19c90e32a788af6728432bff62}} 
+enum {\bfseries \+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS} \{ {\bfseries ID\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS\+\_\+4} = 0x00
+, {\bfseries ID\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS\+\_\+6} = 0x01
+, {\bfseries ID\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS\+\_\+8} = 0x02
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_afb722289dfbd93a2caabf2fb920c3f05}\label{class_ads1299_low_driver_afb722289dfbd93a2caabf2fb920c3f05}} 
+enum {\bfseries \+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+STATE} \{ {\bfseries CONFIG\+\_\+2\+\_\+\+INTERNAL\+\_\+\+CAL\+\_\+\+DISABLE} = 0x00
+, {\bfseries CONFIG\+\_\+2\+\_\+\+INTERNAL\+\_\+\+CAL\+\_\+\+ENABLE} = 0x10
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a45e135f531b797f5416e4100f97e7999}\label{class_ads1299_low_driver_a45e135f531b797f5416e4100f97e7999}} 
+enum {\bfseries \+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+AMPLITUDE} \{ {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+AMPLITUDE\+\_\+\+LOW} = 0x00
+, {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+AMPLITUDE\+\_\+\+HIGH} = 0x04
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a92bd8cf37532fe5b78d91f3d94de0d2c}\label{class_ads1299_low_driver_a92bd8cf37532fe5b78d91f3d94de0d2c}} 
+enum {\bfseries \+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+FREQUENCY} \{ {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+FREQUENCY\+\_\+\+SLOW} = 0x00
+, {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+FREQUENCY\+\_\+\+FAST} = 0x01
+, {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+FREQUENCY\+\_\+\+DC} = 0x03
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a8f7d981d0a34744c238e496c2a986537}\label{class_ads1299_low_driver_a8f7d981d0a34744c238e496c2a986537}} 
+enum {\bfseries \+\_\+\+REG\+\_\+\+BUFFER\+\_\+\+STATE} \{ {\bfseries CONFIG\+\_\+3\+\_\+\+REF\+\_\+\+BUFFER\+\_\+\+DISABLE} = 0x00
+, {\bfseries CONFIG\+\_\+3\+\_\+\+REF\+\_\+\+BUFFER\+\_\+\+ENABLE} = 0x80
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_afb026967cd10abdda8cca9e42442cfb0}\label{class_ads1299_low_driver_afb026967cd10abdda8cca9e42442cfb0}} 
+enum {\bfseries \+\_\+\+REG\+\_\+\+SRB1\+\_\+\+STATE} \{ {\bfseries MISC\+\_\+1\+\_\+\+SRB1\+\_\+\+DISABLE} = 0x00
+, {\bfseries MISC\+\_\+1\+\_\+\+SRB1\+\_\+\+ENABLE} = 0x20
+ \}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a53b4dcd82f159aef9c70e41d642ca2e3}\label{class_ads1299_low_driver_a53b4dcd82f159aef9c70e41d642ca2e3}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+COMMANDS {\bfseries e\+Commands}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a6123cca77d25d1fef13cbcdf118d99c6}\label{class_ads1299_low_driver_a6123cca77d25d1fef13cbcdf118d99c6}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+REGISTERS {\bfseries e\+Registers}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a50d4175e3814a93a0660a3ff25d27073}\label{class_ads1299_low_driver_a50d4175e3814a93a0660a3ff25d27073}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS {\bfseries e\+Num\+Channels}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_add958f3ac15fcdaae1378e309ad04b89}\label{class_ads1299_low_driver_add958f3ac15fcdaae1378e309ad04b89}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+STATE {\bfseries e\+Cal\+Signal\+State}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a8d410e8b1d457941a4b748a86c90e2c1}\label{class_ads1299_low_driver_a8d410e8b1d457941a4b748a86c90e2c1}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+AMPLITUDE {\bfseries e\+Cal\+Signal\+Amplitude}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a5eb32cb3ed4d690ec22b9c90249882c1}\label{class_ads1299_low_driver_a5eb32cb3ed4d690ec22b9c90249882c1}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+CAL\+\_\+\+SIGNAL\+\_\+\+FREQUENCY {\bfseries e\+Cal\+Signal\+Frequency}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_adbaedb21b937c0d8f89bd1909164a8e3}\label{class_ads1299_low_driver_adbaedb21b937c0d8f89bd1909164a8e3}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+REG\+\_\+\+BUFFER\+\_\+\+STATE {\bfseries e\+Ref\+Buffer\+State}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a57340280f19ca9a18fe62760ef851bf0}\label{class_ads1299_low_driver_a57340280f19ca9a18fe62760ef851bf0}} 
+typedef enum Ads1299\+Low\+Driver\+::\+\_\+\+REG\+\_\+\+SRB1\+\_\+\+STATE {\bfseries e\+Srb1\+State}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+e\+Registers \mbox{\hyperlink{class_ads1299_low_driver_aa1c88926c2abcf23434d80749cf5c8be}{Get\+Channel\+Register\+From\+Channel\+Id\+Enum}} (e\+Channel\+Id chan)
+\begin{DoxyCompactList}\small\item\em Helper function to convert from channel id enum to associated register. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_ads1299_low_driver_a60c10fb41e5ecde57f5ef15b4ee0d977}{Read\+Register}} (e\+Registers reg)
+\begin{DoxyCompactList}\small\item\em Helper funtion to read a register from the ADS1299. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_a1309c254708769ee6da3fba9a706c068}{Write\+Register}} (e\+Registers reg, uint8\+\_\+t new\+Value)
+\begin{DoxyCompactList}\small\item\em Helper function to overwrite an ADS1299 register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ads1299_low_driver_a098e115a0df7d17caae1bf2e9d5c9b42}{Modify\+Register}} (e\+Registers reg, uint8\+\_\+t mask, uint8\+\_\+t new\+Value)
+\begin{DoxyCompactList}\small\item\em Helper function to modify part of an ADS1299 Register. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{class_ads1299_low_driver_a72dbca00143d34cc31fbbee7db463d60}{Get\+Multiplier\+From\+Channel\+Gain}} (e\+Channel\+Gain gain)
+\begin{DoxyCompactList}\small\item\em Helper function to get the multiplier value from a channel gain enum. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a4630ce256424b4fabbe3526bcb468334}\label{class_ads1299_low_driver_a4630ce256424b4fabbe3526bcb468334}} 
+void {\bfseries Set\+Channel\+Gains\+To\+Default} (void)
+\begin{DoxyCompactList}\small\item\em Helper function to set the cached channel gain values to default. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a4c60eaf66082838a18073d53ac0893e9}\label{class_ads1299_low_driver_a4c60eaf66082838a18073d53ac0893e9}} 
+\mbox{\hyperlink{class_spi_driver}{Spi\+Driver}} $\ast$ {\bfseries \+\_\+\+Spi\+Driver\+Instance}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ab97f007bd2c3642d15a5941a70b10a2d}\label{class_ads1299_low_driver_ab97f007bd2c3642d15a5941a70b10a2d}} 
+\mbox{\hyperlink{class_pin_control}{Pin\+Control}} $\ast$ {\bfseries \+\_\+\+Pin\+Control\+Instance}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_af1c6090c9e6aeb432e056bd9fb72572f}\label{class_ads1299_low_driver_af1c6090c9e6aeb432e056bd9fb72572f}} 
+int32\+\_\+t {\bfseries \+\_\+\+Channel\+Gains\+Cache} \mbox{[}MAX\+\_\+\+CHANNELS\mbox{]}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a56a1bec7829a4157a9a1d7b795868e21}\label{class_ads1299_low_driver_a56a1bec7829a4157a9a1d7b795868e21}} 
+float {\bfseries \+\_\+\+Votlage\+Reference\+Cache}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a6c72b9e9c2ac0ef92bf73aa6e5c9efc4}\label{class_ads1299_low_driver_a6c72b9e9c2ac0ef92bf73aa6e5c9efc4}} 
+static const uint8\+\_\+t {\bfseries ID\+\_\+\+NUMBER\+\_\+\+OF\+\_\+\+CHANNELS\+\_\+\+MASK} = 0x03
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a6b5b342325588212016a8f0f9c038488}\label{class_ads1299_low_driver_a6b5b342325588212016a8f0f9c038488}} 
+static const uint8\+\_\+t {\bfseries CONFIG\+\_\+1\+\_\+\+DATARATE\+\_\+\+MASK} = 0x07
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a89164625e1b2dae2d01ac44613049438}\label{class_ads1299_low_driver_a89164625e1b2dae2d01ac44613049438}} 
+static const uint8\+\_\+t {\bfseries CONFIG\+\_\+2\+\_\+\+INTERNAL\+\_\+\+CAL\+\_\+\+MASK} = 0x10
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a56fab5e0b830dbab0bd215db2de1c517}\label{class_ads1299_low_driver_a56fab5e0b830dbab0bd215db2de1c517}} 
+static const uint8\+\_\+t {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+AMPLITUDE\+\_\+\+MASK} = 0x04
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_ac7f9770e9f4b736d31265fa59a1fa653}\label{class_ads1299_low_driver_ac7f9770e9f4b736d31265fa59a1fa653}} 
+static const uint8\+\_\+t {\bfseries CONFIG\+\_\+2\+\_\+\+CAL\+\_\+\+FREQUENCY\+\_\+\+MASK} = 0x03
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a077995b78fa84020afc31f9e2f7a88f6}\label{class_ads1299_low_driver_a077995b78fa84020afc31f9e2f7a88f6}} 
+static const uint8\+\_\+t {\bfseries CONFIG\+\_\+3\+\_\+\+REF\+\_\+\+BUFFER\+\_\+\+MASK} = 0x80
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a769aea2d4ea6d26d9ef128123cd486e4}\label{class_ads1299_low_driver_a769aea2d4ea6d26d9ef128123cd486e4}} 
+static const uint8\+\_\+t {\bfseries CHNSET\+\_\+\+GAIN\+\_\+\+MASK} = 0x70
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_af18aed0d42282ae6c78aed92bce704a9}\label{class_ads1299_low_driver_af18aed0d42282ae6c78aed92bce704a9}} 
+static const uint8\+\_\+t {\bfseries CHNSET\+\_\+\+STATE\+\_\+\+MASK} = 0x87
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a2354da358c15f8775e7593b11551df14}\label{class_ads1299_low_driver_a2354da358c15f8775e7593b11551df14}} 
+static const uint8\+\_\+t {\bfseries MISC\+\_\+1\+\_\+\+SRB1\+\_\+\+MASK} = 0x20
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a0ea17c671db92dd0294881d3daec7250}\label{class_ads1299_low_driver_a0ea17c671db92dd0294881d3daec7250}} 
+static const uint8\+\_\+t {\bfseries BLANK\+\_\+\+DATA} = 0x00
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a889188644a451bc224766b2c27a406df}\label{class_ads1299_low_driver_a889188644a451bc224766b2c27a406df}} 
+static const int32\+\_\+t {\bfseries DEFAULT\+\_\+\+CHANNEL\+\_\+\+GAIN} = 24
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a36d5c7dc735c9678a3413c947bd6e8e3}\label{class_ads1299_low_driver_a36d5c7dc735c9678a3413c947bd6e8e3}} 
+static constexpr float {\bfseries INTERNAL\+\_\+\+VREF\+\_\+\+VOLTAGE} = 4.\+5f
+\item 
+\mbox{\Hypertarget{class_ads1299_low_driver_a25f1118296abf6f05bd399149f5e7f4a}\label{class_ads1299_low_driver_a25f1118296abf6f05bd399149f5e7f4a}} 
+static constexpr float {\bfseries EXTERNAL\+\_\+\+VREF\+\_\+\+VOLTAGE} = 5.\+0f
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -158,7 +326,43 @@ Get the latest EEG Channel data and sign extend it to 32 bits.
 A structure holding the channel data. 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Make 27 variable based on the number of channels supported by the device. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Make 27 variable based on the number of channels supported by the device. \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_ads1299_low_driver_aa1c88926c2abcf23434d80749cf5c8be}\label{class_ads1299_low_driver_aa1c88926c2abcf23434d80749cf5c8be}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!GetChannelRegisterFromChannelIdEnum@{GetChannelRegisterFromChannelIdEnum}}
+\index{GetChannelRegisterFromChannelIdEnum@{GetChannelRegisterFromChannelIdEnum}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{GetChannelRegisterFromChannelIdEnum()}{GetChannelRegisterFromChannelIdEnum()}}
+{\footnotesize\ttfamily Ads1299\+Low\+Driver\+::e\+Registers Ads1299\+Low\+Driver\+::\+Get\+Channel\+Register\+From\+Channel\+Id\+Enum (\begin{DoxyParamCaption}\item[{e\+Channel\+Id}]{chan }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper function to convert from channel id enum to associated register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em chan} & The channel to request the register for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ads1299\+Low\+Driver\+::e\+Registers The Register associated with that channel 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_ads1299_low_driver_a72dbca00143d34cc31fbbee7db463d60}\label{class_ads1299_low_driver_a72dbca00143d34cc31fbbee7db463d60}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!GetMultiplierFromChannelGain@{GetMultiplierFromChannelGain}}
+\index{GetMultiplierFromChannelGain@{GetMultiplierFromChannelGain}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{GetMultiplierFromChannelGain()}{GetMultiplierFromChannelGain()}}
+{\footnotesize\ttfamily int32\+\_\+t Ads1299\+Low\+Driver\+::\+Get\+Multiplier\+From\+Channel\+Gain (\begin{DoxyParamCaption}\item[{e\+Channel\+Gain}]{gain }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper function to get the multiplier value from a channel gain enum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain} & The gain enumeration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int32\+\_\+t The Multiplier for that gain. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}\label{class_ads1299_low_driver_af141c3d81e7829d2437e1d8d467b2b37}} 
 \index{Ads1299LowDriver@{Ads1299LowDriver}!GetNumberOfSupportedChannels@{GetNumberOfSupportedChannels}}
 \index{GetNumberOfSupportedChannels@{GetNumberOfSupportedChannels}!Ads1299LowDriver@{Ads1299LowDriver}}
@@ -171,6 +375,43 @@ Gets the number of channels supported by the ADS1299.
 
 \begin{DoxyReturn}{Returns}
 uint8\+\_\+t The number of channels supported by the device. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_ads1299_low_driver_a098e115a0df7d17caae1bf2e9d5c9b42}\label{class_ads1299_low_driver_a098e115a0df7d17caae1bf2e9d5c9b42}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!ModifyRegister@{ModifyRegister}}
+\index{ModifyRegister@{ModifyRegister}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{ModifyRegister()}{ModifyRegister()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Modify\+Register (\begin{DoxyParamCaption}\item[{e\+Registers}]{reg,  }\item[{uint8\+\_\+t}]{mask,  }\item[{uint8\+\_\+t}]{new\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper function to modify part of an ADS1299 Register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & The register to modify. \\
+\hline
+{\em mask} & The mask of values to change. \\
+\hline
+{\em new\+Value} & The new values to set/clear. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ads1299_low_driver_a60c10fb41e5ecde57f5ef15b4ee0d977}\label{class_ads1299_low_driver_a60c10fb41e5ecde57f5ef15b4ee0d977}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!ReadRegister@{ReadRegister}}
+\index{ReadRegister@{ReadRegister}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{ReadRegister()}{ReadRegister()}}
+{\footnotesize\ttfamily uint8\+\_\+t Ads1299\+Low\+Driver\+::\+Read\+Register (\begin{DoxyParamCaption}\item[{e\+Registers}]{reg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper funtion to read a register from the ADS1299. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & The register to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The value of the read register. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}\label{class_ads1299_low_driver_a40464eed572d5e13bef49489c61e7264}} 
 \index{Ads1299LowDriver@{Ads1299LowDriver}!SetChannelGain@{SetChannelGain}}
@@ -234,6 +475,23 @@ Sets up the Device to start capturing data continuously at the set rate.
 
 \begin{DoxyParams}{Parameters}
 {\em rate} & The data rate to capture samples at. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ads1299_low_driver_a1309c254708769ee6da3fba9a706c068}\label{class_ads1299_low_driver_a1309c254708769ee6da3fba9a706c068}} 
+\index{Ads1299LowDriver@{Ads1299LowDriver}!WriteRegister@{WriteRegister}}
+\index{WriteRegister@{WriteRegister}!Ads1299LowDriver@{Ads1299LowDriver}}
+\doxysubsubsection{\texorpdfstring{WriteRegister()}{WriteRegister()}}
+{\footnotesize\ttfamily void Ads1299\+Low\+Driver\+::\+Write\+Register (\begin{DoxyParamCaption}\item[{e\+Registers}]{reg,  }\item[{uint8\+\_\+t}]{new\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper function to overwrite an ADS1299 register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & The register to overwrite. \\
+\hline
+{\em new\+Value} & The new value to write to that register. \\
 \hline
 \end{DoxyParams}
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resetdevice_0',['ResetDevice',['../class_ads1299_low_driver.html#ae79a60be950a35ca47f740a16ed39609',1,'Ads1299LowDriver']]]
+  ['modifyregister_0',['ModifyRegister',['../class_ads1299_low_driver.html#a098e115a0df7d17caae1bf2e9d5c9b42',1,'Ads1299LowDriver']]]
 ];

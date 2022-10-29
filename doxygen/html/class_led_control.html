@@ -64,6 +64,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_led_control-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">LedControl Class Reference</div></div>
 </div><!--header-->
@@ -87,6 +90,48 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa8af3b5c511f4e67a498ec9067e49a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e764361ab2e1a39342996bf90bb5030"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_can_process_events.html#a8e764361ab2e1a39342996bf90bb5030">ProcessEvent</a> (NEvent::eEvent event)=0</td></tr>
 <tr class="separator:a8e764361ab2e1a39342996bf90bb5030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afadda3153f9f2acafc2a78cfc8fab784"><td class="memItemLeft" align="right" valign="top"><a id="afadda3153f9f2acafc2a78cfc8fab784" name="afadda3153f9f2acafc2a78cfc8fab784"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>LedStateOn</b> (void)</td></tr>
+<tr class="separator:afadda3153f9f2acafc2a78cfc8fab784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b17ad90e005d3a257337749117c3dea"><td class="memItemLeft" align="right" valign="top"><a id="a4b17ad90e005d3a257337749117c3dea" name="a4b17ad90e005d3a257337749117c3dea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>LedStateOff</b> (void)</td></tr>
+<tr class="separator:a4b17ad90e005d3a257337749117c3dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ae86cb379491d98e61c4d25712adcb028"><td class="memItemLeft" align="right" valign="top"><a id="ae86cb379491d98e61c4d25712adcb028" name="ae86cb379491d98e61c4d25712adcb028"></a>
+<a class="el" href="class_error_handler.html">ErrorHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_ErrorHAndlerInstance</b></td></tr>
+<tr class="separator:ae86cb379491d98e61c4d25712adcb028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b2d3edac20c8f09f62d8c8a777234b0"><td class="memItemLeft" align="right" valign="top"><a id="a6b2d3edac20c8f09f62d8c8a777234b0" name="a6b2d3edac20c8f09f62d8c8a777234b0"></a>
+<a class="el" href="class_pin_control.html">PinControl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_PinControlInstance</b></td></tr>
+<tr class="separator:a6b2d3edac20c8f09f62d8c8a777234b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd27f1851a963aa318c53024b417cb9"><td class="memItemLeft" align="right" valign="top"><a id="a4fd27f1851a963aa318c53024b417cb9" name="a4fd27f1851a963aa318c53024b417cb9"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_LedCounter</b></td></tr>
+<tr class="separator:a4fd27f1851a963aa318c53024b417cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74c008546b445eaf5af3c2668cf77e4"><td class="memItemLeft" align="right" valign="top"><a id="ab74c008546b445eaf5af3c2668cf77e4" name="ab74c008546b445eaf5af3c2668cf77e4"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>_LedTimeout</b></td></tr>
+<tr class="separator:ab74c008546b445eaf5af3c2668cf77e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c7b0064ec8d873bffac8000317c632"><td class="memItemLeft" align="right" valign="top"><a id="a46c7b0064ec8d873bffac8000317c632" name="a46c7b0064ec8d873bffac8000317c632"></a>
+void(LedControl::*&#160;</td><td class="memItemRight" valign="bottom"><b>_LedStateFunction</b> )()</td></tr>
+<tr class="separator:a46c7b0064ec8d873bffac8000317c632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a2547441457efbc20c6dabeae7c566acb"><td class="memItemLeft" align="right" valign="top"><a id="a2547441457efbc20c6dabeae7c566acb" name="a2547441457efbc20c6dabeae7c566acb"></a>
+static const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>NORMAL_ON_TIMEOUT</b> = 500</td></tr>
+<tr class="separator:a2547441457efbc20c6dabeae7c566acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad13e0ec0d14828090811e4e1a92c47ed"><td class="memItemLeft" align="right" valign="top"><a id="ad13e0ec0d14828090811e4e1a92c47ed" name="ad13e0ec0d14828090811e4e1a92c47ed"></a>
+static const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>NORMAL_OFF_TIMEOUT</b> = 1500</td></tr>
+<tr class="separator:ad13e0ec0d14828090811e4e1a92c47ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0851cca9ebef15da0176952d87285356"><td class="memItemLeft" align="right" valign="top"><a id="a0851cca9ebef15da0176952d87285356" name="a0851cca9ebef15da0176952d87285356"></a>
+static const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>ERROR_ON_TIMEOUT</b> = 1500</td></tr>
+<tr class="separator:a0851cca9ebef15da0176952d87285356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89fea9e1d276935461a278df259d4a41"><td class="memItemLeft" align="right" valign="top"><a id="a89fea9e1d276935461a278df259d4a41" name="a89fea9e1d276935461a278df259d4a41"></a>
+static const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>ERROR_OFF_TIMEOUT</b> = 500</td></tr>
+<tr class="separator:a89fea9e1d276935461a278df259d4a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa8af3b5c511f4e67a498ec9067e49a7a" name="aa8af3b5c511f4e67a498ec9067e49a7a"></a>

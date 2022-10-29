@@ -79,7 +79,7 @@ void setup() {
   // Add Data to tx to PC event handlers
   eventHandler.AddEventHandler(&protocolTransmitter, NEvent::Event_DataToTxToPC);
 
-  // TODO - these should be done elswhere.
+  //! @todo these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
 
   dataFlowController.StartProducingData();
@@ -100,6 +100,7 @@ void loop() {
   // task handlers is less likely to overrun.
   eventTimer.update();  // Check the event timer - automatically calls eventTimerUpdate if timer has elapsed.
   serialPort.BackgroundTaskHandler(); // handle serial background tasks
+  protocolTransmitter.BackgroundTaskHandler(); // Handle repeat transmissions to the PC.
 }
 
 //

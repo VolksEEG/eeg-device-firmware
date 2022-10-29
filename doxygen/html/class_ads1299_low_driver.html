@@ -67,6 +67,10 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_ads1299_low_driver-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ads1299LowDriver Class Reference</div></div>
 </div><!--header-->
@@ -203,6 +207,174 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:ae91844fe53f3f59d79d754497c7c9f60"><td class="memItemLeft" align="right" valign="top"><a id="ae91844fe53f3f59d79d754497c7c9f60" name="ae91844fe53f3f59d79d754497c7c9f60"></a>
 static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_CHANNELS</b> = 8u</td></tr>
 <tr class="separator:ae91844fe53f3f59d79d754497c7c9f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a930cbadcef8b27352815068e199b7fae"><td class="memItemLeft" align="right" valign="top"><a id="a930cbadcef8b27352815068e199b7fae" name="a930cbadcef8b27352815068e199b7fae"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_COMMANDS</b> { <br />
+&#160;&#160;<b>COMMAND_WAKEUP</b> = 0x02
+, <b>COMMAND_STANDBY</b> = 0x04
+, <b>COMMAND_RESET</b> = 0x06
+, <b>COMMAND_START</b> = 0x08
+, <br />
+&#160;&#160;<b>COMMAND_STOP</b> = 0x0A
+, <b>COMMAND_READ_DATA_CONTINUOUSLY</b> = 0x10
+, <b>COMMAND_STOP_READING_DATA_CONTINUOUSLY</b> = 0x11
+, <b>COMMAND_READ_DATA</b> = 0x12
+, <br />
+&#160;&#160;<b>COMMAND_READ_REGISTER</b> = 0x20
+, <b>COMMAND_WRITE_REGISTER</b> = 0x40
+<br />
+ }</td></tr>
+<tr class="separator:a930cbadcef8b27352815068e199b7fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c447d1399c8628e4129ecdf4beea130"><td class="memItemLeft" align="right" valign="top"><a id="a3c447d1399c8628e4129ecdf4beea130" name="a3c447d1399c8628e4129ecdf4beea130"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_REGISTERS</b> { <br />
+&#160;&#160;<b>REGISTER_ID</b> = 0x00
+, <b>REGISTER_CONFIG_1</b> = 0x01
+, <b>REGISTER_CONFIG_2</b> = 0x02
+, <b>REGISTER_CONFIG_3</b> = 0x03
+, <br />
+&#160;&#160;<b>REGISTER_CH1SET</b> = 0x05
+, <b>REGISTER_CH2SET</b> = 0x06
+, <b>REGISTER_CH3SET</b> = 0x07
+, <b>REGISTER_CH4SET</b> = 0x08
+, <br />
+&#160;&#160;<b>REGISTER_CH5SET</b> = 0x09
+, <b>REGISTER_CH6SET</b> = 0x0A
+, <b>REGISTER_CH7SET</b> = 0x0B
+, <b>REGISTER_CH8SET</b> = 0x0C
+, <br />
+&#160;&#160;<b>REGISTER_MISC1</b> = 0x15
+<br />
+ }</td></tr>
+<tr class="separator:a3c447d1399c8628e4129ecdf4beea130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c10e19c90e32a788af6728432bff62"><td class="memItemLeft" align="right" valign="top"><a id="a03c10e19c90e32a788af6728432bff62" name="a03c10e19c90e32a788af6728432bff62"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_NUMBER_OF_CHANNELS</b> { <b>ID_NUMBER_OF_CHANNELS_4</b> = 0x00
+, <b>ID_NUMBER_OF_CHANNELS_6</b> = 0x01
+, <b>ID_NUMBER_OF_CHANNELS_8</b> = 0x02
+ }</td></tr>
+<tr class="separator:a03c10e19c90e32a788af6728432bff62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb722289dfbd93a2caabf2fb920c3f05"><td class="memItemLeft" align="right" valign="top"><a id="afb722289dfbd93a2caabf2fb920c3f05" name="afb722289dfbd93a2caabf2fb920c3f05"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_CAL_SIGNAL_STATE</b> { <b>CONFIG_2_INTERNAL_CAL_DISABLE</b> = 0x00
+, <b>CONFIG_2_INTERNAL_CAL_ENABLE</b> = 0x10
+ }</td></tr>
+<tr class="separator:afb722289dfbd93a2caabf2fb920c3f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45e135f531b797f5416e4100f97e7999"><td class="memItemLeft" align="right" valign="top"><a id="a45e135f531b797f5416e4100f97e7999" name="a45e135f531b797f5416e4100f97e7999"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_CAL_SIGNAL_AMPLITUDE</b> { <b>CONFIG_2_CAL_AMPLITUDE_LOW</b> = 0x00
+, <b>CONFIG_2_CAL_AMPLITUDE_HIGH</b> = 0x04
+ }</td></tr>
+<tr class="separator:a45e135f531b797f5416e4100f97e7999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92bd8cf37532fe5b78d91f3d94de0d2c"><td class="memItemLeft" align="right" valign="top"><a id="a92bd8cf37532fe5b78d91f3d94de0d2c" name="a92bd8cf37532fe5b78d91f3d94de0d2c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_CAL_SIGNAL_FREQUENCY</b> { <b>CONFIG_2_CAL_FREQUENCY_SLOW</b> = 0x00
+, <b>CONFIG_2_CAL_FREQUENCY_FAST</b> = 0x01
+, <b>CONFIG_2_CAL_FREQUENCY_DC</b> = 0x03
+ }</td></tr>
+<tr class="separator:a92bd8cf37532fe5b78d91f3d94de0d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f7d981d0a34744c238e496c2a986537"><td class="memItemLeft" align="right" valign="top"><a id="a8f7d981d0a34744c238e496c2a986537" name="a8f7d981d0a34744c238e496c2a986537"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_REG_BUFFER_STATE</b> { <b>CONFIG_3_REF_BUFFER_DISABLE</b> = 0x00
+, <b>CONFIG_3_REF_BUFFER_ENABLE</b> = 0x80
+ }</td></tr>
+<tr class="separator:a8f7d981d0a34744c238e496c2a986537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb026967cd10abdda8cca9e42442cfb0"><td class="memItemLeft" align="right" valign="top"><a id="afb026967cd10abdda8cca9e42442cfb0" name="afb026967cd10abdda8cca9e42442cfb0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>_REG_SRB1_STATE</b> { <b>MISC_1_SRB1_DISABLE</b> = 0x00
+, <b>MISC_1_SRB1_ENABLE</b> = 0x20
+ }</td></tr>
+<tr class="separator:afb026967cd10abdda8cca9e42442cfb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b4dcd82f159aef9c70e41d642ca2e3"><td class="memItemLeft" align="right" valign="top"><a id="a53b4dcd82f159aef9c70e41d642ca2e3" name="a53b4dcd82f159aef9c70e41d642ca2e3"></a>
+typedef enum Ads1299LowDriver::_COMMANDS&#160;</td><td class="memItemRight" valign="bottom"><b>eCommands</b></td></tr>
+<tr class="separator:a53b4dcd82f159aef9c70e41d642ca2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6123cca77d25d1fef13cbcdf118d99c6"><td class="memItemLeft" align="right" valign="top"><a id="a6123cca77d25d1fef13cbcdf118d99c6" name="a6123cca77d25d1fef13cbcdf118d99c6"></a>
+typedef enum Ads1299LowDriver::_REGISTERS&#160;</td><td class="memItemRight" valign="bottom"><b>eRegisters</b></td></tr>
+<tr class="separator:a6123cca77d25d1fef13cbcdf118d99c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50d4175e3814a93a0660a3ff25d27073"><td class="memItemLeft" align="right" valign="top"><a id="a50d4175e3814a93a0660a3ff25d27073" name="a50d4175e3814a93a0660a3ff25d27073"></a>
+typedef enum Ads1299LowDriver::_NUMBER_OF_CHANNELS&#160;</td><td class="memItemRight" valign="bottom"><b>eNumChannels</b></td></tr>
+<tr class="separator:a50d4175e3814a93a0660a3ff25d27073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add958f3ac15fcdaae1378e309ad04b89"><td class="memItemLeft" align="right" valign="top"><a id="add958f3ac15fcdaae1378e309ad04b89" name="add958f3ac15fcdaae1378e309ad04b89"></a>
+typedef enum Ads1299LowDriver::_CAL_SIGNAL_STATE&#160;</td><td class="memItemRight" valign="bottom"><b>eCalSignalState</b></td></tr>
+<tr class="separator:add958f3ac15fcdaae1378e309ad04b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d410e8b1d457941a4b748a86c90e2c1"><td class="memItemLeft" align="right" valign="top"><a id="a8d410e8b1d457941a4b748a86c90e2c1" name="a8d410e8b1d457941a4b748a86c90e2c1"></a>
+typedef enum Ads1299LowDriver::_CAL_SIGNAL_AMPLITUDE&#160;</td><td class="memItemRight" valign="bottom"><b>eCalSignalAmplitude</b></td></tr>
+<tr class="separator:a8d410e8b1d457941a4b748a86c90e2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eb32cb3ed4d690ec22b9c90249882c1"><td class="memItemLeft" align="right" valign="top"><a id="a5eb32cb3ed4d690ec22b9c90249882c1" name="a5eb32cb3ed4d690ec22b9c90249882c1"></a>
+typedef enum Ads1299LowDriver::_CAL_SIGNAL_FREQUENCY&#160;</td><td class="memItemRight" valign="bottom"><b>eCalSignalFrequency</b></td></tr>
+<tr class="separator:a5eb32cb3ed4d690ec22b9c90249882c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbaedb21b937c0d8f89bd1909164a8e3"><td class="memItemLeft" align="right" valign="top"><a id="adbaedb21b937c0d8f89bd1909164a8e3" name="adbaedb21b937c0d8f89bd1909164a8e3"></a>
+typedef enum Ads1299LowDriver::_REG_BUFFER_STATE&#160;</td><td class="memItemRight" valign="bottom"><b>eRefBufferState</b></td></tr>
+<tr class="separator:adbaedb21b937c0d8f89bd1909164a8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57340280f19ca9a18fe62760ef851bf0"><td class="memItemLeft" align="right" valign="top"><a id="a57340280f19ca9a18fe62760ef851bf0" name="a57340280f19ca9a18fe62760ef851bf0"></a>
+typedef enum Ads1299LowDriver::_REG_SRB1_STATE&#160;</td><td class="memItemRight" valign="bottom"><b>eSrb1State</b></td></tr>
+<tr class="separator:a57340280f19ca9a18fe62760ef851bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa1c88926c2abcf23434d80749cf5c8be"><td class="memItemLeft" align="right" valign="top">eRegisters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ads1299_low_driver.html#aa1c88926c2abcf23434d80749cf5c8be">GetChannelRegisterFromChannelIdEnum</a> (eChannelId chan)</td></tr>
+<tr class="memdesc:aa1c88926c2abcf23434d80749cf5c8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to convert from channel id enum to associated register.  <a href="class_ads1299_low_driver.html#aa1c88926c2abcf23434d80749cf5c8be">More...</a><br /></td></tr>
+<tr class="separator:aa1c88926c2abcf23434d80749cf5c8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c10fb41e5ecde57f5ef15b4ee0d977"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ads1299_low_driver.html#a60c10fb41e5ecde57f5ef15b4ee0d977">ReadRegister</a> (eRegisters reg)</td></tr>
+<tr class="memdesc:a60c10fb41e5ecde57f5ef15b4ee0d977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper funtion to read a register from the ADS1299.  <a href="class_ads1299_low_driver.html#a60c10fb41e5ecde57f5ef15b4ee0d977">More...</a><br /></td></tr>
+<tr class="separator:a60c10fb41e5ecde57f5ef15b4ee0d977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1309c254708769ee6da3fba9a706c068"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ads1299_low_driver.html#a1309c254708769ee6da3fba9a706c068">WriteRegister</a> (eRegisters reg, uint8_t newValue)</td></tr>
+<tr class="memdesc:a1309c254708769ee6da3fba9a706c068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to overwrite an ADS1299 register.  <a href="class_ads1299_low_driver.html#a1309c254708769ee6da3fba9a706c068">More...</a><br /></td></tr>
+<tr class="separator:a1309c254708769ee6da3fba9a706c068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a098e115a0df7d17caae1bf2e9d5c9b42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ads1299_low_driver.html#a098e115a0df7d17caae1bf2e9d5c9b42">ModifyRegister</a> (eRegisters reg, uint8_t mask, uint8_t newValue)</td></tr>
+<tr class="memdesc:a098e115a0df7d17caae1bf2e9d5c9b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to modify part of an ADS1299 Register.  <a href="class_ads1299_low_driver.html#a098e115a0df7d17caae1bf2e9d5c9b42">More...</a><br /></td></tr>
+<tr class="separator:a098e115a0df7d17caae1bf2e9d5c9b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72dbca00143d34cc31fbbee7db463d60"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ads1299_low_driver.html#a72dbca00143d34cc31fbbee7db463d60">GetMultiplierFromChannelGain</a> (eChannelGain gain)</td></tr>
+<tr class="memdesc:a72dbca00143d34cc31fbbee7db463d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to get the multiplier value from a channel gain enum.  <a href="class_ads1299_low_driver.html#a72dbca00143d34cc31fbbee7db463d60">More...</a><br /></td></tr>
+<tr class="separator:a72dbca00143d34cc31fbbee7db463d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4630ce256424b4fabbe3526bcb468334"><td class="memItemLeft" align="right" valign="top"><a id="a4630ce256424b4fabbe3526bcb468334" name="a4630ce256424b4fabbe3526bcb468334"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetChannelGainsToDefault</b> (void)</td></tr>
+<tr class="memdesc:a4630ce256424b4fabbe3526bcb468334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to set the cached channel gain values to default. <br /></td></tr>
+<tr class="separator:a4630ce256424b4fabbe3526bcb468334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4c60eaf66082838a18073d53ac0893e9"><td class="memItemLeft" align="right" valign="top"><a id="a4c60eaf66082838a18073d53ac0893e9" name="a4c60eaf66082838a18073d53ac0893e9"></a>
+<a class="el" href="class_spi_driver.html">SpiDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_SpiDriverInstance</b></td></tr>
+<tr class="separator:a4c60eaf66082838a18073d53ac0893e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab97f007bd2c3642d15a5941a70b10a2d"><td class="memItemLeft" align="right" valign="top"><a id="ab97f007bd2c3642d15a5941a70b10a2d" name="ab97f007bd2c3642d15a5941a70b10a2d"></a>
+<a class="el" href="class_pin_control.html">PinControl</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_PinControlInstance</b></td></tr>
+<tr class="separator:ab97f007bd2c3642d15a5941a70b10a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1c6090c9e6aeb432e056bd9fb72572f"><td class="memItemLeft" align="right" valign="top"><a id="af1c6090c9e6aeb432e056bd9fb72572f" name="af1c6090c9e6aeb432e056bd9fb72572f"></a>
+int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>_ChannelGainsCache</b> [MAX_CHANNELS]</td></tr>
+<tr class="separator:af1c6090c9e6aeb432e056bd9fb72572f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56a1bec7829a4157a9a1d7b795868e21"><td class="memItemLeft" align="right" valign="top"><a id="a56a1bec7829a4157a9a1d7b795868e21" name="a56a1bec7829a4157a9a1d7b795868e21"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_VotlageReferenceCache</b></td></tr>
+<tr class="separator:a56a1bec7829a4157a9a1d7b795868e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a6c72b9e9c2ac0ef92bf73aa6e5c9efc4"><td class="memItemLeft" align="right" valign="top"><a id="a6c72b9e9c2ac0ef92bf73aa6e5c9efc4" name="a6c72b9e9c2ac0ef92bf73aa6e5c9efc4"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>ID_NUMBER_OF_CHANNELS_MASK</b> = 0x03</td></tr>
+<tr class="separator:a6c72b9e9c2ac0ef92bf73aa6e5c9efc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b5b342325588212016a8f0f9c038488"><td class="memItemLeft" align="right" valign="top"><a id="a6b5b342325588212016a8f0f9c038488" name="a6b5b342325588212016a8f0f9c038488"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CONFIG_1_DATARATE_MASK</b> = 0x07</td></tr>
+<tr class="separator:a6b5b342325588212016a8f0f9c038488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89164625e1b2dae2d01ac44613049438"><td class="memItemLeft" align="right" valign="top"><a id="a89164625e1b2dae2d01ac44613049438" name="a89164625e1b2dae2d01ac44613049438"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CONFIG_2_INTERNAL_CAL_MASK</b> = 0x10</td></tr>
+<tr class="separator:a89164625e1b2dae2d01ac44613049438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56fab5e0b830dbab0bd215db2de1c517"><td class="memItemLeft" align="right" valign="top"><a id="a56fab5e0b830dbab0bd215db2de1c517" name="a56fab5e0b830dbab0bd215db2de1c517"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CONFIG_2_CAL_AMPLITUDE_MASK</b> = 0x04</td></tr>
+<tr class="separator:a56fab5e0b830dbab0bd215db2de1c517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7f9770e9f4b736d31265fa59a1fa653"><td class="memItemLeft" align="right" valign="top"><a id="ac7f9770e9f4b736d31265fa59a1fa653" name="ac7f9770e9f4b736d31265fa59a1fa653"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CONFIG_2_CAL_FREQUENCY_MASK</b> = 0x03</td></tr>
+<tr class="separator:ac7f9770e9f4b736d31265fa59a1fa653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a077995b78fa84020afc31f9e2f7a88f6"><td class="memItemLeft" align="right" valign="top"><a id="a077995b78fa84020afc31f9e2f7a88f6" name="a077995b78fa84020afc31f9e2f7a88f6"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CONFIG_3_REF_BUFFER_MASK</b> = 0x80</td></tr>
+<tr class="separator:a077995b78fa84020afc31f9e2f7a88f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a769aea2d4ea6d26d9ef128123cd486e4"><td class="memItemLeft" align="right" valign="top"><a id="a769aea2d4ea6d26d9ef128123cd486e4" name="a769aea2d4ea6d26d9ef128123cd486e4"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CHNSET_GAIN_MASK</b> = 0x70</td></tr>
+<tr class="separator:a769aea2d4ea6d26d9ef128123cd486e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af18aed0d42282ae6c78aed92bce704a9"><td class="memItemLeft" align="right" valign="top"><a id="af18aed0d42282ae6c78aed92bce704a9" name="af18aed0d42282ae6c78aed92bce704a9"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CHNSET_STATE_MASK</b> = 0x87</td></tr>
+<tr class="separator:af18aed0d42282ae6c78aed92bce704a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2354da358c15f8775e7593b11551df14"><td class="memItemLeft" align="right" valign="top"><a id="a2354da358c15f8775e7593b11551df14" name="a2354da358c15f8775e7593b11551df14"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>MISC_1_SRB1_MASK</b> = 0x20</td></tr>
+<tr class="separator:a2354da358c15f8775e7593b11551df14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea17c671db92dd0294881d3daec7250"><td class="memItemLeft" align="right" valign="top"><a id="a0ea17c671db92dd0294881d3daec7250" name="a0ea17c671db92dd0294881d3daec7250"></a>
+static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>BLANK_DATA</b> = 0x00</td></tr>
+<tr class="separator:a0ea17c671db92dd0294881d3daec7250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889188644a451bc224766b2c27a406df"><td class="memItemLeft" align="right" valign="top"><a id="a889188644a451bc224766b2c27a406df" name="a889188644a451bc224766b2c27a406df"></a>
+static const int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT_CHANNEL_GAIN</b> = 24</td></tr>
+<tr class="separator:a889188644a451bc224766b2c27a406df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d5c7dc735c9678a3413c947bd6e8e3"><td class="memItemLeft" align="right" valign="top"><a id="a36d5c7dc735c9678a3413c947bd6e8e3" name="a36d5c7dc735c9678a3413c947bd6e8e3"></a>
+static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>INTERNAL_VREF_VOLTAGE</b> = 4.5f</td></tr>
+<tr class="separator:a36d5c7dc735c9678a3413c947bd6e8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f1118296abf6f05bd399149f5e7f4a"><td class="memItemLeft" align="right" valign="top"><a id="a25f1118296abf6f05bd399149f5e7f4a" name="a25f1118296abf6f05bd399149f5e7f4a"></a>
+static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>EXTERNAL_VREF_VOLTAGE</b> = 5.0f</td></tr>
+<tr class="separator:a25f1118296abf6f05bd399149f5e7f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad089f84e9ceeea5f323339e8a93af3b7" name="ad089f84e9ceeea5f323339e8a93af3b7"></a>
@@ -261,7 +433,77 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_C
 
 <p>Get the latest EEG Channel data and sign extend it to 32 bits. </p>
 <dl class="section return"><dt>Returns</dt><dd>A structure holding the channel data. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Make 27 variable based on the number of channels supported by the device. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Make 27 variable based on the number of channels supported by the device. </dd></dl>
+
+</div>
+</div>
+<a id="aa1c88926c2abcf23434d80749cf5c8be" name="aa1c88926c2abcf23434d80749cf5c8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c88926c2abcf23434d80749cf5c8be">&#9670;&nbsp;</a></span>GetChannelRegisterFromChannelIdEnum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ads1299LowDriver::eRegisters Ads1299LowDriver::GetChannelRegisterFromChannelIdEnum </td>
+          <td>(</td>
+          <td class="paramtype">eChannelId&#160;</td>
+          <td class="paramname"><em>chan</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to convert from channel id enum to associated register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chan</td><td>The channel to request the register for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ads1299LowDriver::eRegisters The Register associated with that channel </dd></dl>
+
+</div>
+</div>
+<a id="a72dbca00143d34cc31fbbee7db463d60" name="a72dbca00143d34cc31fbbee7db463d60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72dbca00143d34cc31fbbee7db463d60">&#9670;&nbsp;</a></span>GetMultiplierFromChannelGain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t Ads1299LowDriver::GetMultiplierFromChannelGain </td>
+          <td>(</td>
+          <td class="paramtype">eChannelGain&#160;</td>
+          <td class="paramname"><em>gain</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to get the multiplier value from a channel gain enum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gain</td><td>The gain enumeration. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int32_t The Multiplier for that gain. </dd></dl>
 
 </div>
 </div>
@@ -283,6 +525,93 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_C
 
 <p>Gets the number of channels supported by the ADS1299. </p>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t The number of channels supported by the device. </dd></dl>
+
+</div>
+</div>
+<a id="a098e115a0df7d17caae1bf2e9d5c9b42" name="a098e115a0df7d17caae1bf2e9d5c9b42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a098e115a0df7d17caae1bf2e9d5c9b42">&#9670;&nbsp;</a></span>ModifyRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ads1299LowDriver::ModifyRegister </td>
+          <td>(</td>
+          <td class="paramtype">eRegisters&#160;</td>
+          <td class="paramname"><em>reg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>newValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to modify part of an ADS1299 Register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>The register to modify. </td></tr>
+    <tr><td class="paramname">mask</td><td>The mask of values to change. </td></tr>
+    <tr><td class="paramname">newValue</td><td>The new values to set/clear. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a60c10fb41e5ecde57f5ef15b4ee0d977" name="a60c10fb41e5ecde57f5ef15b4ee0d977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c10fb41e5ecde57f5ef15b4ee0d977">&#9670;&nbsp;</a></span>ReadRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Ads1299LowDriver::ReadRegister </td>
+          <td>(</td>
+          <td class="paramtype">eRegisters&#160;</td>
+          <td class="paramname"><em>reg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper funtion to read a register from the ADS1299. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>The register to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t The value of the read register. </dd></dl>
 
 </div>
 </div>
@@ -406,6 +735,51 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_C
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rate</td><td>The data rate to capture samples at. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1309c254708769ee6da3fba9a706c068" name="a1309c254708769ee6da3fba9a706c068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1309c254708769ee6da3fba9a706c068">&#9670;&nbsp;</a></span>WriteRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ads1299LowDriver::WriteRegister </td>
+          <td>(</td>
+          <td class="paramtype">eRegisters&#160;</td>
+          <td class="paramname"><em>reg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>newValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to overwrite an ADS1299 register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>The register to overwrite. </td></tr>
+    <tr><td class="paramname">newValue</td><td>The new value to write to that register. </td></tr>
   </table>
   </dd>
 </dl>

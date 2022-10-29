@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['processevent_0',['ProcessEvent',['../class_protocol_receiver.html#a0faff55ee749eaf8d9dffa16d26d0915',1,'ProtocolReceiver::ProcessEvent()'],['../class_protocol_transmitter.html#a45273aa587b61d98115a6d3e1c6b636b',1,'ProtocolTransmitter::ProcessEvent()']]],
-  ['protocolgeneral_1',['ProtocolGeneral',['../class_protocol_general.html#ac59cf81318227170c3977337bb5aacf8',1,'ProtocolGeneral']]],
-  ['protocolreceiver_2',['ProtocolReceiver',['../class_protocol_receiver.html#a0a47d7343e69cc67d75147494695bc85',1,'ProtocolReceiver::ProtocolReceiver()'],['../class_protocol_receiver.html#a6c8ba2bc63d07e88ba4a5a01d02d95d2',1,'ProtocolReceiver::ProtocolReceiver(IPcCommunications *pci, IEegDataProducer *edp, EventHandler *evh, IProtocolTransmission *pti)']]],
-  ['protocoltransmitter_3',['ProtocolTransmitter',['../class_protocol_transmitter.html#a2c378a68dd97c951283c742e84ced50f',1,'ProtocolTransmitter::ProtocolTransmitter()'],['../class_protocol_transmitter.html#ade761ca1c9f39b71efe20bd9d35440eb',1,'ProtocolTransmitter::ProtocolTransmitter(IPcCommunications *pci, EventHandler *evh)']]],
-  ['pushlatestsample_4',['PushLatestSample',['../class_protocol_transmitter.html#afc66ff3180068469b696a618dfd26537',1,'ProtocolTransmitter']]]
+  ['getads1299data_0',['GetAds1299Data',['../class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55',1,'Ads1299LowDriver']]],
+  ['getchannelregisterfromchannelidenum_1',['GetChannelRegisterFromChannelIdEnum',['../class_ads1299_low_driver.html#aa1c88926c2abcf23434d80749cf5c8be',1,'Ads1299LowDriver']]],
+  ['getmultiplierfromchannelgain_2',['GetMultiplierFromChannelGain',['../class_ads1299_low_driver.html#a72dbca00143d34cc31fbbee7db463d60',1,'Ads1299LowDriver']]],
+  ['getnumberofsupportedchannels_3',['GetNumberOfSupportedChannels',['../class_ads1299_low_driver.html#af141c3d81e7829d2437e1d8d467b2b37',1,'Ads1299LowDriver']]],
+  ['getreceivedbytes_4',['GetReceivedBytes',['../class_i_pc_communications.html#a7a215500285af53b86503308754eec18',1,'IPcCommunications::GetReceivedBytes()'],['../class_serial_port.html#addf45e9e614519103540cdf28c01d39c',1,'SerialPort::GetReceivedBytes()']]]
 ];

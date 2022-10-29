@@ -3,8 +3,8 @@
 #include <string.h>
 
 #ifndef PIO_UNIT_TESTING
-#include <Adafruit_TinyUSB.h>
-//#include <Arduino.h>
+//#include <Adafruit_TinyUSB.h>
+#include <Arduino.h>
 #else
 #include <../../src/ArduinoMock.h>
 #endif
@@ -29,7 +29,7 @@ SerialPort::SerialPort(EventHandler * eh) :
     _ReSignalDataRxEvent(false)
 {
     // baud rate does not seem to matter for USB serial link
-    Serial.begin(115200);
+    Serial1.begin(460800);
 
     memset(_RxBuffer, 0, _RX_BUFFER_SIZE);
 }
@@ -46,7 +46,7 @@ void SerialPort::BackgroundTaskHandler(void)
         _ReSignalDataRxEvent = false;
     }
 
-    if (Serial.available() == 0)
+    if (Serial1.available() == 0)
     {
         return;
     }
@@ -63,7 +63,7 @@ void SerialPort::BackgroundTaskHandler(void)
         _EventHandlerInstance->SignalEvent(NEvent::Event_DataRxFromPC);
     }
     
-    _RxBuffer[_RxInputIndex] = (uint8_t)Serial.read();
+    _RxBuffer[_RxInputIndex] = (uint8_t)Serial1.read();
 
     // increment input index and check for wrap around.
     if(++_RxInputIndex == _RX_BUFFER_SIZE)
@@ -133,5 +133,5 @@ uint8_t SerialPort::GetReceivedBytes(uint8_t data[], uint8_t max_length)
 //
 void SerialPort::TransmitData(uint8_t data[], uint16_t count)
 {
-    Serial.write(data, count);
+    Serial1.write(data, count);
 }

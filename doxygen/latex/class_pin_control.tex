@@ -48,6 +48,62 @@ bool {\bfseries Is\+Sd\+Card\+Write\+Protect\+Active} ()
 \mbox{\Hypertarget{class_pin_control_a04ebee49551a63a3bee780d82b5d7ad6}\label{class_pin_control_a04ebee49551a63a3bee780d82b5d7ad6}} 
 bool {\bfseries Is\+ADS1299\+Data\+Ready\+Active} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_pin_control_aa5110b398bbcf7d0a491df308fde01c7}\label{class_pin_control_aa5110b398bbcf7d0a491df308fde01c7}} 
+enum {\bfseries e\+Pin\+State} \{ {\bfseries Inactive}
+, {\bfseries Active}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_pin_control_a9083d52b55ffc902597f7702928c5dff}\label{class_pin_control_a9083d52b55ffc902597f7702928c5dff}} 
+static void {\bfseries Ads1299\+Data\+Ready\+ISR} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_pin_control_a0322a77d6107c9ab843e38b30dd5fcfa}\label{class_pin_control_a0322a77d6107c9ab843e38b30dd5fcfa}} 
+e\+Pin\+State {\bfseries m\+Heartbeat\+Led\+State}
+\item 
+\mbox{\Hypertarget{class_pin_control_a186c5bede16f047e435184f0765cfb14}\label{class_pin_control_a186c5bede16f047e435184f0765cfb14}} 
+e\+Pin\+State {\bfseries m\+ADS1299\+Reset\+State}
+\item 
+\mbox{\Hypertarget{class_pin_control_a20a754ee7443366ced7804611cf37b79}\label{class_pin_control_a20a754ee7443366ced7804611cf37b79}} 
+e\+Pin\+State {\bfseries m\+ADS1299\+Chip\+Select\+State}
+\item 
+\mbox{\Hypertarget{class_pin_control_a3f5fb949f4aeb4921b95dafb11896538}\label{class_pin_control_a3f5fb949f4aeb4921b95dafb11896538}} 
+e\+Pin\+State {\bfseries m\+Sd\+Card\+Chip\+Select\+State}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_pin_control_a98e031cc93426942666b3074cf8caf77}\label{class_pin_control_a98e031cc93426942666b3074cf8caf77}} 
+static const uint32\+\_\+t {\bfseries HEARTBEAT\+\_\+\+LED\+\_\+\+PIN} = LED\+\_\+\+BUILTIN
+\item 
+\mbox{\Hypertarget{class_pin_control_a8055f38a44459c54fe62eb2915b1c24e}\label{class_pin_control_a8055f38a44459c54fe62eb2915b1c24e}} 
+static const uint32\+\_\+t {\bfseries ADS1299\+\_\+\+RESET\+\_\+\+PIN} = 11
+\item 
+\mbox{\Hypertarget{class_pin_control_ab54f2c479228463373f7aa28f1fee4af}\label{class_pin_control_ab54f2c479228463373f7aa28f1fee4af}} 
+static const uint32\+\_\+t {\bfseries ADS1299\+\_\+\+CHIP\+\_\+\+SELECT\+\_\+\+PIN} = 10
+\item 
+\mbox{\Hypertarget{class_pin_control_a34c54d2caf472ef6bf3f5769fda3e4f0}\label{class_pin_control_a34c54d2caf472ef6bf3f5769fda3e4f0}} 
+static const uint32\+\_\+t {\bfseries SD\+\_\+\+CARD\+\_\+\+CHIP\+\_\+\+SELECT\+\_\+\+PIN} = 9
+\item 
+\mbox{\Hypertarget{class_pin_control_abd650d34cc632a592ef963110bf1727a}\label{class_pin_control_abd650d34cc632a592ef963110bf1727a}} 
+static const uint32\+\_\+t {\bfseries SD\+\_\+\+CARD\+\_\+\+CARD\+\_\+\+DETECT\+\_\+\+PIN} = 5
+\item 
+\mbox{\Hypertarget{class_pin_control_a42c0e9b98e3c3bd54ff210ad768c5602}\label{class_pin_control_a42c0e9b98e3c3bd54ff210ad768c5602}} 
+static const uint32\+\_\+t {\bfseries SD\+\_\+\+CARD\+\_\+\+WRITE\+\_\+\+PROTECT\+\_\+\+PIN} = 6
+\item 
+\mbox{\Hypertarget{class_pin_control_ac42e5545e855998d6e776096c1c6b3fe}\label{class_pin_control_ac42e5545e855998d6e776096c1c6b3fe}} 
+static const uint32\+\_\+t {\bfseries ADS1299\+\_\+\+DATA\+\_\+\+READY\+\_\+\+PIN} = 12
+\item 
+\mbox{\Hypertarget{class_pin_control_a5a440c03dd677e502a8fcc4d4a335782}\label{class_pin_control_a5a440c03dd677e502a8fcc4d4a335782}} 
+static \mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$ {\bfseries \+\_\+\+Event\+Handler\+Instance} = NULL
+\end{DoxyCompactItemize}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

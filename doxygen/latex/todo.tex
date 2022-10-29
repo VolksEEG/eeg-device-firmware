@@ -1,6 +1,15 @@
 
 \begin{DoxyRefList}
-\item[Member \mbox{\hyperlink{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}{Ads1299\+Low\+Driver\+::Get\+Ads1299\+Data}} (void)]\label{todo__todo000001}%
-\Hypertarget{todo__todo000001}%
-Make 27 variable based on the number of channels supported by the device. 
+\item[Member \mbox{\hyperlink{class_ads1299_low_driver_aeef277492407cca99e3d839bb7f11a55}{Ads1299\+Low\+Driver\+::Get\+Ads1299\+Data}} (void)]\label{todo__todo000002}%
+\Hypertarget{todo__todo000002}%
+Make 27 variable based on the number of channels supported by the device.  
+\item[Member \mbox{\hyperlink{class_i_pc_communications_a7a215500285af53b86503308754eec18}{IPc\+Communications\+::Get\+Received\+Bytes}} (uint8\+\_\+t data\mbox{[}\mbox{]}, uint8\+\_\+t max\+\_\+length)=0]\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+consider splitting this into two interfaces as no module is likely to need both functions  
+\item[Member \mbox{\hyperlink{class_protocol_receiver_abc474ba439dcc4a299e95d8b17a2a06a}{Protocol\+Receiver\+::Rx\+State\+\_\+\+Get\+Payload\+And\+Process\+Message\+Contents}} (uint8\+\_\+t c, s\+Rx\+Struct state, \mbox{\hyperlink{class_protocol_receiver}{Protocol\+Receiver}} $\ast$protocol\+Receiver)]\label{todo__todo000004}%
+\Hypertarget{todo__todo000004}%
+Process the message contents  
+\item[Member \mbox{\hyperlink{class_protocol_transmitter_a45273aa587b61d98115a6d3e1c6b636b}{Protocol\+Transmitter\+::Process\+Event}} (NEvent\+::e\+Event event) override]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+Remove this, only in so that messages are sent and ack\textquotesingle{}d straight away 
 \end{DoxyRefList}

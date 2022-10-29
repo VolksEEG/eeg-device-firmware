@@ -67,7 +67,13 @@ $(function() {
 <div class="contents">
 <div class="textblock"><dl class="reflist">
 <dt>Member <a class="el" href="class_ads1299_low_driver.html#aeef277492407cca99e3d839bb7f11a55">Ads1299LowDriver::GetAds1299Data</a>  (void)</dt>
-<dd><a class="anchor" id="_todo000001"></a>Make 27 variable based on the number of channels supported by the device. </dd>
+<dd><a class="anchor" id="_todo000002"></a>Make 27 variable based on the number of channels supported by the device.  </dd>
+<dt>Member <a class="el" href="class_i_pc_communications.html#a7a215500285af53b86503308754eec18">IPcCommunications::GetReceivedBytes</a>  (uint8_t data[], uint8_t max_length)=0</dt>
+<dd><a class="anchor" id="_todo000003"></a>consider splitting this into two interfaces as no module is likely to need both functions  </dd>
+<dt>Member <a class="el" href="class_protocol_receiver.html#abc474ba439dcc4a299e95d8b17a2a06a">ProtocolReceiver::RxState_GetPayloadAndProcessMessageContents</a>  (uint8_t c, sRxStruct state, <a class="el" href="class_protocol_receiver.html">ProtocolReceiver</a> *protocolReceiver)</dt>
+<dd><a class="anchor" id="_todo000004"></a>Process the message contents  </dd>
+<dt>Member <a class="el" href="class_protocol_transmitter.html#a45273aa587b61d98115a6d3e1c6b636b">ProtocolTransmitter::ProcessEvent</a>  (NEvent::eEvent event) override</dt>
+<dd><a class="anchor" id="_todo000005"></a>Remove this, only in so that messages are sent and ack'd straight away </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

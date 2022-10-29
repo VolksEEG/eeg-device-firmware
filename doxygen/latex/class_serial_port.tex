@@ -21,6 +21,42 @@ uint8\+\_\+t \mbox{\hyperlink{class_serial_port_addf45e9e614519103540cdf28c01d39
 \item 
 void \mbox{\hyperlink{class_serial_port_a3b944154864b48efe33b13085b2aa747}{Transmit\+Data}} (uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, uint16\+\_\+t count) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_serial_port_a57c40d9252cefb6cb91c42ba226450cf}\label{class_serial_port_a57c40d9252cefb6cb91c42ba226450cf}} 
+typedef uint8\+\_\+t {\bfseries RX\+\_\+\+BUF\+\_\+\+TYPE}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_serial_port_ae2973400c6e74fbab15b39c1e7176dec}\label{class_serial_port_ae2973400c6e74fbab15b39c1e7176dec}} 
+\mbox{\hyperlink{class_event_handler}{Event\+Handler}} $\ast$ {\bfseries \+\_\+\+Event\+Handler\+Instance}
+\item 
+\mbox{\Hypertarget{class_serial_port_af2e8d8db901aaf5ed8c4083d1c50ade7}\label{class_serial_port_af2e8d8db901aaf5ed8c4083d1c50ade7}} 
+uint8\+\_\+t {\bfseries \+\_\+\+Rx\+Buffer} \mbox{[}\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\item 
+\mbox{\Hypertarget{class_serial_port_a80730e0d6fa1dbfa3336333e90696f23}\label{class_serial_port_a80730e0d6fa1dbfa3336333e90696f23}} 
+RX\+\_\+\+BUF\+\_\+\+TYPE {\bfseries \+\_\+\+Rx\+Input\+Index}
+\item 
+\mbox{\Hypertarget{class_serial_port_add3783539032b653ee6cea782bd6cffd}\label{class_serial_port_add3783539032b653ee6cea782bd6cffd}} 
+RX\+\_\+\+BUF\+\_\+\+TYPE {\bfseries \+\_\+\+Rx\+Output\+Index}
+\item 
+\mbox{\Hypertarget{class_serial_port_a025a3e3d50712176f146738c74cb18a3}\label{class_serial_port_a025a3e3d50712176f146738c74cb18a3}} 
+RX\+\_\+\+BUF\+\_\+\+TYPE {\bfseries \+\_\+\+Rx\+Count}
+\item 
+\mbox{\Hypertarget{class_serial_port_ad734c9c128233e17bfc26384e908991a}\label{class_serial_port_ad734c9c128233e17bfc26384e908991a}} 
+bool {\bfseries \+\_\+\+Rx\+Data\+Processing\+Complete}
+\item 
+\mbox{\Hypertarget{class_serial_port_a1c6e69d26ff3e5fba0c996234fb9ddee}\label{class_serial_port_a1c6e69d26ff3e5fba0c996234fb9ddee}} 
+bool {\bfseries \+\_\+\+Re\+Signal\+Data\+Rx\+Event}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_serial_port_ad8e3a14af450f116c69f574b0772fa73}\label{class_serial_port_ad8e3a14af450f116c69f574b0772fa73}} 
+static const RX\+\_\+\+BUF\+\_\+\+TYPE {\bfseries \+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE} = 100
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
@@ -30,9 +66,11 @@ void \mbox{\hyperlink{class_serial_port_a3b944154864b48efe33b13085b2aa747}{Trans
 \doxysubsubsection{\texorpdfstring{GetReceivedBytes()}{GetReceivedBytes()}}
 {\footnotesize\ttfamily uint8\+\_\+t Serial\+Port\+::\+Get\+Received\+Bytes (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t}]{max\+\_\+length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]consider splitting this into two interfaces as no module is likely to need both functions \end{DoxyRefDesc}
 
 
-Implements \mbox{\hyperlink{class_i_pc_communications}{IPc\+Communications}}.
+Implements \mbox{\hyperlink{class_i_pc_communications_a7a215500285af53b86503308754eec18}{IPc\+Communications}}.
 
 \mbox{\Hypertarget{class_serial_port_a6677eea9000e7fe5e703c48089409e81}\label{class_serial_port_a6677eea9000e7fe5e703c48089409e81}} 
 \index{SerialPort@{SerialPort}!ProcessEvent@{ProcessEvent}}
