@@ -1,0 +1,92 @@
+@startuml
+
+hide empty description
+
+component NRF52840 {
+  
+  port "USB Serial" as USB
+  
+  port "SPI" as SPI
+  
+  portout "Chip Select" as CS
+  
+  portout "Reset" as RST
+  
+  portin "Data Ready" as DRDY
+  
+  portout "Heartbeat LED" as LED
+  
+  component Hardware {
+  
+    [ADS1299 driver] as ads
+    
+    [pin control] as pin
+    
+    [serial port driver] as serial
+    
+    [spi driver] as spi
+  }
+  
+  component Core {
+  
+    [data flow controller] as data
+    
+    [error handler] as error
+    
+    [event handler] as event
+    
+    [led control] as led
+    
+    [protocol parser] as protocol
+  }
+  
+}
+
+interface PC
+
+interface ADS1299
+
+interface HEARTBEAT
+
+PC <--> USB
+
+RST -u-> ADS1299
+SPI <-u-> ADS1299
+CS -u-> ADS1299
+DRDY <-u- ADS1299
+
+LED -u-> HEARTBEAT
+
+' linking components
+USB <--> serial
+serial <--> event : Event_DataRxFromPC
+
+spi --> pin
+spi <--> SPI
+
+event --> protocol : Event_DataRxFromPC\nEvent_DataToTxToPC
+protocol --> event : Event_DataToTxToPC
+protocol <..> serial : IPcCommunications
+
+pin --> event : Event_ADS1299DataReady
+pin --> LED
+pin --> RST
+pin --> CS
+pin <-- DRDY
+
+led <-- event :  Event_1mSTimeout
+led <-- error
+led --> pin 
+
+event --> error : Error_EventOverrun\nError_EventHandlerUnableToBeAdded\nError_EventHandlingFailure
+
+data <-- event : Event_BufferedADS1299DataReady\nEvent_EDFDataReady
+data <.. ads : IEegDataProducer
+data ..> protocol : IEegDataConsumer
+
+ads <-- event : Event_ADS1299DataReady
+ads --> event : Event_BufferedADS1299DataReady
+ads --> error : Error_AdsSampleUnableToBeBuffered
+ads --> spi
+
+@enduml

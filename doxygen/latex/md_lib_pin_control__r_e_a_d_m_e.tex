@@ -1,6 +1,6 @@
 This module provides a layer of abstraction around the already abstracted Arduino GPIO functions.
 
-The main purpose of this is to provide application specific functions e.\+g. \char`\"{}\+Set\+Heartbeat\+Led\+State\char`\"{} rather than referencing pin numbers in the modules which need to set GPIO pins.\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md14}{}\doxysection{Inputs}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md14}
+The main purpose of this is to provide application specific functions e.\+g. \char`\"{}\+Set\+Heartbeat\+Led\+State\char`\"{} rather than referencing pin numbers in the modules which need to set GPIO pins.\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md15}{}\doxysection{Inputs}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md15}
 This module allows getting the level of the following input pins\+:
 
 
@@ -8,7 +8,7 @@ This module allows getting the level of the following input pins\+:
 \item SD Card\textquotesingle{}s Card detect (CD) pin
 \item SD Card\textquotesingle{}s Write Protect (WP) pin
 \item ADS1299\textquotesingle{}s Data ready pin
-\end{DoxyItemize}\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md15}{}\doxysection{Outputs}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md15}
+\end{DoxyItemize}\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md16}{}\doxysection{Outputs}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md16}
 This module allows setting of the following output pins\+:
 
 
@@ -17,5 +17,5 @@ This module allows setting of the following output pins\+:
 \item ADS1299\textquotesingle{}s Reset pin
 \item ADS1299\textquotesingle{}s Chip Select pin
 \item SD Card\textquotesingle{}s Chip Select pin
-\end{DoxyItemize}\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md16}{}\doxysection{Interrupts}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md16}
+\end{DoxyItemize}\hypertarget{md_lib_pin_control__r_e_a_d_m_e_autotoc_md17}{}\doxysection{Interrupts}\label{md_lib_pin_control__r_e_a_d_m_e_autotoc_md17}
 In order to prompty respond to the ADS1299\textquotesingle{}s data ready input changing state, an interrupt is set up to trigger on the falling edge of this pin and consequently signal the ADS1299 data ready event in the event handler class. 

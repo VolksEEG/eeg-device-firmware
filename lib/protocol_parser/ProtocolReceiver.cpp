@@ -29,10 +29,8 @@ ProtocolReceiver::ProtocolReceiver()
  * @param evh Pointer to the event handler module which is used to set the events raised by this module.
  * @param pti Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC.
  */
-ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, IEegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti) :
+ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, IProtocolTransmission * pti) :
     _PcComsInterface(pci),
-    _EEGDataProducer(edp),
-    _EventHandler(evh),
     _ProtocolTransmissionInstance(pti)
 {
     _RxState = ResetRxStruct(_RxState);

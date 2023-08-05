@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['serial_20port_20driver_0',['Serial Port Driver',['../md_lib_serial_port_driver__r_e_a_d_m_e.html',1,'']]],
-  ['spi_20driver_1',['SPI Driver',['../md_lib_spi_driver__r_e_a_d_m_e.html',1,'']]]
+  ['pin_20control_0',['Pin Control',['../md_lib_pin_control__r_e_a_d_m_e.html',1,'']]],
+  ['protocol_20parser_20library_1',['Protocol Parser Library',['../md_lib_protocol_parser__r_e_a_d_m_e.html',1,'']]]
 ];

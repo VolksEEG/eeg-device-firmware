@@ -65,7 +65,7 @@ $(function() {
   <div class="headertitle"><div class="title">ADS1299 Driver </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md1"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md2"></a>
 Overview</h1>
 <p >This driver consists of both a high level driver which exposes the following abstracted functionality:</p><ul>
 <li>Starting / Stopping continuous data capture.</li>
@@ -78,7 +78,7 @@ Overview</h1>
 </ul>
 <p >And a low level driver which is called by the high level driver to set the appropriate register values in the ADS1299.</p>
 <p ><b>Note</b> The low level driver does not and will not expose the complete functionality of the ADS1299 Registers, and will not be the most optimised solution e.g. writing multiple sequential registers at the same time is not intended to be implemented.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Inheritance</h1>
 <p >The high level "ads1299Driver" class inherits from the EEGDataProducer base class and overrides the "GetLatestSample" function.</p>
 <p >This allows the <a class="el" href="class_data_flow_controller.html">DataFlowController</a> class to use it as one of it's possible sources of EMG data. </p>

@@ -68,14 +68,14 @@ $(function() {
 <div class="textblock"><p >This module is repsonible for allowing for events to be raised by other modules and then processed in priority order by any other module which implements an event handler.</p>
 <p >All events are defined in the <a class="el" href="_events_8h_source.html">Events.h</a> file.</p>
 <p >Any Class which wishes to be an event handler must publicly inherit the CanProcessEvents class and be passed to the "AddEventHandler" function in main.cpp following initialisation of all the classes.</p>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Available Events in priority order (Highest first)</h1>
 <ol type="1">
 <li>ADS1299 Data Ready</li>
 <li>EDF File Data Ready</li>
 <li>1mS Timer Event</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Event overrun</h1>
 <p >In order to prevent an event being missed (not processed) due to another of the same event being signalled, this module <b>shall</b> check that the relevent event is not already signalled, before signalling it to be processed, and raising an error in the error module if an overrun has ocurred. </p>
 </div></div><!-- contents -->

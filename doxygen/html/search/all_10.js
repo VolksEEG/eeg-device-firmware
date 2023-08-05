@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['writeregister_0',['WriteRegister',['../class_ads1299_low_driver.html#a1309c254708769ee6da3fba9a706c068',1,'Ads1299LowDriver']]]
+  ['updateacknowledgedid_0',['UpdateAcknowledgedId',['../class_protocol_transmitter.html#a3dd4446f3df7555d598996e742ba73a1',1,'ProtocolTransmitter']]],
+  ['updateidtoacknowledge_1',['UpdateIdToAcknowledge',['../class_protocol_transmitter.html#a40cf497bd486020baa84b4e2ee7ce111',1,'ProtocolTransmitter']]]
 ];
