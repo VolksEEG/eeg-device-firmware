@@ -2,9 +2,15 @@
 #include "SerialPort.h"
 #include <string.h>
 
+// Comment out this #define to use the hardware serial port
+//#define USB_SERIAL
+
 #ifndef PIO_UNIT_TESTING
-//#include <Adafruit_TinyUSB.h>
+#ifdef USB_SERIAL
+#include <Adafruit_TinyUSB.h>
+#else
 #include <Arduino.h>
+#endif
 #else
 #include <../../src/ArduinoMock.h>
 #endif
@@ -29,8 +35,13 @@ SerialPort::SerialPort(EventHandler * eh) :
     _ReSignalDataRxEvent(false)
 {
     // baud rate does not seem to matter for USB serial link
+#ifdef USB_SERIAL
+    Serial.begin(460800);
+#else
     Serial1.begin(460800);
+#endif
 
+    // Clear the rx buffer
     memset(_RxBuffer, 0, _RX_BUFFER_SIZE);
 }
 
@@ -45,8 +56,11 @@ void SerialPort::BackgroundTaskHandler(void)
 
         _ReSignalDataRxEvent = false;
     }
-
+#ifdef USB_SERIAL
+    if (Serial.available() == 0)
+#else
     if (Serial1.available() == 0)
+#endif    
     {
         return;
     }
@@ -63,7 +77,11 @@ void SerialPort::BackgroundTaskHandler(void)
         _EventHandlerInstance->SignalEvent(NEvent::Event_DataRxFromPC);
     }
     
+#ifdef USB_SERIAL
+    _RxBuffer[_RxInputIndex] = (uint8_t)Serial.read();
+#else
     _RxBuffer[_RxInputIndex] = (uint8_t)Serial1.read();
+#endif
 
     // increment input index and check for wrap around.
     if(++_RxInputIndex == _RX_BUFFER_SIZE)
@@ -133,5 +151,9 @@ uint8_t SerialPort::GetReceivedBytes(uint8_t data[], uint8_t max_length)
 //
 void SerialPort::TransmitData(uint8_t data[], uint16_t count)
 {
+#ifdef USB_SERIAL
+    Serial.write(data, count);
+#else
     Serial1.write(data, count);
+#endif
 }

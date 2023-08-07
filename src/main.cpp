@@ -82,8 +82,6 @@ void setup() {
   //! @todo these should be done elswhere.
   dataFlowController.SetProducer(DataFlowController::eProducerConsumer::secondary);
 
-  dataFlowController.StartProducingData();
-
   // start the event timer.
   eventTimer.start();
 }
