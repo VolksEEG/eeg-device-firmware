@@ -25,17 +25,17 @@ class MockEegDataProducer : public IEegDataProducer {
 
 MockPcCommunicationsInterface pci;
 MockEegDataProducer edp;
-MockEvenHandler evh;
 MockIProtocolTransmission pti;
 ProtocolReceiver uut;
+ProtocolPayloadParser ppp;
 
 void setUp(void) {
     pci = MockPcCommunicationsInterface();
     edp = MockEegDataProducer();
-    evh = MockEvenHandler();
     pti = MockIProtocolTransmission();
+    ppp = ProtocolPayloadParser(&edp, &pti);
 
-    uut = ProtocolReceiver(&pci, &edp, &evh, &pti);
+    uut = ProtocolReceiver(&pci, &pti, &ppp);
 }
 
 void tearDown(void) {

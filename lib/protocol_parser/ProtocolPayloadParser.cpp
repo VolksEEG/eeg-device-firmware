@@ -22,9 +22,7 @@ ProtocolPayloadParser::ProtocolPayloadParser()
 /**
  * @brief Constructor
  * 
- * @param pci Pointer to the PC Communications interface to be used to communicate with the PC.
  * @param edp Pointer to the Eeg Data Producer which will be configured by this protocol.
- * @param evh Pointer to the event handler module which is used to set the events raised by this module.
  * @param pti Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC.
  */
 ProtocolPayloadParser::ProtocolPayloadParser(IEegDataProducer * edp, IProtocolTransmission * pti) :
