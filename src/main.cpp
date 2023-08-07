@@ -2,6 +2,7 @@
 #include <PinControl.h>
 #include <ProtocolReceiver.h>
 #include <ProtocolTransmitter.h>
+#include <ProtocolPayloadParser.h>
 #include <SpiDriver.h>
 #include <Ads1299Driver.h>
 #include <Ads1299DataProcessor.h>
@@ -21,6 +22,7 @@
 PinControl pinControl;
 ProtocolReceiver protocolReceiver;
 ProtocolTransmitter protocolTransmitter;
+ProtocolPayloadParser protocolPayloadParser;
 SpiDriver spiDriver;
 Ads1299Driver ads1299Driver;
 Ads1299DataProcessor ads1299DataProcessor;
@@ -55,7 +57,8 @@ void setup() {
   ads1299DataProcessor = Ads1299DataProcessor(&ads1299Driver, &eventHandler, &errorHandler);
   fakeDataProducer = FakeDataProducer(&eventHandler);
   protocolTransmitter = ProtocolTransmitter(&serialPort, &eventHandler);
-  protocolReceiver = ProtocolReceiver(&serialPort, &dataFlowController, &eventHandler, &protocolTransmitter);
+  protocolPayloadParser = ProtocolPayloadParser(&dataFlowController, &protocolTransmitter);
+  protocolReceiver = ProtocolReceiver(&serialPort, &protocolTransmitter, &protocolPayloadParser);
   dataFlowController = DataFlowController(&fakeDataProducer, NEvent::eEvent::Event_EDFDataReady,
                                             &ads1299DataProcessor, NEvent::eEvent::Event_BufferedADS1299DataReady,
                                             &protocolTransmitter,

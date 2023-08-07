@@ -25,15 +25,13 @@ ProtocolReceiver::ProtocolReceiver()
  * @brief Constructor
  * 
  * @param pci Pointer to the PC Communications interface to be used to communicate with the PC.
- * @param edp Pointer to the Eeg Data Producer which will be configured by this protocol.
- * @param evh Pointer to the event handler module which is used to set the events raised by this module.
  * @param pti Pointer to the Protocol Transmission Interface which is used for sending responses back to the PC.
+ * @param pppi Pointer to the Protocol Payload Parser which is used to process message payloads.
  */
-ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, IEegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti) :
+ProtocolReceiver::ProtocolReceiver(IPcCommunications * pci, IProtocolTransmission * pti, ProtocolPayloadParser * ppp) :
     _PcComsInterface(pci),
-    _EEGDataProducer(edp),
-    _EventHandler(evh),
-    _ProtocolTransmissionInstance(pti)
+    _ProtocolTransmissionInstance(pti),
+    _ProtocolPayloadParser(ppp)
 {
     _RxState = ResetRxStruct(_RxState);
 
@@ -299,6 +297,7 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetPayloadAndProcessMessag
     protocolReceiver->_ProtocolTransmissionInstance->UpdateAcknowledgedId(state.message[_ID_ACKNOWLEDGE_INDEX]);
 
     //! @todo Process the message contents
+    //_ProtocolPayloadParser
 
     return ResetRxStruct(state);
 }

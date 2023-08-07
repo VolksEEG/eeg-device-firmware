@@ -5,6 +5,7 @@
 #include "IPcCommunications.h"
 #include "ProtocolGeneral.h"
 #include "IProtocolTransmission.h"
+#include "ProtocolPayloadParser.h"
 
 #include "../data_flow_controller/IEEGDataProducer.h"
 #include "../event_handler/ICanProcesEvents.h"
@@ -15,7 +16,7 @@ class ProtocolReceiver : public ICanProcessEvents, private ProtocolGeneral  {
     public:
 
         ProtocolReceiver();
-        ProtocolReceiver(IPcCommunications * pci, IEegDataProducer * edp, EventHandler * evh, IProtocolTransmission * pti);
+        ProtocolReceiver(IPcCommunications * pci, IProtocolTransmission * pti, ProtocolPayloadParser * ppp);
 
         void ProcessEvent(NEvent::eEvent event) override;
 
@@ -44,8 +45,7 @@ class ProtocolReceiver : public ICanProcessEvents, private ProtocolGeneral  {
     private:
 
         IPcCommunications * _PcComsInterface;
-        IEegDataProducer * _EEGDataProducer;
-        EventHandler * _EventHandler;
+        ProtocolPayloadParser * _ProtocolPayloadParser;
         IProtocolTransmission * _ProtocolTransmissionInstance;
 
         typedef struct _RX_STATE
