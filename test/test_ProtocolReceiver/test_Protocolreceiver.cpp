@@ -1,6 +1,7 @@
 
 #include <ProtocolReceiver.h>
 #include <IEEGDataProducer.h>
+#include <ProtocolPayloadParser.h>
 
 #include "../Mocks/MockEventHandler.h"
 #include "../Mocks/MockPcCommunicationsInterface.h"

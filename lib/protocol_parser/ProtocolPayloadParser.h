@@ -13,6 +13,8 @@ class ProtocolPayloadParser {
         ProtocolPayloadParser();
         ProtocolPayloadParser(IEegDataProducer * edp, IProtocolTransmission * pti);
 
+        bool ParsePayload(uint8_t * payload_ptr, uint8_t length);
+
     protected:
 
     private:

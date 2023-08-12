@@ -230,8 +230,9 @@ ProtocolReceiver::sRxStruct ProtocolReceiver::RxState_GetHeaderChecksum(uint8_t 
 
     // process the header checksum
     const uint8_t CALC_CHECKSUM = protocolReceiver->CalculateChecksumOfMessageHeader(state.message);
+    const uint8_t RX_CHECKSUM = state.message[_HEADER_CHECKSUM_INDEX];
 
-    if (CALC_CHECKSUM != state.message[_HEADER_CHECKSUM_INDEX])
+    if (CALC_CHECKSUM != RX_CHECKSUM)
     {
         // header checksum does not match
         return ResetRxStruct(state);

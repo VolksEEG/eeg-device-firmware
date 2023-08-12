@@ -3,7 +3,7 @@
 #include <string.h>
 
 // Comment out this #define to use the hardware serial port
-//#define USB_SERIAL
+#define USB_SERIAL
 
 #ifndef PIO_UNIT_TESTING
 #ifdef USB_SERIAL

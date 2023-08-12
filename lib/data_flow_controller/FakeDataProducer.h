@@ -4,8 +4,8 @@
 
 #include "IEEGDataProducer.h"
 
-#include <ICanProcesEvents.h>
-#include <EventHandler.h>
+#include "../event_handler/ICanProcesEvents.h"
+#include "../event_handler/EventHandler.h"
 
 class FakeDataProducer : public IEegDataProducer, public ICanProcessEvents {
 

@@ -7,7 +7,7 @@
 #include "IEEGDataProducer.h"
 #include "IEEGDataConsumer.h"
 
-#include <ICanProcesEvents.h>
+#include "../event_handler/ICanProcesEvents.h"
 
 class DataFlowController : public ICanProcessEvents, public IEegDataProducer, IEegDataConsumer {
 
